@@ -44,7 +44,7 @@ public class GitUtilTest {
 
     @Test
     public void rollBackPreRevision() throws Exception {
-        
+
     }
 
 }
