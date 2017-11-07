@@ -1,47 +1,29 @@
 <?xml version="1.0" encoding="utf-8">
 <files>
-    <file path="Ensemble-Prod" type="clazz" model="api"
-          name="com.dcits.ensemble.externalfx.model.mbsdcore.Core1400019402Out">
+    <file path="Ensemble/modules/ensemble-cd/api/src/main/java" type="clazz" model="api"
+          name="com/dcits/ensemble/cd/model/mbsdcore/Core12006002In.java">
         <authors>
-            <author>
+            <author name="kevin">
                 <version>db87250d</version>
                 <timestamp>201711061529</timestamp>
                 <desc>外围接口1400019402修改</desc>
+                <check>false</check>
             </author>
-            <author>
+            <author name="qiqsa">
                 <version>db87250d</version>
                 <timestamp>201711061529</timestamp>
                 <desc>外围接口1400019402修改</desc>
-            </author>
-        </authors>
-    </file>
-    <file path="ensemble-external-fx" type="clazz" model=""
-          name="com.dcits.ensemble.externalfx.model.mbsdcore.Core1400019402Out">
-        <authors>
-            <author>
-                <version>db87250d</version>
-                <timestamp>201711061529</timestamp>
-                <desc>外围接口1400019402修改</desc>
+                <check>true</check>
             </author>
         </authors>
     </file>
-    <file path="ensemble-external-fx" type="conf" model=""
-          name="resources/META-INF/spring/galaxy-consumer.xml">
+    <file path="Ensemble/modules/ensemble-cd/api/src/main/resources" type="db" model="" name="META-INF/spring/galaxy-consumer.xml">
         <authors>
-            <author>
+            <author name="kevin">
                 <version>db87250d</version>
                 <timestamp>201711061529</timestamp>
-                <desc>外围接口1400019402修改</desc>
-            </author>
-        </authors>
-    </file>
-    <file path="" type="db" model="" name="resources/META-INF/spring/galaxy-consumer.xml">
-        <authors>
-            <author>
-                <version></version>
-                <timestamp></timestamp>
-                <desc></desc>
-                <check></check>
+                <desc>更新consumer配置文件</desc>
+                <check>true</check>
             </author>
         </authors>
     </file>
