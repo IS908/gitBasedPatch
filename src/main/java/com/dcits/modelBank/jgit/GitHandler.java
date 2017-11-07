@@ -1,4 +1,4 @@
-package com.dcits.modelBank.git;
+package com.dcits.modelBank.jgit;
 
 import org.eclipse.jgit.api.AddCommand;
 import org.eclipse.jgit.api.CheckoutCommand;
@@ -29,7 +29,7 @@ import java.util.Objects;
 public class GitHandler {
     private static final Logger logger = LoggerFactory.getLogger(GitHandler.class);
 
-    private final static String GIT = ".git";
+    private final static String GIT = ".jgit";
     private final static String REF_REMOTES = "refs/remotes/origin/";
 
     /**
@@ -121,13 +121,13 @@ public class GitHandler {
         List<String> files = new ArrayList<String>();
 
         //注意：下面的reset命令会将暂存区的内容恢复到指定（revesion）的状态，相当于取消add命令的操作
-        /*Repository repository = git.getRepository();
+        /*Repository repository = jgit.getRepository();
 
         RevWalk walk = new RevWalk(repository);
         ObjectId objId = repository.resolve(revision);
         RevCommit revCommit = walk.parseCommit(objId);
         String preVision = revCommit.getParent(0).getName();
-        ResetCommand resetCmd = git.reset();
+        ResetCommand resetCmd = jgit.reset();
         for (String file : files) {
             resetCmd.addPath(file);
         }
@@ -152,7 +152,7 @@ public class GitHandler {
         for (String file : files) {
             checkoutCmd.addPath(file);
         }
-        //加了“^”表示指定版本的前一个版本，如果没有上一版本，在命令行中会报错，例如：error: pathspec '4.vm' did not match any file(s) known to git.
+        //加了“^”表示指定版本的前一个版本，如果没有上一版本，在命令行中会报错，例如：error: pathspec '4.vm' did not match any file(s) known to jgit.
         checkoutCmd.setStartPoint(revision + "^");
         checkoutCmd.call();
 

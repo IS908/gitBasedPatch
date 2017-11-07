@@ -1,6 +1,5 @@
 package com.dcits.modelBank.utils;
 
-import com.dcits.modelBank.git.GitHandler;
 import org.eclipse.jgit.api.Git;
 import org.eclipse.jgit.api.errors.GitAPIException;
 import org.eclipse.jgit.diff.DiffEntry;
@@ -32,7 +31,7 @@ import java.util.List;
  * @author kevin
  */
 public class GitUtil {
-    private static final Logger logger = LoggerFactory.getLogger(GitHandler.class);
+    private static final Logger logger = LoggerFactory.getLogger(GitUtil.class);
 
     private final static String GIT = ".git";
     private final static String REF_REMOTES = "refs/remotes/origin/";
