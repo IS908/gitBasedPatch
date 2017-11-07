@@ -20,7 +20,7 @@ public class GitUtilTest {
 
     @Test
     public void commitAndPushAllChanges() {
-        gitUtil.commitAndPushAllChanges("kevin", true);
+        gitUtil.commitAndPushAllChanges("qiqsa", true);
     }
 
     @Test
