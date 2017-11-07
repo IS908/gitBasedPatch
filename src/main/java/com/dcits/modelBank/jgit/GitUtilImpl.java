@@ -120,6 +120,7 @@ public class GitUtilImpl implements GitUtil {
         } catch (GitAPIException e) {
             e.printStackTrace();
         } catch (GitNoChangesException e) {
+//            e.printStackTrace();
             logger.error(e.getMessage());
         }
         return null;
