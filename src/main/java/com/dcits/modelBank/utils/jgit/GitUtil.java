@@ -1,6 +1,6 @@
-package com.dcits.modelBank.jgit;
+package com.dcits.modelBank.utils.jgit;
 
-import com.dcits.modelBank.jgit.helper.GitHelper;
+import com.dcits.modelBank.utils.jgit.helper.GitHelper;
 import com.dcits.modelBank.utils.Const;
 import org.eclipse.jgit.api.Git;
 import org.eclipse.jgit.api.errors.*;

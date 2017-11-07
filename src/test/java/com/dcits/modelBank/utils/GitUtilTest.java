@@ -1,6 +1,6 @@
 package com.dcits.modelBank.utils;
 
-import com.dcits.modelBank.jgit.GitUtil;
+import com.dcits.modelBank.utils.jgit.GitUtil;
 import org.eclipse.jgit.diff.DiffEntry;
 import org.junit.Before;
 import org.junit.Test;

@@ -1,4 +1,4 @@
-package com.dcits.modelBank.jgit.helper;
+package com.dcits.modelBank.utils.jgit.helper;
 
 import org.eclipse.jgit.api.Git;
 import org.eclipse.jgit.api.errors.GitAPIException;
@@ -6,10 +6,6 @@ import org.eclipse.jgit.lib.Repository;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.io.IOException;
-
-import static org.junit.Assert.*;
 
 /**
  * Created on 2017-11-07 16:11.

@@ -1,4 +1,4 @@
-package com.dcits.modelBank.jgit.helper;
+package com.dcits.modelBank.utils.jgit.helper;
 
 import org.eclipse.jgit.lib.Repository;
 import org.eclipse.jgit.storage.file.FileRepositoryBuilder;
