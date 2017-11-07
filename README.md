@@ -1,4 +1,4 @@
-# ModelBank协助版本控制
+# ModelBank版本发布协助系统
 
 ## TODO列表
 
