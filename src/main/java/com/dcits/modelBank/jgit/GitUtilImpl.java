@@ -8,8 +8,6 @@ import org.eclipse.jgit.api.CommitCommand;
 import org.eclipse.jgit.api.Git;
 import org.eclipse.jgit.api.errors.GitAPIException;
 import org.eclipse.jgit.diff.DiffEntry;
-import org.eclipse.jgit.errors.AmbiguousObjectException;
-import org.eclipse.jgit.errors.IncorrectObjectTypeException;
 import org.eclipse.jgit.lib.FileMode;
 import org.eclipse.jgit.lib.ObjectId;
 import org.eclipse.jgit.lib.ObjectReader;
@@ -28,8 +26,8 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Created on 2017-11-06 19:50.
@@ -161,11 +159,17 @@ public class GitUtilImpl implements GitUtil {
 
     @Override
     public boolean rollBackPreRevision(List<DiffEntry> diffEntries, String revision, String note) {
+        if (Objects.equals(null, diffEntries)) {
+            logger.info("");
+            return false;
+        }
+        try (Git git = new Git(GitHelper.openJGitRepository())) {
+
+        }
         return false;
     }
 
     /**
-     *
      * @param repository
      * @param commit
      * @param path

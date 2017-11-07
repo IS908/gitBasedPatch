@@ -135,7 +135,7 @@ public class GitHandler {
         DiffEntry diffEntry = null;
         while (iterator.hasNext()) {
             diffEntry = iterator.next();
-            System.out.println("newPath:" + diffEntry.getNewPath() + "    oldPath:"
+            logger.info("newPath:" + diffEntry.getNewPath() + "    oldPath:"
                     + diffEntry.getOldPath() + "   changeType:"
                     + diffEntry.getChangeType());
             if (diffEntry.getChangeType() == DiffEntry.ChangeType.DELETE) {

@@ -48,7 +48,7 @@ public interface GitUtil {
     List<DiffEntry> showDiffFilesByCommits(String fromCommitId, String toCommitId);
 
     /**
-     * 回滚到指定版本的上一个版本
+     * 回滚到指定版本
      *
      * @param diffEntries 需要回滚的文件
      * @param revision 版本号
