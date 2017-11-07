@@ -127,34 +127,11 @@ public class GitUtilImpl implements GitUtil {
 
     @Override
     public List<DiffEntry> showDiffFilesByBranches(String fromBranch, String toBranch) {
-        return null;
-    }
-
-    @Override
-    public List<DiffEntry> showDiffFilesByCommits(String fromCommitId, String toCommitId) {
-        return null;
-    }
-
-    @Override
-    public boolean rollBackPreRevision(List<DiffEntry> diffEntries, String revision, String note) {
-        return false;
-    }
-
-    /**
-     * 比较两个分支之间的diff文件列表
-     *
-     * @param from 旧版分支
-     * @param to   新版分支
-     * @return
-     * @throws GitAPIException
-     * @throws IOException
-     */
-    public List<DiffEntry> showBranchesDiffFileList(String from, String to) {
         List<DiffEntry> list = null;
         try (Git git = new Git(GitHelper.openJGitRepository())) {
             Repository repository = git.getRepository();
-            ObjectId head = repository.resolve(Const.REFS_HEADS + to);
-            ObjectId previousHead = repository.resolve(Const.REFS_HEADS + from);
+            ObjectId previousHead = repository.resolve(Const.REFS_HEADS + fromBranch);
+            ObjectId head = repository.resolve(Const.REFS_HEADS + toBranch);
 
             ObjectId branchFrom = repository.resolve(previousHead.getName() + "^{tree}");
             ObjectId branchTo = repository.resolve(head.getName() + "^{tree}");
@@ -170,38 +147,30 @@ public class GitUtilImpl implements GitUtil {
                     .setNewTree(newTreeIter)
                     .call();
             return list;
-        } catch (IncorrectObjectTypeException e) {
-            e.printStackTrace();
-        } catch (AmbiguousObjectException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (GitAPIException e) {
-            e.printStackTrace();
+        } catch (IOException | GitAPIException e) {
+            logger.error(e.getMessage());
         }
         return list;
     }
 
-    public void showDiffBySingleFile(List<DiffEntry> list) {
-
-        try (Git git = new Git(GitHelper.openJGitRepository())) {
-            Iterable<RevCommit> iterable = git.log().call();
-            Iterator<RevCommit> iterator = iterable.iterator();
-            while (iterator.hasNext()) {
-                RevCommit revCommit = iterator.next();
-                /*for (DiffEntry entry : list) {
-                    List<String> files = this.readElementsAt(git.getRepository(), revCommit.getName(), "");
-                    for (String file : files) {
-                        System.out.println(file);
-                    }
-                    System.out.println();
-                }*/
-            }
-        } catch (GitAPIException e) {
-            e.printStackTrace();
-        }
+    @Override
+    public List<DiffEntry> showDiffFilesByCommits(String fromCommitId, String toCommitId) {
+        return null;
     }
 
+    @Override
+    public boolean rollBackPreRevision(List<DiffEntry> diffEntries, String revision, String note) {
+        return false;
+    }
+
+    /**
+     *
+     * @param repository
+     * @param commit
+     * @param path
+     * @return
+     * @throws IOException
+     */
     private List<String> readElementsAt(Repository repository, String commit, String path) throws IOException {
         RevCommit revCommit = buildRevCommit(repository, commit);
 
