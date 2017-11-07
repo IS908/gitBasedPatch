@@ -1,6 +1,7 @@
 package com.dcits.modelBank.MyException;
 
 /**
+ * Git 工作空间没有待提交的修改异常
  * Created on 2017-11-07 20:44.
  *
  * @author kevin
