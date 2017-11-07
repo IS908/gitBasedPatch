@@ -21,7 +21,7 @@ public class GitUtilTest {
 
     @Test
     public void commitCode() throws Exception {
-        gitUtil.commitCode("project init");
+        gitUtil.commitCode("pom update");
     }
 
     @Test
