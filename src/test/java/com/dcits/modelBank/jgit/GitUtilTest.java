@@ -3,6 +3,9 @@ package com.dcits.modelBank.jgit;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.junit.Assert.*;
 
 /**
@@ -18,12 +21,15 @@ public class GitUtilTest {
     }
 
     @Test
-    public void commitAndPushAllChanges() throws Exception {
+    public void commitAndPushAllChanges() {
         gitUtil.commitAndPushAllChanges("kevin", true);
     }
 
     @Test
     public void commitAndPush() throws Exception {
+        List<String> files = new ArrayList<>();
+        files.add("src/test/java/com/dcits/modelBank/jgit/GitUtilTest.java");
+        gitUtil.commitAndPush(files, "commitAndPush", true);
     }
 
     @Test
