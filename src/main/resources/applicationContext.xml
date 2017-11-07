@@ -7,5 +7,10 @@
     <!--引入配置属性文件 -->
     <context:property-placeholder location="classpath:git.properties" />
 
-    <!--<bean name=""-->
+    <bean name="gitConf" class="com.dcits.modelbank.jgit.helper.GitHelper">
+        <property name="rootDir" value="${git.root.dir}"/>
+        <property name="userName" value="${git.user.name}"/>
+        <property name="userEmail" value="${git.user.email}"/>
+        <property name="remoteUrl" value="${git.remote.url}"/>
+    </bean>
 </beans>

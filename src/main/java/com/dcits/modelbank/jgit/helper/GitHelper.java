@@ -19,9 +19,42 @@ public class GitHelper {
     private static final Logger logger = LoggerFactory.getLogger(GitHelper.class);
 
     private static final String BASE_DIR="baseDir";
+    private String rootDir;
     private String userName;
     private String userEmail;
     private String remoteUrl;
+
+    public String getRootDir() {
+        return rootDir;
+    }
+
+    public void setRootDir(String rootDir) {
+        this.rootDir = rootDir;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public String getUserEmail() {
+        return userEmail;
+    }
+
+    public void setUserEmail(String userEmail) {
+        this.userEmail = userEmail;
+    }
+
+    public String getRemoteUrl() {
+        return remoteUrl;
+    }
+
+    public void setRemoteUrl(String remoteUrl) {
+        this.remoteUrl = remoteUrl;
+    }
 
     // TODO: 2017/11/7 将该部分代码放在启动主类时自动加载处
     static {
