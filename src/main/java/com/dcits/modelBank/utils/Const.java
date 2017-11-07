@@ -7,6 +7,7 @@ package com.dcits.modelBank.utils;
  * @author kevin
  */
 public interface Const {
+    String JGIT = "JGIT";
     String BASE_DIR="baseDir";
     String GIT = ".git";
     String REF_REMOTES="refs/remotes/origin/";

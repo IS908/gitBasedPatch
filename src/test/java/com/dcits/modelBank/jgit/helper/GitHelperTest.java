@@ -1,4 +1,4 @@
-package com.dcits.modelBank.utils.jgit.helper;
+package com.dcits.modelBank.jgit.helper;
 
 import org.eclipse.jgit.api.Git;
 import org.eclipse.jgit.api.errors.GitAPIException;

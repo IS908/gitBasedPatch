@@ -1,23 +1,28 @@
-package com.dcits.modelBank.utils.jgit;
+package com.dcits.modelBank.jgit;
 
-import com.dcits.modelBank.utils.jgit.helper.GitHelper;
+import com.dcits.modelBank.MyException.GitNoChangesException;
+import com.dcits.modelBank.jgit.helper.GitHelper;
 import com.dcits.modelBank.utils.Const;
+import org.eclipse.jgit.api.AddCommand;
+import org.eclipse.jgit.api.CommitCommand;
 import org.eclipse.jgit.api.Git;
-import org.eclipse.jgit.api.errors.*;
+import org.eclipse.jgit.api.errors.GitAPIException;
 import org.eclipse.jgit.diff.DiffEntry;
 import org.eclipse.jgit.errors.AmbiguousObjectException;
 import org.eclipse.jgit.errors.IncorrectObjectTypeException;
-import org.eclipse.jgit.lib.*;
+import org.eclipse.jgit.lib.FileMode;
+import org.eclipse.jgit.lib.ObjectId;
+import org.eclipse.jgit.lib.ObjectReader;
+import org.eclipse.jgit.lib.Repository;
 import org.eclipse.jgit.revwalk.RevCommit;
 import org.eclipse.jgit.revwalk.RevTree;
 import org.eclipse.jgit.revwalk.RevWalk;
-import org.eclipse.jgit.storage.file.FileRepositoryBuilder;
 import org.eclipse.jgit.treewalk.CanonicalTreeParser;
 import org.eclipse.jgit.treewalk.TreeWalk;
+import org.eclipse.jgit.treewalk.filter.PathFilterGroup;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -31,69 +36,108 @@ import java.util.List;
  *
  * @author kevin
  */
-public class GitUtil {
-    private static final Logger logger = LoggerFactory.getLogger(GitUtil.class);
+public class GitUtilImpl implements GitUtil {
+    private static final Logger logger = LoggerFactory.getLogger(GitUtilImpl.class);
 
-    private static GitUtil instance = new GitUtil();
-    private static Git git;
-
-    static {
-        File directory = new File("");// 参数为空
-        try {
-            String baseDir = directory.getCanonicalPath();
-            System.setProperty("baseDir", baseDir);
-            Repository existingRepo = new FileRepositoryBuilder()
-                    .setGitDir(new File(System.getProperty(Const.BASE_DIR) + "\\" + Const.GIT))
-                    .build();
-            git = new Git(existingRepo);
-        } catch (IOException e) {
-            logger.error("error:{}", e);
-        }
-    }
+    private static GitUtilImpl instance = new GitUtilImpl();
 
     /**
      * 私有构造方法，进行一次初始化
      */
-    private GitUtil() {
+    private GitUtilImpl() {
     }
 
-    public void commitAndPush(String note, boolean pushFlag) {
-        try {
-            if (!git.status().call().isClean()) {
-                git.add().addFilepattern(".").call();
-                SimpleDateFormat ymd = new SimpleDateFormat("yyyyMMdd");
-                SimpleDateFormat hm = new SimpleDateFormat("HHmm");
-                git.commit()
-                        .setMessage(note + "_" + ymd.format(new Date()) + "_" + hm.format(new Date()))
-                        .call();
-                if (pushFlag) {
-                    git.push().call();
-                }
-                logger.info("------succeed add,commit,push files . to repository at " + git.getRepository().getDirectory());
-            } else {  //clean
-                logger.info("\n-------code is clean------");
+    @Override
+    public String commitAndPushAllChanges(String note, boolean pushFlag) {
+        try (Git git = new Git(GitHelper.openJGitRepository())) {
+            if (git.status().call().isClean()) {
+                throw new GitNoChangesException("提交的文件内容都没有被修改，不能提交");
             }
-        } catch (AbortedByHookException e) {
-            e.printStackTrace();
-        } catch (ConcurrentRefUpdateException e) {
-            e.printStackTrace();
-        } catch (NoHeadException e) {
-            e.printStackTrace();
-        } catch (UnmergedPathsException e) {
-            e.printStackTrace();
-        } catch (NoFilepatternException e) {
-            e.printStackTrace();
-        } catch (NoMessageException e) {
-            e.printStackTrace();
-        } catch (WrongRepositoryStateException e) {
-            e.printStackTrace();
+            git.add().addFilepattern(".").call();
+            SimpleDateFormat ymd = new SimpleDateFormat("yyyyMMdd");
+            SimpleDateFormat hm = new SimpleDateFormat("HHmm");
+            git.commit()
+                    .setMessage(note + "_" + ymd.format(new Date()) + "_" + hm.format(new Date()))
+                    .call();
+            if (pushFlag) git.push().call();
         } catch (GitAPIException e) {
             e.printStackTrace();
-        } finally {
-            if (git != null) {
-                git.close();
-            }
+        } catch (GitNoChangesException e) {
+            logger.error(e.getMessage());
         }
+        return null;
+    }
+
+    @Override
+    public String commitAndPush(List<String> fileList, String note, boolean pushFlag) {
+        try (Git git = new Git(GitHelper.openJGitRepository())) {
+            if (git.status().call().isClean()) {
+                throw new GitNoChangesException("提交的文件内容都没有被修改，不能提交");
+            }
+            List<DiffEntry> diffEntries = git.diff()
+                    .setPathFilter(PathFilterGroup.createFromStrings(fileList))
+                    .setShowNameAndStatusOnly(true)
+                    .call();
+            if (diffEntries == null || diffEntries.size() == 0) {
+                throw new GitNoChangesException("提交的文件内容都没有被修改，不能提交");
+            }
+            //被修改过的文件
+            List<String> updateFiles = new ArrayList<>();
+            DiffEntry.ChangeType changeType;
+            for (DiffEntry entry : diffEntries) {
+                changeType = entry.getChangeType();
+                switch (changeType) {
+                    case ADD:
+                    case COPY:
+                    case RENAME:
+                    case MODIFY:
+                        updateFiles.add(entry.getNewPath());
+                        break;
+                    case DELETE:
+                        updateFiles.add(entry.getOldPath());
+                        break;
+                    default:
+                        break;
+                }
+            }
+            //1、将工作区的内容更新到暂存区
+            AddCommand addCmd = git.add();
+            for (String file : updateFiles) {
+                addCmd.addFilepattern(file);
+            }
+            addCmd.call();
+            //2、commit
+            CommitCommand commitCmd = git.commit();
+            for (String file : updateFiles) {
+                commitCmd.setOnly(file);
+            }
+            RevCommit revCommit = commitCmd
+                    .setCommitter("JGIT", "JGIT@dcits.com")
+                    .setMessage(note)
+                    .call();
+            if (pushFlag) git.push().call();
+            return revCommit.getName();
+        } catch (GitAPIException e) {
+            e.printStackTrace();
+        } catch (GitNoChangesException e) {
+            logger.error(e.getMessage());
+        }
+        return null;
+    }
+
+    @Override
+    public List<DiffEntry> showDiffFilesByBranches(String fromBranch, String toBranch) {
+        return null;
+    }
+
+    @Override
+    public List<DiffEntry> showDiffFilesByCommits(String fromCommitId, String toCommitId) {
+        return null;
+    }
+
+    @Override
+    public boolean rollBackPreRevision(List<DiffEntry> diffEntries, String revision, String note) {
+        return false;
     }
 
     /**
@@ -107,7 +151,7 @@ public class GitUtil {
      */
     public List<DiffEntry> showBranchesDiffFileList(String from, String to) {
         List<DiffEntry> list = null;
-        try (Git git = new Git(GitHelper.openJGitRepository())){
+        try (Git git = new Git(GitHelper.openJGitRepository())) {
             Repository repository = git.getRepository();
             ObjectId head = repository.resolve(Const.REFS_HEADS + to);
             ObjectId previousHead = repository.resolve(Const.REFS_HEADS + from);
@@ -140,35 +184,20 @@ public class GitUtil {
 
     public void showDiffBySingleFile(List<DiffEntry> list) {
 
-        try {
+        try (Git git = new Git(GitHelper.openJGitRepository())) {
             Iterable<RevCommit> iterable = git.log().call();
             Iterator<RevCommit> iterator = iterable.iterator();
             while (iterator.hasNext()) {
                 RevCommit revCommit = iterator.next();
-                for (DiffEntry entry : list) {
+                /*for (DiffEntry entry : list) {
                     List<String> files = this.readElementsAt(git.getRepository(), revCommit.getName(), "");
                     for (String file : files) {
                         System.out.println(file);
                     }
                     System.out.println();
-                }
-//                System.out.println(revCommit.getName());
-//                System.out.println(revCommit.toString());
-//                System.out.println(revCommit.getCommitTime());
-//                System.out.println(revCommit.getAuthorIdent());
-//                System.out.println(revCommit.getCommitterIdent());
-//                System.out.println(revCommit.getTree());
-//                System.out.println(revCommit.getType());
-//                System.out.println(revCommit.getFooterLines());
-//                for (RevCommit revCommit1 : revCommit.getParents()) {
-//                    System.out.println("Parents : " + revCommit1);
-//                }
-//                System.out.println();
+                }*/
             }
-
         } catch (GitAPIException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
             e.printStackTrace();
         }
     }
@@ -231,12 +260,12 @@ public class GitUtil {
     }
 
     /**
-     * 获取 GitUtil 实例
+     * 获取 GitUtilImpl 实例
      *
      * @return
      * @throws IOException
      */
-    public static GitUtil getInstance() {
+    public static GitUtilImpl getInstance() {
         return instance;
     }
 }

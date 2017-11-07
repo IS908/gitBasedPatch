@@ -1,7 +1,9 @@
-package com.dcits.modelBank.utils.jgit.helper;
+package com.dcits.modelBank.jgit.helper;
 
+import com.dcits.modelBank.utils.Const;
 import org.eclipse.jgit.lib.Repository;
 import org.eclipse.jgit.storage.file.FileRepositoryBuilder;
+import org.eclipse.jgit.util.FS;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -36,25 +38,12 @@ public class GitHelper {
         FileRepositoryBuilder builder = new FileRepositoryBuilder();
         try {
             return builder
-                    .setGitDir(new File(System.getProperty("baseDir") + "\\.git"))
+                    .setFS(FS.DETECTED)
+                    .setGitDir(new File(System.getProperty(Const.BASE_DIR) + "\\" + Const.GIT))
                     .build();
         } catch (IOException e) {
             e.printStackTrace();
         }
         return null;
     }
-
-//    public static Repository createNewRepository() throws IOException {
-//        // prepare a new folder
-//        File localPath = File.createTempFile("TestGitRepository", "");
-//        if(!localPath.delete()) {
-//            throw new IOException("Could not delete temporary file " + localPath);
-//        }
-//
-//        // create the directory
-//        Repository repository = FileRepositoryBuilder.create(new File(localPath, ".git"));
-//        repository.create();
-//
-//        return repository;
-//    }
 }

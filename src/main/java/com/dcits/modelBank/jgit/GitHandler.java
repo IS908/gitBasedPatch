@@ -1,5 +1,6 @@
-package com.dcits.modelBank.utils.jgit;
+package com.dcits.modelBank.jgit;
 
+import com.dcits.modelBank.utils.Const;
 import org.eclipse.jgit.api.AddCommand;
 import org.eclipse.jgit.api.CheckoutCommand;
 import org.eclipse.jgit.api.CommitCommand;
@@ -29,75 +30,6 @@ import java.util.Objects;
 public class GitHandler {
     private static final Logger logger = LoggerFactory.getLogger(GitHandler.class);
 
-    private final static String GIT = ".jgit";
-    private final static String REF_REMOTES = "refs/remotes/origin/";
-
-    /**
-     * 将文件列表提交到git仓库中
-     *
-     * @param gitRoot git仓库目录
-     * @param files   需要提交的文件列表
-     * @param remark  备注
-     * @return 返回本次提交的版本号
-     * @throws IOException
-     */
-    public static String commitToGitRepository(String gitRoot, List<String> files, String remark)
-            throws Exception {
-        Objects.requireNonNull(gitRoot, "没有指定Git跟文件夹");
-        if (files != null && files.size() > 0) {
-            File rootDir = new File(gitRoot);
-
-            //初始化git仓库
-            if (new File(gitRoot + File.separator + GIT).exists() == false) {
-                Git.init().setDirectory(rootDir).call();
-            }
-
-            //打开git仓库
-            Git git = Git.open(rootDir);
-            //判断工作区与暂存区的文件内容是否有变更
-            List<DiffEntry> diffEntries = git.diff()
-                    .setPathFilter(PathFilterGroup.createFromStrings(files))
-                    .setShowNameAndStatusOnly(true).call();
-            if (diffEntries == null || diffEntries.size() == 0) {
-                throw new Exception("提交的文件内容都没有被修改，不能提交");
-            }
-            //被修改过的文件
-            List<String> updateFiles = new ArrayList<String>();
-            DiffEntry.ChangeType changeType;
-            for (DiffEntry entry : diffEntries) {
-                changeType = entry.getChangeType();
-                switch (changeType) {
-                    case ADD:
-                    case COPY:
-                    case RENAME:
-                    case MODIFY:
-                        updateFiles.add(entry.getNewPath());
-                        break;
-                    case DELETE:
-                        updateFiles.add(entry.getOldPath());
-                        break;
-                    default:
-                        break;
-                }
-            }
-            //将文件提交到git仓库中，并返回本次提交的版本号
-            //1、将工作区的内容更新到暂存区
-            AddCommand addCmd = git.add();
-            for (String file : updateFiles) {
-                addCmd.addFilepattern(file);
-            }
-            addCmd.call();
-            //2、commit
-            CommitCommand commitCmd = git.commit();
-            for (String file : updateFiles) {
-                commitCmd.setOnly(file);
-            }
-            RevCommit revCommit = commitCmd.setCommitter("yonge", "654166020@qq.com")
-                    .setMessage(remark).call();
-            return revCommit.getName();
-        }
-        return null;
-    }
 
     /**
      * 回滚到指定版本的上一个版本
