@@ -1,12 +1,13 @@
 package com.dcits.modelBank.jgit;
 
+import com.dcits.modelBank.jgit.helper.GitHelper;
+import com.dcits.modelBank.utils.Const;
 import org.eclipse.jgit.api.Git;
 import org.eclipse.jgit.api.errors.*;
 import org.eclipse.jgit.diff.DiffEntry;
-import org.eclipse.jgit.lib.FileMode;
-import org.eclipse.jgit.lib.ObjectId;
-import org.eclipse.jgit.lib.ObjectReader;
-import org.eclipse.jgit.lib.Repository;
+import org.eclipse.jgit.errors.AmbiguousObjectException;
+import org.eclipse.jgit.errors.IncorrectObjectTypeException;
+import org.eclipse.jgit.lib.*;
 import org.eclipse.jgit.revwalk.RevCommit;
 import org.eclipse.jgit.revwalk.RevTree;
 import org.eclipse.jgit.revwalk.RevWalk;
@@ -33,9 +34,6 @@ import java.util.List;
 public class GitUtil {
     private static final Logger logger = LoggerFactory.getLogger(GitUtil.class);
 
-    private final static String GIT = ".git";
-    private final static String REF_REMOTES = "refs/remotes/origin/";
-
     private static GitUtil instance = new GitUtil();
     private static Git git;
 
@@ -45,7 +43,7 @@ public class GitUtil {
             String baseDir = directory.getCanonicalPath();
             System.setProperty("baseDir", baseDir);
             Repository existingRepo = new FileRepositoryBuilder()
-                    .setGitDir(new File(System.getProperty("baseDir") + "\\" + GIT))
+                    .setGitDir(new File(System.getProperty(Const.BASE_DIR) + "\\" + Const.GIT))
                     .build();
             git = new Git(existingRepo);
         } catch (IOException e) {
@@ -107,26 +105,36 @@ public class GitUtil {
      * @throws GitAPIException
      * @throws IOException
      */
-    public List<DiffEntry> showBranchesDiffFileList(String from, String to)
-            throws GitAPIException, IOException {
-        Repository repository = git.getRepository();
-        ObjectId head = repository.resolve("refs/heads/" + to);
-        ObjectId previousHead = repository.resolve("refs/heads/" + from);
+    public List<DiffEntry> showBranchesDiffFileList(String from, String to) {
+        List<DiffEntry> list = null;
+        try (Git git = new Git(GitHelper.openJGitRepository())){
+            Repository repository = git.getRepository();
+            ObjectId head = repository.resolve(Const.REFS_HEADS + to);
+            ObjectId previousHead = repository.resolve(Const.REFS_HEADS + from);
 
-        ObjectId branchFrom = repository.resolve(previousHead.getName() + "^{tree}");
-        ObjectId branchTo = repository.resolve(head.getName() + "^{tree}");
+            ObjectId branchFrom = repository.resolve(previousHead.getName() + "^{tree}");
+            ObjectId branchTo = repository.resolve(head.getName() + "^{tree}");
 
-        ObjectReader reader = repository.newObjectReader();
-        CanonicalTreeParser oldTreeIter = new CanonicalTreeParser();
-        oldTreeIter.reset(reader, branchFrom);
-        CanonicalTreeParser newTreeIter = new CanonicalTreeParser();
-        newTreeIter.reset(reader, branchTo);
+            ObjectReader reader = repository.newObjectReader();
+            CanonicalTreeParser oldTreeIter = new CanonicalTreeParser();
+            oldTreeIter.reset(reader, branchFrom);
+            CanonicalTreeParser newTreeIter = new CanonicalTreeParser();
+            newTreeIter.reset(reader, branchTo);
 
-        List<DiffEntry> list = git.diff()
-                .setOldTree(oldTreeIter)
-                .setNewTree(newTreeIter)
-                .call();
-
+            list = git.diff()
+                    .setOldTree(oldTreeIter)
+                    .setNewTree(newTreeIter)
+                    .call();
+            return list;
+        } catch (IncorrectObjectTypeException e) {
+            e.printStackTrace();
+        } catch (AmbiguousObjectException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (GitAPIException e) {
+            e.printStackTrace();
+        }
         return list;
     }
 
