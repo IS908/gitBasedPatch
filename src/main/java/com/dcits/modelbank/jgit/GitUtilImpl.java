@@ -1,8 +1,8 @@
-package com.dcits.modelBank.jgit;
+package com.dcits.modelbank.jgit;
 
-import com.dcits.modelBank.MyException.GitNoChangesException;
-import com.dcits.modelBank.jgit.helper.GitHelper;
-import com.dcits.modelBank.utils.Const;
+import com.dcits.modelbank.MyException.GitNoChangesException;
+import com.dcits.modelbank.jgit.helper.GitHelper;
+import com.dcits.modelbank.utils.Const;
 import org.eclipse.jgit.api.AddCommand;
 import org.eclipse.jgit.api.CommitCommand;
 import org.eclipse.jgit.api.Git;

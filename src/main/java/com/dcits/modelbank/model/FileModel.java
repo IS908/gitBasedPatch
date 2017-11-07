@@ -1,4 +1,4 @@
-package com.dcits.modelBank.model;
+package com.dcits.modelbank.model;
 
 /**
  * Created on 2017-11-07 17:09.

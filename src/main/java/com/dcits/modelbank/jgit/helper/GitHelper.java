@@ -1,6 +1,6 @@
-package com.dcits.modelBank.jgit.helper;
+package com.dcits.modelbank.jgit.helper;
 
-import com.dcits.modelBank.utils.Const;
+import com.dcits.modelbank.utils.Const;
 import org.eclipse.jgit.lib.Repository;
 import org.eclipse.jgit.storage.file.FileRepositoryBuilder;
 import org.eclipse.jgit.util.FS;

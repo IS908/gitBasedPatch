@@ -1,4 +1,4 @@
-package com.dcits.modelBank.MyException;
+package com.dcits.modelbank.MyException;
 
 /**
  * Git 工作空间没有待提交的修改异常
