@@ -1,5 +1,6 @@
 package com.dcits.modelBank.utils;
 
+import com.dcits.modelBank.jgit.GitUtil;
 import org.eclipse.jgit.diff.DiffEntry;
 import org.junit.Before;
 import org.junit.Test;
@@ -21,7 +22,7 @@ public class GitUtilTest {
 
     @Test
     public void commitCode() throws Exception {
-        gitUtil.commitCode("update");
+//        gitUtil.commitCode("update");
     }
 
     @Test
