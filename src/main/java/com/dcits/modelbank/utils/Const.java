@@ -12,4 +12,9 @@ public interface Const {
     String GIT = ".git";
     String REF_REMOTES="refs/remotes/origin/";
     String REFS_HEADS="refs/heads/";
+    /**
+     * pull拉取方式
+     */
+    String MERGE="merge";
+    String REBASE="rebase";
 }

@@ -1,7 +1,13 @@
 package com.dcits.modelbank.jgit;
 
+import com.dcits.modelbank.jgit.helper.PullEnum;
+import org.eclipse.jgit.api.PullResult;
 import org.eclipse.jgit.diff.DiffEntry;
+import org.eclipse.jgit.lib.ObjectId;
+import org.eclipse.jgit.revwalk.RevCommit;
+import org.eclipse.jgit.transport.FetchResult;
 
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -10,6 +16,64 @@ import java.util.List;
  * @author kevin
  */
 public interface GitUtil {
+    /**
+     * checkout到另一个现有分支
+     * @param branch 新分支名
+     * @return
+     */
+    boolean checkoutBranch(String branch);
+
+    /**
+     * 检出一个新的分支
+     * @param branch 本地新分支名
+     * @param origin 跟踪远程分支名(若为null，则只在本地创建新分支)
+     * @return
+     */
+    boolean checkoutNewBranch(String branch, String origin);
+
+    /**
+     * 暂存当前修改
+     * @return
+     */
+    boolean stash();
+
+    /**
+     * 查看暂存的文件
+     * @return
+     */
+    Collection<RevCommit> stashList();
+
+    /**
+     * 应用指定暂存
+     * @return
+     */
+    ObjectId unstash(int index);
+
+    /**
+     * fetch远程仓库
+     * @return
+     */
+    FetchResult fetch();
+
+    /**
+     * 默认merge方式进行拉取更新
+     * @return
+     */
+    PullResult pull();
+
+    /**
+     * 指定方式进行时拉取更新
+     * @param type 拉取更新方式
+     * @return
+     */
+    PullResult pull(PullEnum type);
+
+    /**
+     * 推送远程仓库操作
+     * @return
+     */
+    boolean push();
+
     /**
      * 提交所有文件到本地，并支持推送到远程
      *
@@ -55,6 +119,5 @@ public interface GitUtil {
      * @param note 备注
      * @return
      */
-    boolean rollBackPreRevision(List<DiffEntry> diffEntries,
-                                String revision, String note);
+    boolean rollBackPreRevision(List<DiffEntry> diffEntries, String revision, String note);
 }

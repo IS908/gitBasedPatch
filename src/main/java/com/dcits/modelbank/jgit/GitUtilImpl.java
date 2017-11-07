@@ -2,11 +2,14 @@ package com.dcits.modelbank.jgit;
 
 import com.dcits.modelbank.MyException.GitNoChangesException;
 import com.dcits.modelbank.jgit.helper.GitHelper;
+import com.dcits.modelbank.jgit.helper.PullEnum;
 import com.dcits.modelbank.utils.Const;
-import org.eclipse.jgit.api.AddCommand;
-import org.eclipse.jgit.api.CommitCommand;
-import org.eclipse.jgit.api.Git;
+import com.sun.xml.internal.bind.v2.TODO;
+import org.eclipse.jgit.api.*;
 import org.eclipse.jgit.api.errors.GitAPIException;
+import org.eclipse.jgit.api.errors.InvalidRefNameException;
+import org.eclipse.jgit.api.errors.InvalidRemoteException;
+import org.eclipse.jgit.api.errors.TransportException;
 import org.eclipse.jgit.diff.DiffEntry;
 import org.eclipse.jgit.lib.FileMode;
 import org.eclipse.jgit.lib.ObjectId;
@@ -15,6 +18,8 @@ import org.eclipse.jgit.lib.Repository;
 import org.eclipse.jgit.revwalk.RevCommit;
 import org.eclipse.jgit.revwalk.RevTree;
 import org.eclipse.jgit.revwalk.RevWalk;
+import org.eclipse.jgit.transport.FetchResult;
+import org.eclipse.jgit.transport.PushResult;
 import org.eclipse.jgit.treewalk.CanonicalTreeParser;
 import org.eclipse.jgit.treewalk.TreeWalk;
 import org.eclipse.jgit.treewalk.filter.PathFilterGroup;
@@ -24,10 +29,7 @@ import org.slf4j.LoggerFactory;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 /**
  * Created on 2017-11-06 19:50.
@@ -43,6 +45,123 @@ public class GitUtilImpl implements GitUtil {
      * 私有构造方法，进行一次初始化
      */
     private GitUtilImpl() {
+    }
+
+    @Override
+    public boolean checkoutBranch(String branch) {
+        // TODO: 2017/11/7 切换分支
+        return false;
+    }
+
+    @Override
+    public boolean checkoutNewBranch(String branch, String origin) {
+        // TODO: 2017/11/7 checkout一个新分支
+        return false;
+    }
+
+    @Override
+    public boolean stash() {
+        try (Git git = new Git(GitHelper.openJGitRepository())) {
+            // push the changes to a new stash
+            RevCommit stash = git.stashCreate().call();
+            logger.info(stash.toString());
+        } catch (GitAPIException e) {
+            e.printStackTrace();
+        }
+        return true;
+    }
+
+    @Override
+    public Collection<RevCommit> stashList() {
+        try (Git git = new Git(GitHelper.openJGitRepository())) {
+            // list the stashes
+            Collection<RevCommit> stashes = git.stashList().call();
+            for (RevCommit rev : stashes) {
+                System.out.println("Found stash: " + rev + ": " + rev.getFullMessage());
+            }
+            return stashes;
+        } catch (InvalidRefNameException e) {
+            e.printStackTrace();
+        } catch (GitAPIException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    @Override
+    public ObjectId unstash(int index) {
+        try (Git git = new Git(GitHelper.openJGitRepository())) {
+            Collection<RevCommit> stashes = stashList();
+            if (stashes.size() < index) {
+                throw new IndexOutOfBoundsException("索引序号超出stash列表范围");
+            }
+            int count = 0;
+            Iterator<RevCommit> iterator = stashes.iterator();
+            while (iterator.hasNext() && count < index) {
+                iterator.next();
+            }
+            ObjectId applied = git.stashApply().setStashRef(iterator.next().getName()).call();
+            return applied;
+        } catch (GitAPIException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    @Override
+    public FetchResult fetch() {
+        FetchResult result = null;
+        try (Git git = new Git(GitHelper.openJGitRepository())) {
+            result = git.fetch().setCheckFetchedObjects(true).call();
+            System.out.println("Messages: " + result.getMessages());
+        } catch (InvalidRemoteException e) {
+            e.printStackTrace();
+        } catch (TransportException e) {
+            e.printStackTrace();
+        } catch (GitAPIException e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+    @Override
+    public PullResult pull() {
+        return pull(PullEnum.MERGE);
+    }
+
+    @Override
+    public PullResult pull(PullEnum type) {
+        PullResult pullResult = null;
+        try (Git git = new Git(GitHelper.openJGitRepository())) {
+            PullCommand pull = git.pull();
+            if (Objects.equals(PullEnum.REBASE, type)) pull.setRebase(true);
+            pullResult = pull.call();
+        } catch (GitAPIException e) {
+            e.printStackTrace();
+        }
+        return pullResult;
+    }
+
+    @Override
+    public boolean push() {
+        boolean res = false;
+        try (Git git = new Git(GitHelper.openJGitRepository())) {
+            git.lsRemote().call();
+            Iterable<PushResult> results = git.push().call();
+            Iterator<PushResult> iterator = results.iterator();
+            while (iterator.hasNext()) {
+                PushResult push = iterator.next();
+                logger.info(push.toString());
+            }
+            res = true;
+        } catch (InvalidRemoteException e) {
+            e.printStackTrace();
+        } catch (TransportException e) {
+            e.printStackTrace();
+        } catch (GitAPIException e) {
+            e.printStackTrace();
+        }
+        return res;
     }
 
     @Override
@@ -118,7 +237,6 @@ public class GitUtilImpl implements GitUtil {
         } catch (GitAPIException e) {
             e.printStackTrace();
         } catch (GitNoChangesException e) {
-//            e.printStackTrace();
             logger.error(e.getMessage());
         }
         return null;
@@ -154,11 +272,13 @@ public class GitUtilImpl implements GitUtil {
 
     @Override
     public List<DiffEntry> showDiffFilesByCommits(String fromCommitId, String toCommitId) {
+        // TODO: 2017/11/7 比较两个提交之间的差异
         return null;
     }
 
     @Override
     public boolean rollBackPreRevision(List<DiffEntry> diffEntries, String revision, String note) {
+        // TODO: 2017/11/7 回滚到一个指定版本
         if (Objects.equals(null, diffEntries)) {
             logger.info("");
             return false;
