@@ -1,4 +1,4 @@
-package com.dcits.modelBank.model;
+package com.dcits.modelbank.model;
 
 import java.util.List;
 import java.util.Map;
