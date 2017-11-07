@@ -1,4 +1,4 @@
-package com.dcits.modelBank.utils;
+package com.dcits.modelbank.utils;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

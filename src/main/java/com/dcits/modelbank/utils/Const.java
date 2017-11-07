@@ -1,4 +1,4 @@
-package com.dcits.modelBank.utils;
+package com.dcits.modelbank.utils;
 
 /**
  * 常用的常量归到此处，统一管理

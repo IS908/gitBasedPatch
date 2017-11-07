@@ -1,4 +1,4 @@
-package com.dcits.modelBank.controller;
+package com.dcits.modelbank.controller;
 
 import org.springframework.stereotype.Controller;
 

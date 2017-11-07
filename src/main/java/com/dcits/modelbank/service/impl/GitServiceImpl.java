@@ -1,6 +1,6 @@
-package com.dcits.modelBank.service.impl;
+package com.dcits.modelbank.service.impl;
 
-import com.dcits.modelBank.service.GitService;
+import com.dcits.modelbank.service.GitService;
 import org.springframework.stereotype.Service;
 
 /**

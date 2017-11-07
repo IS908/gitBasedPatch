@@ -1,4 +1,4 @@
-package com.dcits.modelBank.jgit;
+package com.dcits.modelbank.jgit;
 
 import org.eclipse.jgit.diff.DiffEntry;
 
