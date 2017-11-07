@@ -21,7 +21,7 @@ public class GitUtilTest {
 
     @Test
     public void commitCode() throws Exception {
-        gitUtil.commitCode("pom update");
+        gitUtil.commitCode("add logback.xml ");
     }
 
     @Test
