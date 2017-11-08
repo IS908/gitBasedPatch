@@ -49,7 +49,7 @@ public class GitHandlerTest {
 
     @Test
     public void commitAndPushAllChanges() {
-        gitHandler.commitAndPushAllChanges("kevin", false);
+        gitHandler.commitAndPushAllChanges("kevin", true);
     }
 
     @Test
