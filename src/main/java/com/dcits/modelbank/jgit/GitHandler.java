@@ -17,6 +17,12 @@ import java.util.List;
  */
 public interface GitHandler {
     /**
+     * 显示当天的提交日志
+     * @return
+     */
+    Iterable<RevCommit> showLogToday();
+
+    /**
      * checkout到另一个现有分支
      * @param branch 新分支名
      * @return

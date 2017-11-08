@@ -1,5 +1,6 @@
 package com.dcits.modelbank.jgit;
 
+import com.dcits.modelbank.utils.DateUtil;
 import org.eclipse.jgit.diff.DiffEntry;
 import org.eclipse.jgit.lib.ObjectId;
 import org.eclipse.jgit.revwalk.RevCommit;
@@ -9,9 +10,7 @@ import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created on 2017-11-07 21:16.
@@ -26,6 +25,14 @@ public class GitHandlerTest {
     public void setUp() throws Exception {
         context = new ClassPathXmlApplicationContext("applicationContext.xml");
         gitHandler = (GitHandler) context.getBean("gitHandler");
+    }
+
+    @Test
+    public void showLogToday() {
+
+        Date dateNow = new Date();
+//        DateUtil.dateToStamp(dateNow);
+        System.out.println();
     }
 
     @Test

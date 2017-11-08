@@ -4,6 +4,7 @@ import com.dcits.modelbank.MyException.GitNoChangesException;
 import com.dcits.modelbank.jgit.helper.GitHelper;
 import com.dcits.modelbank.jgit.helper.PullEnum;
 import com.dcits.modelbank.utils.Const;
+import com.dcits.modelbank.utils.DateUtil;
 import org.eclipse.jgit.api.*;
 import org.eclipse.jgit.api.errors.GitAPIException;
 import org.eclipse.jgit.api.errors.InvalidRefNameException;
@@ -53,6 +54,27 @@ public class GitHandlerImpl implements GitHandler {
      * 私有构造方法，进行一次初始化
      */
     private GitHandlerImpl() {
+    }
+
+    @Override
+    public Iterable<RevCommit> showLogToday() {
+        long todayBeginTimestamp = DateUtil.getDayBeginTimestamp(new Date());
+
+        return null;
+    }
+
+    /**
+     * 显示具体一天的提交日志
+     * @param date
+     * @return
+     */
+    private Iterator<RevCommit> showLogByDay(Date date) {
+
+        try (Git git = gitHelper.getGitInstance()) {
+
+        }
+
+        return null;
     }
 
     @Override
