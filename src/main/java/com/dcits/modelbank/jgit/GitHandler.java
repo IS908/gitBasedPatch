@@ -38,7 +38,7 @@ public interface GitHandler {
     boolean stash();
 
     /**
-     * 查看暂存的文件
+     * 查看暂存列表
      * @return
      */
     Collection<RevCommit> stashList();

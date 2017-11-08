@@ -72,14 +72,16 @@ public class GitHandlerImpl implements GitHandler {
 
     @Override
     public boolean stash() {
+        boolean res = false;
         try (Git git = gitHelper.getGitInstance()) {
             // push the changes to a new stash
             RevCommit stash = git.stashCreate().call();
             logger.info(stash.toString());
+            res = true;
         } catch (GitAPIException e) {
             e.printStackTrace();
         }
-        return true;
+        return res;
     }
 
     @Override
