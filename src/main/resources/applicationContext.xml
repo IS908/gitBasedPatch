@@ -15,7 +15,11 @@
         <property name="remoteUrl" value="${git.remote.url}"/>
     </bean>
 
-
+    <!-- 生成xml文件bean配置信息 -start-->
+        <bean id="xmlBulider" class="com.dcits.modelbank.xmlUtils.XmlBulider">
+            <property name="filePtah" value="${git.output.xml.path}"/>
+        </bean>
+    <!-- 生成xml文件bean配置信息 -end-->
 
     <!--<bean name="gitUtil" clacom.dcits.modelbank.jgit.GitHandlerImplmplImpl">-->
         <!--<property name="gitHelper" ref="gitConf"/>-->

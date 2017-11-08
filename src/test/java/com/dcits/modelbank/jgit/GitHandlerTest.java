@@ -49,7 +49,7 @@ public class GitHandlerTest {
 
     @Test
     public void commitAndPushAllChanges() {
-        gitHandler.commitAndPushAllChanges("kevin", true);
+        gitHandler.commitAndPushAllChanges("kevin", false);
     }
 
     @Test
@@ -92,6 +92,7 @@ public class GitHandlerTest {
 
     @Test
     public void pull() throws Exception {
+        gitHandler.pull();
     }
 
     @Test
