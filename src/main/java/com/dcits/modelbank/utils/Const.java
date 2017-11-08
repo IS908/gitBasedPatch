@@ -16,4 +16,11 @@ public interface Const {
      */
     String MERGE="merge";
     String REBASE="rebase";
+
+    String AUTHOR_NAME = "name";
+    String AUTHOR_VERSION = "version";
+    String TIMESTAMP = "timestamp";
+    String DESC = "desc";
+    String CHANGETYPE = "changeType";
+    String CHECK = "check";
 }

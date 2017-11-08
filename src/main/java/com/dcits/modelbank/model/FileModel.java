@@ -9,20 +9,34 @@ import java.util.Map;
  * @author kevin
  */
 public class FileModel {
+    /**
+     *
+     */
     private String name;
+    /**
+     *
+     */
     private String module;
+    /**
+     *
+     */
     private String path;
+    /**
+     *
+     */
     private String type;
+    /**
+     *
+     */
     private List<Map<String, String>> authors;
 
     public FileModel() {
     }
 
-    public FileModel(String name, String module, String path, String type, List<Map<String, String>> authors) {
+    public FileModel(String name, String module, String path, String type) {
         this.name = name;
         this.module = module;
         this.path = path;
-        this.authors = authors;
         this.type = type;
     }
 

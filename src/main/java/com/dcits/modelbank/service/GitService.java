@@ -11,5 +11,5 @@ import java.util.List;
  * @author kevin
  */
 public interface GitService {
-    List<FileModel> getChangesFileListToday();
+    List<FileModel> genChangesFileListToday();
 }
