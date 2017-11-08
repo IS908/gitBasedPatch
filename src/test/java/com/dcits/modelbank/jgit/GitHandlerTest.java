@@ -41,7 +41,8 @@ public class GitHandlerTest {
 
     @Test
     public void checkoutBranch() throws Exception {
-
+        boolean flag = gitHandler.checkoutBranch("master");
+        Assert.assertEquals(true, flag);
     }
 
     @Test
