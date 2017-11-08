@@ -2,7 +2,11 @@ package com.dcits.modelbank.jgit;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.springframework.beans.factory.BeanFactory;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,10 +16,12 @@ import java.util.List;
  * @author kevin
  */
 public class GitUtilTest {
+    private ApplicationContext context;
     private GitUtil gitUtil;
     @Before
     public void setUp() throws Exception {
-        gitUtil = GitUtilImpl.getInstance();
+        context = new ClassPathXmlApplicationContext("applicationContext.xml");
+        gitUtil = (GitUtil) context.getBean("gitUtil");
     }
 
     @Test
