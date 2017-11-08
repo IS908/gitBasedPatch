@@ -1,5 +1,6 @@
 package com.dcits.modelbank.jgit;
 
+import org.eclipse.jgit.lib.ObjectId;
 import org.eclipse.jgit.revwalk.RevCommit;
 import org.junit.Assert;
 import org.junit.Before;
@@ -64,6 +65,8 @@ public class GitHandlerTest {
 
     @Test
     public void unstash() throws Exception {
+        ObjectId objectId = gitHandler.unstash(0);
+        System.out.println(objectId);
     }
 
     @Test
