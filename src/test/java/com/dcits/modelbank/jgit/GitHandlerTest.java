@@ -5,6 +5,7 @@ import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,6 +17,7 @@ import java.util.List;
 public class GitHandlerTest {
     private ApplicationContext context;
     private GitHandler gitHandler;
+    
     @Before
     public void setUp() throws Exception {
         context = new ClassPathXmlApplicationContext("applicationContext.xml");
