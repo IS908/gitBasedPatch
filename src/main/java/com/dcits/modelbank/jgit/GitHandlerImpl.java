@@ -62,7 +62,7 @@ public class GitHandlerImpl implements GitHandler {
             List<Ref> call = git.branchList().call();
             boolean flag = false;
             for (Ref ref : call) {
-                if (Objects.equals(branch, ref.getName())) flag = true;
+                if (Objects.equals(Const.REFS_HEADS + branch, ref.getName())) flag = true;
             }
             if (!flag) return res;
             Ref ref = git.checkout().setName(branch).call();
