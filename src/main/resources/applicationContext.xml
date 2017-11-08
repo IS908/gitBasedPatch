@@ -15,7 +15,7 @@
         <property name="remoteUrl" value="${git.remote.url}"/>
     </bean>
 
-    <!--<bean name="gitUtil" class="com.dcits.modelbank.jgit.GitUtilImpl">-->
+    <!--<bean name="gitUtil" clacom.dcits.modelbank.jgit.GitHandlerImplmplImpl">-->
         <!--<property name="gitHelper" ref="gitConf"/>-->
     <!--</bean>-->
 </beans>

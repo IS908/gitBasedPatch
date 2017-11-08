@@ -2,11 +2,9 @@ package com.dcits.modelbank.jgit;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.springframework.beans.factory.BeanFactory;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,26 +13,25 @@ import java.util.List;
  *
  * @author kevin
  */
-public class GitUtilTest {
+public class GitHandlerTest {
     private ApplicationContext context;
-    private GitUtil gitUtil;
+    private GitHandler gitHandler;
     @Before
     public void setUp() throws Exception {
         context = new ClassPathXmlApplicationContext("applicationContext.xml");
-        gitUtil = (GitUtil) context.getBean("gitUtil");
+        gitHandler = (GitHandler) context.getBean("gitHandler");
     }
 
     @Test
     public void commitAndPushAllChanges() {
-        gitUtil.commitAndPushAllChanges("kevin", true);
+        gitHandler.commitAndPushAllChanges("kevin", true);
     }
 
     @Test
     public void commitAndPush() throws Exception {
         List<String> files = new ArrayList<>();
-        files.add("src/test/java/com/dcits/modelbank/jgit/GitUtilTest.java");
-        Thread.sleep(30000);
-        gitUtil.commitAndPush(files, "commitAndPush", true);
+        files.add("src/test/java/com/dcits/modelbank/jgit/GitHandlerTest.java");
+        gitHandler.commitAndPush(files, "commitAndPush", true);
     }
 
     @Test

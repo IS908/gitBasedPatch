@@ -4,7 +4,6 @@ import com.dcits.modelbank.MyException.GitNoChangesException;
 import com.dcits.modelbank.jgit.helper.GitHelper;
 import com.dcits.modelbank.jgit.helper.PullEnum;
 import com.dcits.modelbank.utils.Const;
-import com.sun.xml.internal.bind.v2.TODO;
 import org.eclipse.jgit.api.*;
 import org.eclipse.jgit.api.errors.GitAPIException;
 import org.eclipse.jgit.api.errors.InvalidRefNameException;
@@ -38,9 +37,9 @@ import java.util.*;
  *
  * @author kevin
  */
-@Service("gitUtil")
-public class GitUtilImpl implements GitUtil {
-    private static final Logger logger = LoggerFactory.getLogger(GitUtilImpl.class);
+@Service("gitHandler")
+public class GitHandlerImpl implements GitHandler {
+    private static final Logger logger = LoggerFactory.getLogger(GitHandlerImpl.class);
 
     @Resource
     private GitHelper gitHelper;
@@ -56,7 +55,7 @@ public class GitUtilImpl implements GitUtil {
     /**
      * 私有构造方法，进行一次初始化
      */
-    private GitUtilImpl() {
+    private GitHandlerImpl() {
     }
 
     @Override
@@ -73,7 +72,7 @@ public class GitUtilImpl implements GitUtil {
 
     @Override
     public boolean stash() {
-        try (Git git = new Git(gitHelper.openJGitRepository())) {
+        try (Git git = gitHelper.getGitInstance()) {
             // push the changes to a new stash
             RevCommit stash = git.stashCreate().call();
             logger.info(stash.toString());
@@ -85,7 +84,7 @@ public class GitUtilImpl implements GitUtil {
 
     @Override
     public Collection<RevCommit> stashList() {
-        try (Git git = new Git(gitHelper.openJGitRepository())) {
+        try (Git git = gitHelper.getGitInstance()) {
             // list the stashes
             Collection<RevCommit> stashes = git.stashList().call();
             for (RevCommit rev : stashes) {
@@ -102,7 +101,7 @@ public class GitUtilImpl implements GitUtil {
 
     @Override
     public ObjectId unstash(int index) {
-        try (Git git = new Git(gitHelper.openJGitRepository())) {
+        try (Git git = gitHelper.getGitInstance()) {
             Collection<RevCommit> stashes = stashList();
             if (stashes.size() < index) {
                 throw new IndexOutOfBoundsException("索引序号超出stash列表范围");
@@ -123,7 +122,7 @@ public class GitUtilImpl implements GitUtil {
     @Override
     public FetchResult fetch() {
         FetchResult result = null;
-        try (Git git = new Git(gitHelper.openJGitRepository())) {
+        try (Git git = gitHelper.getGitInstance()) {
             result = git.fetch().setCheckFetchedObjects(true).call();
             System.out.println("Messages: " + result.getMessages());
         } catch (InvalidRemoteException e) {
@@ -144,7 +143,7 @@ public class GitUtilImpl implements GitUtil {
     @Override
     public PullResult pull(PullEnum type) {
         PullResult pullResult = null;
-        try (Git git = new Git(gitHelper.openJGitRepository())) {
+        try (Git git = gitHelper.getGitInstance()) {
             PullCommand pull = git.pull();
             if (Objects.equals(PullEnum.REBASE, type)) pull.setRebase(true);
             pullResult = pull.call();
@@ -157,7 +156,7 @@ public class GitUtilImpl implements GitUtil {
     @Override
     public boolean push() {
         boolean res = false;
-        try (Git git = new Git(gitHelper.openJGitRepository())) {
+        try (Git git = gitHelper.getGitInstance()) {
             git.lsRemote().call();
             Iterable<PushResult> results = git.push().call();
             Iterator<PushResult> iterator = results.iterator();
@@ -178,7 +177,7 @@ public class GitUtilImpl implements GitUtil {
 
     @Override
     public String commitAndPushAllChanges(String note, boolean pushFlag) {
-        try (Git git = new Git(gitHelper.openJGitRepository())) {
+        try (Git git = gitHelper.getGitInstance()) {
             if (git.status().call().isClean()) {
                 throw new GitNoChangesException("提交的文件内容都没有被修改，不能提交");
             }
@@ -199,7 +198,7 @@ public class GitUtilImpl implements GitUtil {
 
     @Override
     public String commitAndPush(List<String> fileList, String note, boolean pushFlag) {
-        try (Git git = new Git(gitHelper.openJGitRepository())) {
+        try (Git git = gitHelper.getGitInstance()) {
             if (git.status().call().isClean()) {
                 throw new GitNoChangesException("提交的文件内容都没有被修改，不能提交");
             }
@@ -255,9 +254,9 @@ public class GitUtilImpl implements GitUtil {
     }
 
     @Override
-    public List<DiffEntry> showDiffFilesByBranches(String fromBranch, String toBranch) {
+    public List<DiffEntry> showBranchDiff(String fromBranch, String toBranch) {
         List<DiffEntry> list = null;
-        try (Git git = new Git(gitHelper.openJGitRepository())) {
+        try (Git git = gitHelper.getGitInstance()) {
             Repository repository = git.getRepository();
             ObjectId previousHead = repository.resolve(Const.REFS_HEADS + fromBranch);
             ObjectId head = repository.resolve(Const.REFS_HEADS + toBranch);
@@ -283,7 +282,7 @@ public class GitUtilImpl implements GitUtil {
     }
 
     @Override
-    public List<DiffEntry> showDiffFilesByCommits(String fromCommitId, String toCommitId) {
+    public List<DiffEntry> showCommitDiff(String fromCommitId, String toCommitId) {
         // TODO: 2017/11/7 比较两个提交之间的差异
         return null;
     }
@@ -295,7 +294,7 @@ public class GitUtilImpl implements GitUtil {
             logger.info("");
             return false;
         }
-        try (Git git = new Git(gitHelper.openJGitRepository())) {
+        try (Git git = gitHelper.getGitInstance()) {
 
         }
         return false;

@@ -1,6 +1,7 @@
 package com.dcits.modelbank.jgit.helper;
 
 import com.dcits.modelbank.utils.Const;
+import org.eclipse.jgit.api.Git;
 import org.eclipse.jgit.lib.Repository;
 import org.eclipse.jgit.storage.file.FileRepositoryBuilder;
 import org.eclipse.jgit.util.FS;
@@ -75,5 +76,15 @@ public class GitHelper {
             e.printStackTrace();
         }
         return null;
+    }
+
+    /**
+     * 获取一个新的Git实例
+     *
+     * @return
+     */
+    public Git getGitInstance() {
+        Git git = new Git(this.openJGitRepository());
+        return git;
     }
 }
