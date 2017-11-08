@@ -32,6 +32,7 @@ public class GitUtilTest {
     @Test
     public void commitAndPush() throws Exception {
         List<String> files = new ArrayList<>();
+
         files.add("src/test/java/com/dcits/modelbank/jgit/GitUtilTest.java");
         gitUtil.commitAndPush(files, "commitAndPush", true);
     }
