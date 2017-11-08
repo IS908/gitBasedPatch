@@ -10,10 +10,7 @@ import org.eclipse.jgit.api.errors.InvalidRefNameException;
 import org.eclipse.jgit.api.errors.InvalidRemoteException;
 import org.eclipse.jgit.api.errors.TransportException;
 import org.eclipse.jgit.diff.DiffEntry;
-import org.eclipse.jgit.lib.FileMode;
-import org.eclipse.jgit.lib.ObjectId;
-import org.eclipse.jgit.lib.ObjectReader;
-import org.eclipse.jgit.lib.Repository;
+import org.eclipse.jgit.lib.*;
 import org.eclipse.jgit.revwalk.RevCommit;
 import org.eclipse.jgit.revwalk.RevTree;
 import org.eclipse.jgit.revwalk.RevWalk;
@@ -60,8 +57,20 @@ public class GitHandlerImpl implements GitHandler {
 
     @Override
     public boolean checkoutBranch(String branch) {
-        // TODO: 2017/11/7 切换分支
-        return false;
+        boolean res = false;
+        try (Git git = gitHelper.getGitInstance()) {
+            List<Ref> call = git.branchList().call();
+            boolean flag = false;
+            for (Ref ref : call) {
+                if (Objects.equals(branch, ref.getName())) flag = true;
+            }
+            if (!flag) return res;
+            Ref ref = git.checkout().setName(branch).call();
+            res = true;
+        } catch (GitAPIException e) {
+            e.printStackTrace();
+        }
+        return res;
     }
 
     @Override
