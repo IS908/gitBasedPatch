@@ -8,7 +8,6 @@ package com.dcits.modelbank.utils;
  */
 public interface Const {
     String JGIT = "JGIT";
-    String BASE_DIR="baseDir";
     String GIT = ".git";
     String REF_REMOTES="refs/remotes/origin/";
     String REFS_HEADS="refs/heads/";

@@ -14,9 +14,11 @@ import org.slf4j.LoggerFactory;
  */
 public class GitHelperTest {
     private static final Logger LOGGER = LoggerFactory.getLogger(GitHelperTest.class);
+    private GitHelper gitHelper;
+
     @Test
     public void openJGitRepository() {
-        Repository repository = GitHelper.openJGitRepository();
+        Repository repository = gitHelper.openJGitRepository();
         try (Git git = new Git(repository)) {
             if (git.status().call().isClean()) {
                 System.out.println("clean");
@@ -27,6 +29,6 @@ public class GitHelperTest {
             e.printStackTrace();
         }
 
-        Repository repository1 = GitHelper.openJGitRepository();
+        Repository repository1 = gitHelper.openJGitRepository();
     }
 }
