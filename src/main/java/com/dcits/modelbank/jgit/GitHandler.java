@@ -24,14 +24,6 @@ public interface GitHandler {
     boolean checkoutBranch(String branch);
 
     /**
-     * 检出一个新的分支
-     * @param branch 本地新分支名
-     * @param origin 跟踪远程分支名(若为null，则只在本地创建新分支)
-     * @return
-     */
-    boolean checkoutNewBranch(String branch, String origin);
-
-    /**
      * 暂存当前修改
      * @return
      */

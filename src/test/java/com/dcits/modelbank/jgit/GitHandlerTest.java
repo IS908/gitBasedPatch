@@ -29,24 +29,20 @@ public class GitHandlerTest {
 
     @Test
     public void commitAndPushAllChanges() {
-        gitHandler.commitAndPushAllChanges("kevin", true);
+        gitHandler.commitAndPushAllChanges("kevin", false);
     }
 
     @Test
     public void commitAndPush() throws Exception {
         List<String> files = new ArrayList<>();
-        files.add("src/test/java/com/dcits/modelbank/jgit/GitHandlerTest.java");
-        gitHandler.commitAndPush(files, "commitAndPush", true);
+        files.add("readme.txt");
+        gitHandler.commitAndPush(files, "commitAndPush", false);
     }
 
     @Test
     public void checkoutBranch() throws Exception {
-        boolean flag = gitHandler.checkoutBranch("master");
+        boolean flag = gitHandler.checkoutBranch("develop");
         Assert.assertEquals(true, flag);
-    }
-
-    @Test
-    public void checkoutNewBranch() throws Exception {
     }
 
     @Test
