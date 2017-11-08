@@ -1,16 +1,20 @@
 package com.dcits.modelbank.jgit;
 
-import com.dcits.modelbank.utils.DateUtil;
+import org.eclipse.jgit.blame.BlameResult;
 import org.eclipse.jgit.diff.DiffEntry;
 import org.eclipse.jgit.lib.ObjectId;
 import org.eclipse.jgit.revwalk.RevCommit;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 /**
  * Created on 2017-11-07 21:16.
@@ -18,6 +22,7 @@ import java.util.*;
  * @author kevin
  */
 public class GitHandlerTest {
+    private static final Logger logger = LoggerFactory.getLogger(GitHandlerTest.class);
     private ApplicationContext context;
     private GitHandler gitHandler;
 
@@ -28,16 +33,23 @@ public class GitHandlerTest {
     }
 
     @Test
-    public void showLogToday() {
+    public void fileBlame() {
+        String commitID = "fc32ede1a325514179b4bbdb4fe4fbb487db0c65";
+        String file = "src/main/java/com/dcits/modelbank/utils/Const.java";
+        BlameResult result = gitHandler.fileBlame(commitID, file);
+        logger.info(result.getResultContents().toString());
+    }
 
-        Date dateNow = new Date();
-//        DateUtil.dateToStamp(dateNow);
+    @Test
+    public void showLogToday() {
+        Iterable<RevCommit> iterable = gitHandler.showLogToday();
+
         System.out.println();
     }
 
     @Test
     public void commitAndPushAllChanges() {
-        gitHandler.commitAndPushAllChanges("kevin", false);
+        gitHandler.commitAndPushAllChanges("kevin", true);
     }
 
     @Test
@@ -114,4 +126,8 @@ public class GitHandlerTest {
 
     }
 
+    @Test
+    public void test() {
+        gitHandler.test();
+    }
 }

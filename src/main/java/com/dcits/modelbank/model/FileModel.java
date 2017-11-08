@@ -13,11 +13,12 @@ public class FileModel {
     private String module;
     private String path;
     private String type;
+    private List<Map<String, String>> authors;
 
     public FileModel() {
     }
 
-    public FileModel(String name, String module, String path, String type, List<Map<String, Map>> authors) {
+    public FileModel(String name, String module, String path, String type, List<Map<String, String>> authors) {
         this.name = name;
         this.module = module;
         this.path = path;
@@ -33,15 +34,13 @@ public class FileModel {
         this.type = type;
     }
 
-    public List<Map<String, Map>> getAuthors() {
+    public List<Map<String, String>> getAuthors() {
         return authors;
     }
 
-    public void setAuthors(List<Map<String, Map>> authors) {
+    public void setAuthors(List<Map<String, String>> authors) {
         this.authors = authors;
     }
-
-    private List<Map<String, Map>> authors;
 
     public String getName() {
         return name;

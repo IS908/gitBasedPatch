@@ -10,7 +10,10 @@ import org.eclipse.jgit.api.errors.GitAPIException;
 import org.eclipse.jgit.api.errors.InvalidRefNameException;
 import org.eclipse.jgit.api.errors.InvalidRemoteException;
 import org.eclipse.jgit.api.errors.TransportException;
+import org.eclipse.jgit.blame.BlameResult;
 import org.eclipse.jgit.diff.DiffEntry;
+import org.eclipse.jgit.errors.AmbiguousObjectException;
+import org.eclipse.jgit.errors.IncorrectObjectTypeException;
 import org.eclipse.jgit.lib.*;
 import org.eclipse.jgit.revwalk.RevCommit;
 import org.eclipse.jgit.revwalk.RevTree;
@@ -57,14 +60,76 @@ public class GitHandlerImpl implements GitHandler {
     }
 
     @Override
-    public Iterable<RevCommit> showLogToday() {
-        long todayBeginTimestamp = DateUtil.getDayBeginTimestamp(new Date());
+    public BlameResult fileBlame(String commitID, String file) {
+        BlameResult blame = null;
+        try (Git git = gitHelper.getGitInstance();
+             Repository repository = gitHelper.openJGitRepository()) {
+            ObjectId commit = repository.resolve(commitID + "^{commit}");
+            BlameCommand blamer = git.blame();
+            blamer.setStartCommit(commit)
+                    .setFilePath(file)
+                    .setFollowFileRenames(true);
+            blame = blamer.call();
+//            blame.computeRange(0, 10);
+        } catch (IncorrectObjectTypeException e) {
+            e.printStackTrace();
+        } catch (AmbiguousObjectException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (GitAPIException e) {
+            e.printStackTrace();
+        }
+        return blame;
+    }
 
-        return null;
+    /**
+     * 获取当天提交记录的 RevCommit
+     *
+     * @return
+     */
+    private List<RevCommit> getLogRevCommitToday(Git git) {
+        long todayBeginTimestamp = DateUtil.getDayBeginTimestamp(new Date());
+        List<RevCommit> commits = new ArrayList<>(64);
+        try {
+            LogCommand logCmd = git.log();
+            logCmd.setMaxCount(128);
+            Iterable<RevCommit> logCommit = logCmd.call();
+            Iterator<RevCommit> iterator = logCommit.iterator();
+            while (iterator.hasNext()) {
+                RevCommit revCommit = iterator.next();
+                if (revCommit.getCommitTime() > todayBeginTimestamp) {
+                    commits.add(revCommit);
+                }
+            }
+        } catch (GitAPIException e) {
+            e.printStackTrace();
+        }
+        return commits;
+    }
+
+    @Override
+    public Iterable<RevCommit> showLogToday() {
+//        getLogRevCommitToday();
+        Iterable<RevCommit> logCommit = null;
+        try (Git git = gitHelper.getGitInstance()) {
+            LogCommand logCmd = git.log();
+            logCmd.setMaxCount(128);
+            logCommit = logCmd.call();
+            Iterator<RevCommit> iterator = logCommit.iterator();
+            while (iterator.hasNext()) {
+                RevCommit revCommit = iterator.next();
+                System.out.println(revCommit.getCommitTime());
+            }
+        } catch (GitAPIException e) {
+            e.printStackTrace();
+        }
+        return logCommit;
     }
 
     /**
      * 显示具体一天的提交日志
+     *
      * @param date
      * @return
      */
@@ -98,6 +163,7 @@ public class GitHandlerImpl implements GitHandler {
 
     /**
      * 本地已有分支的切换
+     *
      * @param git
      * @param branch 切换的分支名
      * @return
@@ -109,12 +175,13 @@ public class GitHandlerImpl implements GitHandler {
 
     /**
      * 判断本地是否存在该分支
+     *
      * @param git
      * @param branch
      * @return
      * @throws GitAPIException
      */
-    private boolean branchExists (Git git, String branch) throws GitAPIException {
+    private boolean branchExists(Git git, String branch) throws GitAPIException {
         List<Ref> call = git.branchList().call();
         for (Ref ref : call) {
             if (Objects.equals(Const.REFS_HEADS + branch, ref.getName())) return true;
@@ -124,8 +191,9 @@ public class GitHandlerImpl implements GitHandler {
 
     /**
      * 检出一个新的分支
+     *
      * @param branchName 本地新分支名
-     * @param remote 跟踪远程分支名(若为null，则只在本地创建新分支)
+     * @param remote     跟踪远程分支名(若为null，则只在本地创建新分支)
      * @return
      */
     private boolean checkoutNewBranch(String branchName, String remote) {
@@ -349,8 +417,61 @@ public class GitHandlerImpl implements GitHandler {
     }
 
     @Override
+    public Map<String, List<DiffEntry>> test() {
+        Map<String, List<DiffEntry>> files = new HashMap<>();
+        List<List<DiffEntry>> lists = null;
+        try (Git git = gitHelper.getGitInstance();
+             Repository repository = gitHelper.openJGitRepository()) {
+            List<RevCommit> commits = this.getLogRevCommitToday(git);
+            lists = this.getChangesByCommit(commits, repository, git);
+            for (List<DiffEntry> list : lists) {
+                for (DiffEntry entry : list) {
+                    String filePath = entry.getNewPath();
+                    List<DiffEntry> diffList = files.get(filePath);
+                    if (Objects.equals(null, diffList)) diffList = new ArrayList<>();
+                    diffList.add(entry);
+                }
+            }
+        }
+        return files;
+    }
+
+    public List<List<DiffEntry>> getChangesByCommit(List<RevCommit> list, Repository repository, Git git) {
+        List<List<DiffEntry>> changeList = new ArrayList<>();
+        try {
+            for (RevCommit commit : list) {
+                RevCommit parentCommitId = commit.getParent(commit.getParentCount() - 1);
+                ObjectId branchFrom = repository.resolve(parentCommitId.getName() + "^{tree}");
+                ObjectId branchTo = repository.resolve(commit.getName() + "^{tree}");
+                ObjectReader reader = repository.newObjectReader();
+                CanonicalTreeParser oldTreeIter = new CanonicalTreeParser();
+                oldTreeIter.reset(reader, branchFrom);
+                CanonicalTreeParser newTreeIter = new CanonicalTreeParser();
+                newTreeIter.reset(reader, branchTo);
+
+                List<DiffEntry> diffs = git.diff()
+                        .setOldTree(oldTreeIter)
+                        .setNewTree(newTreeIter)
+                        .call();
+                changeList.add(diffs);
+            }
+        } catch (AmbiguousObjectException e) {
+            e.printStackTrace();
+        } catch (IncorrectObjectTypeException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (GitAPIException e) {
+            e.printStackTrace();
+        }
+        return changeList;
+    }
+
+    @Override
     public List<DiffEntry> showCommitDiff(String fromCommitId, String toCommitId) {
         // TODO: 2017/11/7 比较两个提交之间的差异
+        try (Repository repository = gitHelper.openJGitRepository()) {
+        }
         return null;
     }
 

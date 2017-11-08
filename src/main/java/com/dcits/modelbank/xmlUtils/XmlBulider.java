@@ -61,7 +61,7 @@ public class XmlBulider {
             Element authorsElement = null;
             Element fileElement = null;
             for(FileModel fm : list){
-                List<Map<String,Map>> mapList = fm.getAuthors();
+                List<Map<String,String>> mapList = fm.getAuthors();
                 //设置file标签属性
                 fileElement = document.createElement("file");
                 fileElement.setAttribute("name",fm.getName());

@@ -1,14 +1,18 @@
 package com.dcits.modelbank.jgit;
 
 import com.dcits.modelbank.jgit.helper.PullEnum;
+import org.eclipse.jgit.api.Git;
 import org.eclipse.jgit.api.PullResult;
+import org.eclipse.jgit.blame.BlameResult;
 import org.eclipse.jgit.diff.DiffEntry;
 import org.eclipse.jgit.lib.ObjectId;
+import org.eclipse.jgit.lib.Repository;
 import org.eclipse.jgit.revwalk.RevCommit;
 import org.eclipse.jgit.transport.FetchResult;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created on 2017-11-07 20:01.
@@ -16,6 +20,13 @@ import java.util.List;
  * @author kevin
  */
 public interface GitHandler {
+    /**
+     * 获取指定文件的blame信息
+     * @param commitID
+     * @param file
+     * @return
+     */
+    BlameResult fileBlame(String commitID, String file);
     /**
      * 显示当天的提交日志
      * @return
@@ -100,6 +111,7 @@ public interface GitHandler {
      */
     List<DiffEntry> showBranchDiff(String fromBranch, String toBranch);
 
+
     /**
      * 列出两个提交版本号之间的差异
      *
@@ -118,4 +130,6 @@ public interface GitHandler {
      * @return
      */
     boolean rollBackPreRevision(List<DiffEntry> diffEntries, String revision, String note);
+
+    Map<String, List<DiffEntry>> test();
 }
