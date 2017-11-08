@@ -419,17 +419,17 @@ public class GitHandlerImpl implements GitHandler {
     @Override
     public Map<String, List<DiffEntry>> test() {
         Map<String, List<DiffEntry>> files = new HashMap<>();
-        List<List<DiffEntry>> lists = null;
         try (Git git = gitHelper.getGitInstance();
              Repository repository = gitHelper.openJGitRepository()) {
             List<RevCommit> commits = this.getLogRevCommitToday(git);
-            lists = this.getChangesByCommit(commits, repository, git);
+            List<List<DiffEntry>> lists = this.getChangesByCommit(commits, repository, git);
             for (List<DiffEntry> list : lists) {
                 for (DiffEntry entry : list) {
                     String filePath = entry.getNewPath();
                     List<DiffEntry> diffList = files.get(filePath);
                     if (Objects.equals(null, diffList)) diffList = new ArrayList<>();
                     diffList.add(entry);
+                    files.put(filePath, diffList);
                 }
             }
         }

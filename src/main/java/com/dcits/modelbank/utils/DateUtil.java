@@ -14,6 +14,7 @@ import java.util.Date;
  */
 public class DateUtil {
     private static final Logger logger = LoggerFactory.getLogger(DateUtil.class);
+
     /**
      * 将时间转化为时间戳
      *
@@ -31,6 +32,7 @@ public class DateUtil {
 
     /**
      * 获得一天的起始时间的时间戳
+     *
      * @return
      */
     public static long getDayBeginTimestamp(String time) {
@@ -53,7 +55,7 @@ public class DateUtil {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        return  timestamp/1000;
+        return timestamp / 1000 - (24 * 60 * 60);
     }
 
     /**
