@@ -301,8 +301,8 @@ public class GitHandlerImpl implements GitHandler {
     @Override
     public List<DiffEntry> showBranchDiff(String fromBranch, String toBranch) {
         List<DiffEntry> list = null;
-        try (Git git = gitHelper.getGitInstance()) {
-            Repository repository = git.getRepository();
+        try (Git git = gitHelper.getGitInstance();
+             Repository repository = gitHelper.openJGitRepository()) {
             ObjectId previousHead = repository.resolve(Const.REFS_HEADS + fromBranch);
             ObjectId head = repository.resolve(Const.REFS_HEADS + toBranch);
 

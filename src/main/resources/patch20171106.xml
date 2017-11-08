@@ -7,12 +7,14 @@
                 <version>db87250d</version>
                 <timestamp>201711061529</timestamp>
                 <desc>外围接口1400019402修改</desc>
+                <changeType>add</changeType>
                 <check>false</check>
             </author>
             <author name="qiqsa">
                 <version>db87250d</version>
                 <timestamp>201711061529</timestamp>
                 <desc>外围接口1400019402修改</desc>
+                <changeType>modify</changeType>
                 <check>true</check>
             </author>
         </authors>
@@ -24,6 +26,7 @@
                 <version>db87250d</version>
                 <timestamp>201711061529</timestamp>
                 <desc>更新consumer配置文件</desc>
+                <changeType>modify</changeType>
                 <check>true</check>
             </author>
         </authors>

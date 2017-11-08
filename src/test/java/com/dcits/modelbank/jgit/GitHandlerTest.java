@@ -1,5 +1,6 @@
 package com.dcits.modelbank.jgit;
 
+import org.eclipse.jgit.diff.DiffEntry;
 import org.eclipse.jgit.lib.ObjectId;
 import org.eclipse.jgit.revwalk.RevCommit;
 import org.junit.Assert;
@@ -75,31 +76,20 @@ public class GitHandlerTest {
     }
 
     @Test
-    public void pull1() throws Exception {
-    }
-
-    @Test
     public void push() throws Exception {
-    }
-
-    @Test
-    public void commitAndPushAllChanges1() throws Exception {
-    }
-
-    @Test
-    public void commitAndPush1() throws Exception {
+        gitHandler.push();
     }
 
     @Test
     public void showBranchDiff() throws Exception {
+        List<DiffEntry> diffs = gitHandler.showBranchDiff("master", "develop");
+        for (DiffEntry entry : diffs) {
+            System.out.println(entry + " ====> " + entry.getNewId());
+        }
     }
 
     @Test
     public void showCommitDiff() throws Exception {
-    }
-
-    @Test
-    public void rollBackPreRevision1() throws Exception {
     }
 
     @Test
