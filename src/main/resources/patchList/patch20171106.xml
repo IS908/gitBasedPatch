@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <files>
-    <file path="Ensemble/modules/ensemble-cd/api/src/main/java" type="clazz" model="api"
+    <file filePath="Ensemble/modules/ensemble-cd/api/src/main/java" type="clazz" model="api"
           name="com/dcits/ensemble/cd/model/mbsdcore/Core12006002In.java">
         <authors>
             <author>
@@ -21,7 +21,7 @@
             </author>
         </authors>
     </file>
-    <file path="Ensemble/modules/ensemble-cd/api/src/main/resources" type="conf" model=""
+    <file filePath="Ensemble/modules/ensemble-cd/api/src/main/resources" type="conf" model=""
           name="META-INF/spring/galaxy-consumer.xml">
         <authors>
             <author>

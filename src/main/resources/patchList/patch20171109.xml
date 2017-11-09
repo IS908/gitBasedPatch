@@ -1,364 +1,984 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <files>
-  <file model="api" name="/dev/null" path="src/main/resources/local.properties" type="0">
+  <file fullPath="Ensemble/modules/ensemble-external-fx/online/src/main/java/com/dcits/ensemble/externalfx/online/service/mbsdcore/Core1400019501.java" model="api" pkgPath="Ensemble/modules/ensemble-external-fx/online/src/main/java/com/dcits/ensemble/externalfx/online/service/mbsdcore/Core1400019501.java" type="100644">
     <authors>
       <author>
         <name>kevin</name>
-        <version>AbbreviatedObjectId[0000000000000000000000000000000000000000]</version>
+        <versionID>5640ff57784414e84262cab5248c9618096db67d</versionID>
         <timestamp>null</timestamp>
-        <desc>AbbreviatedObjectId[db5d409dbc700fb109030d28f2eaee8d33294075]</desc>
-        <changeType>DELETE</changeType>
-        <check>true</check>
-      </author>
-      <author>
-        <name>kevin</name>
-        <version>AbbreviatedObjectId[0000000000000000000000000000000000000000]</version>
-        <timestamp>null</timestamp>
-        <desc>AbbreviatedObjectId[e69de29bb2d1d6434b8b29ae775ad8c2e48c5391]</desc>
-        <changeType>DELETE</changeType>
-        <check>true</check>
-      </author>
-      <author>
-        <name>kevin</name>
-        <version>AbbreviatedObjectId[0000000000000000000000000000000000000000]</version>
-        <timestamp>null</timestamp>
-        <desc>AbbreviatedObjectId[a2efbb9e03f55de7c53396b5b806bbcab5c9789b]</desc>
-        <changeType>DELETE</changeType>
-        <check>true</check>
-      </author>
-    </authors>
-  </file>
-  <file model="api" name=".gitignore" path=".gitignore" type="100644">
-    <authors>
-      <author>
-        <name>kevin</name>
-        <version>AbbreviatedObjectId[5b7973b68d02cac5b17a31e424ee35e8141773b6]</version>
-        <timestamp>null</timestamp>
-        <desc>AbbreviatedObjectId[2a1349897c3fb5fbd9b43146bba6ddfaa6823c99]</desc>
-        <changeType>MODIFY</changeType>
-        <check>true</check>
-      </author>
-      <author>
-        <name>kevin</name>
-        <version>AbbreviatedObjectId[5b7973b68d02cac5b17a31e424ee35e8141773b6]</version>
-        <timestamp>null</timestamp>
-        <desc>AbbreviatedObjectId[2a1349897c3fb5fbd9b43146bba6ddfaa6823c99]</desc>
-        <changeType>MODIFY</changeType>
-        <check>true</check>
-      </author>
-      <author>
-        <name>kevin</name>
-        <version>AbbreviatedObjectId[2a1349897c3fb5fbd9b43146bba6ddfaa6823c99]</version>
-        <timestamp>null</timestamp>
-        <desc>AbbreviatedObjectId[86ea93f7c0ca2601e3d13b91d75058c11030afae]</desc>
+        <desc>2befb1a3c6896ec42b655ed6430d21cfa2faa1dc</desc>
         <changeType>MODIFY</changeType>
         <check>true</check>
       </author>
     </authors>
   </file>
-  <file model="api" name="src/main/java/com/dcits/modelbank/utils/DateUtil.java" path="src/main/java/com/dcits/modelbank/utils/DateUtil.java" type="100644">
+  <file fullPath="Ensemble/modules/ensemble-oc/online/src/main/java/com/dcits/ensemble/oc/online/service/mbsdcore/Core14000601.java" model="api" pkgPath="Ensemble/modules/ensemble-oc/online/src/main/java/com/dcits/ensemble/oc/online/service/mbsdcore/Core14000601.java" type="100644">
     <authors>
       <author>
         <name>kevin</name>
-        <version>AbbreviatedObjectId[4f89134246a18f45976efe759c439c14ff75d1c8]</version>
+        <versionID>056e482cdaa84846078fdf3e0731f8f48ddcda6b</versionID>
         <timestamp>null</timestamp>
-        <desc>AbbreviatedObjectId[2234e5ee60ab3e2824a01fde81730974020284ad]</desc>
-        <changeType>MODIFY</changeType>
-        <check>true</check>
-      </author>
-      <author>
-        <name>kevin</name>
-        <version>AbbreviatedObjectId[2234e5ee60ab3e2824a01fde81730974020284ad]</version>
-        <timestamp>null</timestamp>
-        <desc>AbbreviatedObjectId[a5a7d49b144b2ace0e5ca092a97164f12b33e555]</desc>
-        <changeType>MODIFY</changeType>
-        <check>true</check>
-      </author>
-      <author>
-        <name>kevin</name>
-        <version>AbbreviatedObjectId[a5a7d49b144b2ace0e5ca092a97164f12b33e555]</version>
-        <timestamp>null</timestamp>
-        <desc>AbbreviatedObjectId[6888139d001c76c6382f2b3373a554987728c854]</desc>
-        <changeType>MODIFY</changeType>
-        <check>true</check>
-      </author>
-      <author>
-        <name>kevin</name>
-        <version>AbbreviatedObjectId[6888139d001c76c6382f2b3373a554987728c854]</version>
-        <timestamp>null</timestamp>
-        <desc>AbbreviatedObjectId[559b945451dbb4c231c11e079e5aae4ca117c614]</desc>
+        <desc>e0230442bcc54a2b28405e245d830e1bef2e65ed</desc>
         <changeType>MODIFY</changeType>
         <check>true</check>
       </author>
     </authors>
   </file>
-  <file model="api" name="src/test/java/com/dcits/modelbank/jgit/GitHandlerTest.java" path="src/test/java/com/dcits/modelbank/jgit/GitHandlerTest.java" type="100644">
+  <file fullPath="Ensemble-Prod/modules/ensemble-dbmanage/src/main/java/com/dcits/ensemble/dbmanage/inquiry/MbTranHistInquiry.java" model="api" pkgPath="Ensemble-Prod/modules/ensemble-dbmanage/src/main/java/com/dcits/ensemble/dbmanage/inquiry/MbTranHistInquiry.java" type="100644">
     <authors>
       <author>
         <name>kevin</name>
-        <version>AbbreviatedObjectId[5007e7768a0db943a88ba4430abdfdda46359fcb]</version>
+        <versionID>745628f228f7b70dac617808e3ff44d9b011f58f</versionID>
         <timestamp>null</timestamp>
-        <desc>AbbreviatedObjectId[69a677c58cfcda832f715fdf0b7c40cb96ea8728]</desc>
+        <desc>443c722809628f71e213a519befd7ffc05837460</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+      <author>
+        <name>kevin</name>
+        <versionID>745628f228f7b70dac617808e3ff44d9b011f58f</versionID>
+        <timestamp>null</timestamp>
+        <desc>443c722809628f71e213a519befd7ffc05837460</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+      <author>
+        <name>kevin</name>
+        <versionID>443c722809628f71e213a519befd7ffc05837460</versionID>
+        <timestamp>null</timestamp>
+        <desc>829563c513826ad712cb593fab52ece494425f93</desc>
         <changeType>MODIFY</changeType>
         <check>true</check>
       </author>
     </authors>
   </file>
-  <file model="api" name="src/main/resources/git.properties" path="src/main/resources/git.properties" type="100644">
+  <file fullPath="Ensemble-Prod/modules/ensemble-dbmanage/src/main/java/com/dcits/ensemble/dbmanage/inquiry/MbAcctInquiry.java" model="api" pkgPath="Ensemble-Prod/modules/ensemble-dbmanage/src/main/java/com/dcits/ensemble/dbmanage/inquiry/MbAcctInquiry.java" type="100644">
     <authors>
       <author>
         <name>kevin</name>
-        <version>AbbreviatedObjectId[6a4fbd2f791227a12a98cd5cd18a43e7465d0b53]</version>
+        <versionID>d4f0985af3ac01103fb361b052d9edd7d7c4bd22</versionID>
         <timestamp>null</timestamp>
-        <desc>AbbreviatedObjectId[f2b236e26af47779968f39d8bbf4ccfb1696f1dc]</desc>
-        <changeType>MODIFY</changeType>
-        <check>true</check>
-      </author>
-      <author>
-        <name>kevin</name>
-        <version>AbbreviatedObjectId[f2b236e26af47779968f39d8bbf4ccfb1696f1dc]</version>
-        <timestamp>null</timestamp>
-        <desc>AbbreviatedObjectId[c78c0ba4c4f4bb9f0d1ad0383279b01a6d8a560e]</desc>
-        <changeType>MODIFY</changeType>
-        <check>true</check>
-      </author>
-      <author>
-        <name>kevin</name>
-        <version>AbbreviatedObjectId[c78c0ba4c4f4bb9f0d1ad0383279b01a6d8a560e]</version>
-        <timestamp>null</timestamp>
-        <desc>AbbreviatedObjectId[992784f82993a9f7e5e8fffa00da29f37b53b2b0]</desc>
-        <changeType>MODIFY</changeType>
-        <check>true</check>
-      </author>
-      <author>
-        <name>kevin</name>
-        <version>AbbreviatedObjectId[992784f82993a9f7e5e8fffa00da29f37b53b2b0]</version>
-        <timestamp>null</timestamp>
-        <desc>AbbreviatedObjectId[760aa1b784ef327e5218f82efe0ecdf4d68a912c]</desc>
-        <changeType>MODIFY</changeType>
-        <check>true</check>
-      </author>
-      <author>
-        <name>kevin</name>
-        <version>AbbreviatedObjectId[760aa1b784ef327e5218f82efe0ecdf4d68a912c]</version>
-        <timestamp>null</timestamp>
-        <desc>AbbreviatedObjectId[8210cd707a12ea2f2a54595f51151d9142106acc]</desc>
+        <desc>47345b1f049cca6e8c19c5ab2a1ea229a0f84931</desc>
         <changeType>MODIFY</changeType>
         <check>true</check>
       </author>
     </authors>
   </file>
-  <file model="api" name="test.xml" path="test.xml" type="100644">
+  <file fullPath="Ensemble-Prod/modules/ensemble-common/src/main/java/com/dcits/ensemble/util/DateUtil.java" model="api" pkgPath="Ensemble-Prod/modules/ensemble-common/src/main/java/com/dcits/ensemble/util/DateUtil.java" type="100644">
     <authors>
       <author>
         <name>kevin</name>
-        <version>AbbreviatedObjectId[a2efbb9e03f55de7c53396b5b806bbcab5c9789b]</version>
+        <versionID>05d6bfd7891dec59d94ed9e704680bdd6a84d2b9</versionID>
         <timestamp>null</timestamp>
-        <desc>AbbreviatedObjectId[09768b7f0ac7b012af06c31700f6c79a8acdfd4e]</desc>
-        <changeType>MODIFY</changeType>
-        <check>true</check>
-      </author>
-      <author>
-        <name>kevin</name>
-        <version>AbbreviatedObjectId[09768b7f0ac7b012af06c31700f6c79a8acdfd4e]</version>
-        <timestamp>null</timestamp>
-        <desc>AbbreviatedObjectId[0000000000000000000000000000000000000000]</desc>
-        <changeType>ADD</changeType>
-        <check>true</check>
-      </author>
-    </authors>
-  </file>
-  <file model="api" name="src/main/resources/local.properties" path="src/main/resources/local.properties" type="100644">
-    <authors>
-      <author>
-        <name>kevin</name>
-        <version>AbbreviatedObjectId[db5d409dbc700fb109030d28f2eaee8d33294075]</version>
-        <timestamp>null</timestamp>
-        <desc>AbbreviatedObjectId[e69de29bb2d1d6434b8b29ae775ad8c2e48c5391]</desc>
-        <changeType>MODIFY</changeType>
-        <check>true</check>
-      </author>
-      <author>
-        <name>kevin</name>
-        <version>AbbreviatedObjectId[e69de29bb2d1d6434b8b29ae775ad8c2e48c5391]</version>
-        <timestamp>null</timestamp>
-        <desc>AbbreviatedObjectId[0000000000000000000000000000000000000000]</desc>
-        <changeType>ADD</changeType>
-        <check>true</check>
-      </author>
-    </authors>
-  </file>
-  <file model="api" name="SmartEnsemble.xml" path="/dev/null" type="100644">
-    <authors>
-      <author>
-        <name>kevin</name>
-        <version>AbbreviatedObjectId[9cc3f5ce39cd83a217e312d241873572f1045d6d]</version>
-        <timestamp>null</timestamp>
-        <desc>AbbreviatedObjectId[0000000000000000000000000000000000000000]</desc>
-        <changeType>ADD</changeType>
-        <check>true</check>
-      </author>
-    </authors>
-  </file>
-  <file model="api" name="src/main/java/com/dcits/modelbank/jgit/helper/GitHelper.java" path="src/main/java/com/dcits/modelbank/jgit/helper/GitHelper.java" type="100644">
-    <authors>
-      <author>
-        <name>kevin</name>
-        <version>AbbreviatedObjectId[a3dab3faddb623bce858058f1397b8ad1d975399]</version>
-        <timestamp>null</timestamp>
-        <desc>AbbreviatedObjectId[f3fb1c1d8f6a35eae62ffeb5adcf03c716835a5d]</desc>
+        <desc>650d522bcba1a733a80d00d07dd980f508b01107</desc>
         <changeType>MODIFY</changeType>
         <check>true</check>
       </author>
     </authors>
   </file>
-  <file model="api" name="src/main/resources/my.properties" path="/dev/null" type="100644">
+  <file fullPath="Ensemble/modules/ensemble-oc/online/src/main/java/com/dcits/ensemble/oc/online/service/mbsdcore/Core12000634.java" model="api" pkgPath="Ensemble/modules/ensemble-oc/online/src/main/java/com/dcits/ensemble/oc/online/service/mbsdcore/Core12000634.java" type="100644">
     <authors>
       <author>
         <name>kevin</name>
-        <version>AbbreviatedObjectId[e69de29bb2d1d6434b8b29ae775ad8c2e48c5391]</version>
+        <versionID>751b479ffd2e8695eb532d3d78b34e10ad80c349</versionID>
         <timestamp>null</timestamp>
-        <desc>AbbreviatedObjectId[0000000000000000000000000000000000000000]</desc>
-        <changeType>ADD</changeType>
-        <check>true</check>
-      </author>
-      <author>
-        <name>kevin</name>
-        <version>AbbreviatedObjectId[e69de29bb2d1d6434b8b29ae775ad8c2e48c5391]</version>
-        <timestamp>null</timestamp>
-        <desc>AbbreviatedObjectId[0000000000000000000000000000000000000000]</desc>
-        <changeType>ADD</changeType>
-        <check>true</check>
-      </author>
-    </authors>
-  </file>
-  <file model="api" name="src/main/java/com/dcits/modelbank/xmlUtils/XmlBulider.java" path="src/main/java/com/dcits/modelbank/xmlUtils/XmlBulider.java" type="100644">
-    <authors>
-      <author>
-        <name>kevin</name>
-        <version>AbbreviatedObjectId[3d2b9e5c5fd1c44f280a425fb74f6b688cea2a8c]</version>
-        <timestamp>null</timestamp>
-        <desc>AbbreviatedObjectId[cebcc7a02c782e1f90baa96ae6e53dbb8ef493e3]</desc>
-        <changeType>MODIFY</changeType>
-        <check>true</check>
-      </author>
-      <author>
-        <name>kevin</name>
-        <version>AbbreviatedObjectId[cebcc7a02c782e1f90baa96ae6e53dbb8ef493e3]</version>
-        <timestamp>null</timestamp>
-        <desc>AbbreviatedObjectId[a71fa5f59af866d5c5e697b89daa86ec0032fec9]</desc>
-        <changeType>MODIFY</changeType>
-        <check>true</check>
-      </author>
-      <author>
-        <name>kevin</name>
-        <version>AbbreviatedObjectId[a71fa5f59af866d5c5e697b89daa86ec0032fec9]</version>
-        <timestamp>null</timestamp>
-        <desc>AbbreviatedObjectId[f8c2476ed88e0f700a7f4c03d245b852f4706989]</desc>
-        <changeType>MODIFY</changeType>
-        <check>true</check>
-      </author>
-      <author>
-        <name>kevin</name>
-        <version>AbbreviatedObjectId[f8c2476ed88e0f700a7f4c03d245b852f4706989]</version>
-        <timestamp>null</timestamp>
-        <desc>AbbreviatedObjectId[b40faa70b8aa1098478e790fd70773ff1fc39a55]</desc>
+        <desc>091b305efb02b6cd8b5cf94d5f7311c80507de1c</desc>
         <changeType>MODIFY</changeType>
         <check>true</check>
       </author>
     </authors>
   </file>
-  <file model="api" name="src/main/resources/applicationContext.xml" path="src/main/resources/applicationContext.xml" type="100644">
+  <file fullPath="Ensemble/modules/ensemble-oc/online/src/main/java/com/dcits/ensemble/oc/online/service/mbsdcore/Core12000623.java" model="api" pkgPath="Ensemble/modules/ensemble-oc/online/src/main/java/com/dcits/ensemble/oc/online/service/mbsdcore/Core12000623.java" type="100644">
     <authors>
       <author>
         <name>kevin</name>
-        <version>AbbreviatedObjectId[a85de294a5b470307f9892bfa111cec67e4c3278]</version>
+        <versionID>2954a269188f49b83ed357f2f0703ae29789feda</versionID>
         <timestamp>null</timestamp>
-        <desc>AbbreviatedObjectId[8064fa33991692fe1a76ada44c4f7d5df6bb3493]</desc>
+        <desc>dc05516a0f8b6c0f3ecc0246b8456147dc39e823</desc>
         <changeType>MODIFY</changeType>
         <check>true</check>
       </author>
       <author>
         <name>kevin</name>
-        <version>AbbreviatedObjectId[8064fa33991692fe1a76ada44c4f7d5df6bb3493]</version>
+        <versionID>2954a269188f49b83ed357f2f0703ae29789feda</versionID>
         <timestamp>null</timestamp>
-        <desc>AbbreviatedObjectId[026cc0184874adeac08352464dd2865dd6c7b3b9]</desc>
-        <changeType>MODIFY</changeType>
-        <check>true</check>
-      </author>
-      <author>
-        <name>kevin</name>
-        <version>AbbreviatedObjectId[026cc0184874adeac08352464dd2865dd6c7b3b9]</version>
-        <timestamp>null</timestamp>
-        <desc>AbbreviatedObjectId[e93a6beac3f90046a919bf0f83dfc4beb8b523f4]</desc>
-        <changeType>MODIFY</changeType>
-        <check>true</check>
-      </author>
-      <author>
-        <name>kevin</name>
-        <version>AbbreviatedObjectId[e93a6beac3f90046a919bf0f83dfc4beb8b523f4]</version>
-        <timestamp>null</timestamp>
-        <desc>AbbreviatedObjectId[026cc0184874adeac08352464dd2865dd6c7b3b9]</desc>
-        <changeType>MODIFY</changeType>
-        <check>true</check>
-      </author>
-      <author>
-        <name>kevin</name>
-        <version>AbbreviatedObjectId[026cc0184874adeac08352464dd2865dd6c7b3b9]</version>
-        <timestamp>null</timestamp>
-        <desc>AbbreviatedObjectId[d84787aeba8f50f6115857fca9daca4445476baf]</desc>
-        <changeType>MODIFY</changeType>
-        <check>true</check>
-      </author>
-      <author>
-        <name>kevin</name>
-        <version>AbbreviatedObjectId[d84787aeba8f50f6115857fca9daca4445476baf]</version>
-        <timestamp>null</timestamp>
-        <desc>AbbreviatedObjectId[61a8ad24f4cb116f4d38112fd28a0867ae201c32]</desc>
+        <desc>dc05516a0f8b6c0f3ecc0246b8456147dc39e823</desc>
         <changeType>MODIFY</changeType>
         <check>true</check>
       </author>
     </authors>
   </file>
-  <file model="api" name="src/main/resources/patchList/patch20171109.xml" path="/dev/null" type="100644">
+  <file fullPath="Ensemble/modules/ensemble-rb/online/src/main/config/check/rb-check-define.xml" model="api" pkgPath="Ensemble/modules/ensemble-rb/online/src/main/config/check/rb-check-define.xml" type="100644">
     <authors>
       <author>
         <name>kevin</name>
-        <version>AbbreviatedObjectId[c30c7c2c09265e192dfc973f32be101d442ba75d]</version>
+        <versionID>3517d1eb324c571885400c019822309059e4357b</versionID>
         <timestamp>null</timestamp>
-        <desc>AbbreviatedObjectId[0000000000000000000000000000000000000000]</desc>
-        <changeType>ADD</changeType>
-        <check>true</check>
-      </author>
-    </authors>
-  </file>
-  <file model="api" name="src/main/java/com/dcits/modelbank/jgit/GitHandlerImpl.java" path="src/main/java/com/dcits/modelbank/jgit/GitHandlerImpl.java" type="100644">
-    <authors>
-      <author>
-        <name>kevin</name>
-        <version>AbbreviatedObjectId[de4c8a76e59565b3e52a6ab6c5171c2afb837474]</version>
-        <timestamp>null</timestamp>
-        <desc>AbbreviatedObjectId[a03fe674a229fb4d9e45cda1be8f2d56aa4615e4]</desc>
+        <desc>5da9919ba52bce29e873bc56518faae83c9d6a51</desc>
         <changeType>MODIFY</changeType>
         <check>true</check>
       </author>
       <author>
         <name>kevin</name>
-        <version>AbbreviatedObjectId[a03fe674a229fb4d9e45cda1be8f2d56aa4615e4]</version>
+        <versionID>3517d1eb324c571885400c019822309059e4357b</versionID>
         <timestamp>null</timestamp>
-        <desc>AbbreviatedObjectId[d70a6cd282d65742ec2d422c5635e8ce690cf08b]</desc>
+        <desc>5da9919ba52bce29e873bc56518faae83c9d6a51</desc>
         <changeType>MODIFY</changeType>
         <check>true</check>
       </author>
     </authors>
   </file>
-  <file model="api" name="pom.xml" path="pom.xml" type="100644">
+  <file fullPath="Ensemble/modules/ensemble-service/src/main/java/com/dcits/ensemble/service/flow/reversal/DebtEventReversalFlow.java" model="api" pkgPath="Ensemble/modules/ensemble-service/src/main/java/com/dcits/ensemble/service/flow/reversal/DebtEventReversalFlow.java" type="100644">
     <authors>
       <author>
         <name>kevin</name>
-        <version>AbbreviatedObjectId[0a6b97ecaf288a63c1289f2fe74c72cf76532b49]</version>
+        <versionID>f36f0515ecaa14e2bec3ec3dd376b2f956d68184</versionID>
         <timestamp>null</timestamp>
-        <desc>AbbreviatedObjectId[9947b2ff402ec9cb88d37e93c2052fec7e983bc2]</desc>
+        <desc>80f5853ffe58ce278a500d0b5ccbe2d438bc79a4</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+      <author>
+        <name>kevin</name>
+        <versionID>80f5853ffe58ce278a500d0b5ccbe2d438bc79a4</versionID>
+        <timestamp>null</timestamp>
+        <desc>4189b46aa9eff003320e8d658f358bdb2876b63f</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+      <author>
+        <name>kevin</name>
+        <versionID>80f5853ffe58ce278a500d0b5ccbe2d438bc79a4</versionID>
+        <timestamp>null</timestamp>
+        <desc>4189b46aa9eff003320e8d658f358bdb2876b63f</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+    </authors>
+  </file>
+  <file fullPath="Ensemble/modules/ensemble-oc/online/src/main/java/com/dcits/ensemble/oc/online/service/mbsdcore/Core12000633.java" model="api" pkgPath="Ensemble/modules/ensemble-oc/online/src/main/java/com/dcits/ensemble/oc/online/service/mbsdcore/Core12000633.java" type="100644">
+    <authors>
+      <author>
+        <name>kevin</name>
+        <versionID>5bf22e5a162cadeaef0c5c0e9995a00eb45e4d03</versionID>
+        <timestamp>null</timestamp>
+        <desc>136f698064fadb8300c7c552ef69c7a5cb74cb62</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+    </authors>
+  </file>
+  <file fullPath="Ensemble/modules/ensemble-service/src/main/java/com/dcits/ensemble/service/flow/external/SingleAccountFlowImpl.java" model="api" pkgPath="Ensemble/modules/ensemble-service/src/main/java/com/dcits/ensemble/service/flow/external/SingleAccountFlowImpl.java" type="100644">
+    <authors>
+      <author>
+        <name>kevin</name>
+        <versionID>24980cda9ab1c280b07cdb2efdc23e556fc051e2</versionID>
+        <timestamp>null</timestamp>
+        <desc>4383a90d5290703cf0b1f72b5562d1e733d5163d</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+    </authors>
+  </file>
+  <file fullPath="Ensemble/modules/ensemble-rb/api/src/main/java/com/dcits/ensemble/rb/model/mbsdcore/Core10000111In.java" model="api" pkgPath="Ensemble/modules/ensemble-rb/api/src/main/java/com/dcits/ensemble/rb/model/mbsdcore/Core10000111In.java" type="100644">
+    <authors>
+      <author>
+        <name>kevin</name>
+        <versionID>5f8bc1a8a1b0454e11f0442af47bd2d878131d84</versionID>
+        <timestamp>null</timestamp>
+        <desc>41401579f77353f3c345f59d06e67345c7f6025e</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+      <author>
+        <name>kevin</name>
+        <versionID>5f8bc1a8a1b0454e11f0442af47bd2d878131d84</versionID>
+        <timestamp>null</timestamp>
+        <desc>41401579f77353f3c345f59d06e67345c7f6025e</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+    </authors>
+  </file>
+  <file fullPath="Ensemble-Prod/modules/ensemble-busi/base/src/main/java/com/dcits/ensemble/busi/base/agrt/PreferenceAgrt.java" model="api" pkgPath="Ensemble-Prod/modules/ensemble-busi/base/src/main/java/com/dcits/ensemble/busi/base/agrt/PreferenceAgrt.java" type="100644">
+    <authors>
+      <author>
+        <name>kevin</name>
+        <versionID>021c15574028756de9d5cdd2c711907a64af27df</versionID>
+        <timestamp>null</timestamp>
+        <desc>54b867c5ca256ffc8a5673c5ed718792ac05b48f</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+      <author>
+        <name>kevin</name>
+        <versionID>54b867c5ca256ffc8a5673c5ed718792ac05b48f</versionID>
+        <timestamp>null</timestamp>
+        <desc>e68bd42cb43afbebfd694383d75f620b7f96f661</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+    </authors>
+  </file>
+  <file fullPath="Ensemble-Prod/modules/ensemble-busi/base/src/main/java/com/dcits/ensemble/busi/base/fun/voucher/PrintPassbookEvent.java" model="api" pkgPath="Ensemble-Prod/modules/ensemble-busi/base/src/main/java/com/dcits/ensemble/busi/base/fun/voucher/PrintPassbookEvent.java" type="100644">
+    <authors>
+      <author>
+        <name>kevin</name>
+        <versionID>e5791ec855c2959e5444f086247301a42e70dfff</versionID>
+        <timestamp>null</timestamp>
+        <desc>065b19b713ab408c5a30ea209e715d1521fe056c</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+    </authors>
+  </file>
+  <file fullPath="Ensemble-Prod/modules/ensemble-busi/base/src/main/java/com/dcits/ensemble/busi/base/eventService/bal/rec/RecEventDefaultImpl.java" model="api" pkgPath="Ensemble-Prod/modules/ensemble-busi/base/src/main/java/com/dcits/ensemble/busi/base/eventService/bal/rec/RecEventDefaultImpl.java" type="100644">
+    <authors>
+      <author>
+        <name>kevin</name>
+        <versionID>9b26204bd4d808da8a09d66725ac2753455c4f8d</versionID>
+        <timestamp>null</timestamp>
+        <desc>b24fc01aefc60efe12a2d24ac9a60aabb2f04f52</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+      <author>
+        <name>kevin</name>
+        <versionID>b24fc01aefc60efe12a2d24ac9a60aabb2f04f52</versionID>
+        <timestamp>null</timestamp>
+        <desc>401eafe8887090ee875f0b15e71598224a1d3263</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+    </authors>
+  </file>
+  <file fullPath="Ensemble/modules/ensemble-dc/online/src/main/java/com/dcits/ensemble/dc/online/service/mbsdcore/Core12000501.java" model="api" pkgPath="Ensemble/modules/ensemble-dc/online/src/main/java/com/dcits/ensemble/dc/online/service/mbsdcore/Core12000501.java" type="100644">
+    <authors>
+      <author>
+        <name>kevin</name>
+        <versionID>08c2edf8c19dc462124a45a4907f375401582a3a</versionID>
+        <timestamp>null</timestamp>
+        <desc>137f3eb763657ca8494938db0dcbc0b075d47635</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+      <author>
+        <name>kevin</name>
+        <versionID>08c2edf8c19dc462124a45a4907f375401582a3a</versionID>
+        <timestamp>null</timestamp>
+        <desc>137f3eb763657ca8494938db0dcbc0b075d47635</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+    </authors>
+  </file>
+  <file fullPath="Ensemble/modules/ensemble-dc/online/src/main/java/com/dcits/ensemble/dc/online/service/mbsdcore/Core12000268.java" model="api" pkgPath="Ensemble/modules/ensemble-dc/online/src/main/java/com/dcits/ensemble/dc/online/service/mbsdcore/Core12000268.java" type="100644">
+    <authors>
+      <author>
+        <name>kevin</name>
+        <versionID>d34c14ab49b368513eba37e600f5995b8ef48fa2</versionID>
+        <timestamp>null</timestamp>
+        <desc>850718d206b41f145f60c37905866dee4c0e7c33</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+      <author>
+        <name>kevin</name>
+        <versionID>d34c14ab49b368513eba37e600f5995b8ef48fa2</versionID>
+        <timestamp>null</timestamp>
+        <desc>850718d206b41f145f60c37905866dee4c0e7c33</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+    </authors>
+  </file>
+  <file fullPath="Ensemble-Prod/modules/ensemble-busi/base/src/main/java/com/dcits/ensemble/busi/base/fun/reg/agreement/AgreementRising.java" model="api" pkgPath="Ensemble-Prod/modules/ensemble-busi/base/src/main/java/com/dcits/ensemble/busi/base/fun/reg/agreement/AgreementRising.java" type="100644">
+    <authors>
+      <author>
+        <name>kevin</name>
+        <versionID>385759e451e9c4ef8175dc20d4816b27ba595f29</versionID>
+        <timestamp>null</timestamp>
+        <desc>7aeaadff242f6f441a16ff8000c4ec99286b9b0e</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+    </authors>
+  </file>
+  <file fullPath="Ensemble/modules/ensemble-rb/online/src/main/java/com/dcits/ensemble/rb/online/service/mbsdcore/Core14000007.java" model="api" pkgPath="Ensemble/modules/ensemble-rb/online/src/main/java/com/dcits/ensemble/rb/online/service/mbsdcore/Core14000007.java" type="100644">
+    <authors>
+      <author>
+        <name>kevin</name>
+        <versionID>8fac789bc70509d2389726be696d7d7d6c34d82e</versionID>
+        <timestamp>null</timestamp>
+        <desc>c8bfed999aa94cd8f05c848f89994e998d725883</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+    </authors>
+  </file>
+  <file fullPath="Ensemble/modules/ensemble-oc/online/src/main/java/com/dcits/ensemble/oc/online/service/mbsdcore/Core12000603.java" model="api" pkgPath="Ensemble/modules/ensemble-oc/online/src/main/java/com/dcits/ensemble/oc/online/service/mbsdcore/Core12000603.java" type="100644">
+    <authors>
+      <author>
+        <name>kevin</name>
+        <versionID>b6e8fd03488bf735a9b924e662ae3c0e66870468</versionID>
+        <timestamp>null</timestamp>
+        <desc>de5931c78b0431049741a1747b8777c304f85deb</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+    </authors>
+  </file>
+  <file fullPath="Ensemble/modules/ensemble-eod/src/main/java/com/dcits/ensemble/eod/acct/ProcessRenewal.java" model="api" pkgPath="Ensemble/modules/ensemble-eod/src/main/java/com/dcits/ensemble/eod/acct/ProcessRenewal.java" type="100644">
+    <authors>
+      <author>
+        <name>kevin</name>
+        <versionID>8124d5ed839410caf0d0f780b2209dcae5e1323f</versionID>
+        <timestamp>null</timestamp>
+        <desc>105fd1dec51b5a068e2fff1e7097387f48e52ac0</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+      <author>
+        <name>kevin</name>
+        <versionID>8124d5ed839410caf0d0f780b2209dcae5e1323f</versionID>
+        <timestamp>null</timestamp>
+        <desc>105fd1dec51b5a068e2fff1e7097387f48e52ac0</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+      <author>
+        <name>kevin</name>
+        <versionID>8124d5ed839410caf0d0f780b2209dcae5e1323f</versionID>
+        <timestamp>null</timestamp>
+        <desc>105fd1dec51b5a068e2fff1e7097387f48e52ac0</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+    </authors>
+  </file>
+  <file fullPath="Ensemble-Prod/modules/ensemble-dbmanage/src/main/resources/META-INF/mapper/MbAcct.xml" model="api" pkgPath="Ensemble-Prod/modules/ensemble-dbmanage/src/main/resources/META-INF/mapper/MbAcct.xml" type="100644">
+    <authors>
+      <author>
+        <name>kevin</name>
+        <versionID>f9335d8edfad04655dc2d307cf76434a6852565b</versionID>
+        <timestamp>null</timestamp>
+        <desc>71b1200be484d8d7e61dcaf882816ed8207d6d85</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+      <author>
+        <name>kevin</name>
+        <versionID>f9335d8edfad04655dc2d307cf76434a6852565b</versionID>
+        <timestamp>null</timestamp>
+        <desc>71b1200be484d8d7e61dcaf882816ed8207d6d85</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+      <author>
+        <name>kevin</name>
+        <versionID>027a2846c2df40f197e24f73e0223a6b80b82df0</versionID>
+        <timestamp>null</timestamp>
+        <desc>1c0e675f3617cbbf433c8d92fe8903bff2ff2e60</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+    </authors>
+  </file>
+  <file fullPath="Ensemble/modules/ensemble-rb/online/src/main/java/com/dcits/ensemble/rb/online/service/mbsdcore/Core14000010.java" model="api" pkgPath="Ensemble/modules/ensemble-rb/online/src/main/java/com/dcits/ensemble/rb/online/service/mbsdcore/Core14000010.java" type="100644">
+    <authors>
+      <author>
+        <name>kevin</name>
+        <versionID>aa07937ca73c4811a517ba03488620276d386b81</versionID>
+        <timestamp>null</timestamp>
+        <desc>6ca3d2cb7d98a7921fade5b6ea8e6a85808aea24</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+    </authors>
+  </file>
+  <file fullPath="Ensemble/modules/ensemble-dc/online/src/main/java/com/dcits/ensemble/dc/online/service/mbsdcore/Core12000218.java" model="api" pkgPath="Ensemble/modules/ensemble-dc/online/src/main/java/com/dcits/ensemble/dc/online/service/mbsdcore/Core12000218.java" type="100644">
+    <authors>
+      <author>
+        <name>kevin</name>
+        <versionID>60dff6bb247dc4658ba14c6f03fb8013da923733</versionID>
+        <timestamp>null</timestamp>
+        <desc>7dc6cf43ef27660e899ada985dcb55ecc7f1b1a8</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+      <author>
+        <name>kevin</name>
+        <versionID>60dff6bb247dc4658ba14c6f03fb8013da923733</versionID>
+        <timestamp>null</timestamp>
+        <desc>7dc6cf43ef27660e899ada985dcb55ecc7f1b1a8</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+    </authors>
+  </file>
+  <file fullPath="Ensemble/modules/ensemble-dc/core/src/main/resources/META-INF/mapper/DcPrecontract.xml" model="api" pkgPath="Ensemble/modules/ensemble-dc/core/src/main/resources/META-INF/mapper/DcPrecontract.xml" type="100644">
+    <authors>
+      <author>
+        <name>kevin</name>
+        <versionID>5c217c37e614d80630ac9b7d40140fe7ed8e8f6b</versionID>
+        <timestamp>null</timestamp>
+        <desc>0cefea8d508fb2f02890d5ccfe172a483f066f6d</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+      <author>
+        <name>kevin</name>
+        <versionID>5c217c37e614d80630ac9b7d40140fe7ed8e8f6b</versionID>
+        <timestamp>null</timestamp>
+        <desc>0cefea8d508fb2f02890d5ccfe172a483f066f6d</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+    </authors>
+  </file>
+  <file fullPath="Ensemble/modules/ensemble-service/src/main/java/com/dcits/ensemble/service/flow/drw/DrwFlowDefaultImpl.java" model="api" pkgPath="Ensemble/modules/ensemble-service/src/main/java/com/dcits/ensemble/service/flow/drw/DrwFlowDefaultImpl.java" type="100644">
+    <authors>
+      <author>
+        <name>kevin</name>
+        <versionID>7df38c02bd2652506f697725e266729503bf9aa1</versionID>
+        <timestamp>null</timestamp>
+        <desc>60f304ce726c5d3b37d74dcb1614b86a5e3058ac</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+    </authors>
+  </file>
+  <file fullPath="Ensemble/modules/ensemble-service/src/main/java/com/dcits/ensemble/service/batch/MbBatchOpenFun.java" model="api" pkgPath="Ensemble/modules/ensemble-service/src/main/java/com/dcits/ensemble/service/batch/MbBatchOpenFun.java" type="100644">
+    <authors>
+      <author>
+        <name>kevin</name>
+        <versionID>b400993c17ec9ab5799a235be5f42443d186b453</versionID>
+        <timestamp>null</timestamp>
+        <desc>4ba083f500b84611bd0aca8f1b6fe10f40d84d64</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+    </authors>
+  </file>
+  <file fullPath="Ensemble-Prod/modules/ensemble-cif-core/src/main/java/com/dcits/ensemble/cif/core/inquiry/CifClientDocumentInquiry.java" model="api" pkgPath="Ensemble-Prod/modules/ensemble-cif-core/src/main/java/com/dcits/ensemble/cif/core/inquiry/CifClientDocumentInquiry.java" type="100644">
+    <authors>
+      <author>
+        <name>kevin</name>
+        <versionID>5ffaa802649a92338b18b7f3580410fd8b324b0e</versionID>
+        <timestamp>null</timestamp>
+        <desc>a681251cafc59135a6bce1204bb4b7f526512487</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+    </authors>
+  </file>
+  <file fullPath="Ensemble-Prod/modules/ensemble-common/src/main/resources/error/RB_error_zh_CN.properties" model="api" pkgPath="Ensemble-Prod/modules/ensemble-common/src/main/resources/error/RB_error_zh_CN.properties" type="100644">
+    <authors>
+      <author>
+        <name>kevin</name>
+        <versionID>d6e87879ab1ec0c75b0a56a75802a164ece64329</versionID>
+        <timestamp>null</timestamp>
+        <desc>2dd546c7e854fb7331164269511924899428f1b0</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+      <author>
+        <name>kevin</name>
+        <versionID>d6e87879ab1ec0c75b0a56a75802a164ece64329</versionID>
+        <timestamp>null</timestamp>
+        <desc>2dd546c7e854fb7331164269511924899428f1b0</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+    </authors>
+  </file>
+  <file fullPath="Ensemble/modules/ensemble-dc/online/src/main/java/com/dcits/ensemble/dc/online/service/mbsdcore/Core12000216.java" model="api" pkgPath="Ensemble/modules/ensemble-dc/online/src/main/java/com/dcits/ensemble/dc/online/service/mbsdcore/Core12000216.java" type="100644">
+    <authors>
+      <author>
+        <name>kevin</name>
+        <versionID>bf6871afdf45f48c991dc48746a31b714396aea7</versionID>
+        <timestamp>null</timestamp>
+        <desc>57ca466497ff456cd9705c8cd8d703e5e2a136fb</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+      <author>
+        <name>kevin</name>
+        <versionID>bf6871afdf45f48c991dc48746a31b714396aea7</versionID>
+        <timestamp>null</timestamp>
+        <desc>57ca466497ff456cd9705c8cd8d703e5e2a136fb</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+    </authors>
+  </file>
+  <file fullPath="Ensemble-Prod/modules/ensemble-model/src/main/java/com/dcits/ensemble/model/agreement/MbImpoundInfoModel.java" model="api" pkgPath="Ensemble-Prod/modules/ensemble-model/src/main/java/com/dcits/ensemble/model/agreement/MbImpoundInfoModel.java" type="100644">
+    <authors>
+      <author>
+        <name>kevin</name>
+        <versionID>74db0d01f250729e85bc0f48b591e67e9bc01729</versionID>
+        <timestamp>null</timestamp>
+        <desc>c92cb5f2a23c36cd1f8376f4d5ce32df2842f0a1</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+      <author>
+        <name>kevin</name>
+        <versionID>74db0d01f250729e85bc0f48b591e67e9bc01729</versionID>
+        <timestamp>null</timestamp>
+        <desc>c92cb5f2a23c36cd1f8376f4d5ce32df2842f0a1</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+    </authors>
+  </file>
+  <file fullPath="Ensemble-Prod/modules/ensemble-busi/base/src/main/java/com/dcits/ensemble/busi/base/component/reversal/CorrectionTran.java" model="api" pkgPath="Ensemble-Prod/modules/ensemble-busi/base/src/main/java/com/dcits/ensemble/busi/base/component/reversal/CorrectionTran.java" type="100644">
+    <authors>
+      <author>
+        <name>kevin</name>
+        <versionID>5d9460d3305e77a03a912eb49ca5864fae65f16e</versionID>
+        <timestamp>null</timestamp>
+        <desc>31b1ffd98041f07d963758c16007b046cf460cab</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+      <author>
+        <name>kevin</name>
+        <versionID>5d9460d3305e77a03a912eb49ca5864fae65f16e</versionID>
+        <timestamp>null</timestamp>
+        <desc>31b1ffd98041f07d963758c16007b046cf460cab</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+    </authors>
+  </file>
+  <file fullPath="Ensemble-Prod/modules/ensemble-prod-integration/all-integration/src/test/java/com/ensemble/testforprod/BalTestNG.java" model="api" pkgPath="Ensemble-Prod/modules/ensemble-prod-integration/all-integration/src/test/java/com/ensemble/testforprod/BalTestNG.java" type="100644">
+    <authors>
+      <author>
+        <name>kevin</name>
+        <versionID>b8a8ee2c8f9ceebd485bd9a3480072adda12df45</versionID>
+        <timestamp>null</timestamp>
+        <desc>b4b3b0e0f4d25f04f21d910fec7df9f39d067c51</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+      <author>
+        <name>kevin</name>
+        <versionID>b8a8ee2c8f9ceebd485bd9a3480072adda12df45</versionID>
+        <timestamp>null</timestamp>
+        <desc>b4b3b0e0f4d25f04f21d910fec7df9f39d067c51</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+    </authors>
+  </file>
+  <file fullPath="Ensemble/modules/ensemble-service/src/main/java/com/dcits/ensemble/service/flow/impound/ImpoundFlowDefaultImpl.java" model="api" pkgPath="Ensemble/modules/ensemble-service/src/main/java/com/dcits/ensemble/service/flow/impound/ImpoundFlowDefaultImpl.java" type="100644">
+    <authors>
+      <author>
+        <name>kevin</name>
+        <versionID>b3dc52a1071eb33325f7a43816ab57084f064df6</versionID>
+        <timestamp>null</timestamp>
+        <desc>3ea422724c0b3f716871e7658895caf1e71f96ee</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+      <author>
+        <name>kevin</name>
+        <versionID>b3dc52a1071eb33325f7a43816ab57084f064df6</versionID>
+        <timestamp>null</timestamp>
+        <desc>3ea422724c0b3f716871e7658895caf1e71f96ee</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+    </authors>
+  </file>
+  <file fullPath="Ensemble-Prod/modules/ensemble-common/src/main/resources/error/DC_error_zh_CN.properties" model="api" pkgPath="Ensemble-Prod/modules/ensemble-common/src/main/resources/error/DC_error_zh_CN.properties" type="100644">
+    <authors>
+      <author>
+        <name>kevin</name>
+        <versionID>771e75750a987978d6350f16246ff139ebfb711c</versionID>
+        <timestamp>null</timestamp>
+        <desc>8142a57265e7cf7ea8b6bac0dfbd19c59cf9d25c</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+      <author>
+        <name>kevin</name>
+        <versionID>771e75750a987978d6350f16246ff139ebfb711c</versionID>
+        <timestamp>null</timestamp>
+        <desc>8142a57265e7cf7ea8b6bac0dfbd19c59cf9d25c</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+    </authors>
+  </file>
+  <file fullPath="Ensemble/modules/ensemble-oc/online/src/main/java/com/dcits/ensemble/oc/online/service/mbsdcore/Core12000622.java" model="api" pkgPath="Ensemble/modules/ensemble-oc/online/src/main/java/com/dcits/ensemble/oc/online/service/mbsdcore/Core12000622.java" type="100644">
+    <authors>
+      <author>
+        <name>kevin</name>
+        <versionID>e360faf318ffddabd15eafc35f3c145780d3c0bb</versionID>
+        <timestamp>null</timestamp>
+        <desc>b0def5dcdd28cf52d85b72092d81d642706e5419</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+      <author>
+        <name>kevin</name>
+        <versionID>e360faf318ffddabd15eafc35f3c145780d3c0bb</versionID>
+        <timestamp>null</timestamp>
+        <desc>b0def5dcdd28cf52d85b72092d81d642706e5419</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+    </authors>
+  </file>
+  <file fullPath="Ensemble/modules/ensemble-service/src/main/java/com/dcits/ensemble/service/tran/AcctOpenQfx.java" model="api" pkgPath="Ensemble/modules/ensemble-service/src/main/java/com/dcits/ensemble/service/tran/AcctOpenQfx.java" type="100644">
+    <authors>
+      <author>
+        <name>kevin</name>
+        <versionID>93b483172aa37beff2b41fd1aaa1ebed9d927ff8</versionID>
+        <timestamp>null</timestamp>
+        <desc>7728e8b6509caa31b14a75af66f85293d50b43d2</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+      <author>
+        <name>kevin</name>
+        <versionID>93b483172aa37beff2b41fd1aaa1ebed9d927ff8</versionID>
+        <timestamp>null</timestamp>
+        <desc>7728e8b6509caa31b14a75af66f85293d50b43d2</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+    </authors>
+  </file>
+  <file fullPath="Ensemble/modules/ensemble-oc/online/src/main/java/com/dcits/ensemble/oc/online/service/mbsdcore/Core12000611.java" model="api" pkgPath="Ensemble/modules/ensemble-oc/online/src/main/java/com/dcits/ensemble/oc/online/service/mbsdcore/Core12000611.java" type="100644">
+    <authors>
+      <author>
+        <name>kevin</name>
+        <versionID>989729fadc0a99541e0c5789599ceebb9b64efc6</versionID>
+        <timestamp>null</timestamp>
+        <desc>b002c4f40108e58c4abaeb0c9de3aa392910da56</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+      <author>
+        <name>kevin</name>
+        <versionID>989729fadc0a99541e0c5789599ceebb9b64efc6</versionID>
+        <timestamp>null</timestamp>
+        <desc>b002c4f40108e58c4abaeb0c9de3aa392910da56</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+      <author>
+        <name>kevin</name>
+        <versionID>989729fadc0a99541e0c5789599ceebb9b64efc6</versionID>
+        <timestamp>null</timestamp>
+        <desc>b002c4f40108e58c4abaeb0c9de3aa392910da56</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+    </authors>
+  </file>
+  <file fullPath="Ensemble/modules/ensemble-rb/online/src/main/java/com/dcits/ensemble/rb/online/service/mbsdcore/Core12000109.java" model="api" pkgPath="Ensemble/modules/ensemble-rb/online/src/main/java/com/dcits/ensemble/rb/online/service/mbsdcore/Core12000109.java" type="100644">
+    <authors>
+      <author>
+        <name>kevin</name>
+        <versionID>43c7df961344b8ac43bac1fcb79be92d6e4aaf75</versionID>
+        <timestamp>null</timestamp>
+        <desc>588937a0adbe72dfdc6a91f24eb56295c4b95752</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+    </authors>
+  </file>
+  <file fullPath="Ensemble-Prod/modules/ensemble-busi/base/src/main/java/com/dcits/ensemble/busi/base/atomic/BalChangeAtomic.java" model="api" pkgPath="Ensemble-Prod/modules/ensemble-busi/base/src/main/java/com/dcits/ensemble/busi/base/atomic/BalChangeAtomic.java" type="100644">
+    <authors>
+      <author>
+        <name>kevin</name>
+        <versionID>76079e0e63abc94349a65057880c66b84469b84c</versionID>
+        <timestamp>null</timestamp>
+        <desc>f7350d551abb60ce86a5b8ddbcbc2879b4d64ca3</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+      <author>
+        <name>kevin</name>
+        <versionID>f7350d551abb60ce86a5b8ddbcbc2879b4d64ca3</versionID>
+        <timestamp>null</timestamp>
+        <desc>de2a52a3cfd1e22a063520998baec3fd7c92e71b</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+    </authors>
+  </file>
+  <file fullPath="Ensemble/modules/ensemble-eod/src/main/java/com/dcits/ensemble/eod/acct/DcAcctOpen.java" model="api" pkgPath="Ensemble/modules/ensemble-eod/src/main/java/com/dcits/ensemble/eod/acct/DcAcctOpen.java" type="100644">
+    <authors>
+      <author>
+        <name>kevin</name>
+        <versionID>106dc59b95caaf6bfe22225fcdce691b3319355b</versionID>
+        <timestamp>null</timestamp>
+        <desc>619b1b79721dee73f44029e12089742c28db732c</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+      <author>
+        <name>kevin</name>
+        <versionID>106dc59b95caaf6bfe22225fcdce691b3319355b</versionID>
+        <timestamp>null</timestamp>
+        <desc>619b1b79721dee73f44029e12089742c28db732c</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+      <author>
+        <name>kevin</name>
+        <versionID>619b1b79721dee73f44029e12089742c28db732c</versionID>
+        <timestamp>null</timestamp>
+        <desc>f26ee0a3b8bf79430695352681e07787e019460f</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+    </authors>
+  </file>
+  <file fullPath="Ensemble-Prod/modules/ensemble-dbmanage/src/main/resources/META-INF/mapper/MbTranHist.xml" model="api" pkgPath="Ensemble-Prod/modules/ensemble-dbmanage/src/main/resources/META-INF/mapper/MbTranHist.xml" type="100644">
+    <authors>
+      <author>
+        <name>kevin</name>
+        <versionID>4b6c7f795c8ba98bdc54cf3bbd2ad6eba430d157</versionID>
+        <timestamp>null</timestamp>
+        <desc>a07b1f54cbddd2e35a9419fab209c5451993692c</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+      <author>
+        <name>kevin</name>
+        <versionID>a07b1f54cbddd2e35a9419fab209c5451993692c</versionID>
+        <timestamp>null</timestamp>
+        <desc>678cce2204cd7b492b42a8db4ea8d30380b278d3</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+      <author>
+        <name>kevin</name>
+        <versionID>678cce2204cd7b492b42a8db4ea8d30380b278d3</versionID>
+        <timestamp>null</timestamp>
+        <desc>826efafea78d11effda7116e940b605cbd668197</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+    </authors>
+  </file>
+  <file fullPath="Ensemble/modules/ensemble-cif/online/src/main/java/com/dcits/ensemble/cif/online/service/mbsdcore/Core14009102.java" model="api" pkgPath="Ensemble/modules/ensemble-cif/online/src/main/java/com/dcits/ensemble/cif/online/service/mbsdcore/Core14009102.java" type="100644">
+    <authors>
+      <author>
+        <name>kevin</name>
+        <versionID>19f729a68be88490946190e586459ae2ce1f5151</versionID>
+        <timestamp>null</timestamp>
+        <desc>f5e36b08e16e6015a19b6aecbf3c60d8b4a99da0</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+    </authors>
+  </file>
+  <file fullPath="Ensemble/modules/ensemble-rb/online/src/main/java/com/dcits/ensemble/rb/online/service/mbsdcore/Core12000103.java" model="api" pkgPath="Ensemble/modules/ensemble-rb/online/src/main/java/com/dcits/ensemble/rb/online/service/mbsdcore/Core12000103.java" type="100644">
+    <authors>
+      <author>
+        <name>kevin</name>
+        <versionID>2651e86b5516314da4b7c8dbda82cff7c95b6d6b</versionID>
+        <timestamp>null</timestamp>
+        <desc>723bea3fa709e04b6b92b060f35a1a1559ec0c65</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+    </authors>
+  </file>
+  <file fullPath="Ensemble-Prod/modules/ensemble-busi/base/src/main/java/com/dcits/ensemble/busi/base/common/EventCommonCheck.java" model="api" pkgPath="Ensemble-Prod/modules/ensemble-busi/base/src/main/java/com/dcits/ensemble/busi/base/common/EventCommonCheck.java" type="100644">
+    <authors>
+      <author>
+        <name>kevin</name>
+        <versionID>f16d90707c57f8651e2a1785b5fc052581d06246</versionID>
+        <timestamp>null</timestamp>
+        <desc>51a124ce52a3808f2b76dc0872211b5050735c91</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+      <author>
+        <name>kevin</name>
+        <versionID>f16d90707c57f8651e2a1785b5fc052581d06246</versionID>
+        <timestamp>null</timestamp>
+        <desc>51a124ce52a3808f2b76dc0872211b5050735c91</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+    </authors>
+  </file>
+  <file fullPath="Ensemble/modules/ensemble-service/src/main/java/com/dcits/ensemble/service/micro/dos/AcctHangMicro.java" model="api" pkgPath="Ensemble/modules/ensemble-service/src/main/java/com/dcits/ensemble/service/micro/dos/AcctHangMicro.java" type="100644">
+    <authors>
+      <author>
+        <name>kevin</name>
+        <versionID>81b734dfa5855e2ec963cb2d8bec00165b72ced3</versionID>
+        <timestamp>null</timestamp>
+        <desc>3052455d9486fb25db3afc9e368e173e8e29c871</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+      <author>
+        <name>kevin</name>
+        <versionID>3052455d9486fb25db3afc9e368e173e8e29c871</versionID>
+        <timestamp>null</timestamp>
+        <desc>3bed71d367dfeb86f338f908e22d3fd1ace4107f</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+      <author>
+        <name>kevin</name>
+        <versionID>3bed71d367dfeb86f338f908e22d3fd1ace4107f</versionID>
+        <timestamp>null</timestamp>
+        <desc>7b3179232569fd0a0d60ea09dd51b71501aaedff</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+      <author>
+        <name>kevin</name>
+        <versionID>3bed71d367dfeb86f338f908e22d3fd1ace4107f</versionID>
+        <timestamp>null</timestamp>
+        <desc>7b3179232569fd0a0d60ea09dd51b71501aaedff</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+    </authors>
+  </file>
+  <file fullPath="Ensemble/modules/ensemble-rb/online/src/main/config/mapping/rb-mapping.xml" model="api" pkgPath="Ensemble/modules/ensemble-rb/online/src/main/config/mapping/rb-mapping.xml" type="100644">
+    <authors>
+      <author>
+        <name>kevin</name>
+        <versionID>1e1678acb1d174a4c868e478f2c6bfb6b12bbd6b</versionID>
+        <timestamp>null</timestamp>
+        <desc>6254111ffcf857e4beae8d4f9a5cf4e129a2cb41</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+      <author>
+        <name>kevin</name>
+        <versionID>1e1678acb1d174a4c868e478f2c6bfb6b12bbd6b</versionID>
+        <timestamp>null</timestamp>
+        <desc>6254111ffcf857e4beae8d4f9a5cf4e129a2cb41</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+    </authors>
+  </file>
+  <file fullPath="Ensemble/modules/ensemble-eod/src/main/java/com/dcits/ensemble/eod/schedule/RcEodProcess.java" model="api" pkgPath="Ensemble/modules/ensemble-eod/src/main/java/com/dcits/ensemble/eod/schedule/RcEodProcess.java" type="100644">
+    <authors>
+      <author>
+        <name>kevin</name>
+        <versionID>73decf07d9bdf60556a07725aaec84852d4ca4ad</versionID>
+        <timestamp>null</timestamp>
+        <desc>5306889ec92e111069997c987d820fea88baec23</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+    </authors>
+  </file>
+  <file fullPath="Ensemble/modules/ensemble-service/src/main/java/com/dcits/ensemble/service/check/data/DefaultGetCheckData.java" model="api" pkgPath="Ensemble/modules/ensemble-service/src/main/java/com/dcits/ensemble/service/check/data/DefaultGetCheckData.java" type="100644">
+    <authors>
+      <author>
+        <name>kevin</name>
+        <versionID>85869797eb848b74cf557389a8db1b46ea28be4d</versionID>
+        <timestamp>null</timestamp>
+        <desc>886066b9080c811b5dbe1efc1f53f8845bc899f8</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+    </authors>
+  </file>
+  <file fullPath="Ensemble-Prod/modules/ensemble-dbmanage/src/main/java/com/dcits/ensemble/dbmanage/dao/MbTranHistDao.java" model="api" pkgPath="Ensemble-Prod/modules/ensemble-dbmanage/src/main/java/com/dcits/ensemble/dbmanage/dao/MbTranHistDao.java" type="100644">
+    <authors>
+      <author>
+        <name>kevin</name>
+        <versionID>89ba4b21c5c662853c6ff14b1b1669cdc5f3e6d6</versionID>
+        <timestamp>null</timestamp>
+        <desc>f8207f8b40518f0f53bbf113a19d365fcd5e77ee</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+      <author>
+        <name>kevin</name>
+        <versionID>f8207f8b40518f0f53bbf113a19d365fcd5e77ee</versionID>
+        <timestamp>null</timestamp>
+        <desc>540e78910cdbae536b022244d35267d0d922422c</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+    </authors>
+  </file>
+  <file fullPath="Ensemble/modules/ensemble-oc/online/src/main/java/com/dcits/ensemble/oc/online/service/mbsdcore/Core12000600.java" model="api" pkgPath="Ensemble/modules/ensemble-oc/online/src/main/java/com/dcits/ensemble/oc/online/service/mbsdcore/Core12000600.java" type="100644">
+    <authors>
+      <author>
+        <name>kevin</name>
+        <versionID>aa1cf38a012541e5d1b7d83a920f26ec5df299d9</versionID>
+        <timestamp>null</timestamp>
+        <desc>20a73f6dc42cf56c1354003f0de8c3f623852cb0</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+    </authors>
+  </file>
+  <file fullPath="Ensemble/modules/ensemble-oc/online/src/main/java/com/dcits/ensemble/oc/online/service/mbsdcore/Core12000601.java" model="api" pkgPath="Ensemble/modules/ensemble-oc/online/src/main/java/com/dcits/ensemble/oc/online/service/mbsdcore/Core12000601.java" type="100644">
+    <authors>
+      <author>
+        <name>kevin</name>
+        <versionID>8824e4c1b03051057868c2cc8eba699ba9789188</versionID>
+        <timestamp>null</timestamp>
+        <desc>aaa614b0cf6fc9e402191e378630f260e3f3246b</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+      <author>
+        <name>kevin</name>
+        <versionID>8824e4c1b03051057868c2cc8eba699ba9789188</versionID>
+        <timestamp>null</timestamp>
+        <desc>aaa614b0cf6fc9e402191e378630f260e3f3246b</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+      <author>
+        <name>kevin</name>
+        <versionID>8824e4c1b03051057868c2cc8eba699ba9789188</versionID>
+        <timestamp>null</timestamp>
+        <desc>aaa614b0cf6fc9e402191e378630f260e3f3246b</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+      <author>
+        <name>kevin</name>
+        <versionID>aaa614b0cf6fc9e402191e378630f260e3f3246b</versionID>
+        <timestamp>null</timestamp>
+        <desc>b142616c37886ef20b9feab66ede507b11c0d77c</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+      <author>
+        <name>kevin</name>
+        <versionID>b142616c37886ef20b9feab66ede507b11c0d77c</versionID>
+        <timestamp>null</timestamp>
+        <desc>fc3f4a850cd219bb7575fad87f4ae31aa788882a</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+      <author>
+        <name>kevin</name>
+        <versionID>fc3f4a850cd219bb7575fad87f4ae31aa788882a</versionID>
+        <timestamp>null</timestamp>
+        <desc>5f059e9111938afd4772fb9acce04608813fb484</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+      <author>
+        <name>kevin</name>
+        <versionID>fc3f4a850cd219bb7575fad87f4ae31aa788882a</versionID>
+        <timestamp>null</timestamp>
+        <desc>5f059e9111938afd4772fb9acce04608813fb484</desc>
         <changeType>MODIFY</changeType>
         <check>true</check>
       </author>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <files>
-  <file model="api" name="Ensemble/modules/ensemble-external-fx/online/src/main/java/com/dcits/ensemble/externalfx/online/service/mbsdcore/Core1400019501.java" path="Ensemble/modules/ensemble-external-fx/online/src/main/java/com/dcits/ensemble/externalfx/online/service/mbsdcore/Core1400019501.java" type="100644">
+  <file model="api" name="Ensemble/modules/ensemble-external-fx/online/src/main/java/com/dcits/ensemble/externalfx/online/service/mbsdcore/Core1400019501.java" filePath="Ensemble/modules/ensemble-external-fx/online/src/main/java/com/dcits/ensemble/externalfx/online/service/mbsdcore/Core1400019501.java" type="100644">
     <authors>
       <author>
         <changeType>MODIFY</changeType>
@@ -11,7 +11,7 @@
       </author>
     </authors>
   </file>
-  <file model="api" name="Ensemble-Prod/modules/ensemble-busi/base/src/main/java/com/dcits/ensemble/busi/base/agrt/PreferenceAgrt.java" path="Ensemble-Prod/modules/ensemble-busi/base/src/main/java/com/dcits/ensemble/busi/base/agrt/PreferenceAgrt.java" type="100644">
+  <file model="api" name="Ensemble-Prod/modules/ensemble-busi/base/src/main/java/com/dcits/ensemble/busi/base/agrt/PreferenceAgrt.java" filePath="Ensemble-Prod/modules/ensemble-busi/base/src/main/java/com/dcits/ensemble/busi/base/agrt/PreferenceAgrt.java" type="100644">
     <authors>
       <author>
         <changeType>MODIFY</changeType>
@@ -29,7 +29,7 @@
       </author>
     </authors>
   </file>
-  <file model="api" name="Ensemble-Prod/modules/ensemble-dbmanage/src/main/resources/META-INF/mapper/MbTranHist.xml" path="Ensemble-Prod/modules/ensemble-dbmanage/src/main/resources/META-INF/mapper/MbTranHist.xml" type="100644">
+  <file model="api" name="Ensemble-Prod/modules/ensemble-dbmanage/src/main/resources/META-INF/mapper/MbTranHist.xml" filePath="Ensemble-Prod/modules/ensemble-dbmanage/src/main/resources/META-INF/mapper/MbTranHist.xml" type="100644">
     <authors>
       <author>
         <changeType>MODIFY</changeType>
@@ -40,7 +40,7 @@
       </author>
     </authors>
   </file>
-  <file model="api" name="Ensemble-Prod/modules/ensemble-busi/base/src/main/java/com/dcits/ensemble/busi/base/fun/voucher/PrintPassbookEvent.java" path="Ensemble-Prod/modules/ensemble-busi/base/src/main/java/com/dcits/ensemble/busi/base/fun/voucher/PrintPassbookEvent.java" type="100644">
+  <file model="api" name="Ensemble-Prod/modules/ensemble-busi/base/src/main/java/com/dcits/ensemble/busi/base/fun/voucher/PrintPassbookEvent.java" filePath="Ensemble-Prod/modules/ensemble-busi/base/src/main/java/com/dcits/ensemble/busi/base/fun/voucher/PrintPassbookEvent.java" type="100644">
     <authors>
       <author>
         <changeType>MODIFY</changeType>
@@ -51,7 +51,7 @@
       </author>
     </authors>
   </file>
-  <file model="api" name="Ensemble/modules/ensemble-service/src/main/java/com/dcits/ensemble/service/tran/AcctOpenQfx.java" path="Ensemble/modules/ensemble-service/src/main/java/com/dcits/ensemble/service/tran/AcctOpenQfx.java" type="100644">
+  <file model="api" name="Ensemble/modules/ensemble-service/src/main/java/com/dcits/ensemble/service/tran/AcctOpenQfx.java" filePath="Ensemble/modules/ensemble-service/src/main/java/com/dcits/ensemble/service/tran/AcctOpenQfx.java" type="100644">
     <authors>
       <author>
         <changeType>MODIFY</changeType>
@@ -69,7 +69,7 @@
       </author>
     </authors>
   </file>
-  <file model="api" name="Ensemble/modules/ensemble-service/src/main/java/com/dcits/ensemble/service/flow/drw/DrwFlowDefaultImpl.java" path="Ensemble/modules/ensemble-service/src/main/java/com/dcits/ensemble/service/flow/drw/DrwFlowDefaultImpl.java" type="100644">
+  <file model="api" name="Ensemble/modules/ensemble-service/src/main/java/com/dcits/ensemble/service/flow/drw/DrwFlowDefaultImpl.java" filePath="Ensemble/modules/ensemble-service/src/main/java/com/dcits/ensemble/service/flow/drw/DrwFlowDefaultImpl.java" type="100644">
     <authors>
       <author>
         <changeType>MODIFY</changeType>
@@ -80,7 +80,7 @@
       </author>
     </authors>
   </file>
-  <file model="api" name="Ensemble/modules/ensemble-service/src/main/java/com/dcits/ensemble/service/check/data/DefaultGetCheckData.java" path="Ensemble/modules/ensemble-service/src/main/java/com/dcits/ensemble/service/check/data/DefaultGetCheckData.java" type="100644">
+  <file model="api" name="Ensemble/modules/ensemble-service/src/main/java/com/dcits/ensemble/service/check/data/DefaultGetCheckData.java" filePath="Ensemble/modules/ensemble-service/src/main/java/com/dcits/ensemble/service/check/data/DefaultGetCheckData.java" type="100644">
     <authors>
       <author>
         <changeType>MODIFY</changeType>
@@ -91,7 +91,7 @@
       </author>
     </authors>
   </file>
-  <file model="api" name="Ensemble-Prod/modules/ensemble-dbmanage/src/main/java/com/dcits/ensemble/dbmanage/dao/MbTranHistDao.java" path="Ensemble-Prod/modules/ensemble-dbmanage/src/main/java/com/dcits/ensemble/dbmanage/dao/MbTranHistDao.java" type="100644">
+  <file model="api" name="Ensemble-Prod/modules/ensemble-dbmanage/src/main/java/com/dcits/ensemble/dbmanage/dao/MbTranHistDao.java" filePath="Ensemble-Prod/modules/ensemble-dbmanage/src/main/java/com/dcits/ensemble/dbmanage/dao/MbTranHistDao.java" type="100644">
     <authors>
       <author>
         <changeType>MODIFY</changeType>
@@ -102,7 +102,7 @@
       </author>
     </authors>
   </file>
-  <file model="api" name="Ensemble/modules/ensemble-dc/online/src/main/java/com/dcits/ensemble/dc/online/service/mbsdcore/Core12000501.java" path="Ensemble/modules/ensemble-dc/online/src/main/java/com/dcits/ensemble/dc/online/service/mbsdcore/Core12000501.java" type="100644">
+  <file model="api" name="Ensemble/modules/ensemble-dc/online/src/main/java/com/dcits/ensemble/dc/online/service/mbsdcore/Core12000501.java" filePath="Ensemble/modules/ensemble-dc/online/src/main/java/com/dcits/ensemble/dc/online/service/mbsdcore/Core12000501.java" type="100644">
     <authors>
       <author>
         <changeType>MODIFY</changeType>
@@ -120,7 +120,7 @@
       </author>
     </authors>
   </file>
-  <file model="api" name="Ensemble/modules/ensemble-rb/online/src/main/java/com/dcits/ensemble/rb/online/service/mbsdcore/Core12000109.java" path="Ensemble/modules/ensemble-rb/online/src/main/java/com/dcits/ensemble/rb/online/service/mbsdcore/Core12000109.java" type="100644">
+  <file model="api" name="Ensemble/modules/ensemble-rb/online/src/main/java/com/dcits/ensemble/rb/online/service/mbsdcore/Core12000109.java" filePath="Ensemble/modules/ensemble-rb/online/src/main/java/com/dcits/ensemble/rb/online/service/mbsdcore/Core12000109.java" type="100644">
     <authors>
       <author>
         <changeType>MODIFY</changeType>
@@ -131,7 +131,7 @@
       </author>
     </authors>
   </file>
-  <file model="api" name="Ensemble/modules/ensemble-service/src/main/java/com/dcits/ensemble/service/flow/external/SingleAccountFlowImpl.java" path="Ensemble/modules/ensemble-service/src/main/java/com/dcits/ensemble/service/flow/external/SingleAccountFlowImpl.java" type="100644">
+  <file model="api" name="Ensemble/modules/ensemble-service/src/main/java/com/dcits/ensemble/service/flow/external/SingleAccountFlowImpl.java" filePath="Ensemble/modules/ensemble-service/src/main/java/com/dcits/ensemble/service/flow/external/SingleAccountFlowImpl.java" type="100644">
     <authors>
       <author>
         <changeType>MODIFY</changeType>
@@ -142,7 +142,7 @@
       </author>
     </authors>
   </file>
-  <file model="api" name="Ensemble-Prod/modules/ensemble-common/src/main/resources/error/RB_error_zh_CN.properties" path="Ensemble-Prod/modules/ensemble-common/src/main/resources/error/RB_error_zh_CN.properties" type="100644">
+  <file model="api" name="Ensemble-Prod/modules/ensemble-common/src/main/resources/error/RB_error_zh_CN.properties" filePath="Ensemble-Prod/modules/ensemble-common/src/main/resources/error/RB_error_zh_CN.properties" type="100644">
     <authors>
       <author>
         <changeType>MODIFY</changeType>
@@ -160,7 +160,7 @@
       </author>
     </authors>
   </file>
-  <file model="api" name="Ensemble/modules/ensemble-service/src/main/java/com/dcits/ensemble/service/micro/dos/AcctHangMicro.java" path="Ensemble/modules/ensemble-service/src/main/java/com/dcits/ensemble/service/micro/dos/AcctHangMicro.java" type="100644">
+  <file model="api" name="Ensemble/modules/ensemble-service/src/main/java/com/dcits/ensemble/service/micro/dos/AcctHangMicro.java" filePath="Ensemble/modules/ensemble-service/src/main/java/com/dcits/ensemble/service/micro/dos/AcctHangMicro.java" type="100644">
     <authors>
       <author>
         <changeType>MODIFY</changeType>

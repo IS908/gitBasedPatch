@@ -18,9 +18,9 @@ public interface Const {
     String REBASE="rebase";
 
     String AUTHOR_NAME = "name";
-    String AUTHOR_VERSION = "version";
+    String VERSION_ID = "versionID";
     String TIMESTAMP = "timestamp";
     String DESC = "desc";
-    String CHANGETYPE = "changeType";
+    String CHANGE_TYPE = "changeType";
     String CHECK = "check";
 }

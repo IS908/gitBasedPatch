@@ -25,11 +25,11 @@
 
     <!-- 生成xml文件bean配置信息 -start-->
     <bean id="xmlBulider" class="com.dcits.modelbank.xmlUtils.XmlBulider">
-        <property name="filePtah" value="${git.output.xml.path}"/>
+        <property name="filePtah" value="${git.output.xml.filePath}"/>
         <property name="author">
             <list>
                 <value>name</value>
-                <value>version</value>
+                <value>versionID</value>
                 <value>timestamp</value>
                 <value>desc</value>
                 <value>changeType</value>

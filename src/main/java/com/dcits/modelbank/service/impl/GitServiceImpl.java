@@ -5,7 +5,6 @@ import com.dcits.modelbank.model.FileModel;
 import com.dcits.modelbank.service.GitService;
 import com.dcits.modelbank.utils.Const;
 import com.dcits.modelbank.xmlUtils.XmlBulider;
-import javafx.beans.binding.When;
 import org.eclipse.jgit.diff.DiffEntry;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -66,9 +65,9 @@ public class GitServiceImpl implements GitService {
     private Map<String, String> diffEntry2Map(DiffEntry entry) {
         Map<String, String> map = new HashMap<>();
         map.put(Const.AUTHOR_NAME, "kevin");
-        map.put(Const.AUTHOR_VERSION, entry.getNewId().toString());
-        map.put(Const.CHANGETYPE, entry.getChangeType().toString());
-        map.put(Const.DESC, entry.getOldId().toString());
+        map.put(Const.VERSION_ID, entry.getNewId().name());
+        map.put(Const.CHANGE_TYPE, entry.getChangeType().name());
+        map.put(Const.DESC, entry.getOldId().name());
         map.put(Const.CHECK, "true");
         return map;
     }

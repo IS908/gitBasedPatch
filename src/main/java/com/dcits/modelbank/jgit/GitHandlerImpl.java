@@ -3,6 +3,7 @@ package com.dcits.modelbank.jgit;
 import com.dcits.modelbank.MyException.GitNoChangesException;
 import com.dcits.modelbank.jgit.helper.GitHelper;
 import com.dcits.modelbank.jgit.helper.PullEnum;
+import com.dcits.modelbank.model.FileDiffEntry;
 import com.dcits.modelbank.utils.Const;
 import com.dcits.modelbank.utils.DateUtil;
 import org.eclipse.jgit.api.*;
@@ -422,6 +423,7 @@ public class GitHandlerImpl implements GitHandler {
         Map<String, List<DiffEntry>> files = new HashMap<>();
         try (Git git = gitHelper.getGitInstance();
              Repository repository = gitHelper.openJGitRepository()) {
+
             List<RevCommit> commits = this.getLogRevCommitToday(git);
             List<List<DiffEntry>> lists = this.getChangesByCommit(commits, repository, git);
             for (List<DiffEntry> list : lists) {
@@ -435,6 +437,54 @@ public class GitHandlerImpl implements GitHandler {
             }
         }
         return files;
+    }
+
+    /**
+     *
+     * @param list
+     * @param repository
+     * @param git
+     * @return
+     */
+    private List<List<FileDiffEntry>> getFileDiffEntryByCommit(List<RevCommit> list, Repository repository, Git git) {
+        List<List<FileDiffEntry>> fileChangeLogList = new ArrayList<>();
+        try {
+            for (RevCommit commit : list) {
+                RevCommit parentCommitId = commit.getParent(commit.getParentCount() - 1);
+                ObjectId branchFrom = repository.resolve(parentCommitId.getName() + "^{tree}");
+                ObjectId branchTo = repository.resolve(commit.getName() + "^{tree}");
+                ObjectReader reader = repository.newObjectReader();
+                CanonicalTreeParser oldTreeIter = new CanonicalTreeParser();
+                oldTreeIter.reset(reader, branchFrom);
+                CanonicalTreeParser newTreeIter = new CanonicalTreeParser();
+                newTreeIter.reset(reader, branchTo);
+
+                List<DiffEntry> diffs = git.diff()
+                        .setOldTree(oldTreeIter)
+                        .setNewTree(newTreeIter)
+                        .call();
+                for (DiffEntry entry : diffs) {
+
+                }
+//                changeList.add(diffs);
+            }
+        } catch (AmbiguousObjectException e) {
+            e.printStackTrace();
+        } catch (IncorrectObjectTypeException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (GitAPIException e) {
+            e.printStackTrace();
+        }
+        return fileChangeLogList;
+    }
+
+    private FileDiffEntry diffEntry2FileDiffEntry(DiffEntry entry, RevCommit commit) {
+        FileDiffEntry fileDiffEntry = new FileDiffEntry();
+        fileDiffEntry.setFilePath(entry.getNewPath());
+        fileDiffEntry.setName(entry.getOldId().name());
+        return null;
     }
 
     public List<List<DiffEntry>> getChangesByCommit(List<RevCommit> list, Repository repository, Git git) {

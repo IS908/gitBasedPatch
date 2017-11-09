@@ -4,8 +4,6 @@ import com.dcits.modelbank.model.FileModel;
 import com.dcits.modelbank.utils.DateUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Repository;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -20,8 +18,6 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.OutputStreamWriter;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -66,10 +62,10 @@ public class XmlBulider {
                 List<Map<String, String>> mapList = fm.getAuthors();
                 //设置file标签属性
                 fileElement = document.createElement("file");
-                fileElement.setAttribute("name", fm.getName());
+                fileElement.setAttribute("pkgPath", fm.getName());
                 fileElement.setAttribute("model", fm.getModule());
                 fileElement.setAttribute("type", fm.getType());
-                fileElement.setAttribute("path", fm.getPath());
+                fileElement.setAttribute("fullPath", fm.getPath());
 
                 authorsElement = document.createElement("authors");
 
