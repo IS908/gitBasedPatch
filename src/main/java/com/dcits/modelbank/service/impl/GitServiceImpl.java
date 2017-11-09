@@ -1,6 +1,7 @@
 package com.dcits.modelbank.service.impl;
 
 import com.dcits.modelbank.jgit.GitHandler;
+import com.dcits.modelbank.model.FileDiffEntry;
 import com.dcits.modelbank.model.FileModel;
 import com.dcits.modelbank.service.GitService;
 import com.dcits.modelbank.utils.Const;
@@ -30,10 +31,10 @@ public class GitServiceImpl implements GitService {
     @Override
     public List<FileModel> genChangesFileListToday() {
         List<FileModel> fileModelList = new ArrayList<>();
-        Map<String, List<DiffEntry>> lists = gitHandler.test();
+        Map<String, List<FileDiffEntry>> lists = gitHandler.test();
         for (String key : lists.keySet()) {
             logger.info(key);
-            List<DiffEntry> list = lists.get(key);
+            List<FileDiffEntry> list = lists.get(key);
             FileModel fileModel = diffEntry2FileModel(list);
             fileModelList.add(fileModel);
         }
@@ -41,33 +42,36 @@ public class GitServiceImpl implements GitService {
         return null;
     }
 
-    public FileModel diffEntry2FileModel(List<DiffEntry> entries) {
+    public FileModel diffEntry2FileModel(List<FileDiffEntry> entries) {
         FileModel fileModel = new FileModel();
         if (entries.size() < 1)  return fileModel;
-        Iterator<DiffEntry> iterator = entries.iterator();
-        DiffEntry entry = iterator.next();
-        fileModel.setName(entry.getNewPath());
-        fileModel.setType(entry.getNewMode().toString());
-        fileModel.setModule("api");
-        fileModel.setPath(entry.getOldPath());
-        Map<String, String> map = diffEntry2Map(entry);
+        Iterator<FileDiffEntry> iterator = entries.iterator();
+        FileDiffEntry entry = iterator.next();
+        fileModel.setName(entry.getPkgPath());
+        fileModel.setType(entry.getType());
+        fileModel.setModule(entry.getModule());
+        fileModel.setPath(entry.getFullPath());
+        Map<String, String> map = fileDiffEntry2Map(entry);
         List<Map<String, String>> list = new ArrayList<>();
         list.add(map);
         while (iterator.hasNext()) {
             entry = iterator.next();
-            map = diffEntry2Map(entry);
+            map = fileDiffEntry2Map(entry);
             list.add(map);
         }
         fileModel.setAuthors(list);
         return fileModel;
     }
 
-    private Map<String, String> diffEntry2Map(DiffEntry entry) {
+    private Map<String, String> fileDiffEntry2Map(FileDiffEntry entry) {
         Map<String, String> map = new HashMap<>();
-        map.put(Const.AUTHOR_NAME, "kevin");
-        map.put(Const.VERSION_ID, entry.getNewId().name());
-        map.put(Const.CHANGE_TYPE, entry.getChangeType().name());
-        map.put(Const.DESC, entry.getOldId().name());
+        map.put(Const.AUTHOR_NAME, entry.getAuthor());
+        map.put(Const.VERSION_ID, entry.getVersion());
+        map.put(Const.TIMESTAMP, entry.getTimestamp());
+        String desc = entry.getDesc();
+        if (desc.endsWith("\n")) desc = desc.substring(0, desc.length() - 1);
+        map.put(Const.DESC, desc);
+        map.put(Const.CHANGE_TYPE, entry.getChangeType());
         map.put(Const.CHECK, "true");
         return map;
     }

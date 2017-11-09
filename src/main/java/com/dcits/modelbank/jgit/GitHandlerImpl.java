@@ -99,7 +99,7 @@ public class GitHandlerImpl implements GitHandler {
             Iterator<RevCommit> iterator = logCommit.iterator();
             while (iterator.hasNext()) {
                 RevCommit revCommit = iterator.next();
-                if (revCommit.getCommitTime() > todayBeginTimestamp) {
+                if (revCommit.getCommitTime() > todayBeginTimestamp && revCommit.getParentCount() == 1) {
                     commits.add(revCommit);
                 }
             }
@@ -419,21 +419,19 @@ public class GitHandlerImpl implements GitHandler {
     }
 
     @Override
-    public Map<String, List<DiffEntry>> test() {
-        Map<String, List<DiffEntry>> files = new HashMap<>();
+    public Map<String, List<FileDiffEntry>> test() {
+        Map<String, List<FileDiffEntry>> files = new HashMap<>();
         try (Git git = gitHelper.getGitInstance();
              Repository repository = gitHelper.openJGitRepository()) {
 
             List<RevCommit> commits = this.getLogRevCommitToday(git);
-            List<List<DiffEntry>> lists = this.getChangesByCommit(commits, repository, git);
-            for (List<DiffEntry> list : lists) {
-                for (DiffEntry entry : list) {
-                    String filePath = entry.getNewPath();
-                    List<DiffEntry> diffList = files.get(filePath);
-                    if (Objects.equals(null, diffList)) diffList = new ArrayList<>();
-                    diffList.add(entry);
-                    files.put(filePath, diffList);
-                }
+            List<FileDiffEntry> fileDiffEntries = this.getFileDiffEntryByCommit(commits, repository, git);
+            for (FileDiffEntry entry : fileDiffEntries) {
+                String fullPath = entry.getFullPath();
+                List<FileDiffEntry> diffList = files.get(fullPath);
+                if (Objects.equals(null, diffList)) diffList = new ArrayList<>();
+                diffList.add(entry);
+                files.put(fullPath, diffList);
             }
         }
         return files;
@@ -446,8 +444,8 @@ public class GitHandlerImpl implements GitHandler {
      * @param git
      * @return
      */
-    private List<List<FileDiffEntry>> getFileDiffEntryByCommit(List<RevCommit> list, Repository repository, Git git) {
-        List<List<FileDiffEntry>> fileChangeLogList = new ArrayList<>();
+    private List<FileDiffEntry> getFileDiffEntryByCommit(List<RevCommit> list, Repository repository, Git git) {
+        List<FileDiffEntry> fileChangeLogList = new ArrayList<>();
         try {
             for (RevCommit commit : list) {
                 RevCommit parentCommitId = commit.getParent(commit.getParentCount() - 1);
@@ -464,27 +462,33 @@ public class GitHandlerImpl implements GitHandler {
                         .setNewTree(newTreeIter)
                         .call();
                 for (DiffEntry entry : diffs) {
-
+                    FileDiffEntry fileDiffEntry = diffEntry2FileDiffEntry(entry, commit);
+                    fileChangeLogList.add(fileDiffEntry);
                 }
-//                changeList.add(diffs);
             }
-        } catch (AmbiguousObjectException e) {
-            e.printStackTrace();
-        } catch (IncorrectObjectTypeException e) {
-            e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
+            logger.error(e.getCause().getMessage());
         } catch (GitAPIException e) {
             e.printStackTrace();
+            logger.error(e.getCause().getMessage());
         }
         return fileChangeLogList;
     }
 
     private FileDiffEntry diffEntry2FileDiffEntry(DiffEntry entry, RevCommit commit) {
         FileDiffEntry fileDiffEntry = new FileDiffEntry();
-        fileDiffEntry.setFilePath(entry.getNewPath());
-        fileDiffEntry.setName(entry.getOldId().name());
-        return null;
+        fileDiffEntry.setFullPath(entry.getNewPath());
+        fileDiffEntry.setPkgPath(entry.getOldId().name());
+        fileDiffEntry.setModule("Ensemble");
+        fileDiffEntry.setType("java");
+
+        fileDiffEntry.setAuthor(commit.getAuthorIdent().getName());
+        fileDiffEntry.setTimestamp(String.valueOf(commit.getCommitTime()));
+        fileDiffEntry.setDesc(commit.getFullMessage());
+        fileDiffEntry.setVersion(entry.getNewId().name());
+        fileDiffEntry.setChangeType(entry.getChangeType().name());
+        return fileDiffEntry;
     }
 
     public List<List<DiffEntry>> getChangesByCommit(List<RevCommit> list, Repository repository, Git git) {

@@ -1,6 +1,7 @@
 package com.dcits.modelbank.jgit;
 
 import com.dcits.modelbank.jgit.helper.PullEnum;
+import com.dcits.modelbank.model.FileDiffEntry;
 import org.eclipse.jgit.api.Git;
 import org.eclipse.jgit.api.PullResult;
 import org.eclipse.jgit.blame.BlameResult;
@@ -131,5 +132,5 @@ public interface GitHandler {
      */
     boolean rollBackPreRevision(List<DiffEntry> diffEntries, String revision, String note);
 
-    Map<String, List<DiffEntry>> test();
+    Map<String, List<FileDiffEntry>> test();
 }

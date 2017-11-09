@@ -6,22 +6,49 @@ package com.dcits.modelbank.model;
  * @author kevin
  */
 public class FileDiffEntry {
-    private String name;
+    /**
+     * 文件在jar包中的路径
+     */
+    private String pkgPath;
+    /**
+     * 文件所属模块
+     */
     private String module;
-    private String filePath;
+    /**
+     * 文件的全路径
+     */
+    private String fullPath;
+    /**
+     * 文件类型
+     */
     private String type;
+    /**
+     * 修改人
+     */
     private String author;
+    /**
+     * 修改对应的版本号
+     */
     private String version;
+    /**
+     * 该次提交的备注信息
+     */
     private String desc;
+    /**
+     * 对应版本提交的时间
+     */
     private String timestamp;
+    /**
+     * 提交文件对应的修改类型
+     */
     private String changeType;
 
-    public String getName() {
-        return name;
+    public String getPkgPath() {
+        return pkgPath;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setPkgPath(String pkgPath) {
+        this.pkgPath = pkgPath;
     }
 
     public String getModule() {
@@ -32,12 +59,12 @@ public class FileDiffEntry {
         this.module = module;
     }
 
-    public String getFilePath() {
-        return filePath;
+    public String getFullPath() {
+        return fullPath;
     }
 
-    public void setFilePath(String filePath) {
-        this.filePath = filePath;
+    public void setFullPath(String fullPath) {
+        this.fullPath = fullPath;
     }
 
     public String getType() {
