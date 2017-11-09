@@ -55,7 +55,7 @@ public class DateUtil {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        return timestamp / 1000 - (24 * 60 * 60);
+        return timestamp / 1000;
     }
 
     /**
