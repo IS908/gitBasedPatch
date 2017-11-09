@@ -13,6 +13,12 @@
         <property name="userName" value="${git.user.name}"/>
         <property name="userEmail" value="${git.user.email}"/>
         <property name="remoteUrl" value="${git.remote.url}"/>
+        <property name="credentialsProvider" ref="credentialsProvider"/>
+    </bean>
+
+    <bean name="credentialsProvider" class="org.eclipse.jgit.transport.UsernamePasswordCredentialsProvider">
+        <constructor-arg name="username" value="${git.user.name}"/>
+        <constructor-arg name="password" value="${git.user.password}"/>
     </bean>
 
     <!-- 生成xml文件bean配置信息 -start-->

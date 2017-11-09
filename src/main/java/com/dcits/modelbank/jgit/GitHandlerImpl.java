@@ -292,6 +292,7 @@ public class GitHandlerImpl implements GitHandler {
     public boolean push() {
         boolean res = false;
         try (Git git = gitHelper.getGitInstance()) {
+
             git.lsRemote().call();
             Iterable<PushResult> results = git.push().call();
             Iterator<PushResult> iterator = results.iterator();

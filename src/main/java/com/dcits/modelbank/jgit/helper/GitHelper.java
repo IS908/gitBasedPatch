@@ -1,9 +1,12 @@
 package com.dcits.modelbank.jgit.helper;
 
 import com.dcits.modelbank.utils.Const;
+import org.eclipse.jgit.api.CloneCommand;
 import org.eclipse.jgit.api.Git;
+import org.eclipse.jgit.internal.storage.file.FileRepository;
 import org.eclipse.jgit.lib.Repository;
 import org.eclipse.jgit.storage.file.FileRepositoryBuilder;
+import org.eclipse.jgit.transport.CredentialsProvider;
 import org.eclipse.jgit.util.FS;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,6 +28,11 @@ public class GitHelper {
     private String userName;
     private String userEmail;
     private String remoteUrl;
+    private CredentialsProvider credentialsProvider;
+
+    public void setCredentialsProvider(CredentialsProvider credentialsProvider) {
+        this.credentialsProvider = credentialsProvider;
+    }
 
     public String getRootDir() {
         return rootDir;
