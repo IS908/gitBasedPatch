@@ -78,7 +78,8 @@ public class XmlBulider {
                     authorsElement.appendChild(authorElement);
                     for (String key : author) {
                         Element propertiesElement = document.createElement(key.toString());
-                        propertiesElement.setTextContent(map.get(key.toString()).toString());
+                        System.out.println();
+                        propertiesElement.setTextContent(map.get(key.toString())+"");
                         authorElement.appendChild(propertiesElement);
                     }
                 }
