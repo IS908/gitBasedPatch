@@ -42,6 +42,7 @@ import java.util.*;
 @Service("gitHandler")
 public class GitHandlerImpl implements GitHandler {
     private static final Logger logger = LoggerFactory.getLogger(GitHandlerImpl.class);
+    private static SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
     @Resource
     private GitHelper gitHelper;
@@ -446,6 +447,7 @@ public class GitHandlerImpl implements GitHandler {
      */
     private List<FileDiffEntry> getFileDiffEntryByCommit(List<RevCommit> list, Repository repository, Git git) {
         List<FileDiffEntry> fileChangeLogList = new ArrayList<>();
+
         try {
             for (RevCommit commit : list) {
                 RevCommit parentCommitId = commit.getParent(commit.getParentCount() - 1);
@@ -479,14 +481,14 @@ public class GitHandlerImpl implements GitHandler {
     private FileDiffEntry diffEntry2FileDiffEntry(DiffEntry entry, RevCommit commit) {
         FileDiffEntry fileDiffEntry = new FileDiffEntry();
         fileDiffEntry.setFullPath(entry.getNewPath());
-        fileDiffEntry.setPkgPath(entry.getOldId().name());
+        fileDiffEntry.setPkgPath(entry.getOldPath());
         fileDiffEntry.setModule("Ensemble");
         fileDiffEntry.setType("java");
 
         fileDiffEntry.setAuthor(commit.getAuthorIdent().getName());
-        fileDiffEntry.setTimestamp(String.valueOf(commit.getCommitTime()));
+        fileDiffEntry.setTimestamp(sdf.format(commit.getCommitterIdent().getWhen()));
         fileDiffEntry.setDesc(commit.getFullMessage());
-        fileDiffEntry.setVersion(entry.getNewId().name());
+        fileDiffEntry.setVersion(entry.getId(DiffEntry.Side.NEW).name());
         fileDiffEntry.setChangeType(entry.getChangeType().name());
         return fileDiffEntry;
     }

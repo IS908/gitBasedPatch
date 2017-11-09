@@ -64,13 +64,19 @@ public class DateUtil {
      * @param s
      * @return
      */
-    public static String stampToDate(String s) {
+    public static String timestamp2Date(String s) {
         String res;
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         long lt = Long.getLong(s);
         Date date = new Date(lt);
         res = simpleDateFormat.format(date);
         return res;
+    }
+
+    public static String timestamp2Date(long stamp) {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date date = new Date(stamp);
+        return simpleDateFormat.format(date);
     }
 
     public static void main(String[] args) throws ParseException {
