@@ -32,6 +32,16 @@ public class XmlBulider {
 
     private String filePtah;
 
+    public String[] getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(String[] author) {
+        this.author = author;
+    }
+
+    private String [] author;
+
     //生成xml文件入口
     public void execute(List<FileModel> list) {
         createXmlFile(list);
@@ -66,7 +76,7 @@ public class XmlBulider {
                 for (Map map : mapList) {
                     Element authorElement = document.createElement("author");
                     authorsElement.appendChild(authorElement);
-                    for (Object key : map.keySet()) {
+                    for (String key : author) {
                         Element propertiesElement = document.createElement(key.toString());
                         propertiesElement.setTextContent(map.get(key.toString()).toString());
                         authorElement.appendChild(propertiesElement);
