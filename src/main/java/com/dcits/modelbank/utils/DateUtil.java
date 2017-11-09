@@ -93,7 +93,7 @@ public class DateUtil {
     /**
      * @authot qiqsa
      * @return date
-     * @desc生成当前日期 yyMMdd
+     * @desc 生成当前日期 yyMMdd
      */
     public static String getRunDate(){
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMdd");
