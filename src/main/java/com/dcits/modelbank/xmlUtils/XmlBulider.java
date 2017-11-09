@@ -1,6 +1,7 @@
 package com.dcits.modelbank.xmlUtils;
 
 import com.dcits.modelbank.model.FileModel;
+import com.dcits.modelbank.utils.DateUtil;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 import org.w3c.dom.Document;
@@ -83,7 +84,9 @@ public class XmlBulider {
             DOMSource domSource = new DOMSource(document);
 
             //生成xml文件
-            File file = new File(filePtah);
+            String runDate = DateUtil.getRunDate();
+            String pathAndName = filePtah + File.separator + "patch" + runDate + ".xml";
+            File file = new File(pathAndName);
 
             //判断是否存在,如果不存在,则创建
             if (!file.exists()) {
