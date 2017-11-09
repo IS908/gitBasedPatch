@@ -30,8 +30,9 @@ import java.util.Map;
 public class XmlBulider {
 
     private String filePtah;
+
     //生成xml文件入口
-    public void execute(List<FileModel> list){
+    public void execute(List<FileModel> list) {
         createXmlFile(list);
     }
 
@@ -61,11 +62,9 @@ public class XmlBulider {
                 //将authors标签添加在file标签内部
                 fileElement.appendChild(authorsElement);
 
-                Element authorElement = document.createElement("author");
-
-                authorsElement.appendChild(authorElement);
-
                 for (Map map : mapList) {
+                    Element authorElement = document.createElement("author");
+                    authorsElement.appendChild(authorElement);
                     for (Object key : map.keySet()) {
                         Element propertiesElement = document.createElement(key.toString());
                         propertiesElement.setTextContent(map.get(key.toString()).toString());
@@ -106,6 +105,7 @@ public class XmlBulider {
 
         }
     }
+
     public String getFilePtah() {
         return filePtah;
     }
