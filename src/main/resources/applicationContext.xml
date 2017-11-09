@@ -3,9 +3,11 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:context="http://www.springframework.org/schema/context"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
-       http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context.xsd">
     <!--引入配置属性文件 -->
-    <context:property-placeholder location="classpath:git.properties" />
+    <context:property-placeholder location="classpath:git.properties"/>
     <context:component-scan base-package="com.dcits.modelbank"/>
 
     <bean name="gitHelper" class="com.dcits.modelbank.jgit.helper.GitHelper">
@@ -22,20 +24,17 @@
     </bean>
 
     <!-- 生成xml文件bean配置信息 -start-->
-        <bean id="xmlBulider" class="com.dcits.modelbank.xmlUtils.XmlBulider">
-            <property name="filePtah" value="${git.output.xml.path}"/>
-            <property name="author">
-                <list>
-                    <value>name</value>
-                    <value>changeType</value>
-                    <value>desc</value>
-                    <value>check</value>
-                </list>
-            </property>
-        </bean>
+    <bean id="xmlBulider" class="com.dcits.modelbank.xmlUtils.XmlBulider">
+        <property name="filePtah" value="${git.output.xml.path}"/>
+        <property name="author">
+            <list>
+                <value>name</value>
+                <value>changeType</value>
+                <value>desc</value>
+                <value>check</value>
+            </list>
+        </property>
+    </bean>
     <!-- 生成xml文件bean配置信息 -end-->
 
-    <!--<bean name="gitUtil" clacom.dcits.modelbank.jgit.GitHandlerImplmplImpl">-->
-        <!--<property name="gitHelper" ref="gitConf"/>-->
-    <!--</bean>-->
 </beans>
