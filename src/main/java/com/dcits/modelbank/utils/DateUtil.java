@@ -89,4 +89,16 @@ public class DateUtil {
         }
         System.out.println(timestamp);
     }
+
+    /**
+     * @authot qiqsa
+     * @return date
+     * @desc生成当前日期 yyMMdd
+     */
+    public static String getRunDate(){
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMdd");
+        Date date = new Date();
+        long time = date.getTime();
+        return simpleDateFormat.format(time);
+    }
 }
