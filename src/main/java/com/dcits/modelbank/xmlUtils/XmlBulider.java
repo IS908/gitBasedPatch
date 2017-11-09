@@ -2,6 +2,8 @@ package com.dcits.modelbank.xmlUtils;
 
 import com.dcits.modelbank.model.FileModel;
 import com.dcits.modelbank.utils.DateUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 import org.w3c.dom.Document;
@@ -29,6 +31,7 @@ import java.util.Map;
  * @desc create xml file
  */
 public class XmlBulider {
+    private static final Logger logger = LoggerFactory.getLogger(XmlBulider.class);
 
     private String filePtah;
 
@@ -78,7 +81,6 @@ public class XmlBulider {
                     authorsElement.appendChild(authorElement);
                     for (String key : author) {
                         Element propertiesElement = document.createElement(key.toString());
-                        System.out.println();
                         propertiesElement.setTextContent(map.get(key.toString())+"");
                         authorElement.appendChild(propertiesElement);
                     }
@@ -114,6 +116,7 @@ public class XmlBulider {
             transFormer.transform(domSource, new StreamResult(new BufferedWriter(new OutputStreamWriter(out))));
 
         } catch (Exception e) {
+            logger.error(e.getMessage());
             throw new RuntimeException("Throw exception when create xml file[" + e.getMessage() + "]");
         } finally {
 

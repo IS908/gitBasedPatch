@@ -1,289 +1,366 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <files>
-  <file model="api" name="src/main/resources/my.properties" path="/dev/null" type="100644">
-    <authors>
-      <author>
-        <changeType>ADD</changeType>
-        <desc>AbbreviatedObjectId[0000000000000000000000000000000000000000]</desc>
-        <check>true</check>
-        <name>kevin</name>
-        <version>AbbreviatedObjectId[e69de29bb2d1d6434b8b29ae775ad8c2e48c5391]</version>
-      </author>
-      <author>
-        <changeType>ADD</changeType>
-        <desc>AbbreviatedObjectId[0000000000000000000000000000000000000000]</desc>
-        <check>true</check>
-        <name>kevin</name>
-        <version>AbbreviatedObjectId[e69de29bb2d1d6434b8b29ae775ad8c2e48c5391]</version>
-      </author>
-    </authors>
-  </file>
   <file model="api" name="/dev/null" path="src/main/resources/local.properties" type="0">
     <authors>
       <author>
-        <changeType>DELETE</changeType>
+        <name>kevin</name>
+        <version>AbbreviatedObjectId[0000000000000000000000000000000000000000]</version>
+        <timestamp>null</timestamp>
         <desc>AbbreviatedObjectId[db5d409dbc700fb109030d28f2eaee8d33294075]</desc>
+        <changeType>DELETE</changeType>
         <check>true</check>
-        <name>kevin</name>
-        <version>AbbreviatedObjectId[0000000000000000000000000000000000000000]</version>
       </author>
       <author>
-        <changeType>DELETE</changeType>
+        <name>kevin</name>
+        <version>AbbreviatedObjectId[0000000000000000000000000000000000000000]</version>
+        <timestamp>null</timestamp>
         <desc>AbbreviatedObjectId[e69de29bb2d1d6434b8b29ae775ad8c2e48c5391]</desc>
-        <check>true</check>
-        <name>kevin</name>
-        <version>AbbreviatedObjectId[0000000000000000000000000000000000000000]</version>
-      </author>
-      <author>
         <changeType>DELETE</changeType>
-        <desc>AbbreviatedObjectId[a2efbb9e03f55de7c53396b5b806bbcab5c9789b]</desc>
         <check>true</check>
+      </author>
+      <author>
         <name>kevin</name>
         <version>AbbreviatedObjectId[0000000000000000000000000000000000000000]</version>
-      </author>
-    </authors>
-  </file>
-  <file model="api" name="src/main/java/com/dcits/modelbank/xmlUtils/XmlBulider.java" path="src/main/java/com/dcits/modelbank/xmlUtils/XmlBulider.java" type="100644">
-    <authors>
-      <author>
-        <changeType>MODIFY</changeType>
-        <desc>AbbreviatedObjectId[f8c2476ed88e0f700a7f4c03d245b852f4706989]</desc>
+        <timestamp>null</timestamp>
+        <desc>AbbreviatedObjectId[a2efbb9e03f55de7c53396b5b806bbcab5c9789b]</desc>
+        <changeType>DELETE</changeType>
         <check>true</check>
-        <name>kevin</name>
-        <version>AbbreviatedObjectId[a71fa5f59af866d5c5e697b89daa86ec0032fec9]</version>
-      </author>
-      <author>
-        <changeType>MODIFY</changeType>
-        <desc>AbbreviatedObjectId[b40faa70b8aa1098478e790fd70773ff1fc39a55]</desc>
-        <check>true</check>
-        <name>kevin</name>
-        <version>AbbreviatedObjectId[f8c2476ed88e0f700a7f4c03d245b852f4706989]</version>
       </author>
     </authors>
   </file>
   <file model="api" name=".gitignore" path=".gitignore" type="100644">
     <authors>
       <author>
-        <changeType>MODIFY</changeType>
-        <desc>AbbreviatedObjectId[2a1349897c3fb5fbd9b43146bba6ddfaa6823c99]</desc>
-        <check>true</check>
         <name>kevin</name>
         <version>AbbreviatedObjectId[5b7973b68d02cac5b17a31e424ee35e8141773b6]</version>
+        <timestamp>null</timestamp>
+        <desc>AbbreviatedObjectId[2a1349897c3fb5fbd9b43146bba6ddfaa6823c99]</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
       </author>
       <author>
-        <changeType>MODIFY</changeType>
-        <desc>AbbreviatedObjectId[2a1349897c3fb5fbd9b43146bba6ddfaa6823c99]</desc>
-        <check>true</check>
         <name>kevin</name>
         <version>AbbreviatedObjectId[5b7973b68d02cac5b17a31e424ee35e8141773b6]</version>
+        <timestamp>null</timestamp>
+        <desc>AbbreviatedObjectId[2a1349897c3fb5fbd9b43146bba6ddfaa6823c99]</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
       </author>
       <author>
-        <changeType>MODIFY</changeType>
-        <desc>AbbreviatedObjectId[86ea93f7c0ca2601e3d13b91d75058c11030afae]</desc>
-        <check>true</check>
         <name>kevin</name>
         <version>AbbreviatedObjectId[2a1349897c3fb5fbd9b43146bba6ddfaa6823c99]</version>
-      </author>
-    </authors>
-  </file>
-  <file model="api" name="src/main/resources/applicationContext.xml" path="src/main/resources/applicationContext.xml" type="100644">
-    <authors>
-      <author>
+        <timestamp>null</timestamp>
+        <desc>AbbreviatedObjectId[86ea93f7c0ca2601e3d13b91d75058c11030afae]</desc>
         <changeType>MODIFY</changeType>
-        <desc>AbbreviatedObjectId[e93a6beac3f90046a919bf0f83dfc4beb8b523f4]</desc>
         <check>true</check>
-        <name>kevin</name>
-        <version>AbbreviatedObjectId[026cc0184874adeac08352464dd2865dd6c7b3b9]</version>
-      </author>
-      <author>
-        <changeType>MODIFY</changeType>
-        <desc>AbbreviatedObjectId[026cc0184874adeac08352464dd2865dd6c7b3b9]</desc>
-        <check>true</check>
-        <name>kevin</name>
-        <version>AbbreviatedObjectId[e93a6beac3f90046a919bf0f83dfc4beb8b523f4]</version>
-      </author>
-      <author>
-        <changeType>MODIFY</changeType>
-        <desc>AbbreviatedObjectId[d84787aeba8f50f6115857fca9daca4445476baf]</desc>
-        <check>true</check>
-        <name>kevin</name>
-        <version>AbbreviatedObjectId[026cc0184874adeac08352464dd2865dd6c7b3b9]</version>
-      </author>
-      <author>
-        <changeType>MODIFY</changeType>
-        <desc>AbbreviatedObjectId[61a8ad24f4cb116f4d38112fd28a0867ae201c32]</desc>
-        <check>true</check>
-        <name>kevin</name>
-        <version>AbbreviatedObjectId[d84787aeba8f50f6115857fca9daca4445476baf]</version>
-      </author>
-    </authors>
-  </file>
-  <file model="api" name="src/main/java/com/dcits/modelbank/jgit/GitHandlerImpl.java" path="src/main/java/com/dcits/modelbank/jgit/GitHandlerImpl.java" type="100644">
-    <authors>
-      <author>
-        <changeType>MODIFY</changeType>
-        <desc>AbbreviatedObjectId[a03fe674a229fb4d9e45cda1be8f2d56aa4615e4]</desc>
-        <check>true</check>
-        <name>kevin</name>
-        <version>AbbreviatedObjectId[de4c8a76e59565b3e52a6ab6c5171c2afb837474]</version>
-      </author>
-      <author>
-        <changeType>MODIFY</changeType>
-        <desc>AbbreviatedObjectId[d70a6cd282d65742ec2d422c5635e8ce690cf08b]</desc>
-        <check>true</check>
-        <name>kevin</name>
-        <version>AbbreviatedObjectId[a03fe674a229fb4d9e45cda1be8f2d56aa4615e4]</version>
-      </author>
-    </authors>
-  </file>
-  <file model="api" name="pom.xml" path="pom.xml" type="100644">
-    <authors>
-      <author>
-        <changeType>MODIFY</changeType>
-        <desc>AbbreviatedObjectId[9947b2ff402ec9cb88d37e93c2052fec7e983bc2]</desc>
-        <check>true</check>
-        <name>kevin</name>
-        <version>AbbreviatedObjectId[0a6b97ecaf288a63c1289f2fe74c72cf76532b49]</version>
       </author>
     </authors>
   </file>
   <file model="api" name="src/main/java/com/dcits/modelbank/utils/DateUtil.java" path="src/main/java/com/dcits/modelbank/utils/DateUtil.java" type="100644">
     <authors>
       <author>
-        <changeType>MODIFY</changeType>
-        <desc>AbbreviatedObjectId[2234e5ee60ab3e2824a01fde81730974020284ad]</desc>
-        <check>true</check>
         <name>kevin</name>
         <version>AbbreviatedObjectId[4f89134246a18f45976efe759c439c14ff75d1c8]</version>
+        <timestamp>null</timestamp>
+        <desc>AbbreviatedObjectId[2234e5ee60ab3e2824a01fde81730974020284ad]</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
       </author>
       <author>
-        <changeType>MODIFY</changeType>
-        <desc>AbbreviatedObjectId[a5a7d49b144b2ace0e5ca092a97164f12b33e555]</desc>
-        <check>true</check>
         <name>kevin</name>
         <version>AbbreviatedObjectId[2234e5ee60ab3e2824a01fde81730974020284ad]</version>
+        <timestamp>null</timestamp>
+        <desc>AbbreviatedObjectId[a5a7d49b144b2ace0e5ca092a97164f12b33e555]</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
       </author>
       <author>
-        <changeType>MODIFY</changeType>
-        <desc>AbbreviatedObjectId[6888139d001c76c6382f2b3373a554987728c854]</desc>
-        <check>true</check>
         <name>kevin</name>
         <version>AbbreviatedObjectId[a5a7d49b144b2ace0e5ca092a97164f12b33e555]</version>
+        <timestamp>null</timestamp>
+        <desc>AbbreviatedObjectId[6888139d001c76c6382f2b3373a554987728c854]</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
       </author>
       <author>
-        <changeType>MODIFY</changeType>
-        <desc>AbbreviatedObjectId[559b945451dbb4c231c11e079e5aae4ca117c614]</desc>
-        <check>true</check>
         <name>kevin</name>
         <version>AbbreviatedObjectId[6888139d001c76c6382f2b3373a554987728c854]</version>
+        <timestamp>null</timestamp>
+        <desc>AbbreviatedObjectId[559b945451dbb4c231c11e079e5aae4ca117c614]</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
       </author>
     </authors>
   </file>
   <file model="api" name="src/test/java/com/dcits/modelbank/jgit/GitHandlerTest.java" path="src/test/java/com/dcits/modelbank/jgit/GitHandlerTest.java" type="100644">
     <authors>
       <author>
-        <changeType>MODIFY</changeType>
-        <desc>AbbreviatedObjectId[69a677c58cfcda832f715fdf0b7c40cb96ea8728]</desc>
-        <check>true</check>
         <name>kevin</name>
         <version>AbbreviatedObjectId[5007e7768a0db943a88ba4430abdfdda46359fcb]</version>
-      </author>
-    </authors>
-  </file>
-  <file model="api" name="test.xml" path="test.xml" type="100644">
-    <authors>
-      <author>
+        <timestamp>null</timestamp>
+        <desc>AbbreviatedObjectId[69a677c58cfcda832f715fdf0b7c40cb96ea8728]</desc>
         <changeType>MODIFY</changeType>
-        <desc>AbbreviatedObjectId[09768b7f0ac7b012af06c31700f6c79a8acdfd4e]</desc>
         <check>true</check>
-        <name>kevin</name>
-        <version>AbbreviatedObjectId[a2efbb9e03f55de7c53396b5b806bbcab5c9789b]</version>
-      </author>
-      <author>
-        <changeType>ADD</changeType>
-        <desc>AbbreviatedObjectId[0000000000000000000000000000000000000000]</desc>
-        <check>true</check>
-        <name>kevin</name>
-        <version>AbbreviatedObjectId[09768b7f0ac7b012af06c31700f6c79a8acdfd4e]</version>
       </author>
     </authors>
   </file>
   <file model="api" name="src/main/resources/git.properties" path="src/main/resources/git.properties" type="100644">
     <authors>
       <author>
-        <changeType>MODIFY</changeType>
-        <desc>AbbreviatedObjectId[f2b236e26af47779968f39d8bbf4ccfb1696f1dc]</desc>
-        <check>true</check>
         <name>kevin</name>
         <version>AbbreviatedObjectId[6a4fbd2f791227a12a98cd5cd18a43e7465d0b53]</version>
+        <timestamp>null</timestamp>
+        <desc>AbbreviatedObjectId[f2b236e26af47779968f39d8bbf4ccfb1696f1dc]</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
       </author>
       <author>
-        <changeType>MODIFY</changeType>
-        <desc>AbbreviatedObjectId[c78c0ba4c4f4bb9f0d1ad0383279b01a6d8a560e]</desc>
-        <check>true</check>
         <name>kevin</name>
         <version>AbbreviatedObjectId[f2b236e26af47779968f39d8bbf4ccfb1696f1dc]</version>
+        <timestamp>null</timestamp>
+        <desc>AbbreviatedObjectId[c78c0ba4c4f4bb9f0d1ad0383279b01a6d8a560e]</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
       </author>
       <author>
-        <changeType>MODIFY</changeType>
-        <desc>AbbreviatedObjectId[992784f82993a9f7e5e8fffa00da29f37b53b2b0]</desc>
-        <check>true</check>
         <name>kevin</name>
         <version>AbbreviatedObjectId[c78c0ba4c4f4bb9f0d1ad0383279b01a6d8a560e]</version>
+        <timestamp>null</timestamp>
+        <desc>AbbreviatedObjectId[992784f82993a9f7e5e8fffa00da29f37b53b2b0]</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
       </author>
       <author>
-        <changeType>MODIFY</changeType>
-        <desc>AbbreviatedObjectId[760aa1b784ef327e5218f82efe0ecdf4d68a912c]</desc>
-        <check>true</check>
         <name>kevin</name>
         <version>AbbreviatedObjectId[992784f82993a9f7e5e8fffa00da29f37b53b2b0]</version>
+        <timestamp>null</timestamp>
+        <desc>AbbreviatedObjectId[760aa1b784ef327e5218f82efe0ecdf4d68a912c]</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
       </author>
       <author>
-        <changeType>MODIFY</changeType>
-        <desc>AbbreviatedObjectId[8210cd707a12ea2f2a54595f51151d9142106acc]</desc>
-        <check>true</check>
         <name>kevin</name>
         <version>AbbreviatedObjectId[760aa1b784ef327e5218f82efe0ecdf4d68a912c]</version>
+        <timestamp>null</timestamp>
+        <desc>AbbreviatedObjectId[8210cd707a12ea2f2a54595f51151d9142106acc]</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+    </authors>
+  </file>
+  <file model="api" name="test.xml" path="test.xml" type="100644">
+    <authors>
+      <author>
+        <name>kevin</name>
+        <version>AbbreviatedObjectId[a2efbb9e03f55de7c53396b5b806bbcab5c9789b]</version>
+        <timestamp>null</timestamp>
+        <desc>AbbreviatedObjectId[09768b7f0ac7b012af06c31700f6c79a8acdfd4e]</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+      <author>
+        <name>kevin</name>
+        <version>AbbreviatedObjectId[09768b7f0ac7b012af06c31700f6c79a8acdfd4e]</version>
+        <timestamp>null</timestamp>
+        <desc>AbbreviatedObjectId[0000000000000000000000000000000000000000]</desc>
+        <changeType>ADD</changeType>
+        <check>true</check>
       </author>
     </authors>
   </file>
   <file model="api" name="src/main/resources/local.properties" path="src/main/resources/local.properties" type="100644">
     <authors>
       <author>
-        <changeType>MODIFY</changeType>
-        <desc>AbbreviatedObjectId[e69de29bb2d1d6434b8b29ae775ad8c2e48c5391]</desc>
-        <check>true</check>
         <name>kevin</name>
         <version>AbbreviatedObjectId[db5d409dbc700fb109030d28f2eaee8d33294075]</version>
+        <timestamp>null</timestamp>
+        <desc>AbbreviatedObjectId[e69de29bb2d1d6434b8b29ae775ad8c2e48c5391]</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
       </author>
       <author>
-        <changeType>ADD</changeType>
-        <desc>AbbreviatedObjectId[0000000000000000000000000000000000000000]</desc>
-        <check>true</check>
         <name>kevin</name>
         <version>AbbreviatedObjectId[e69de29bb2d1d6434b8b29ae775ad8c2e48c5391]</version>
+        <timestamp>null</timestamp>
+        <desc>AbbreviatedObjectId[0000000000000000000000000000000000000000]</desc>
+        <changeType>ADD</changeType>
+        <check>true</check>
       </author>
     </authors>
   </file>
   <file model="api" name="SmartEnsemble.xml" path="/dev/null" type="100644">
     <authors>
       <author>
-        <changeType>ADD</changeType>
-        <desc>AbbreviatedObjectId[0000000000000000000000000000000000000000]</desc>
-        <check>true</check>
         <name>kevin</name>
         <version>AbbreviatedObjectId[9cc3f5ce39cd83a217e312d241873572f1045d6d]</version>
+        <timestamp>null</timestamp>
+        <desc>AbbreviatedObjectId[0000000000000000000000000000000000000000]</desc>
+        <changeType>ADD</changeType>
+        <check>true</check>
       </author>
     </authors>
   </file>
   <file model="api" name="src/main/java/com/dcits/modelbank/jgit/helper/GitHelper.java" path="src/main/java/com/dcits/modelbank/jgit/helper/GitHelper.java" type="100644">
     <authors>
       <author>
-        <changeType>MODIFY</changeType>
-        <desc>AbbreviatedObjectId[f3fb1c1d8f6a35eae62ffeb5adcf03c716835a5d]</desc>
-        <check>true</check>
         <name>kevin</name>
         <version>AbbreviatedObjectId[a3dab3faddb623bce858058f1397b8ad1d975399]</version>
+        <timestamp>null</timestamp>
+        <desc>AbbreviatedObjectId[f3fb1c1d8f6a35eae62ffeb5adcf03c716835a5d]</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+    </authors>
+  </file>
+  <file model="api" name="src/main/resources/my.properties" path="/dev/null" type="100644">
+    <authors>
+      <author>
+        <name>kevin</name>
+        <version>AbbreviatedObjectId[e69de29bb2d1d6434b8b29ae775ad8c2e48c5391]</version>
+        <timestamp>null</timestamp>
+        <desc>AbbreviatedObjectId[0000000000000000000000000000000000000000]</desc>
+        <changeType>ADD</changeType>
+        <check>true</check>
+      </author>
+      <author>
+        <name>kevin</name>
+        <version>AbbreviatedObjectId[e69de29bb2d1d6434b8b29ae775ad8c2e48c5391]</version>
+        <timestamp>null</timestamp>
+        <desc>AbbreviatedObjectId[0000000000000000000000000000000000000000]</desc>
+        <changeType>ADD</changeType>
+        <check>true</check>
+      </author>
+    </authors>
+  </file>
+  <file model="api" name="src/main/java/com/dcits/modelbank/xmlUtils/XmlBulider.java" path="src/main/java/com/dcits/modelbank/xmlUtils/XmlBulider.java" type="100644">
+    <authors>
+      <author>
+        <name>kevin</name>
+        <version>AbbreviatedObjectId[3d2b9e5c5fd1c44f280a425fb74f6b688cea2a8c]</version>
+        <timestamp>null</timestamp>
+        <desc>AbbreviatedObjectId[cebcc7a02c782e1f90baa96ae6e53dbb8ef493e3]</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+      <author>
+        <name>kevin</name>
+        <version>AbbreviatedObjectId[cebcc7a02c782e1f90baa96ae6e53dbb8ef493e3]</version>
+        <timestamp>null</timestamp>
+        <desc>AbbreviatedObjectId[a71fa5f59af866d5c5e697b89daa86ec0032fec9]</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+      <author>
+        <name>kevin</name>
+        <version>AbbreviatedObjectId[a71fa5f59af866d5c5e697b89daa86ec0032fec9]</version>
+        <timestamp>null</timestamp>
+        <desc>AbbreviatedObjectId[f8c2476ed88e0f700a7f4c03d245b852f4706989]</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+      <author>
+        <name>kevin</name>
+        <version>AbbreviatedObjectId[f8c2476ed88e0f700a7f4c03d245b852f4706989]</version>
+        <timestamp>null</timestamp>
+        <desc>AbbreviatedObjectId[b40faa70b8aa1098478e790fd70773ff1fc39a55]</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+    </authors>
+  </file>
+  <file model="api" name="src/main/resources/applicationContext.xml" path="src/main/resources/applicationContext.xml" type="100644">
+    <authors>
+      <author>
+        <name>kevin</name>
+        <version>AbbreviatedObjectId[a85de294a5b470307f9892bfa111cec67e4c3278]</version>
+        <timestamp>null</timestamp>
+        <desc>AbbreviatedObjectId[8064fa33991692fe1a76ada44c4f7d5df6bb3493]</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+      <author>
+        <name>kevin</name>
+        <version>AbbreviatedObjectId[8064fa33991692fe1a76ada44c4f7d5df6bb3493]</version>
+        <timestamp>null</timestamp>
+        <desc>AbbreviatedObjectId[026cc0184874adeac08352464dd2865dd6c7b3b9]</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+      <author>
+        <name>kevin</name>
+        <version>AbbreviatedObjectId[026cc0184874adeac08352464dd2865dd6c7b3b9]</version>
+        <timestamp>null</timestamp>
+        <desc>AbbreviatedObjectId[e93a6beac3f90046a919bf0f83dfc4beb8b523f4]</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+      <author>
+        <name>kevin</name>
+        <version>AbbreviatedObjectId[e93a6beac3f90046a919bf0f83dfc4beb8b523f4]</version>
+        <timestamp>null</timestamp>
+        <desc>AbbreviatedObjectId[026cc0184874adeac08352464dd2865dd6c7b3b9]</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+      <author>
+        <name>kevin</name>
+        <version>AbbreviatedObjectId[026cc0184874adeac08352464dd2865dd6c7b3b9]</version>
+        <timestamp>null</timestamp>
+        <desc>AbbreviatedObjectId[d84787aeba8f50f6115857fca9daca4445476baf]</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+      <author>
+        <name>kevin</name>
+        <version>AbbreviatedObjectId[d84787aeba8f50f6115857fca9daca4445476baf]</version>
+        <timestamp>null</timestamp>
+        <desc>AbbreviatedObjectId[61a8ad24f4cb116f4d38112fd28a0867ae201c32]</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+    </authors>
+  </file>
+  <file model="api" name="src/main/resources/patchList/patch20171109.xml" path="/dev/null" type="100644">
+    <authors>
+      <author>
+        <name>kevin</name>
+        <version>AbbreviatedObjectId[c30c7c2c09265e192dfc973f32be101d442ba75d]</version>
+        <timestamp>null</timestamp>
+        <desc>AbbreviatedObjectId[0000000000000000000000000000000000000000]</desc>
+        <changeType>ADD</changeType>
+        <check>true</check>
+      </author>
+    </authors>
+  </file>
+  <file model="api" name="src/main/java/com/dcits/modelbank/jgit/GitHandlerImpl.java" path="src/main/java/com/dcits/modelbank/jgit/GitHandlerImpl.java" type="100644">
+    <authors>
+      <author>
+        <name>kevin</name>
+        <version>AbbreviatedObjectId[de4c8a76e59565b3e52a6ab6c5171c2afb837474]</version>
+        <timestamp>null</timestamp>
+        <desc>AbbreviatedObjectId[a03fe674a229fb4d9e45cda1be8f2d56aa4615e4]</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+      <author>
+        <name>kevin</name>
+        <version>AbbreviatedObjectId[a03fe674a229fb4d9e45cda1be8f2d56aa4615e4]</version>
+        <timestamp>null</timestamp>
+        <desc>AbbreviatedObjectId[d70a6cd282d65742ec2d422c5635e8ce690cf08b]</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+    </authors>
+  </file>
+  <file model="api" name="pom.xml" path="pom.xml" type="100644">
+    <authors>
+      <author>
+        <name>kevin</name>
+        <version>AbbreviatedObjectId[0a6b97ecaf288a63c1289f2fe74c72cf76532b49]</version>
+        <timestamp>null</timestamp>
+        <desc>AbbreviatedObjectId[9947b2ff402ec9cb88d37e93c2052fec7e983bc2]</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
       </author>
     </authors>
   </file>

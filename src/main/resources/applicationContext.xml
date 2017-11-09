@@ -29,8 +29,10 @@
         <property name="author">
             <list>
                 <value>name</value>
-                <value>changeType</value>
+                <value>version</value>
+                <value>timestamp</value>
                 <value>desc</value>
+                <value>changeType</value>
                 <value>check</value>
             </list>
         </property>
