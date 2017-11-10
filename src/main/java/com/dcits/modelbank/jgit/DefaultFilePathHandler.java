@@ -13,27 +13,27 @@ import java.util.Objects;
 public class DefaultFilePathHandler extends FilePathHandler {
     private static final Logger logger = LoggerFactory.getLogger(DefaultFilePathHandler.class);
 
-    private final String EMPTY = "";
-    private final String JAVA_SPLIT = "main/java/";
-    private final String XML_MAIN_SPLIT = "main/resources/";
-    private final String XML_MAPPER_SPLIT = "main/config/";
-    private final String PROPERTIES_MAIN_SPLIT = "main/resources/";
-    private final String RULE_SPLIT = "main/config/";
+    private static final String EMPTY = "";
+    private static final String JAVA_SPLIT = "main/java/";
+    private static final String XML_MAIN_SPLIT = "main/resources/";
+    private static final String XML_MAPPER_SPLIT = "main/config/";
+    private static final String PROPERTIES_MAIN_SPLIT = "main/resources/";
+    private static final String RULE_SPLIT = "main/config/";
 
     @Override
     public String getPkgPath(String fullPath, String fileType) {
-        String pkgPath = fullPath;
+        String pkgPath;
         switch (fileType) {
-            case "java":
+            case "java":        // *.java
                 pkgPath = this.getJavaPkgPath(fullPath);
                 break;
-            case "xml":
+            case "xml":         // *.xml
                 pkgPath = this.getXmlPkgPath(fullPath);
                 break;
-            case "properties":
+            case "properties":  // *.properties
                 pkgPath = this.getPropertyPkgPath(fullPath);
                 break;
-            case "rule":
+            case "rule":        // *.rule
                 pkgPath = this.getRulePkgPath(fullPath);
                 break;
             case "ignore":
@@ -47,6 +47,7 @@ public class DefaultFilePathHandler extends FilePathHandler {
 
     /**
      * 获得 Rule 文件打包后的包内路径
+     *
      * @param fullPath 文件路径
      * @return 包内路径
      */

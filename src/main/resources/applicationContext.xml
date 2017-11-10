@@ -6,29 +6,32 @@
        http://www.springframework.org/schema/beans/spring-beans.xsd
        http://www.springframework.org/schema/context
        http://www.springframework.org/schema/context/spring-context.xsd">
+
     <!--引入配置属性文件 -->
     <context:property-placeholder location="classpath:git.properties"/>
     <context:component-scan base-package="com.dcits.modelbank"/>
 
+    <!-- 操作的本地Git项目配置库信息加载 -->
     <bean name="gitHelper" class="com.dcits.modelbank.jgit.helper.GitHelper">
-        <property name="rootDir" value="${git.root.dir}"/>
+        <property name="rootDir" value="${git.source.dir}"/>
         <property name="userName" value="${git.user.name}"/>
         <property name="userEmail" value="${git.user.email}"/>
         <property name="remoteUrl" value="${git.remote.url}"/>
         <property name="credentialsProvider" ref="credentialsProvider"/>
     </bean>
 
-    <!-- FilePathHandler抽象类暴露相应接口，通过继承抽象类实现个性化方法 -->
-    <bean name="filePathHandler" class="com.dcits.modelbank.jgit.DefaultFilePathHandler"/>
-
+    <!-- git 的 http 请求用户名密码验证 -->
     <bean name="credentialsProvider" class="org.eclipse.jgit.transport.UsernamePasswordCredentialsProvider">
         <constructor-arg name="username" value="${git.user.name}"/>
         <constructor-arg name="password" value="${git.user.password}"/>
     </bean>
 
+    <!-- FilePathHandler抽象类暴露相应接口，通过继承抽象类实现个性化方法 -->
+    <bean name="filePathHandler" class="com.dcits.modelbank.jgit.DefaultFilePathHandler"/>
+
     <!-- 生成xml文件bean配置信息 -start-->
     <bean id="xmlBulider" class="com.dcits.modelbank.utils.XmlBulider">
-        <property name="filePtah" value="${git.output.xml.filePath}"/>
+        <property name="filePtah" value="${git.xml.filePath}"/>
         <property name="author">
             <list>
                 <value>name</value>
@@ -40,6 +43,16 @@
             </list>
         </property>
     </bean>
-    <!-- 生成xml文件bean配置信息 -end-->
 
+    <!-- 增量描述文件 XML 解析 -->
+    <bean id="xmlAnalysis" class="com.dcits.modelbank.utils.ModelBankXmlAnalysis">
+        <property name="filePath" value="${git.xml.filePath}"/>
+    </bean>
+
+    <!-- 增量抽取具体实现类 -->
+    <bean id="patchExtractHandler" class="com.dcits.modelbank.extract.ModelBankExtractHandler">
+        <property name="sourceDir" value="${git.source.dir}"/>
+        <property name="targetDir" value="${git.target.dir}"/>
+        <property name="resultDir" value="${git.result.dir}"/>
+    </bean>
 </beans>
