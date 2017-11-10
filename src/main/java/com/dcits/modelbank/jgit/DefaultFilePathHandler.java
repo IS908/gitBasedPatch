@@ -14,11 +14,11 @@ public class DefaultFilePathHandler extends FilePathHandler {
     private static final Logger logger = LoggerFactory.getLogger(DefaultFilePathHandler.class);
 
     private final String EMPTY = "";
-    private final String JAVA_SPLIT = "src/main/java/";
+    private final String JAVA_SPLIT = "main/java/";
     private final String XML_MAIN_SPLIT = "main/resources/";
     private final String XML_MAPPER_SPLIT = "main/config/";
     private final String PROPERTIES_MAIN_SPLIT = "main/resources/";
-    private final String PROPERTIES_TEST_SPLIT = "test/resources/";
+    private final String RULE_SPLIT = "main/config/";
 
     @Override
     public String getPkgPath(String fullPath, String fileType) {
@@ -33,6 +33,9 @@ public class DefaultFilePathHandler extends FilePathHandler {
             case "properties":
                 pkgPath = this.getPropertyPkgPath(fullPath);
                 break;
+            case "rule":
+                pkgPath = this.getRulePkgPath(fullPath);
+                break;
             case "ignore":
             case "jar":
             default:
@@ -40,6 +43,21 @@ public class DefaultFilePathHandler extends FilePathHandler {
                 break;
         }
         return pkgPath;
+    }
+
+    /**
+     * 获得 Rule 文件打包后的包内路径
+     * @param fullPath 文件路径
+     * @return 包内路径
+     */
+    private String getRulePkgPath(String fullPath) {
+        if (Objects.equals(null, fullPath)) return null;
+        String rulePath = EMPTY;
+        String[] pathArray = fullPath.split(RULE_SPLIT);
+        if (!Objects.equals(null, pathArray) && pathArray.length > 0) {
+            rulePath = pathArray[pathArray.length - 1];
+        }
+        return rulePath;
     }
 
     /**
