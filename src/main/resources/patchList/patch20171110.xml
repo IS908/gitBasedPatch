@@ -1,18 +1,116 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <files>
-  <file fullPath="Ensemble/modules/ensemble-rb/online/src/main/config/mapping/rb-mapping.xml" model="Ensemble" pkgPath="Ensemble/modules/ensemble-rb/online/src/main/config/mapping/rb-mapping.xml" type="xml">
+  <file fullPath="Ensemble/modules/ensemble-external-fx/online/src/main/config/mapping/external-mapping.xml" model="Ensemble" pkgPath="mapping/external-mapping.xml" type="xml">
     <authors>
       <author>
-        <name>dupfc</name>
-        <versionID>30cfccccf6b905bade51fe6842046b4d3af785de</versionID>
-        <timestamp>2017-11-10 09:37:10</timestamp>
-        <desc>modify by dupfc 修改定期开户时存储按频率付息日问题</desc>
+        <name>DIGITALCHINA\jinhuif</name>
+        <versionID>affe04a517ab430345de427b4090afc199c22883</versionID>
+        <timestamp>2017-11-10 17:02:34</timestamp>
+        <desc>二代支付缺陷修复,修改汇款人账号</desc>
         <changeType>MODIFY</changeType>
         <check>true</check>
       </author>
     </authors>
   </file>
-  <file fullPath="Ensemble/modules/ensemble-eod/src/test/resources/galaxy.properties" model="Ensemble" pkgPath="Ensemble/modules/ensemble-eod/src/test/resources/galaxy.properties" type="properties">
+  <file fullPath="Ensemble/modules/ensemble-service/src/main/java/com/dcits/ensemble/service/flow/payment/PaymentAccountingFlowImpl.java" model="Ensemble" pkgPath="com/dcits/ensemble/service/flow/payment/PaymentAccountingFlowImpl.class" type="java">
+    <authors>
+      <author>
+        <name>DIGITALCHINA\jinhuif</name>
+        <versionID>8051fe42c8ccdf12b4faf554fd23e7c356e0f8ec</versionID>
+        <timestamp>2017-11-10 17:02:34</timestamp>
+        <desc>二代支付缺陷修复,修改汇款人账号</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+    </authors>
+  </file>
+  <file fullPath="Ensemble-Prod/modules/ensemble-common/src/main/resources/error/prod_error_zh_CN.properties" model="Ensemble" pkgPath="error/prod_error_zh_CN.properties" type="properties">
+    <authors>
+      <author>
+        <name>FURONGB\furongb</name>
+        <versionID>95cde01ae5fb10a155e5c7f02b8f6dee29d24893</versionID>
+        <timestamp>2017-11-10 16:20:23</timestamp>
+        <desc>修改提前部分支取指标逻辑</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+    </authors>
+  </file>
+  <file fullPath="Ensemble-channel/modules/ensemble-unipay-fx/core/src/main/java/com/dcits/ensemble/uc/event/FileUcBatchAcctountServer.java" model="Ensemble" pkgPath="com/dcits/ensemble/uc/event/FileUcBatchAcctountServer.class" type="java">
+    <authors>
+      <author>
+        <name>gubm</name>
+        <versionID>7cce516d159ba0880128c0dc542bf399506304d2</versionID>
+        <timestamp>2017-11-10 15:04:10</timestamp>
+        <desc>无卡管理 限额取活期子账户</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+    </authors>
+  </file>
+  <file fullPath="Ensemble-channel/modules/ensemble-unipay/core/src/main/java/com/dcits/ensemble/uc/event/NoCardRestraintsAmountServer.java" model="Ensemble" pkgPath="com/dcits/ensemble/uc/event/NoCardRestraintsAmountServer.class" type="java">
+    <authors>
+      <author>
+        <name>gubm</name>
+        <versionID>0a79c361151ca2596cb6cd4cad401b90611af669</versionID>
+        <timestamp>2017-11-10 15:04:10</timestamp>
+        <desc>无卡管理 限额取活期子账户</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+    </authors>
+  </file>
+  <file fullPath="Ensemble/modules/ensemble-service/src/main/java/com/dcits/ensemble/service/flow/external/SingleAccountFlowImpl.java" model="Ensemble" pkgPath="com/dcits/ensemble/service/flow/external/SingleAccountFlowImpl.class" type="java">
+    <authors>
+      <author>
+        <name>zhoubx</name>
+        <versionID>3e80607cf41aa67e31706d04b6432362c4402415</versionID>
+        <timestamp>2017-11-10 16:45:18</timestamp>
+        <desc>Fix:1.转账接口增加外围渠道日期上送,用于mb_tran_hist表settlementDate记录
+    2.凭证Micro增加06(操作选项)-同业存款证实书打印
+    3.理财平台入账清算记账日期修改</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+    </authors>
+  </file>
+  <file fullPath="Ensemble/modules/ensemble-external-fx/online/src/main/java/com/dcits/ensemble/externalfx/online/service/mbsdcore/Core1220013001.java" model="Ensemble" pkgPath="com/dcits/ensemble/externalfx/online/service/mbsdcore/Core1220013001.class" type="java">
+    <authors>
+      <author>
+        <name>zhoubx</name>
+        <versionID>9a94592994b525b9669db0dc5fbc3200299a4a16</versionID>
+        <timestamp>2017-11-10 17:58:28</timestamp>
+        <desc>Fix:销户不考虑贷款合同级(AcctSeqNo=0)账户状态</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+    </authors>
+  </file>
+  <file fullPath="Ensemble/modules/ensemble-external-fx/core/src/main/java/com/dcits/ensemble/externalfx/model/PaymentAccountFlowModel.java" model="Ensemble" pkgPath="com/dcits/ensemble/externalfx/model/PaymentAccountFlowModel.class" type="java">
+    <authors>
+      <author>
+        <name>DIGITALCHINA\jinhuif</name>
+        <versionID>b57d63789dde3a0c296cedbb6bc23763776367bf</versionID>
+        <timestamp>2017-11-10 17:02:34</timestamp>
+        <desc>二代支付缺陷修复,修改汇款人账号</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+    </authors>
+  </file>
+  <file fullPath="Ensemble/modules/ensemble-external-fx/api/src/main/java/com/dcits/ensemble/externalfx/model/mbsdcore/Core1000013053In.java" model="Ensemble" pkgPath="com/dcits/ensemble/externalfx/model/mbsdcore/Core1000013053In.class" type="java">
+    <authors>
+      <author>
+        <name>DIGITALCHINA\jinhuif</name>
+        <versionID>66e21ce5a6153f69350f33e8bbef788383feb123</versionID>
+        <timestamp>2017-11-10 17:02:34</timestamp>
+        <desc>二代支付缺陷修复,修改汇款人账号</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+    </authors>
+  </file>
+  <file fullPath="Ensemble/modules/ensemble-eod/src/test/resources/galaxy.properties" model="Ensemble" pkgPath="galaxy.properties" type="properties">
     <authors>
       <author>
         <name>daiduan</name>
@@ -24,55 +122,7 @@
       </author>
     </authors>
   </file>
-  <file fullPath="Ensemble/modules/ensemble-eod/src/test/resources/galaxy.db.properties" model="Ensemble" pkgPath="Ensemble/modules/ensemble-eod/src/test/resources/galaxy.db.properties" type="properties">
-    <authors>
-      <author>
-        <name>daiduan</name>
-        <versionID>63adb58cddbd8c40047282c44bd07dafb4f218ab</versionID>
-        <timestamp>2017-11-10 10:33:05</timestamp>
-        <desc>更新配置</desc>
-        <changeType>MODIFY</changeType>
-        <check>true</check>
-      </author>
-    </authors>
-  </file>
-  <file fullPath="Ensemble-Prod/modules/ensemble-busi/base/src/main/java/com/dcits/ensemble/busi/base/fun/misc/MbAcctClassUpGradeFun.java" model="Ensemble" pkgPath="Ensemble-Prod/modules/ensemble-busi/base/src/main/java/com/dcits/ensemble/busi/base/fun/misc/MbAcctClassUpGradeFun.java" type="java">
-    <authors>
-      <author>
-        <name>wskyj</name>
-        <versionID>381e908f5fc0af6673b5f94a5a7d955b4e7c6737</versionID>
-        <timestamp>2017-11-10 10:51:05</timestamp>
-        <desc>Mod:2,3类账户升级、降级时同时维护主账户信息</desc>
-        <changeType>MODIFY</changeType>
-        <check>true</check>
-      </author>
-    </authors>
-  </file>
-  <file fullPath="Ensemble/modules/ensemble-dc/core/src/main/resources/META-INF/mapper/DcPrecontract.xml" model="Ensemble" pkgPath="Ensemble/modules/ensemble-dc/core/src/main/resources/META-INF/mapper/DcPrecontract.xml" type="xml">
-    <authors>
-      <author>
-        <name>shaosonga</name>
-        <versionID>c3cf1a3392b548ba25bfc14cc4e1ab72afef9647</versionID>
-        <timestamp>2017-11-10 10:26:56</timestamp>
-        <desc>预约、认购跑批日期代码修改</desc>
-        <changeType>MODIFY</changeType>
-        <check>true</check>
-      </author>
-    </authors>
-  </file>
-  <file fullPath="Ensemble-Prod/modules/ensemble-dbmanage/src/main/resources/META-INF/mapper/MbFileTableDef.xml" model="Ensemble" pkgPath="Ensemble-Prod/modules/ensemble-dbmanage/src/main/resources/META-INF/mapper/MbFileTableDef.xml" type="xml">
-    <authors>
-      <author>
-        <name>sunjwc</name>
-        <versionID>3ee46245e70c31a5ff298183c3dbcd9c098a891f</versionID>
-        <timestamp>2017-11-10 11:27:03</timestamp>
-        <desc>fix 修改签约全量同步只同步生效的签约  修改核心日期检查不检查ECIF上送日期</desc>
-        <changeType>MODIFY</changeType>
-        <check>true</check>
-      </author>
-    </authors>
-  </file>
-  <file fullPath="Ensemble/modules/ensemble-eod/src/test/resources/ext/spring/business-seq.xml" model="Ensemble" pkgPath="Ensemble/modules/ensemble-eod/src/test/resources/ext/spring/business-seq.xml" type="xml">
+  <file fullPath="Ensemble/modules/ensemble-eod/src/test/resources/ext/spring/business-seq.xml" model="Ensemble" pkgPath="" type="xml">
     <authors>
       <author>
         <name>daiduan</name>
@@ -84,19 +134,31 @@
       </author>
     </authors>
   </file>
-  <file fullPath="Ensemble/modules/ensemble-eod/src/test/resources/ext/spring/business-db.xml" model="Ensemble" pkgPath="Ensemble/modules/ensemble-eod/src/test/resources/ext/spring/business-db.xml" type="xml">
+  <file fullPath="Ensemble/modules/ensemble-external/online/src/main/java/com/dcits/ensemble/external/online/service/mbsdcore/Core14003902.java" model="Ensemble" pkgPath="com/dcits/ensemble/external/online/service/mbsdcore/Core14003902.class" type="java">
     <authors>
       <author>
-        <name>daiduan</name>
-        <versionID>34393142ac458d10c09d3e001595b18e208ac584</versionID>
-        <timestamp>2017-11-10 10:33:05</timestamp>
-        <desc>更新配置</desc>
+        <name>liuxci</name>
+        <versionID>2ac370dccc85f638d5614adb23e899f7577affdc</versionID>
+        <timestamp>2017-11-10 15:39:18</timestamp>
+        <desc>Mod：黑名单查询更改listCategory</desc>
         <changeType>MODIFY</changeType>
         <check>true</check>
       </author>
     </authors>
   </file>
-  <file fullPath="Ensemble/modules/ensemble-external/online/src/main/java/com/dcits/ensemble/external/online/service/mbsdcore/Core12200203.java" model="Ensemble" pkgPath="Ensemble/modules/ensemble-external/online/src/main/java/com/dcits/ensemble/external/online/service/mbsdcore/Core12200203.java" type="java">
+  <file fullPath="Ensemble/modules/ensemble-oc/online/src/main/java/com/dcits/ensemble/oc/online/service/mbsdcore/Core12000622.java" model="Ensemble" pkgPath="com/dcits/ensemble/oc/online/service/mbsdcore/Core12000622.class" type="java">
+    <authors>
+      <author>
+        <name>liuxbh</name>
+        <versionID>483dd21e849dad7596442bae706be3e58267407b</versionID>
+        <timestamp>2017-11-10 16:34:04</timestamp>
+        <desc>FIX:修改同城票提出提出被退票原交易日期被更新的缺陷</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+    </authors>
+  </file>
+  <file fullPath="Ensemble/modules/ensemble-external/online/src/main/java/com/dcits/ensemble/external/online/service/mbsdcore/Core12200203.java" model="Ensemble" pkgPath="com/dcits/ensemble/external/online/service/mbsdcore/Core12200203.class" type="java">
     <authors>
       <author>
         <name>minhao</name>
@@ -108,19 +170,31 @@
       </author>
     </authors>
   </file>
-  <file fullPath="Ensemble/modules/ensemble-service/src/main/java/com/dcits/ensemble/service/check/data/DefaultGetCheckData.java" model="Ensemble" pkgPath="Ensemble/modules/ensemble-service/src/main/java/com/dcits/ensemble/service/check/data/DefaultGetCheckData.java" type="java">
+  <file fullPath="Ensemble/modules/ensemble-oc/online/src/main/java/com/dcits/ensemble/oc/online/service/mbsdcore/Core12000611.java" model="Ensemble" pkgPath="com/dcits/ensemble/oc/online/service/mbsdcore/Core12000611.class" type="java">
     <authors>
       <author>
-        <name>fangmt</name>
-        <versionID>eeea8a147aa1c3a18fcfd27df00edb42fef85946</versionID>
-        <timestamp>2017-11-10 11:20:53</timestamp>
-        <desc>修改保函跨机构操作校验</desc>
+        <name>liuxbh</name>
+        <versionID>2dadb4cc46be5980ff44eb0518ade032f0bbad56</versionID>
+        <timestamp>2017-11-10 16:34:04</timestamp>
+        <desc>FIX:修改同城票提出提出被退票原交易日期被更新的缺陷</desc>
         <changeType>MODIFY</changeType>
         <check>true</check>
       </author>
     </authors>
   </file>
-  <file fullPath="Ensemble/modules/ensemble-service/src/main/java/com/dcits/ensemble/service/flow/acct/maintance/DemoteFlowImpl.java" model="Ensemble" pkgPath="Ensemble/modules/ensemble-service/src/main/java/com/dcits/ensemble/service/flow/acct/maintance/DemoteFlowImpl.java" type="java">
+  <file fullPath="Ensemble-Prod/modules/ensemble-busi/base/src/main/java/com/dcits/ensemble/busi/base/event/acct/close/AcctCloseCheck.java" model="Ensemble" pkgPath="com/dcits/ensemble/busi/base/event/acct/close/AcctCloseCheck.class" type="java">
+    <authors>
+      <author>
+        <name>zhoubx</name>
+        <versionID>908fe0f2742ab9dae5cfe518bb08d4804007b7de</versionID>
+        <timestamp>2017-11-10 17:58:28</timestamp>
+        <desc>Fix:销户不考虑贷款合同级(AcctSeqNo=0)账户状态</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+    </authors>
+  </file>
+  <file fullPath="Ensemble/modules/ensemble-service/src/main/java/com/dcits/ensemble/service/flow/acct/maintance/DemoteFlowImpl.java" model="Ensemble" pkgPath="com/dcits/ensemble/service/flow/acct/maintance/DemoteFlowImpl.class" type="java">
     <authors>
       <author>
         <name>wskyj</name>
@@ -132,7 +206,7 @@
       </author>
     </authors>
   </file>
-  <file fullPath="Ensemble/modules/ensemble-cm/online/src/main/java/com/dcits/ensemble/cm/online/service/inner/FmCheck.java" model="Ensemble" pkgPath="Ensemble/modules/ensemble-cm/online/src/main/java/com/dcits/ensemble/cm/online/service/inner/FmCheck.java" type="java">
+  <file fullPath="Ensemble/modules/ensemble-cm/online/src/main/java/com/dcits/ensemble/cm/online/service/inner/FmCheck.java" model="Ensemble" pkgPath="com/dcits/ensemble/cm/online/service/inner/FmCheck.class" type="java">
     <authors>
       <author>
         <name>sunjwc</name>
@@ -144,7 +218,275 @@
       </author>
     </authors>
   </file>
-  <file fullPath="Ensemble/modules/ensemble-service/src/main/java/com/dcits/ensemble/service/batch/MbBatchOpenFun.java" model="Ensemble" pkgPath="Ensemble/modules/ensemble-service/src/main/java/com/dcits/ensemble/service/batch/MbBatchOpenFun.java" type="java">
+  <file fullPath="Ensemble-Prod/modules/ensemble-busi/part/src/main/java/com/dcits/ensemble/busi/part/PreWithdrawPa.java" model="Ensemble" pkgPath="com/dcits/ensemble/busi/part/PreWithdrawPa.class" type="java">
+    <authors>
+      <author>
+        <name>FURONGB\furongb</name>
+        <versionID>fde04a2934a7af70df21c84c2c3d070c80c12ab2</versionID>
+        <timestamp>2017-11-10 16:20:23</timestamp>
+        <desc>修改提前部分支取指标逻辑</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+    </authors>
+  </file>
+  <file fullPath="Ensemble/modules/ensemble-rb/api/src/main/java/com/dcits/ensemble/rb/model/mbsdcore/Core12000111In.java" model="Ensemble" pkgPath="com/dcits/ensemble/rb/model/mbsdcore/Core12000111In.class" type="java">
+    <authors>
+      <author>
+        <name>zhoubx</name>
+        <versionID>5154688b44ab2a7a02b9e55b619f1c865413ac03</versionID>
+        <timestamp>2017-11-10 16:45:18</timestamp>
+        <desc>Fix:1.转账接口增加外围渠道日期上送,用于mb_tran_hist表settlementDate记录
+    2.凭证Micro增加06(操作选项)-同业存款证实书打印
+    3.理财平台入账清算记账日期修改</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+    </authors>
+  </file>
+  <file fullPath="Ensemble/modules/ensemble-external-fx/core/src/main/java/com/dcits/ensemble/externalfx/business/BatchFinancialSettleProcess.java" model="Ensemble" pkgPath="com/dcits/ensemble/externalfx/business/BatchFinancialSettleProcess.class" type="java">
+    <authors>
+      <author>
+        <name>zhoubx</name>
+        <versionID>cb03a58e235ff7953c0268bc21b65f9b52011fa0</versionID>
+        <timestamp>2017-11-10 16:45:18</timestamp>
+        <desc>Fix:1.转账接口增加外围渠道日期上送,用于mb_tran_hist表settlementDate记录
+    2.凭证Micro增加06(操作选项)-同业存款证实书打印
+    3.理财平台入账清算记账日期修改</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+    </authors>
+  </file>
+  <file fullPath="Ensemble/modules/ensemble-oc/online/src/main/java/com/dcits/ensemble/oc/online/service/mbsdcore/Core12000620.java" model="Ensemble" pkgPath="com/dcits/ensemble/oc/online/service/mbsdcore/Core12000620.class" type="java">
+    <authors>
+      <author>
+        <name>liuxbh</name>
+        <versionID>b487a9848aa281c3f2cfd1ecb5b1dc233cd60ba5</versionID>
+        <timestamp>2017-11-10 16:34:04</timestamp>
+        <desc>FIX:修改同城票提出提出被退票原交易日期被更新的缺陷</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+    </authors>
+  </file>
+  <file fullPath="Ensemble/modules/ensemble-eod/src/test/resources/galaxy.db.properties" model="Ensemble" pkgPath="galaxy.db.properties" type="properties">
+    <authors>
+      <author>
+        <name>daiduan</name>
+        <versionID>63adb58cddbd8c40047282c44bd07dafb4f218ab</versionID>
+        <timestamp>2017-11-10 10:33:05</timestamp>
+        <desc>更新配置</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+    </authors>
+  </file>
+  <file fullPath="Ensemble-Prod/modules/ensemble-busi/base/src/main/java/com/dcits/ensemble/busi/base/fun/misc/MbAcctClassUpGradeFun.java" model="Ensemble" pkgPath="com/dcits/ensemble/busi/base/fun/misc/MbAcctClassUpGradeFun.class" type="java">
+    <authors>
+      <author>
+        <name>wskyj</name>
+        <versionID>381e908f5fc0af6673b5f94a5a7d955b4e7c6737</versionID>
+        <timestamp>2017-11-10 10:51:05</timestamp>
+        <desc>Mod:2,3类账户升级、降级时同时维护主账户信息</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+    </authors>
+  </file>
+  <file fullPath="Ensemble/modules/ensemble-eod/src/test/resources/ext/spring/business-db.xml" model="Ensemble" pkgPath="" type="xml">
+    <authors>
+      <author>
+        <name>daiduan</name>
+        <versionID>34393142ac458d10c09d3e001595b18e208ac584</versionID>
+        <timestamp>2017-11-10 10:33:05</timestamp>
+        <desc>更新配置</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+    </authors>
+  </file>
+  <file fullPath="Ensemble/modules/ensemble-rb/api/src/main/java/com/dcits/ensemble/rb/model/mbsdcore/Core10000103In.java" model="Ensemble" pkgPath="com/dcits/ensemble/rb/model/mbsdcore/Core10000103In.class" type="java">
+    <authors>
+      <author>
+        <name>zhoubx</name>
+        <versionID>ed7a568289cf5a0833a37a41d8003518711297d0</versionID>
+        <timestamp>2017-11-10 16:45:18</timestamp>
+        <desc>Fix:1.转账接口增加外围渠道日期上送,用于mb_tran_hist表settlementDate记录
+    2.凭证Micro增加06(操作选项)-同业存款证实书打印
+    3.理财平台入账清算记账日期修改</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+    </authors>
+  </file>
+  <file fullPath="Ensemble/modules/ensemble-cl/online/src/main/java/com/dcits/ensemble/cl/online/service/mbsdcore/Core14002101.java" model="Ensemble" pkgPath="com/dcits/ensemble/cl/online/service/mbsdcore/Core14002101.class" type="java">
+    <authors>
+      <author>
+        <name>wanzheng</name>
+        <versionID>069e5da0bfdd0a101262c63b36739614f8bb3ffb</versionID>
+        <timestamp>2017-11-10 15:17:59</timestamp>
+        <desc>增加下送循环贷款标志</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+    </authors>
+  </file>
+  <file fullPath="Ensemble/modules/ensemble-service/src/main/java/com/dcits/ensemble/service/flow/voucher/DepCertFlowImpl.java" model="Ensemble" pkgPath="com/dcits/ensemble/service/flow/voucher/DepCertFlowImpl.class" type="java">
+    <authors>
+      <author>
+        <name>rensp</name>
+        <versionID>f6c8bf4345f6ef3a2c985e7ce318c8888b1d6d0e</versionID>
+        <timestamp>2017-11-10 14:45:14</timestamp>
+        <desc>修改缺陷14383 大额存单账户质押状态解限后，出具存款证明时，提示: RB3094 质押账户不能出具存款证明！</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+    </authors>
+  </file>
+  <file fullPath="Ensemble/modules/ensemble-rb/online/src/main/config/mapping/rb-mapping.xml" model="Ensemble" pkgPath="mapping/rb-mapping.xml" type="xml">
+    <authors>
+      <author>
+        <name>zhoubx</name>
+        <versionID>78bb398a91fb3551915515b30f06617fa4c8392e</versionID>
+        <timestamp>2017-11-10 16:45:18</timestamp>
+        <desc>Fix:1.转账接口增加外围渠道日期上送,用于mb_tran_hist表settlementDate记录
+    2.凭证Micro增加06(操作选项)-同业存款证实书打印
+    3.理财平台入账清算记账日期修改</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+      <author>
+        <name>dupfc</name>
+        <versionID>30cfccccf6b905bade51fe6842046b4d3af785de</versionID>
+        <timestamp>2017-11-10 09:37:10</timestamp>
+        <desc>modify by dupfc 修改定期开户时存储按频率付息日问题</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+    </authors>
+  </file>
+  <file fullPath="Ensemble/modules/ensemble-cl/api/src/main/java/com/dcits/ensemble/cl/model/mbsdcore/Core14002101Out.java" model="Ensemble" pkgPath="com/dcits/ensemble/cl/model/mbsdcore/Core14002101Out.class" type="java">
+    <authors>
+      <author>
+        <name>wanzheng</name>
+        <versionID>271f6d37d2c7e7f758844c9bb255c4194379b620</versionID>
+        <timestamp>2017-11-10 15:17:59</timestamp>
+        <desc>增加下送循环贷款标志</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+    </authors>
+  </file>
+  <file fullPath="Ensemble/modules/ensemble-eod/src/main/java/com/dcits/ensemble/eod/acct/GenDcRedemption.java" model="Ensemble" pkgPath="com/dcits/ensemble/eod/acct/GenDcRedemption.class" type="java">
+    <authors>
+      <author>
+        <name>limmd</name>
+        <versionID>ebe9548bf2a2494599d2fd6b8e77d835fae0c794</versionID>
+        <timestamp>2017-11-10 14:45:47</timestamp>
+        <desc>添加事务</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+    </authors>
+  </file>
+  <file fullPath="Ensemble-Prod/modules/ensemble-common/src/main/resources/error/OC_error_zh_CN.properties" model="Ensemble" pkgPath="error/OC_error_zh_CN.properties" type="properties">
+    <authors>
+      <author>
+        <name>liuxbh</name>
+        <versionID>582ee54a76ae7814c45725bdeb0be92c92ce5489</versionID>
+        <timestamp>2017-11-10 16:34:04</timestamp>
+        <desc>FIX:修改同城票提出提出被退票原交易日期被更新的缺陷</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+    </authors>
+  </file>
+  <file fullPath="Ensemble-Prod/modules/ensemble-busi/part/src/main/java/com/dcits/ensemble/busi/part/PartWithdrawPa.java" model="Ensemble" pkgPath="com/dcits/ensemble/busi/part/PartWithdrawPa.class" type="java">
+    <authors>
+      <author>
+        <name>FURONGB\furongb</name>
+        <versionID>369425baae7d52549c7b271267aeb91a68d28125</versionID>
+        <timestamp>2017-11-10 16:20:23</timestamp>
+        <desc>修改提前部分支取指标逻辑</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+    </authors>
+  </file>
+  <file fullPath="Ensemble/modules/ensemble-dc/core/src/main/resources/META-INF/mapper/DcPrecontract.xml" model="Ensemble" pkgPath="META-INF/mapper/DcPrecontract.xml" type="xml">
+    <authors>
+      <author>
+        <name>shaosonga</name>
+        <versionID>c3cf1a3392b548ba25bfc14cc4e1ab72afef9647</versionID>
+        <timestamp>2017-11-10 10:26:56</timestamp>
+        <desc>预约、认购跑批日期代码修改</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+    </authors>
+  </file>
+  <file fullPath="Ensemble-Prod/modules/ensemble-dbmanage/src/main/resources/META-INF/mapper/MbFileTableDef.xml" model="Ensemble" pkgPath="META-INF/mapper/MbFileTableDef.xml" type="xml">
+    <authors>
+      <author>
+        <name>sunjwc</name>
+        <versionID>0a0c9e57d9604ad2ac10a427782366f73fd9a14e</versionID>
+        <timestamp>2017-11-10 14:27:18</timestamp>
+        <desc>fix 修改签约不同步核心不是主系统的签约</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+      <author>
+        <name>sunjwc</name>
+        <versionID>3ee46245e70c31a5ff298183c3dbcd9c098a891f</versionID>
+        <timestamp>2017-11-10 11:27:03</timestamp>
+        <desc>fix 修改签约全量同步只同步生效的签约  修改核心日期检查不检查ECIF上送日期</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+    </authors>
+  </file>
+  <file fullPath="Ensemble-Prod/modules/ensemble-busi/base/src/main/java/com/dcits/ensemble/busi/base/common/TdaHistRegister.java" model="Ensemble" pkgPath="com/dcits/ensemble/busi/base/common/TdaHistRegister.class" type="java">
+    <authors>
+      <author>
+        <name>dupfc</name>
+        <versionID>6798040b8363a5819c19c1d80b5cd2d3d85c0ef0</versionID>
+        <timestamp>2017-11-10 17:57:10</timestamp>
+        <desc>fix by dupfc 定期登记簿获取参数如果未配置，默认为0</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+    </authors>
+  </file>
+  <file fullPath="Ensemble/modules/ensemble-service/src/main/java/com/dcits/ensemble/service/check/data/DefaultGetCheckData.java" model="Ensemble" pkgPath="com/dcits/ensemble/service/check/data/DefaultGetCheckData.class" type="java">
+    <authors>
+      <author>
+        <name>fangmt</name>
+        <versionID>50e8b1bc0005728bc8ad832d536e96ecccd2dbab</versionID>
+        <timestamp>2017-11-10 17:39:48</timestamp>
+        <desc>修改保函跨机构操作校验</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+      <author>
+        <name>fangmt</name>
+        <versionID>aa83e592e9202237d539a7a3481d5d55c94dbe03</versionID>
+        <timestamp>2017-11-10 16:32:06</timestamp>
+        <desc>修改保函跨机构操作校验</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+      <author>
+        <name>fangmt</name>
+        <versionID>eeea8a147aa1c3a18fcfd27df00edb42fef85946</versionID>
+        <timestamp>2017-11-10 11:20:53</timestamp>
+        <desc>修改保函跨机构操作校验</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+    </authors>
+  </file>
+  <file fullPath="Ensemble/modules/ensemble-service/src/main/java/com/dcits/ensemble/service/batch/MbBatchOpenFun.java" model="Ensemble" pkgPath="com/dcits/ensemble/service/batch/MbBatchOpenFun.class" type="java">
     <authors>
       <author>
         <name>minhao</name>
@@ -156,13 +498,37 @@
       </author>
     </authors>
   </file>
-  <file fullPath="Ensemble-Prod/modules/ensemble-dbmanage/src/main/java/com/dcits/ensemble/dbmanage/inquiry/MbLgRegisterInquiry.java" model="Ensemble" pkgPath="Ensemble-Prod/modules/ensemble-dbmanage/src/main/java/com/dcits/ensemble/dbmanage/inquiry/MbLgRegisterInquiry.java" type="java">
+  <file fullPath="Ensemble-Prod/modules/ensemble-busi/base/src/main/java/com/dcits/ensemble/busi/base/fun/check/TbVoucherCheck.java" model="Ensemble" pkgPath="com/dcits/ensemble/busi/base/fun/check/TbVoucherCheck.class" type="java">
+    <authors>
+      <author>
+        <name>rensp</name>
+        <versionID>df2a9bab80851567702574260ac6b31f7f888e47</versionID>
+        <timestamp>2017-11-10 14:45:14</timestamp>
+        <desc>修改缺陷14383 大额存单账户质押状态解限后，出具存款证明时，提示: RB3094 质押账户不能出具存款证明！</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+    </authors>
+  </file>
+  <file fullPath="Ensemble-Prod/modules/ensemble-dbmanage/src/main/java/com/dcits/ensemble/dbmanage/inquiry/MbLgRegisterInquiry.java" model="Ensemble" pkgPath="com/dcits/ensemble/dbmanage/inquiry/MbLgRegisterInquiry.class" type="java">
     <authors>
       <author>
         <name>fangmt</name>
         <versionID>dd9cd96aba699132a6b9a9819daf1e0698c73bb8</versionID>
         <timestamp>2017-11-10 11:20:53</timestamp>
         <desc>修改保函跨机构操作校验</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+    </authors>
+  </file>
+  <file fullPath="Ensemble-Prod/modules/ensemble-common/src/main/resources/error/RB_error_zh_CN.properties" model="Ensemble" pkgPath="error/RB_error_zh_CN.properties" type="properties">
+    <authors>
+      <author>
+        <name>DIGITALCHINA\jinhuif</name>
+        <versionID>b29e969725237d2b1150948c095a8e4b608fcf0e</versionID>
+        <timestamp>2017-11-10 17:02:34</timestamp>
+        <desc>二代支付缺陷修复,修改汇款人账号</desc>
         <changeType>MODIFY</changeType>
         <check>true</check>
       </author>

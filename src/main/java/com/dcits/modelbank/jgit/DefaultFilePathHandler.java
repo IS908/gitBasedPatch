@@ -1,28 +1,41 @@
 package com.dcits.modelbank.jgit;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.util.Objects;
+
 /**
  * Created on 2017-11-10 11:33.
  *
  * @author kevin
  */
 public class DefaultFilePathHandler extends FilePathHandler {
+    private static final Logger logger = LoggerFactory.getLogger(DefaultFilePathHandler.class);
+
+    private final String EMPTY = "";
+    private final String JAVA_SPLIT = "src/main/java/";
+    private final String XML_MAIN_SPLIT = "main/resources/";
+    private final String XML_TEST_SPLIT = "test/resources/";
+    private final String XML_MAPPER_SPLIT = "main/config/";
+    private final String PROPERTIES_MAIN_SPLIT = "main/resources/";
+    private final String PROPERTIES_TEST_SPLIT = "test/resources/";
+
     @Override
     public String getPkgPath(String fullPath, String fileType) {
         String pkgPath = fullPath;
         switch (fileType) {
             case "java":
-                pkgPath = this.getJavaFilePath(fullPath);
+                pkgPath = this.getJavaPkgPath(fullPath);
                 break;
             case "xml":
-                pkgPath = this.getXmlFilePath(fullPath);
+                pkgPath = this.getXmlPkgPath(fullPath);
                 break;
             case "properties":
-                pkgPath = this.getPropertyFilePath(fullPath);
+                pkgPath = this.getPropertyPkgPath(fullPath);
                 break;
             case "ignore":
-                break;
             case "jar":
-                break;
             default:
                 pkgPath = fullPath;
                 break;
@@ -31,62 +44,68 @@ public class DefaultFilePathHandler extends FilePathHandler {
     }
 
     /**
-     * @author qiqsa
+     * 获得 java 文件打包后的包内路径
+     *
      * @param fullPath
      * @return javaPath
+     * @author qiqsa
      * @desc get java Class path
      */
-    private String getJavaFilePath(String fullPath) {
-        String javaPath = null;
-        if(fullPath != null){
-            String [] pathArray = fullPath.split("src/main/java/");
-            if(pathArray != null && pathArray.length > 0){
-                javaPath = pathArray[1];
-            }
+    private String getJavaPkgPath(String fullPath) {
+        if (Objects.equals(null, fullPath)) return null;
+        String javaPath = EMPTY;
+        String[] pathArray = fullPath.split(JAVA_SPLIT);
+        if (!Objects.equals(null, pathArray) && pathArray.length > 0) {
+            javaPath = pathArray[pathArray.length - 1];
         }
-        return javaPath;
+        pathArray = javaPath.split("\\.");
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < pathArray.length - 1; ++i) {
+            sb.append(pathArray[i]);
+        }
+        sb.append(".class");
+        return sb.toString();
     }
 
     /**
+     * 获得 XML 文件打包后的包内路径
      *
      * @param fullPath
      * @return
      */
-    private String getXmlFilePath(String fullPath){
+    private String getXmlPkgPath(String fullPath) {
+        if (Objects.equals(null, fullPath)) return null;
         String xmlFilePath = null;
-        if(fullPath != null){
-            String []pathArry = null;
-            if(fullPath.contains("main/resources/")){
-                pathArry = fullPath.split("main/resources/");
-                if(pathArry.length > 0){
-                    xmlFilePath =  pathArry[1];
-                }
-            }else if(fullPath.contains("main/config/")){
-                pathArry = fullPath.split("main/config/");
-                if(pathArry.length > 0){
-                    xmlFilePath =  pathArry[1];
-                }
-            }
+        String[] pathArry;
+        if (fullPath.contains(XML_MAIN_SPLIT)) {
+            pathArry = fullPath.split(XML_MAIN_SPLIT);
+            xmlFilePath = pathArry[pathArry.length - 1];
+        } else if (fullPath.contains(XML_MAPPER_SPLIT)) {
+            pathArry = fullPath.split(XML_MAPPER_SPLIT);
+            xmlFilePath = pathArry[pathArry.length - 1];
         }
         return xmlFilePath;
     }
 
     /**
-     * @author qiqsa
+     * 获得 properties 文件打包后的包内路径
+     *
      * @param fullPath
      * @return properties path
+     * @author qiqsa
      * @desc get properties file path
      */
-    private String getPropertyFilePath(String fullPath){
-        String propertyFilePath = null;
-        if(fullPath != null){
-            String []pathArray = null;
-            pathArray = fullPath.split("main/resources/");
-            if(pathArray.length > 0){
-                propertyFilePath = pathArray[1];
-            }
+    private String getPropertyPkgPath(String fullPath) {
+        if (Objects.equals(null, fullPath)) return fullPath;
+        String propertyPkgPath = null;
+        if (fullPath.contains(PROPERTIES_MAIN_SPLIT)) {
+            String[] pathArray = fullPath.split(PROPERTIES_MAIN_SPLIT);
+            propertyPkgPath = pathArray[pathArray.length - 1];
+        } else if (fullPath.contains(PROPERTIES_TEST_SPLIT)) {
+            String[] pathArray = fullPath.split(PROPERTIES_TEST_SPLIT);
+            propertyPkgPath = pathArray[pathArray.length - 1];
         }
-        return propertyFilePath;
+        return propertyPkgPath;
     }
 
     @Override
