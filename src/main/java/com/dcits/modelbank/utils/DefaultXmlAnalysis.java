@@ -5,6 +5,6 @@ package com.dcits.modelbank.utils;
  *
  * @author kevin
  */
-public class ModelBankXmlAnalysis extends XmlAnalysis {
+public class DefaultXmlAnalysis extends XmlAnalysis {
 
 }

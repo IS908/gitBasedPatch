@@ -5,5 +5,5 @@ package com.dcits.modelbank.extract;
  *
  * @author kevin
  */
-public class ModelBankExtractHandler extends PatchExtractHandler {
+public class DefaultExtractHandler extends PatchExtractHandler {
 }
