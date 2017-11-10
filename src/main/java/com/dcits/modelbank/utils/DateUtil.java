@@ -55,7 +55,7 @@ public class DateUtil {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        return timestamp / 1000;
+        return timestamp / 1000 - 24 * 60 * 60;
     }
 
     /**
@@ -77,23 +77,6 @@ public class DateUtil {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Date date = new Date(stamp);
         return simpleDateFormat.format(date);
-    }
-
-    public static void main(String[] args) throws ParseException {
-
-        long ts = getDayBeginTimestamp(new Date());
-        System.out.println(ts);
-        String time = "2017-11-07 09:00:00";
-        String timestamp = dateToStamp(time);
-        System.out.println(timestamp);
-        time = "2017-11-08";
-        String timeStamp2 = dateToStamp(time);
-        long stamp1 = Long.valueOf(timestamp);
-        long stamp2 = Long.valueOf(timeStamp2);
-        if (stamp1 < stamp2) {
-            System.out.println(time);
-        }
-        System.out.println(timestamp);
     }
 
     /**

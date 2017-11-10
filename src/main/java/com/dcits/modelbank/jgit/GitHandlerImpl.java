@@ -34,6 +34,8 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
+import static java.lang.String.valueOf;
+
 /**
  * Created on 2017-11-06 19:50.
  *
@@ -46,6 +48,8 @@ public class GitHandlerImpl implements GitHandler {
 
     @Resource
     private GitHelper gitHelper;
+    @Resource
+    private FilePathHandler filePathHandler;
 
     /**
      * 私有构造方法，进行一次初始化
@@ -477,12 +481,25 @@ public class GitHandlerImpl implements GitHandler {
         return fileChangeLogList;
     }
 
+    /**
+     * Model数据转换
+     *
+     * @param entry  DiffEntry实体
+     * @param commit RevCommit实体
+     * @return 转换后的FileDiffEntry实体
+     */
     private FileDiffEntry diffEntry2FileDiffEntry(DiffEntry entry, RevCommit commit) {
         FileDiffEntry fileDiffEntry = new FileDiffEntry();
-        fileDiffEntry.setFullPath(entry.getNewPath());
-        fileDiffEntry.setPkgPath(entry.getOldPath());
-        fileDiffEntry.setModule("Ensemble");
-        fileDiffEntry.setType("java");
+
+        String fullPath = entry.getPath(DiffEntry.Side.NEW);
+        String fileType = filePathHandler.getFileType(fullPath);
+        String pkgPath = filePathHandler.getPkgPath(fullPath, fileType);
+        String moduleName = filePathHandler.getModuleName(fullPath, fileType);
+
+        fileDiffEntry.setFullPath(fullPath);
+        fileDiffEntry.setPkgPath(pkgPath);
+        fileDiffEntry.setModule(moduleName);
+        fileDiffEntry.setType(fileType);
 
         fileDiffEntry.setAuthor(commit.getAuthorIdent().getName());
         fileDiffEntry.setTimestamp(sdf.format(commit.getCommitterIdent().getWhen()));
@@ -606,4 +623,7 @@ public class GitHandlerImpl implements GitHandler {
         return treeWalk;
     }
 
+    public void setFilePathHandler(FilePathHandler filePathHandler) {
+        this.filePathHandler = filePathHandler;
+    }
 }
