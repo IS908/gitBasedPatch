@@ -47,18 +47,18 @@ public class GitHandlerImpl implements GitHandler {
     @Resource
     private GitHelper gitHelper;
 
+    /**
+     * 私有构造方法，进行一次初始化
+     */
+    private GitHandlerImpl() {
+    }
+
     public GitHelper getGitHelper() {
         return gitHelper;
     }
 
     public void setGitHelper(GitHelper gitHelper) {
         this.gitHelper = gitHelper;
-    }
-
-    /**
-     * 私有构造方法，进行一次初始化
-     */
-    private GitHandlerImpl() {
     }
 
     @Override
@@ -420,7 +420,7 @@ public class GitHandlerImpl implements GitHandler {
     }
 
     @Override
-    public Map<String, List<FileDiffEntry>> test() {
+    public Map<String, List<FileDiffEntry>> getCommitsLogByFile() {
         Map<String, List<FileDiffEntry>> files = new HashMap<>();
         try (Git git = gitHelper.getGitInstance();
              Repository repository = gitHelper.openJGitRepository()) {
@@ -439,7 +439,6 @@ public class GitHandlerImpl implements GitHandler {
     }
 
     /**
-     *
      * @param list
      * @param repository
      * @param git

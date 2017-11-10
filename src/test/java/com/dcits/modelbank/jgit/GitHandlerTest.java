@@ -129,6 +129,6 @@ public class GitHandlerTest {
 
     @Test
     public void test() {
-        gitHandler.test();
+        gitHandler.getCommitsLogByFile();
     }
 }

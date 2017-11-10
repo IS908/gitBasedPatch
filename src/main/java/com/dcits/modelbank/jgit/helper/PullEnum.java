@@ -14,12 +14,12 @@ public enum PullEnum {
         this.pullType = pullType;
     }
 
+    public static void main(String[] args) {
+        System.out.println(PullEnum.MERGE);
+    }
+
     @Override
     public String toString() {
         return this.pullType;
-    }
-
-    public static void main(String[] args) {
-        System.out.println(PullEnum.MERGE);
     }
 }

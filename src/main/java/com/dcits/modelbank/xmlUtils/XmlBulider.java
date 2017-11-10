@@ -30,6 +30,7 @@ public class XmlBulider {
     private static final Logger logger = LoggerFactory.getLogger(XmlBulider.class);
 
     private String filePtah;
+    private String[] author;
 
     public String[] getAuthor() {
         return author;
@@ -38,8 +39,6 @@ public class XmlBulider {
     public void setAuthor(String[] author) {
         this.author = author;
     }
-
-    private String [] author;
 
     //生成xml文件入口
     public void execute(List<FileModel> list) {
@@ -77,7 +76,7 @@ public class XmlBulider {
                     authorsElement.appendChild(authorElement);
                     for (String key : author) {
                         Element propertiesElement = document.createElement(key.toString());
-                        propertiesElement.setTextContent(map.get(key.toString())+"");
+                        propertiesElement.setTextContent(map.get(key.toString()) + "");
                         authorElement.appendChild(propertiesElement);
                     }
                 }

@@ -97,11 +97,11 @@ public class DateUtil {
     }
 
     /**
-     * @authot qiqsa
      * @return date
+     * @authot qiqsa
      * @desc 生成当前日期 yyMMdd
      */
-    public static String getRunDate(){
+    public static String getRunDate() {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMdd");
         Date date = new Date();
         long time = date.getTime();

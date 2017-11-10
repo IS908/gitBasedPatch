@@ -1,7 +1,6 @@
 package com.dcits.modelbank.service;
 
 import com.dcits.modelbank.model.FileModel;
-import org.eclipse.jgit.diff.DiffEntry;
 
 import java.util.List;
 

@@ -6,7 +6,6 @@ import com.dcits.modelbank.model.FileModel;
 import com.dcits.modelbank.service.GitService;
 import com.dcits.modelbank.utils.Const;
 import com.dcits.modelbank.xmlUtils.XmlBulider;
-import org.eclipse.jgit.diff.DiffEntry;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -31,7 +30,7 @@ public class GitServiceImpl implements GitService {
     @Override
     public List<FileModel> genChangesFileListToday() {
         List<FileModel> fileModelList = new ArrayList<>();
-        Map<String, List<FileDiffEntry>> lists = gitHandler.test();
+        Map<String, List<FileDiffEntry>> lists = gitHandler.getCommitsLogByFile();
         for (String key : lists.keySet()) {
             logger.info(key);
             List<FileDiffEntry> list = lists.get(key);
@@ -44,7 +43,7 @@ public class GitServiceImpl implements GitService {
 
     public FileModel diffEntry2FileModel(List<FileDiffEntry> entries) {
         FileModel fileModel = new FileModel();
-        if (entries.size() < 1)  return fileModel;
+        if (entries.size() < 1) return fileModel;
         Iterator<FileDiffEntry> iterator = entries.iterator();
         FileDiffEntry entry = iterator.next();
         fileModel.setName(entry.getPkgPath());

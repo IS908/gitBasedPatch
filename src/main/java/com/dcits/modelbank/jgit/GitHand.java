@@ -23,6 +23,20 @@ import java.util.List;
  * Created on 2017-11-06 16:32.
  *
  * @author kevin
+ * <p>
+ * 回滚到指定版本的上一个版本
+ * @param gitRoot     git仓库目录
+ * @param diffEntries 需要回滚的文件
+ * @param revision    版本号
+ * @param remark      备注
+ * @return
+ * @throws Exception
+ * <p>
+ * 获取上一版本的变更记录，如果是新增的文件，不会显示，因为做回滚时不需要回滚新增的文件
+ * @param gitRoot  git仓库目录
+ * @param revision 版本号
+ * @return
+ * @throws Exception
  *//*
 
 public class GitHand {
@@ -31,15 +45,15 @@ public class GitHand {
 
     */
 /**
-     * 回滚到指定版本的上一个版本
-     *
-     * @param gitRoot     git仓库目录
-     * @param diffEntries 需要回滚的文件
-     * @param revision    版本号
-     * @param remark      备注
-     * @return
-     * @throws Exception
-     *//*
+ * 回滚到指定版本的上一个版本
+ *
+ * @param gitRoot     git仓库目录
+ * @param diffEntries 需要回滚的文件
+ * @param revision    版本号
+ * @param remark      备注
+ * @return
+ * @throws Exception
+ *//*
 
     public static boolean rollBackPreRevision(String gitRoot, List<DiffEntry> diffEntries,
                                               String revision, String remark) throws Exception {
@@ -102,13 +116,13 @@ public class GitHand {
 
     */
 /**
-     * 获取上一版本的变更记录，如果是新增的文件，不会显示，因为做回滚时不需要回滚新增的文件
-     *
-     * @param gitRoot  git仓库目录
-     * @param revision 版本号
-     * @return
-     * @throws Exception
-     *//*
+ * 获取上一版本的变更记录，如果是新增的文件，不会显示，因为做回滚时不需要回滚新增的文件
+ *
+ * @param gitRoot  git仓库目录
+ * @param revision 版本号
+ * @return
+ * @throws Exception
+ *//*
 
     public static List<DiffEntry> rollBackFile(String gitRoot, String revision) throws Exception {
 

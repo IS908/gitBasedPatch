@@ -2,12 +2,10 @@ package com.dcits.modelbank.jgit;
 
 import com.dcits.modelbank.jgit.helper.PullEnum;
 import com.dcits.modelbank.model.FileDiffEntry;
-import org.eclipse.jgit.api.Git;
 import org.eclipse.jgit.api.PullResult;
 import org.eclipse.jgit.blame.BlameResult;
 import org.eclipse.jgit.diff.DiffEntry;
 import org.eclipse.jgit.lib.ObjectId;
-import org.eclipse.jgit.lib.Repository;
 import org.eclipse.jgit.revwalk.RevCommit;
 import org.eclipse.jgit.transport.FetchResult;
 
@@ -23,19 +21,23 @@ import java.util.Map;
 public interface GitHandler {
     /**
      * 获取指定文件的blame信息
+     *
      * @param commitID
      * @param file
      * @return
      */
     BlameResult fileBlame(String commitID, String file);
+
     /**
      * 显示当天的提交日志
+     *
      * @return
      */
     Iterable<RevCommit> showLogToday();
 
     /**
      * checkout到另一个现有分支
+     *
      * @param branch 新分支名
      * @return
      */
@@ -43,36 +45,42 @@ public interface GitHandler {
 
     /**
      * 暂存当前修改
+     *
      * @return
      */
     boolean stash();
 
     /**
      * 查看暂存列表
+     *
      * @return
      */
     Collection<RevCommit> stashList();
 
     /**
      * 应用指定暂存
+     *
      * @return
      */
     ObjectId unstash(int index);
 
     /**
      * fetch远程仓库
+     *
      * @return
      */
     FetchResult fetch();
 
     /**
      * 默认merge方式进行拉取更新
+     *
      * @return
      */
     PullResult pull();
 
     /**
      * 指定方式进行时拉取更新
+     *
      * @param type 拉取更新方式
      * @return
      */
@@ -80,6 +88,7 @@ public interface GitHandler {
 
     /**
      * 推送远程仓库操作
+     *
      * @return
      */
     boolean push();
@@ -126,11 +135,16 @@ public interface GitHandler {
      * 回滚到指定版本
      *
      * @param diffEntries 需要回滚的文件
-     * @param revision 版本号
-     * @param note 备注
+     * @param revision    版本号
+     * @param note        备注
      * @return
      */
     boolean rollBackPreRevision(List<DiffEntry> diffEntries, String revision, String note);
 
-    Map<String, List<FileDiffEntry>> test();
+    /**
+     * 按照文件划分获取该文件的相应提交记录
+     *
+     * @return
+     */
+    Map<String, List<FileDiffEntry>> getCommitsLogByFile();
 }
