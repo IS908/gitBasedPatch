@@ -110,7 +110,7 @@
       </author>
     </authors>
   </file>
-  <file fullPath="Ensemble/modules/ensemble-eod/src/test/resources/galaxy.properties" model="Ensemble" pkgPath="galaxy.properties" type="properties">
+  <file fullPath="Ensemble/modules/ensemble-eod/src/test/resources/galaxy.properties" model="Ensemble" pkgPath="" type="properties">
     <authors>
       <author>
         <name>daiduan</name>
@@ -270,7 +270,7 @@
       </author>
     </authors>
   </file>
-  <file fullPath="Ensemble/modules/ensemble-eod/src/test/resources/galaxy.db.properties" model="Ensemble" pkgPath="galaxy.db.properties" type="properties">
+  <file fullPath="Ensemble/modules/ensemble-eod/src/test/resources/galaxy.db.properties" model="Ensemble" pkgPath="" type="properties">
     <authors>
       <author>
         <name>daiduan</name>

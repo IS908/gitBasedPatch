@@ -16,7 +16,6 @@ public class DefaultFilePathHandler extends FilePathHandler {
     private final String EMPTY = "";
     private final String JAVA_SPLIT = "src/main/java/";
     private final String XML_MAIN_SPLIT = "main/resources/";
-    private final String XML_TEST_SPLIT = "test/resources/";
     private final String XML_MAPPER_SPLIT = "main/config/";
     private final String PROPERTIES_MAIN_SPLIT = "main/resources/";
     private final String PROPERTIES_TEST_SPLIT = "test/resources/";
@@ -100,9 +99,6 @@ public class DefaultFilePathHandler extends FilePathHandler {
         String propertyPkgPath = null;
         if (fullPath.contains(PROPERTIES_MAIN_SPLIT)) {
             String[] pathArray = fullPath.split(PROPERTIES_MAIN_SPLIT);
-            propertyPkgPath = pathArray[pathArray.length - 1];
-        } else if (fullPath.contains(PROPERTIES_TEST_SPLIT)) {
-            String[] pathArray = fullPath.split(PROPERTIES_TEST_SPLIT);
             propertyPkgPath = pathArray[pathArray.length - 1];
         }
         return propertyPkgPath;
