@@ -5,7 +5,7 @@ import com.dcits.modelbank.model.FileDiffEntry;
 import com.dcits.modelbank.model.FileModel;
 import com.dcits.modelbank.service.GitService;
 import com.dcits.modelbank.utils.Const;
-import com.dcits.modelbank.xmlUtils.XmlBulider;
+import com.dcits.modelbank.utils.XmlBulider;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;

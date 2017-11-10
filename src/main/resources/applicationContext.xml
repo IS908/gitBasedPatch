@@ -27,7 +27,7 @@
     </bean>
 
     <!-- 生成xml文件bean配置信息 -start-->
-    <bean id="xmlBulider" class="com.dcits.modelbank.xmlUtils.XmlBulider">
+    <bean id="xmlBulider" class="com.dcits.modelbank.utils.XmlBulider">
         <property name="filePtah" value="${git.output.xml.filePath}"/>
         <property name="author">
             <list>
