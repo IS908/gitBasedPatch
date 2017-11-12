@@ -1,0 +1,343 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<files>
+  <file fullPath="Ensemble-Prod/modules/ensemble-dbmanage/src/main/java/com/dcits/ensemble/dbmanage/inquiry/MbAcctInquiry.java" model="Ensemble" pkgPath="com/dcits/ensemble/dbmanage/inquiry/MbAcctInquiry.class" type="java">
+    <authors>
+      <author>
+        <name>shaosonga</name>
+        <versionID>e79ccb5636b8b9cd1a9eb28be71d410395bae28c</versionID>
+        <timestamp>2017-11-12 17:06:52</timestamp>
+        <desc>UAT-代码提交</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+      <author>
+        <name>sunjwc</name>
+        <versionID>7e4b4bc173a094be5616f225c5eb817c34b844ef</versionID>
+        <timestamp>2017-11-12 09:22:25</timestamp>
+        <desc>fix 修改版本合并问题，代码报错</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+    </authors>
+  </file>
+  <file fullPath="Ensemble/modules/ensemble-external/online/pom.xml" model="Ensemble" pkgPath="" type="xml">
+    <authors>
+      <author>
+        <name>daiduan</name>
+        <versionID>773ccd807509984cab63f33fa11ba3b8c46589fb</versionID>
+        <timestamp>2017-11-12 16:03:15</timestamp>
+        <desc>删除依赖中的版本号</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+    </authors>
+  </file>
+  <file fullPath="Ensemble/modules/ensemble-oc/online/src/main/java/com/dcits/ensemble/oc/online/service/mbsdcore/Core12000623.java" model="Ensemble" pkgPath="com/dcits/ensemble/oc/online/service/mbsdcore/Core12000623.class" type="java">
+    <authors>
+      <author>
+        <name>liuxbh</name>
+        <versionID>597e7048eb9a63f38cd53a2c4132dd215484e316</versionID>
+        <timestamp>2017-11-12 15:03:28</timestamp>
+        <desc>FIX:修改同城票提出提出被退票已完成比数未更新缺陷</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+    </authors>
+  </file>
+  <file fullPath="Ensemble/modules/ensemble-sms/src/test/java/com/dcits/ensemble/test/TestUtil.java" model="Ensemble" pkgPath="Ensemble/modules/ensemble-sms/src/test/java/com/dcits/ensemble/test/TestUtil.class" type="java">
+    <authors>
+      <author>
+        <name>Kevin</name>
+        <versionID>39e2a85effbedb29d0234055d827f1dfd950c7d9</versionID>
+        <timestamp>2017-11-12 10:01:19</timestamp>
+        <desc>简单解决使编译通过</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+    </authors>
+  </file>
+  <file fullPath="Ensemble/modules/ensemble-fx/api/src/main/java/com/dcits/ensemble/fx/model/mbsdcore/Core1400012102In.java" model="Ensemble" pkgPath="com/dcits/ensemble/fx/model/mbsdcore/Core1400012102In.class" type="java">
+    <authors>
+      <author>
+        <name>wskyj</name>
+        <versionID>06cbd637db92277170634ed5c1aee42ccfc1b66f</versionID>
+        <timestamp>2017-11-12 15:20:53</timestamp>
+        <desc>卡年费设置修改</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+    </authors>
+  </file>
+  <file fullPath="Ensemble/modules/ensemble-service/src/main/java/com/dcits/ensemble/service/flow/impound/ImpoundFlowDefaultImpl.java" model="Ensemble" pkgPath="com/dcits/ensemble/service/flow/impound/ImpoundFlowDefaultImpl.class" type="java">
+    <authors>
+      <author>
+        <name>xuxjj</name>
+        <versionID>e196057291867929e79238804f6224032ceb4897</versionID>
+        <timestamp>2017-11-12 15:18:49</timestamp>
+        <desc>Modify by xuxjj 20171112 修改获取账户信息的方法</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+    </authors>
+  </file>
+  <file fullPath="Ensemble/modules/ensemble-external/online/src/main/java/com/dcits/ensemble/external/online/service/mbsdcore/Core14003902.java" model="Ensemble" pkgPath="com/dcits/ensemble/external/online/service/mbsdcore/Core14003902.class" type="java">
+    <authors>
+      <author>
+        <name>liuxci</name>
+        <versionID>b228326c9a5da8d889f8505f5cd61f1cdfb8dbc2</versionID>
+        <timestamp>2017-11-12 15:22:16</timestamp>
+        <desc>Mod：14003902按接口文档返回码值</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+      <author>
+        <name>Kevin</name>
+        <versionID>8c6ac562929d765c0d4b4a9171e8b2f4a7d3aba9</versionID>
+        <timestamp>2017-11-12 10:01:19</timestamp>
+        <desc>简单解决使编译通过</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+    </authors>
+  </file>
+  <file fullPath="Ensemble/modules/ensemble-oc/online/src/main/java/com/dcits/ensemble/oc/online/service/mbsdcore/Core12000622.java" model="Ensemble" pkgPath="com/dcits/ensemble/oc/online/service/mbsdcore/Core12000622.class" type="java">
+    <authors>
+      <author>
+        <name>liuxbh</name>
+        <versionID>eb6ed5b615ffcde966e098814d2138ea442904cf</versionID>
+        <timestamp>2017-11-12 15:03:28</timestamp>
+        <desc>FIX:修改同城票提出提出被退票已完成比数未更新缺陷</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+    </authors>
+  </file>
+  <file fullPath="Ensemble/modules/ensemble-fx/online/src/main/java/com/dcits/ensemble/fx/online/service/mbsdcore/Core1200010118.java" model="Ensemble" pkgPath="com/dcits/ensemble/fx/online/service/mbsdcore/Core1200010118.class" type="java">
+    <authors>
+      <author>
+        <name>wskyj</name>
+        <versionID>68f8ca870c3ceb047e58b8f2cf399693be869557</versionID>
+        <timestamp>2017-11-12 15:20:53</timestamp>
+        <desc>卡年费设置修改</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+    </authors>
+  </file>
+  <file fullPath="Ensemble/modules/ensemble-cif/online/pom.xml" model="Ensemble" pkgPath="" type="xml">
+    <authors>
+      <author>
+        <name>daiduan</name>
+        <versionID>3df93725913e57ede4664ff4825a6430e037a774</versionID>
+        <timestamp>2017-11-12 16:03:15</timestamp>
+        <desc>删除依赖中的版本号</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+    </authors>
+  </file>
+  <file fullPath="Ensemble/modules/ensemble-rb/online/src/main/java/com/dcits/ensemble/rb/online/service/inner/tran/RbTranCheck.java" model="Ensemble" pkgPath="com/dcits/ensemble/rb/online/service/inner/tran/RbTranCheck.class" type="java">
+    <authors>
+      <author>
+        <name>limmd</name>
+        <versionID>d69ce1c021468903d6aaac490040619c6be2b146</versionID>
+        <timestamp>2017-11-12 10:13:49</timestamp>
+        <desc>BUG_00014180 验资户做对公活期支取交易，交易类型可以为现金支取方式</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+    </authors>
+  </file>
+  <file fullPath="Ensemble-channel/modules/ensemble-unipay/core/src/main/java/com/dcits/ensemble/uc/event/PosAuthServer.java" model="Ensemble" pkgPath="com/dcits/ensemble/uc/event/PosAuthServer.class" type="java">
+    <authors>
+      <author>
+        <name>minhao</name>
+        <versionID>2f1aba063f0de1c86855f5ba600286714d225633</versionID>
+        <timestamp>2017-11-12 15:30:24</timestamp>
+        <desc>MOD POS 预授权限制的起始日期和终止日期都以核心日期为准</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+    </authors>
+  </file>
+  <file fullPath="Ensemble/modules/ensemble-fx/online/src/main/java/com/dcits/ensemble/fx/online/service/mbsdcore/Core1400011001.java" model="Ensemble" pkgPath="com/dcits/ensemble/fx/online/service/mbsdcore/Core1400011001.class" type="java">
+    <authors>
+      <author>
+        <name>liuxbh</name>
+        <versionID>c57f819255c52f5a775bd2cdcf850a78cff6270b</versionID>
+        <timestamp>2017-11-12 15:03:28</timestamp>
+        <desc>FIX:修改同城票提出提出被退票已完成比数未更新缺陷</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+    </authors>
+  </file>
+  <file fullPath="Ensemble-Prod/modules/ensemble-dbmanage/src/main/java/com/dcits/ensemble/dbmanage/dao/MbAcctDao.java" model="Ensemble" pkgPath="com/dcits/ensemble/dbmanage/dao/MbAcctDao.class" type="java">
+    <authors>
+      <author>
+        <name>shaosonga</name>
+        <versionID>cd9e905f1000e7f2bd5c7806813ddaf6f86d7cc6</versionID>
+        <timestamp>2017-11-12 17:06:52</timestamp>
+        <desc>UAT-代码提交</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+    </authors>
+  </file>
+  <file fullPath="Ensemble/modules/ensemble-service/src/main/config/checkRule/CheckLimitRef.groovy" model="Ensemble" pkgPath="Ensemble/modules/ensemble-service/src/main/config/checkRule/CheckLimitRef.groovy" type="groovy">
+    <authors>
+      <author>
+        <name>gubm</name>
+        <versionID>61673c44cedf99904618196fc20151e14ebbf3ac</versionID>
+        <timestamp>2017-11-12 10:28:35</timestamp>
+        <desc>增加二类账户准入限额配置</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+    </authors>
+  </file>
+  <file fullPath="Ensemble/modules/ensemble-sms/src/test/java/com/dcits/ensemble/test/TestInit.java" model="Ensemble" pkgPath="Ensemble/modules/ensemble-sms/src/test/java/com/dcits/ensemble/test/TestInit.class" type="java">
+    <authors>
+      <author>
+        <name>Kevin</name>
+        <versionID>d97fedb28d4cd1dcc5df3253006fe8c15451da3f</versionID>
+        <timestamp>2017-11-12 10:01:19</timestamp>
+        <desc>简单解决使编译通过</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+    </authors>
+  </file>
+  <file fullPath="Ensemble/modules/ensemble-dc/online/src/main/java/com/dcits/ensemble/dc/online/service/mbsdcore/Core14000221.java" model="Ensemble" pkgPath="com/dcits/ensemble/dc/online/service/mbsdcore/Core14000221.class" type="java">
+    <authors>
+      <author>
+        <name>shaosonga</name>
+        <versionID>93d9769760b1b83869e9064c02f997dbcee6afe8</versionID>
+        <timestamp>2017-11-12 17:06:52</timestamp>
+        <desc>UAT-代码提交</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+    </authors>
+  </file>
+  <file fullPath="Ensemble-Prod/modules/ensemble-busi/base/src/main/java/com/dcits/ensemble/busi/base/common/EventCommonCheck.java" model="Ensemble" pkgPath="com/dcits/ensemble/busi/base/common/EventCommonCheck.class" type="java">
+    <authors>
+      <author>
+        <name>wskyj</name>
+        <versionID>1a606338f8a3d56f0dd877c463b1a5ab95956862</versionID>
+        <timestamp>2017-11-12 15:12:17</timestamp>
+        <desc>Mod:更新检查</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+    </authors>
+  </file>
+  <file fullPath="Ensemble/modules/ensemble-oc/online/src/main/java/com/dcits/ensemble/oc/online/service/mbsdcore/Core12000603.java" model="Ensemble" pkgPath="com/dcits/ensemble/oc/online/service/mbsdcore/Core12000603.class" type="java">
+    <authors>
+      <author>
+        <name>liuxbh</name>
+        <versionID>d8a789147b058879042b996233d288abfbdbfd79</versionID>
+        <timestamp>2017-11-12 15:03:28</timestamp>
+        <desc>FIX:修改同城票提出提出被退票已完成比数未更新缺陷</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+    </authors>
+  </file>
+  <file fullPath="Ensemble-Prod/modules/ensemble-dbmanage/src/main/resources/META-INF/mapper/MbAcct.xml" model="Ensemble" pkgPath="META-INF/mapper/MbAcct.xml" type="xml">
+    <authors>
+      <author>
+        <name>shaosonga</name>
+        <versionID>79b3ff937c92fc9b17871b4f17dc4012aef631c6</versionID>
+        <timestamp>2017-11-12 17:06:52</timestamp>
+        <desc>UAT-代码提交</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+    </authors>
+  </file>
+  <file fullPath="Ensemble/modules/ensemble-cl/online/src/main/config/mapping/cl-mapping.xml" model="Ensemble" pkgPath="mapping/cl-mapping.xml" type="xml">
+    <authors>
+      <author>
+        <name>wanzheng</name>
+        <versionID>edd40422f4a21bf50942c8ca17a3644350339fd0</versionID>
+        <timestamp>2017-11-12 10:34:20</timestamp>
+        <desc>增加手工转FYJ上送字段</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+    </authors>
+  </file>
+  <file fullPath="Ensemble-Prod/modules/ensemble-busi/part/src/main/java/com/dcits/ensemble/busi/part/CheckInitAmtPa.java" model="Ensemble" pkgPath="com/dcits/ensemble/busi/part/CheckInitAmtPa.class" type="java">
+    <authors>
+      <author>
+        <name>FURONGB\furongb</name>
+        <versionID>a878c33fd196b7b11075222be11f5e9c41acdfd2</versionID>
+        <timestamp>2017-11-12 15:18:20</timestamp>
+        <desc>提交指标代码，冲正不检查</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+    </authors>
+  </file>
+  <file fullPath="Ensemble/modules/ensemble-dc/core/src/main/java/com/dcits/ensemble/dc/dao/DcPrecontractDao.java" model="Ensemble" pkgPath="com/dcits/ensemble/dc/dao/DcPrecontractDao.class" type="java">
+    <authors>
+      <author>
+        <name>Kevin</name>
+        <versionID>5b20469406e8db828b991244df04ee81f66d2ea1</versionID>
+        <timestamp>2017-11-12 16:49:42</timestamp>
+        <desc>update</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+    </authors>
+  </file>
+  <file fullPath="Ensemble/modules/ensemble-fx/online/src/main/java/com/dcits/ensemble/fx/online/service/mbsdcore/Core1400012102.java" model="Ensemble" pkgPath="com/dcits/ensemble/fx/online/service/mbsdcore/Core1400012102.class" type="java">
+    <authors>
+      <author>
+        <name>wskyj</name>
+        <versionID>a6bc846d39d1f333ba6417e65b3fe84d56ddbc61</versionID>
+        <timestamp>2017-11-12 15:20:53</timestamp>
+        <desc>卡年费设置修改</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+    </authors>
+  </file>
+  <file fullPath="Ensemble/modules/ensemble-eod/src/test/java/com/dcits/ensemble/eod/TestSynAcctData.java" model="Ensemble" pkgPath="Ensemble/modules/ensemble-eod/src/test/java/com/dcits/ensemble/eod/TestSynAcctData.class" type="java">
+    <authors>
+      <author>
+        <name>Kevin</name>
+        <versionID>2ec573e942665e9e2bef751b44ed144d1e0bc9a3</versionID>
+        <timestamp>2017-11-12 10:01:19</timestamp>
+        <desc>简单解决使编译通过</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+    </authors>
+  </file>
+  <file fullPath="Ensemble-Prod/modules/ensemble-dbmanage/src/main/java/com/dcits/ensemble/dbmanage/inquiry/CdCardArchInquiry.java" model="Ensemble" pkgPath="com/dcits/ensemble/dbmanage/inquiry/CdCardArchInquiry.class" type="java">
+    <authors>
+      <author>
+        <name>Kevin</name>
+        <versionID>14ee8c14101c4b0dfd9b62390cd8affdbf8d36e0</versionID>
+        <timestamp>2017-11-12 10:01:19</timestamp>
+        <desc>简单解决使编译通过</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+    </authors>
+  </file>
+  <file fullPath="Ensemble-Prod/modules/ensemble-common/src/main/resources/error/RB_error_zh_CN.properties" model="Ensemble" pkgPath="error/RB_error_zh_CN.properties" type="properties">
+    <authors>
+      <author>
+        <name>liuxbh</name>
+        <versionID>f7edfd40ce7014350610ce9b743ec5e89978808f</versionID>
+        <timestamp>2017-11-12 15:03:28</timestamp>
+        <desc>FIX:修改同城票提出提出被退票已完成比数未更新缺陷</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+    </authors>
+  </file>
+</files>
