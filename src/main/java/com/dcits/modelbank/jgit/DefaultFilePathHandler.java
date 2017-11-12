@@ -19,6 +19,7 @@ public class DefaultFilePathHandler extends FilePathHandler {
     private static final String XML_MAPPER_SPLIT = "main/config/";
     private static final String PROPERTIES_MAIN_SPLIT = "main/resources/";
     private static final String RULE_SPLIT = "main/config/";
+    private static final String POM="pom.xml";
 
     @Override
     public String getPkgPath(String fullPath, String fileType) {
@@ -36,6 +37,9 @@ public class DefaultFilePathHandler extends FilePathHandler {
             case "rule":        // *.rule
                 pkgPath = this.getRulePkgPath(fullPath);
                 break;
+            case "groovy":      // *.groovy
+                pkgPath = this.getGroovyPkgPath(fullPath);
+                break;
             case "ignore":
             case "jar":
             default:
@@ -43,6 +47,15 @@ public class DefaultFilePathHandler extends FilePathHandler {
                 break;
         }
         return pkgPath;
+    }
+
+    /**
+     * 获得 CheckRule 的 Groovy 文件打包后的包内路径
+     * @param fullPath
+     * @return
+     */
+    private String getGroovyPkgPath(String fullPath) {
+        return this.getRulePkgPath(fullPath);
     }
 
     /**
@@ -101,6 +114,8 @@ public class DefaultFilePathHandler extends FilePathHandler {
         } else if (fullPath.contains(XML_MAPPER_SPLIT)) {
             pathArry = fullPath.split(XML_MAPPER_SPLIT);
             xmlFilePath = pathArry[pathArry.length - 1];
+        } else if (fullPath.endsWith(POM)) {
+            // TODO: 2017/11/12 pom文件的修改，涉及版本升级依赖版本号的变更，此时不能打增量版本，需要打全量版本。
         }
         return xmlFilePath;
     }

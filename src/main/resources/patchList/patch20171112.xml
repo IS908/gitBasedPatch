@@ -184,7 +184,7 @@
       </author>
     </authors>
   </file>
-  <file fullPath="Ensemble/modules/ensemble-service/src/main/config/checkRule/CheckLimitRef.groovy" model="Ensemble" pkgPath="Ensemble/modules/ensemble-service/src/main/config/checkRule/CheckLimitRef.groovy" type="groovy">
+  <file fullPath="Ensemble/modules/ensemble-service/src/main/config/checkRule/CheckLimitRef.groovy" model="Ensemble" pkgPath="checkRule/CheckLimitRef.groovy" type="groovy">
     <authors>
       <author>
         <name>gubm</name>
