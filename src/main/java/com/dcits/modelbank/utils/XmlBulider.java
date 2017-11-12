@@ -31,11 +31,8 @@ public class XmlBulider {
     private String filePtah;
     private String[] author;
 
-    public String[] getAuthor() {
-        return author;
-    }
-
-    public void setAuthor(String[] author) {
+    public XmlBulider(String filePtah, String[] author) {
+        this.filePtah = filePtah;
         this.author = author;
     }
 
@@ -117,8 +114,8 @@ public class XmlBulider {
         }
     }
 
-    public String getFilePtah() {
-        return filePtah;
+    public void setAuthor(String[] author) {
+        this.author = author;
     }
 
     public void setFilePtah(String filePtah) {

@@ -22,7 +22,7 @@ public class IteratorFloderUtil {
             if(file.isDirectory()) {
                 //Todo
             }
-            HashMap<String,Object> fileMap= new HashMap<String,Object>();
+            HashMap<String,Object> fileMap= new HashMap<>();
             fileMap.put("INTERFACE_PATH", file.getAbsolutePath());
             fileMap.put("INTERFACE_NAME", file.getName());
             list.add(fileMap);
@@ -34,7 +34,7 @@ public class IteratorFloderUtil {
         File[] files = nodeRootFile.listFiles();
         for (File file: files) {
             if(file.isDirectory()) {
-                HashMap<String,Object> fileMap= new HashMap<String,Object>();
+                HashMap<String,Object> fileMap= new HashMap<>();
                 fileMap.put("INTERFACE_PATH", file.getAbsolutePath());
                 fileMap.put("INTERFACE_NAME", file.getName());
                 list.add(fileMap);
@@ -44,8 +44,8 @@ public class IteratorFloderUtil {
 
     public static void main(String[] args) {
         IteratorFloderUtil iutil = new IteratorFloderUtil();
-        List<HashMap<String, Object>> list = new ArrayList<HashMap<String, Object>>();
-        iutil.findFloderFile("E:/svnwks/trunk/1_project/SmartBranch/SmartBranch/dev/services/proxy/HTP",list);
+        List<HashMap<String, Object>> list = new ArrayList<>();
+        iutil.findFloderAll("D:/fuxin/ModelBank",list);
 //		iutil.findFloderAll("E:/svnwks/trunk/1_project/SmartBranch/SmartBranch/dev/services/proxy",list);
         if (list.size()>0) {
             for (int i = 0; i < list.size(); i++) {
@@ -55,6 +55,5 @@ public class IteratorFloderUtil {
                 System.out.println(map.get("INTERFACE_NAME"));
             }
         }
-
     }
 }
