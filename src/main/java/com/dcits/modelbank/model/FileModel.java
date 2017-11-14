@@ -79,4 +79,15 @@ public class FileModel {
     public void setPath(String path) {
         this.path = path;
     }
+
+    @Override
+    public String toString() {
+        return "FileModel{" +
+                "name='" + name + '\'' +
+                ", module='" + module + '\'' +
+                ", path='" + path + '\'' +
+                ", type='" + type + '\'' +
+                ", authors=" + authors +
+                '}';
+    }
 }

@@ -31,8 +31,8 @@
 
     <!-- 生成xml文件bean配置信息 -start-->
     <bean id="xmlBulider" class="com.dcits.modelbank.utils.XmlBulider">
-        <constructor-arg name="filePtah" value="${git.xml.filePath}"/>
-        <constructor-arg name="author">
+        <constructor-arg name="filePath" value="${git.xml.filePath}"/>
+        <constructor-arg name="authorAttr">
             <list>
                 <value>name</value>
                 <value>versionID</value>
@@ -42,8 +42,8 @@
                 <value>check</value>
             </list>
         </constructor-arg>
-        <!--<property name="filePtah" value="${git.xml.filePath}"/>-->
-        <!--<property name="author">-->
+        <!--<property nafilePathPtah" value="${git.xml.filePath}"/>-->
+        <!--<property naauthorAttrthor">-->
             <!--<list>-->
                 <!--<value>name</value>-->
                 <!--<value>versionID</value>-->

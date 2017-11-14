@@ -1,0 +1,1461 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<files>
+  <description desc="description"/>
+  <file fullPath="Ensemble/modules/ensemble-external-fx/core/src/main/resources/META-INF/mapper/FxMbPaymentMessage.xml" model="Ensemble" pkgPath="META-INF/mapper/FxMbPaymentMessage.xml" type="xml">
+    <authors>
+      <author>
+        <name>duanze</name>
+        <versionID>07a660d8f359110704c421e05b68da25845675ce</versionID>
+        <timestamp>2017-11-14 10:45:48</timestamp>
+        <desc>增加待汇出信息修改接口</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+    </authors>
+  </file>
+  <file fullPath="Ensemble/modules/ensemble-integration/online-all-integration/src/test/java/com/ensemble/test/JettyConnectorTest.java" model="Ensemble" pkgPath="Ensemble/modules/ensemble-integration/online-all-integration/src/test/java/com/ensemble/test/JettyConnectorTest.class" type="java">
+    <authors>
+      <author>
+        <name>Kevin</name>
+        <versionID>4e8df77ddcaa8198207cd3d9a84027febecc2024</versionID>
+        <timestamp>2017-11-14 15:28:41</timestamp>
+        <desc>替换System.out.println 为 logback 日志输出</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+    </authors>
+  </file>
+  <file fullPath="Ensemble/modules/ensemble-tools/src/main/java/com/dcits/param/generator/EnsembleSqlGenerator.java" model="Ensemble" pkgPath="com/dcits/param/generator/EnsembleSqlGenerator.class" type="java">
+    <authors>
+      <author>
+        <name>Kevin</name>
+        <versionID>be77b67e34e6e9b642db8fcafc0a1d8c5b86623a</versionID>
+        <timestamp>2017-11-14 15:28:41</timestamp>
+        <desc>替换System.out.println 为 logback 日志输出</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+    </authors>
+  </file>
+  <file fullPath="Ensemble/modules/ensemble-tools/src/main/java/com/dcits/param/generator/OmSqlGenerator.java" model="Ensemble" pkgPath="com/dcits/param/generator/OmSqlGenerator.class" type="java">
+    <authors>
+      <author>
+        <name>Kevin</name>
+        <versionID>8495ca9cefa06dc66c1bb354c2e28723b9846c4e</versionID>
+        <timestamp>2017-11-14 15:28:41</timestamp>
+        <desc>替换System.out.println 为 logback 日志输出</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+    </authors>
+  </file>
+  <file fullPath="Ensemble-Prod/modules/ensemble-lm-core/src/main/java/com/dcits/ensemble/lm/business/tranLimit/TranLimitComm.java" model="Ensemble" pkgPath="com/dcits/ensemble/lm/business/tranLimit/TranLimitComm.class" type="java">
+    <authors>
+      <author>
+        <name>Kevin</name>
+        <versionID>ec91ec32649c123d53081818d526d90c4d653a1e</versionID>
+        <timestamp>2017-11-14 15:28:41</timestamp>
+        <desc>替换System.out.println 为 logback 日志输出</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+    </authors>
+  </file>
+  <file fullPath="Ensemble/modules/ensemble-tb/core/src/test/java/com/dcits/ensemble/test/tb/TestBox.java" model="Ensemble" pkgPath="Ensemble/modules/ensemble-tb/core/src/test/java/com/dcits/ensemble/test/tb/TestBox.class" type="java">
+    <authors>
+      <author>
+        <name>Kevin</name>
+        <versionID>c71b89c23f537c1c382084f5339098e38ffaf2b2</versionID>
+        <timestamp>2017-11-14 15:28:41</timestamp>
+        <desc>替换System.out.println 为 logback 日志输出</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+    </authors>
+  </file>
+  <file fullPath="Ensemble-channel/modules/ensemble-unipay/core/src/main/java/com/dcits/ensemble/uc/service/impl/UcSM3Digest.java" model="Ensemble" pkgPath="com/dcits/ensemble/uc/service/impl/UcSM3Digest.class" type="java">
+    <authors>
+      <author>
+        <name>Kevin</name>
+        <versionID>2b21da9b5e6211f7d869202ecfb2b175ac7b2789</versionID>
+        <timestamp>2017-11-14 15:28:41</timestamp>
+        <desc>替换System.out.println 为 logback 日志输出</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+    </authors>
+  </file>
+  <file fullPath="Ensemble/modules/ensemble-service/src/main/java/com/dcits/ensemble/service/flow/external/SingleAccountFlowImpl.java" model="Ensemble" pkgPath="com/dcits/ensemble/service/flow/external/SingleAccountFlowImpl.class" type="java">
+    <authors>
+      <author>
+        <name>zhouwsa</name>
+        <versionID>9a120117c8cf3c1255c7d35a995de1b4b34e31bb</versionID>
+        <timestamp>2017-11-14 16:35:25</timestamp>
+        <desc>单笔统一记账返回增加账面余额</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+      <author>
+        <name>mafuxuan</name>
+        <versionID>18accfbacbc0658d7c9740c6aaa27502de562610</versionID>
+        <timestamp>2017-11-14 11:06:18</timestamp>
+        <desc>统一支付平台现金账户处理</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+    </authors>
+  </file>
+  <file fullPath="Ensemble-Prod/modules/ensemble-busi/component/src/main/java/com/dcits/ensemble/busi/component/schedule/ScheduleCalc.java" model="Ensemble" pkgPath="com/dcits/ensemble/busi/component/schedule/ScheduleCalc.class" type="java">
+    <authors>
+      <author>
+        <name>Kevin</name>
+        <versionID>7026e159c650de64f6dc784558bd50d292735364</versionID>
+        <timestamp>2017-11-14 15:28:41</timestamp>
+        <desc>替换System.out.println 为 logback 日志输出</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+    </authors>
+  </file>
+  <file fullPath="Ensemble/modules/ensemble-integration/online-all-integration/src/test/java/com/dcits/ensemble/service/flow/acceptance/AcceptanceBackUnusedFlowImplTest.java" model="Ensemble" pkgPath="Ensemble/modules/ensemble-integration/online-all-integration/src/test/java/com/dcits/ensemble/service/flow/acceptance/AcceptanceBackUnusedFlowImplTest.class" type="java">
+    <authors>
+      <author>
+        <name>Kevin</name>
+        <versionID>bcd073b0d8bfe5e38fb5b13d610ec10fc3223a68</versionID>
+        <timestamp>2017-11-14 15:28:41</timestamp>
+        <desc>替换System.out.println 为 logback 日志输出</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+    </authors>
+  </file>
+  <file fullPath="Ensemble-channel/modules/ensemble-unipay-fx/core/src/main/java/com/dcits/ensemble/uc/event/AcctQueryFxEventServer.java" model="Ensemble" pkgPath="com/dcits/ensemble/uc/event/AcctQueryFxEventServer.class" type="java">
+    <authors>
+      <author>
+        <name>Kevin</name>
+        <versionID>ddbdd111202548e570b819435878203d9f038d6b</versionID>
+        <timestamp>2017-11-14 15:28:41</timestamp>
+        <desc>替换System.out.println 为 logback 日志输出</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+      <author>
+        <name>gubm</name>
+        <versionID>0f33cd423e63b1946917a3e7581b2e62b4a2fb40</versionID>
+        <timestamp>2017-11-14 10:25:00</timestamp>
+        <desc>增加证件类型映射</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+    </authors>
+  </file>
+  <file fullPath="Ensemble-channel/modules/ensemble-unipay/core/src/main/java/com/dcits/ensemble/uc/service/impl/UserIdentityComparison.java" model="Ensemble" pkgPath="com/dcits/ensemble/uc/service/impl/UserIdentityComparison.class" type="java">
+    <authors>
+      <author>
+        <name>Kevin</name>
+        <versionID>fc01af84ff150badc93d81525206f5f010d13dde</versionID>
+        <timestamp>2017-11-14 15:28:41</timestamp>
+        <desc>替换System.out.println 为 logback 日志输出</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+    </authors>
+  </file>
+  <file fullPath="Ensemble-Prod/modules/ensemble-busi/part/src/test/java/com/dcits/ensemble/rb/test/TestArgs.java" model="Ensemble" pkgPath="Ensemble-Prod/modules/ensemble-busi/part/src/test/java/com/dcits/ensemble/rb/test/TestArgs.class" type="java">
+    <authors>
+      <author>
+        <name>Kevin</name>
+        <versionID>a0605732f94258e1208d59bfd964443cce5c00d1</versionID>
+        <timestamp>2017-11-14 15:28:41</timestamp>
+        <desc>替换System.out.println 为 logback 日志输出</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+    </authors>
+  </file>
+  <file fullPath="Ensemble-Prod/modules/ensemble-cm-core/src/main/java/com/dcits/ensemble/cm/business/CifClientCheck.java" model="Ensemble" pkgPath="com/dcits/ensemble/cm/business/CifClientCheck.class" type="java">
+    <authors>
+      <author>
+        <name>Kevin</name>
+        <versionID>3a15a10ac7ab468e626ed9ecd6d37de1b3d8bc95</versionID>
+        <timestamp>2017-11-14 15:28:41</timestamp>
+        <desc>替换System.out.println 为 logback 日志输出</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+    </authors>
+  </file>
+  <file fullPath="Ensemble/modules/ensemble-tools/src/main/java/org/mybatis/generator/api/ShellRunner.java" model="Ensemble" pkgPath="org/mybatis/generator/api/ShellRunner.class" type="java">
+    <authors>
+      <author>
+        <name>Kevin</name>
+        <versionID>7b4a3582cb4c7bd79c64749a7100602dc83804c4</versionID>
+        <timestamp>2017-11-14 15:28:41</timestamp>
+        <desc>替换System.out.println 为 logback 日志输出</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+    </authors>
+  </file>
+  <file fullPath="Ensemble/modules/ensemble-tb/core/src/test/java/com/dcits/ensemble/test/TestUtil.java" model="Ensemble" pkgPath="Ensemble/modules/ensemble-tb/core/src/test/java/com/dcits/ensemble/test/TestUtil.class" type="java">
+    <authors>
+      <author>
+        <name>Kevin</name>
+        <versionID>de43e7bceca59daf34c4e3aa2cf852b9d8592068</versionID>
+        <timestamp>2017-11-14 15:28:41</timestamp>
+        <desc>替换System.out.println 为 logback 日志输出</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+    </authors>
+  </file>
+  <file fullPath="Ensemble-Prod/modules/ensemble-common/src/main/resources/error/CL_error_zh_CN.properties" model="Ensemble" pkgPath="error/CL_error_zh_CN.properties" type="properties">
+    <authors>
+      <author>
+        <name>wanzheng</name>
+        <versionID>ce5ddbf97f8bf12703569b48cf94aa18fc5fbaaf</versionID>
+        <timestamp>2017-11-14 09:39:56</timestamp>
+        <desc>保函回收到期后不能回收校验</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+    </authors>
+  </file>
+  <file fullPath="Ensemble/modules/ensemble-eod/src/test/java/com/dcits/ensemble/test/TestUtil.java" model="Ensemble" pkgPath="Ensemble/modules/ensemble-eod/src/test/java/com/dcits/ensemble/test/TestUtil.class" type="java">
+    <authors>
+      <author>
+        <name>Kevin</name>
+        <versionID>7d4c1200b1e611276632218381ebdd612f549157</versionID>
+        <timestamp>2017-11-14 15:28:41</timestamp>
+        <desc>替换System.out.println 为 logback 日志输出</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+    </authors>
+  </file>
+  <file fullPath="Ensemble/modules/ensemble-tb/core/src/test/java/com/dcits/ensemble/test/tb/TestBox1.java" model="Ensemble" pkgPath="Ensemble/modules/ensemble-tb/core/src/test/java/com/dcits/ensemble/test/tb/TestBox1.class" type="java">
+    <authors>
+      <author>
+        <name>Kevin</name>
+        <versionID>3be6347213a0635c7eb18608a623f6c6f699f18a</versionID>
+        <timestamp>2017-11-14 15:28:41</timestamp>
+        <desc>替换System.out.println 为 logback 日志输出</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+    </authors>
+  </file>
+  <file fullPath="Ensemble/modules/ensemble-service/src/main/java/com/dcits/ensemble/service/tran/TermAcctBalTran.java" model="Ensemble" pkgPath="com/dcits/ensemble/service/tran/TermAcctBalTran.class" type="java">
+    <authors>
+      <author>
+        <name>Kevin</name>
+        <versionID>81db4ca0d8071207a0c3890b5f95de5010971e9e</versionID>
+        <timestamp>2017-11-14 15:28:41</timestamp>
+        <desc>替换System.out.println 为 logback 日志输出</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+    </authors>
+  </file>
+  <file fullPath="Ensemble/modules/ensemble-tools/src/main/java/com/dcits/mbsd/MbsdServiceInfoStatistic.java" model="Ensemble" pkgPath="com/dcits/mbsd/MbsdServiceInfoStatistic.class" type="java">
+    <authors>
+      <author>
+        <name>Kevin</name>
+        <versionID>6271fa6c30351f010e8892b7a14213900f8100ed</versionID>
+        <timestamp>2017-11-14 15:28:41</timestamp>
+        <desc>替换System.out.println 为 logback 日志输出</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+    </authors>
+  </file>
+  <file fullPath="Ensemble-Prod/modules/ensemble-common/src/main/java/com/dcits/ensemble/annotation/BusiTraceLogAspect.java" model="Ensemble" pkgPath="com/dcits/ensemble/annotation/BusiTraceLogAspect.class" type="java">
+    <authors>
+      <author>
+        <name>Kevin</name>
+        <versionID>72cf70de43ac2c012a0b227577497ce1884ab263</versionID>
+        <timestamp>2017-11-14 15:28:41</timestamp>
+        <desc>替换System.out.println 为 logback 日志输出</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+    </authors>
+  </file>
+  <file fullPath="Ensemble/modules/ensemble-tools/src/main/java/com/dcits/tools/generator/GenerateTranCode.java" model="Ensemble" pkgPath="com/dcits/tools/generator/GenerateTranCode.class" type="java">
+    <authors>
+      <author>
+        <name>Kevin</name>
+        <versionID>6a2ea66c9583de1504bcf48b03357d211263d2ae</versionID>
+        <timestamp>2017-11-14 15:28:41</timestamp>
+        <desc>替换System.out.println 为 logback 日志输出</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+    </authors>
+  </file>
+  <file fullPath="Ensemble-Prod/modules/ensemble-busi/component/src/main/java/com/dcits/ensemble/busi/component/util/RuleUtil.java" model="Ensemble" pkgPath="com/dcits/ensemble/busi/component/util/RuleUtil.class" type="java">
+    <authors>
+      <author>
+        <name>Kevin</name>
+        <versionID>5262405e4863c644108a113716696a533f34fb5b</versionID>
+        <timestamp>2017-11-14 15:28:41</timestamp>
+        <desc>替换System.out.println 为 logback 日志输出</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+    </authors>
+  </file>
+  <file fullPath="Ensemble-Prod/modules/ensemble-prod-integration/all-integration/src/test/java/com/ensemble/testng/close/TestAcctCloseCheck.java" model="Ensemble" pkgPath="Ensemble-Prod/modules/ensemble-prod-integration/all-integration/src/test/java/com/ensemble/testng/close/TestAcctCloseCheck.class" type="java">
+    <authors>
+      <author>
+        <name>Kevin</name>
+        <versionID>2db1b9cd19fc5947c18608574307a81beef870e7</versionID>
+        <timestamp>2017-11-14 15:28:41</timestamp>
+        <desc>替换System.out.println 为 logback 日志输出</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+    </authors>
+  </file>
+  <file fullPath="Ensemble/modules/ensemble-tools/src/main/java/org/mybatis/generator/internal/DefaultShellCallback.java" model="Ensemble" pkgPath="org/mybatis/generator/internal/DefaultShellCallback.class" type="java">
+    <authors>
+      <author>
+        <name>Kevin</name>
+        <versionID>5b9b403b930d99471fa97453dd1007b31ffbc4c9</versionID>
+        <timestamp>2017-11-14 15:28:41</timestamp>
+        <desc>替换System.out.println 为 logback 日志输出</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+    </authors>
+  </file>
+  <file fullPath="Ensemble-Prod/modules/ensemble-busi/base/src/main/java/com/dcits/ensemble/busi/base/eventService/bal/cret/CretEventDefaultImpl.java" model="Ensemble" pkgPath="com/dcits/ensemble/busi/base/eventService/bal/cret/CretEventDefaultImpl.class" type="java">
+    <authors>
+      <author>
+        <name>Kevin</name>
+        <versionID>b00f9d35df2412f5707f32f62df0bea01f86f895</versionID>
+        <timestamp>2017-11-14 15:28:41</timestamp>
+        <desc>替换System.out.println 为 logback 日志输出</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+    </authors>
+  </file>
+  <file fullPath="Ensemble-Prod/modules/ensemble-busi/base/src/main/java/com/dcits/ensemble/busi/base/common/cvn/tools/Cvn.java" model="Ensemble" pkgPath="com/dcits/ensemble/busi/base/common/cvn/tools/Cvn.class" type="java">
+    <authors>
+      <author>
+        <name>Kevin</name>
+        <versionID>083d47319bb999110c10cbb6f2973c1b94bd9228</versionID>
+        <timestamp>2017-11-14 15:28:41</timestamp>
+        <desc>替换System.out.println 为 logback 日志输出</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+    </authors>
+  </file>
+  <file fullPath="Ensemble/modules/ensemble-tools/src/main/java/com/dcits/param/db/DatabaseMeta.java" model="Ensemble" pkgPath="com/dcits/param/db/DatabaseMeta.class" type="java">
+    <authors>
+      <author>
+        <name>Kevin</name>
+        <versionID>645071b3623cd8027ffb1aa86bb6dd449a0485b6</versionID>
+        <timestamp>2017-11-14 15:28:41</timestamp>
+        <desc>替换System.out.println 为 logback 日志输出</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+    </authors>
+  </file>
+  <file fullPath="Ensemble/modules/ensemble-tools/src/main/java/com/dcits/param/generator/EnsembleParamGenerator.java" model="Ensemble" pkgPath="com/dcits/param/generator/EnsembleParamGenerator.class" type="java">
+    <authors>
+      <author>
+        <name>Kevin</name>
+        <versionID>ae00c584595f574032818a7e78a928ce6d4297a8</versionID>
+        <timestamp>2017-11-14 15:28:41</timestamp>
+        <desc>替换System.out.println 为 logback 日志输出</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+    </authors>
+  </file>
+  <file fullPath="Ensemble-Prod/modules/ensemble-prod-integration/all-integration/src/test/java/com/ensemble/test/SocketConnectorTest.java" model="Ensemble" pkgPath="Ensemble-Prod/modules/ensemble-prod-integration/all-integration/src/test/java/com/ensemble/test/SocketConnectorTest.class" type="java">
+    <authors>
+      <author>
+        <name>Kevin</name>
+        <versionID>f17ea7d0b8d83e521da4afd187197a9e808340e6</versionID>
+        <timestamp>2017-11-14 15:28:41</timestamp>
+        <desc>替换System.out.println 为 logback 日志输出</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+    </authors>
+  </file>
+  <file fullPath="Ensemble/modules/ensemble-tools/src/main/java/com/dcits/dbrule/DBRuleParser.java" model="Ensemble" pkgPath="com/dcits/dbrule/DBRuleParser.class" type="java">
+    <authors>
+      <author>
+        <name>Kevin</name>
+        <versionID>e15e98202be1b999e7efc1ac85b9ca28114780d8</versionID>
+        <timestamp>2017-11-14 15:28:41</timestamp>
+        <desc>替换System.out.println 为 logback 日志输出</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+    </authors>
+  </file>
+  <file fullPath="Ensemble/modules/ensemble-tools/src/main/java/com/dcits/tools/hbase/HbaseImportExcel.java" model="Ensemble" pkgPath="com/dcits/tools/hbase/HbaseImportExcel.class" type="java">
+    <authors>
+      <author>
+        <name>Kevin</name>
+        <versionID>b9e1ec3f62720de71392950dd999c4d3e807d6ae</versionID>
+        <timestamp>2017-11-14 15:28:41</timestamp>
+        <desc>替换System.out.println 为 logback 日志输出</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+    </authors>
+  </file>
+  <file fullPath="Ensemble/modules/ensemble-tools/src/main/java/com/dcits/param/generator/EnsembleOmSqlGenerator.java" model="Ensemble" pkgPath="com/dcits/param/generator/EnsembleOmSqlGenerator.class" type="java">
+    <authors>
+      <author>
+        <name>Kevin</name>
+        <versionID>5b5f2541e52996a45606c92bce9b7ad209c6e7b0</versionID>
+        <timestamp>2017-11-14 15:28:41</timestamp>
+        <desc>替换System.out.println 为 logback 日志输出</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+    </authors>
+  </file>
+  <file fullPath="Ensemble/modules/ensemble-tools/src/main/java/com/dcits/param/util/FileUtility.java" model="Ensemble" pkgPath="com/dcits/param/util/FileUtility.class" type="java">
+    <authors>
+      <author>
+        <name>Kevin</name>
+        <versionID>ab08a43301b7e8398371e1d44dab31312b35f5c9</versionID>
+        <timestamp>2017-11-14 15:28:41</timestamp>
+        <desc>替换System.out.println 为 logback 日志输出</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+    </authors>
+  </file>
+  <file fullPath="Ensemble-Prod/modules/ensemble-lm-core/src/main/java/com/dcits/ensemble/lm/business/boxLimit/BoxLimitCommon.java" model="Ensemble" pkgPath="com/dcits/ensemble/lm/business/boxLimit/BoxLimitCommon.class" type="java">
+    <authors>
+      <author>
+        <name>Kevin</name>
+        <versionID>7608c5fb918fbc3c60840c4c6a3200dccf47dc50</versionID>
+        <timestamp>2017-11-14 15:28:41</timestamp>
+        <desc>替换System.out.println 为 logback 日志输出</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+    </authors>
+  </file>
+  <file fullPath="Ensemble/modules/ensemble-tools/src/main/java/com/dcits/tools/hbase/ParamInit.java" model="Ensemble" pkgPath="com/dcits/tools/hbase/ParamInit.class" type="java">
+    <authors>
+      <author>
+        <name>Kevin</name>
+        <versionID>7326f9eb78986bffd980ab17bc1c6d39456f2a77</versionID>
+        <timestamp>2017-11-14 15:28:41</timestamp>
+        <desc>替换System.out.println 为 logback 日志输出</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+    </authors>
+  </file>
+  <file fullPath="Ensemble/modules/ensemble-sms/src/test/java/com/dcits/ensemble/test/TestUtil.java" model="Ensemble" pkgPath="Ensemble/modules/ensemble-sms/src/test/java/com/dcits/ensemble/test/TestUtil.class" type="java">
+    <authors>
+      <author>
+        <name>Kevin</name>
+        <versionID>c4db1bf0a1535ab1589691aef1dfb8f0c8025e91</versionID>
+        <timestamp>2017-11-14 15:28:41</timestamp>
+        <desc>替换System.out.println 为 logback 日志输出</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+    </authors>
+  </file>
+  <file fullPath="Ensemble-Prod/modules/ensemble-prod-integration/all-integration/src/test/java/com/ensemble/testforprod/BalTestNG.java" model="Ensemble" pkgPath="Ensemble-Prod/modules/ensemble-prod-integration/all-integration/src/test/java/com/ensemble/testforprod/BalTestNG.class" type="java">
+    <authors>
+      <author>
+        <name>Kevin</name>
+        <versionID>60da8114cbbb194adbead75f7c32e37f33485bcc</versionID>
+        <timestamp>2017-11-14 15:28:41</timestamp>
+        <desc>替换System.out.println 为 logback 日志输出</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+    </authors>
+  </file>
+  <file fullPath="Ensemble/modules/ensemble-service/src/main/java/com/dcits/ensemble/service/tran/AcctDepTran.java" model="Ensemble" pkgPath="com/dcits/ensemble/service/tran/AcctDepTran.class" type="java">
+    <authors>
+      <author>
+        <name>Kevin</name>
+        <versionID>33d24864d46c49e46bf4096aad19a5a172c04a68</versionID>
+        <timestamp>2017-11-14 15:28:41</timestamp>
+        <desc>替换System.out.println 为 logback 日志输出</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+    </authors>
+  </file>
+  <file fullPath="Ensemble/modules/ensemble-fx/api/src/main/resources/META-INF/spring/galaxy-consumer.xml" model="Ensemble" pkgPath="META-INF/spring/galaxy-consumer.xml" type="xml">
+    <authors>
+      <author>
+        <name>duanze</name>
+        <versionID>767530133eae5e618ce933ae6abe45d9345d5107</versionID>
+        <timestamp>2017-11-14 10:45:48</timestamp>
+        <desc>增加待汇出信息修改接口</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+    </authors>
+  </file>
+  <file fullPath="Ensemble/modules/ensemble-external-fx/core/src/main/resources/META-INF/mapper/FxMbPaymentTranHist.xml" model="Ensemble" pkgPath="META-INF/mapper/FxMbPaymentTranHist.xml" type="xml">
+    <authors>
+      <author>
+        <name>duanze</name>
+        <versionID>fc961ad7028f3923b663c4d5849b0e44c443773f</versionID>
+        <timestamp>2017-11-14 10:45:48</timestamp>
+        <desc>增加待汇出信息修改接口</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+    </authors>
+  </file>
+  <file fullPath="Ensemble/modules/ensemble-external-fx/core/src/main/java/com/dcits/ensemble/externalfx/dao/FxMbPaymentTranHistDao.java" model="Ensemble" pkgPath="com/dcits/ensemble/externalfx/dao/FxMbPaymentTranHistDao.class" type="java">
+    <authors>
+      <author>
+        <name>duanze</name>
+        <versionID>92ad512bde01b59ec912ea19cd6acd2a843cbd4c</versionID>
+        <timestamp>2017-11-14 10:45:48</timestamp>
+        <desc>增加待汇出信息修改接口</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+    </authors>
+  </file>
+  <file fullPath="Ensemble/modules/ensemble-tools/src/main/java/com/dcits/mbsd/MbsdHelper.java" model="Ensemble" pkgPath="com/dcits/mbsd/MbsdHelper.class" type="java">
+    <authors>
+      <author>
+        <name>Kevin</name>
+        <versionID>dff6baf876fc7904af8128fc668844c5c8700716</versionID>
+        <timestamp>2017-11-14 15:28:41</timestamp>
+        <desc>替换System.out.println 为 logback 日志输出</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+    </authors>
+  </file>
+  <file fullPath="Ensemble-Prod/modules/ensemble-prod-integration/all-integration/src/test/java/com/ensemble/test/JettyConnectorTest.java" model="Ensemble" pkgPath="Ensemble-Prod/modules/ensemble-prod-integration/all-integration/src/test/java/com/ensemble/test/JettyConnectorTest.class" type="java">
+    <authors>
+      <author>
+        <name>Kevin</name>
+        <versionID>4214017f4ded568a7a261151d2e543d879f62903</versionID>
+        <timestamp>2017-11-14 15:28:41</timestamp>
+        <desc>替换System.out.println 为 logback 日志输出</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+    </authors>
+  </file>
+  <file fullPath="Ensemble/modules/ensemble-cif/online/src/main/java/com/dcits/ensemble/cif/online/service/mbsdcore/Core12009107.java" model="Ensemble" pkgPath="com/dcits/ensemble/cif/online/service/mbsdcore/Core12009107.class" type="java">
+    <authors>
+      <author>
+        <name>Kevin</name>
+        <versionID>6dd0e9bde3405edeae51609505c93c1955f6d42a</versionID>
+        <timestamp>2017-11-14 15:28:41</timestamp>
+        <desc>替换System.out.println 为 logback 日志输出</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+    </authors>
+  </file>
+  <file fullPath="Ensemble-Prod/modules/ensemble-common/src/main/java/com/dcits/ensemble/util/DateFormatUtil.java" model="Ensemble" pkgPath="com/dcits/ensemble/util/DateFormatUtil.class" type="java">
+    <authors>
+      <author>
+        <name>Kevin</name>
+        <versionID>64f3b5b4415a09df071822ddcefb9b5e3bfbe0c9</versionID>
+        <timestamp>2017-11-14 15:28:41</timestamp>
+        <desc>替换System.out.println 为 logback 日志输出</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+    </authors>
+  </file>
+  <file fullPath="Ensemble/modules/ensemble-tools/src/main/java/com/dcits/tools/db/DbRow2Col.java" model="Ensemble" pkgPath="com/dcits/tools/db/DbRow2Col.class" type="java">
+    <authors>
+      <author>
+        <name>Kevin</name>
+        <versionID>98ba3f7093891d0e4470fe9f15a123ffbbf3851f</versionID>
+        <timestamp>2017-11-14 15:28:41</timestamp>
+        <desc>替换System.out.println 为 logback 日志输出</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+    </authors>
+  </file>
+  <file fullPath="Ensemble-Prod/modules/ensemble-common/src/main/java/com/dcits/ensemble/util/ObjectUtil.java" model="Ensemble" pkgPath="com/dcits/ensemble/util/ObjectUtil.class" type="java">
+    <authors>
+      <author>
+        <name>Kevin</name>
+        <versionID>ef09d8509ce8a7494a6a71c4325f5aa81e8ac012</versionID>
+        <timestamp>2017-11-14 15:28:41</timestamp>
+        <desc>替换System.out.println 为 logback 日志输出</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+    </authors>
+  </file>
+  <file fullPath="Ensemble/modules/ensemble-tools/src/main/java/com/dcits/tools/EnsembleMybatisGenerator.java" model="Ensemble" pkgPath="com/dcits/tools/EnsembleMybatisGenerator.class" type="java">
+    <authors>
+      <author>
+        <name>Kevin</name>
+        <versionID>aef32b265321928f0fb491dcbc8f2e66eaaf3866</versionID>
+        <timestamp>2017-11-14 15:28:41</timestamp>
+        <desc>替换System.out.println 为 logback 日志输出</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+    </authors>
+  </file>
+  <file fullPath="Ensemble/modules/ensemble-integration/online-all-integration/src/test/java/com/ensemble/test/SocketConnectorTest.java" model="Ensemble" pkgPath="Ensemble/modules/ensemble-integration/online-all-integration/src/test/java/com/ensemble/test/SocketConnectorTest.class" type="java">
+    <authors>
+      <author>
+        <name>Kevin</name>
+        <versionID>3753c2c8e4fdece49550791a7e6822be6f269636</versionID>
+        <timestamp>2017-11-14 15:28:41</timestamp>
+        <desc>替换System.out.println 为 logback 日志输出</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+    </authors>
+  </file>
+  <file fullPath="Ensemble-Prod/modules/ensemble-cm-core/src/main/java/com/dcits/ensemble/cm/core/FmEod.java" model="Ensemble" pkgPath="com/dcits/ensemble/cm/core/FmEod.class" type="java">
+    <authors>
+      <author>
+        <name>Kevin</name>
+        <versionID>9daac70d433903be779c240aac4cdf6752c1e89d</versionID>
+        <timestamp>2017-11-14 15:28:41</timestamp>
+        <desc>替换System.out.println 为 logback 日志输出</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+    </authors>
+  </file>
+  <file fullPath="Ensemble/modules/ensemble-fx/api/src/main/java/com/dcits/ensemble/fx/api/mbsdcore/ICore1200013064.java" model="Ensemble" pkgPath="com/dcits/ensemble/fx/api/mbsdcore/ICore1200013064.class" type="java">
+    <authors>
+      <author>
+        <name>duanze</name>
+        <versionID>e2a36df33fb7663410d5ba304fea8bcbe3b37073</versionID>
+        <timestamp>2017-11-14 10:45:48</timestamp>
+        <desc>增加待汇出信息修改接口</desc>
+        <changeType>ADD</changeType>
+        <check>true</check>
+      </author>
+    </authors>
+  </file>
+  <file fullPath="Ensemble/modules/ensemble-eod/src/test/java/com/dcits/ensemble/test/TestNoSpring.java" model="Ensemble" pkgPath="Ensemble/modules/ensemble-eod/src/test/java/com/dcits/ensemble/test/TestNoSpring.class" type="java">
+    <authors>
+      <author>
+        <name>Kevin</name>
+        <versionID>88bbe483d8c1ee683b9e9685d93ec8d3d42df888</versionID>
+        <timestamp>2017-11-14 15:28:41</timestamp>
+        <desc>替换System.out.println 为 logback 日志输出</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+    </authors>
+  </file>
+  <file fullPath="Ensemble/modules/ensemble-eod/src/main/java/com/dcits/ensemble/eod/base/JobDemo.java" model="Ensemble" pkgPath="com/dcits/ensemble/eod/base/JobDemo.class" type="java">
+    <authors>
+      <author>
+        <name>Kevin</name>
+        <versionID>aecc7544f1d98c4f8ff312131b5656c9cc311ddd</versionID>
+        <timestamp>2017-11-14 15:28:41</timestamp>
+        <desc>替换System.out.println 为 logback 日志输出</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+    </authors>
+  </file>
+  <file fullPath="Ensemble-channel/modules/ensemble-unipay/api/src/main/resources/error/uc_error_zh_CN.properties" model="Ensemble" pkgPath="error/uc_error_zh_CN.properties" type="properties">
+    <authors>
+      <author>
+        <name>gubm</name>
+        <versionID>3cf16633431a975b315a3e9db7e818478592c649</versionID>
+        <timestamp>2017-11-14 10:25:00</timestamp>
+        <desc>增加证件类型映射</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+    </authors>
+  </file>
+  <file fullPath="Ensemble/modules/ensemble-tools/src/main/java/org/mybatis/generator/api/VerboseProgressCallback.java" model="Ensemble" pkgPath="org/mybatis/generator/api/VerboseProgressCallback.class" type="java">
+    <authors>
+      <author>
+        <name>Kevin</name>
+        <versionID>5fa5bebb69a44c99211ee018ca278b3864b04430</versionID>
+        <timestamp>2017-11-14 15:28:41</timestamp>
+        <desc>替换System.out.println 为 logback 日志输出</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+    </authors>
+  </file>
+  <file fullPath="Ensemble/modules/ensemble-integration/online-all-integration/src/test/java/com/ensemble/testng/open/AcctOpenTest.java" model="Ensemble" pkgPath="Ensemble/modules/ensemble-integration/online-all-integration/src/test/java/com/ensemble/testng/open/AcctOpenTest.class" type="java">
+    <authors>
+      <author>
+        <name>Kevin</name>
+        <versionID>d002dea78c6768c9e68f230da333a78a5b009aaa</versionID>
+        <timestamp>2017-11-14 15:28:41</timestamp>
+        <desc>替换System.out.println 为 logback 日志输出</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+    </authors>
+  </file>
+  <file fullPath="Ensemble/modules/ensemble-tools/src/main/java/com/dcits/tools/hbase/TableHelper.java" model="Ensemble" pkgPath="com/dcits/tools/hbase/TableHelper.class" type="java">
+    <authors>
+      <author>
+        <name>Kevin</name>
+        <versionID>641ffde83a03850212b15d6a62d8f0115f315d38</versionID>
+        <timestamp>2017-11-14 15:28:41</timestamp>
+        <desc>替换System.out.println 为 logback 日志输出</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+    </authors>
+  </file>
+  <file fullPath="Ensemble/modules/ensemble-tools/src/main/java/com/dcits/tools/generator/PrepareData.java" model="Ensemble" pkgPath="com/dcits/tools/generator/PrepareData.class" type="java">
+    <authors>
+      <author>
+        <name>Kevin</name>
+        <versionID>92757f2788b035eaba5dbae626b3f15e43e432ce</versionID>
+        <timestamp>2017-11-14 15:28:41</timestamp>
+        <desc>替换System.out.println 为 logback 日志输出</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+    </authors>
+  </file>
+  <file fullPath="Ensemble/modules/ensemble-rb/online/src/main/java/com/dcits/ensemble/rb/online/service/mbsdcore/Core14000110.java" model="Ensemble" pkgPath="com/dcits/ensemble/rb/online/service/mbsdcore/Core14000110.class" type="java">
+    <authors>
+      <author>
+        <name>Kevin</name>
+        <versionID>2d65bf470d63017d664eea8a0349a7e4a2b125a0</versionID>
+        <timestamp>2017-11-14 15:28:41</timestamp>
+        <desc>替换System.out.println 为 logback 日志输出</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+    </authors>
+  </file>
+  <file fullPath="Ensemble/modules/ensemble-oc/online/src/main/java/com/dcits/ensemble/oc/online/service/mbsdcore/Core14000601.java" model="Ensemble" pkgPath="com/dcits/ensemble/oc/online/service/mbsdcore/Core14000601.class" type="java">
+    <authors>
+      <author>
+        <name>Kevin</name>
+        <versionID>8af50e0132646f2e7e7ff4c958d4681b39fbc2a4</versionID>
+        <timestamp>2017-11-14 15:28:41</timestamp>
+        <desc>替换System.out.println 为 logback 日志输出</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+    </authors>
+  </file>
+  <file fullPath="Ensemble/modules/ensemble-external/api/src/main/java/com/dcits/ensemble/external/model/mbsdcore/Core10003001Out.java" model="Ensemble" pkgPath="com/dcits/ensemble/external/model/mbsdcore/Core10003001Out.class" type="java">
+    <authors>
+      <author>
+        <name>zhouwsa</name>
+        <versionID>c86450b5792da6007d5c28e1b932416ca5c8cbcc</versionID>
+        <timestamp>2017-11-14 16:37:03</timestamp>
+        <desc>10003001out增加账面余额</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+      <author>
+        <name>zhouwsa</name>
+        <versionID>d34d5300124c2775613fea265c0039db6ab7e8e3</versionID>
+        <timestamp>2017-11-14 16:35:25</timestamp>
+        <desc>单笔统一记账返回增加账面余额</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+    </authors>
+  </file>
+  <file fullPath="Ensemble-Prod/modules/ensemble-product/core/src/main/java/com/dcits/ensemble/product/base/EnsembleEventWrapper.java" model="Ensemble" pkgPath="com/dcits/ensemble/product/base/EnsembleEventWrapper.class" type="java">
+    <authors>
+      <author>
+        <name>Kevin</name>
+        <versionID>73a3c3355ada49d765a54dd5abb730c5e09fdd23</versionID>
+        <timestamp>2017-11-14 15:28:41</timestamp>
+        <desc>替换System.out.println 为 logback 日志输出</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+    </authors>
+  </file>
+  <file fullPath="Ensemble-Prod/modules/ensemble-model/src/main/java/com/dcits/ensemble/model/event/EnumEvent.java" model="Ensemble" pkgPath="com/dcits/ensemble/model/event/EnumEvent.class" type="java">
+    <authors>
+      <author>
+        <name>Kevin</name>
+        <versionID>0592f9944b578f7f64db15050d86bdebf101af28</versionID>
+        <timestamp>2017-11-14 15:28:41</timestamp>
+        <desc>替换System.out.println 为 logback 日志输出</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+    </authors>
+  </file>
+  <file fullPath="Ensemble/modules/ensemble-integration/online-all-integration/src/test/java/com/dcits/ensemble/external/online/service/mbsdcore/Core14003262Test.java" model="Ensemble" pkgPath="Ensemble/modules/ensemble-integration/online-all-integration/src/test/java/com/dcits/ensemble/external/online/service/mbsdcore/Core14003262Test.class" type="java">
+    <authors>
+      <author>
+        <name>Kevin</name>
+        <versionID>d8ca12b98fb14ce7d404a2dd79052afac282866f</versionID>
+        <timestamp>2017-11-14 15:28:41</timestamp>
+        <desc>替换System.out.println 为 logback 日志输出</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+    </authors>
+  </file>
+  <file fullPath="Ensemble/modules/ensemble-service/src/main/java/com/dcits/ensemble/service/tran/VoucherChangeEvent.java" model="Ensemble" pkgPath="com/dcits/ensemble/service/tran/VoucherChangeEvent.class" type="java">
+    <authors>
+      <author>
+        <name>Kevin</name>
+        <versionID>0d26ad76d371255327ce70567ab33a8193b1a853</versionID>
+        <timestamp>2017-11-14 15:28:41</timestamp>
+        <desc>替换System.out.println 为 logback 日志输出</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+    </authors>
+  </file>
+  <file fullPath="Ensemble/modules/ensemble-tools/src/main/java/com/dcits/tools/db/Row2ColCallback.java" model="Ensemble" pkgPath="com/dcits/tools/db/Row2ColCallback.class" type="java">
+    <authors>
+      <author>
+        <name>Kevin</name>
+        <versionID>07b334814c4fb806337dc48c27dec726d31fda62</versionID>
+        <timestamp>2017-11-14 15:28:41</timestamp>
+        <desc>替换System.out.println 为 logback 日志输出</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+    </authors>
+  </file>
+  <file fullPath="Ensemble/modules/ensemble-service/src/main/java/com/dcits/ensemble/service/flow/acct/maintance/DemoteFlowImpl.java" model="Ensemble" pkgPath="com/dcits/ensemble/service/flow/acct/maintance/DemoteFlowImpl.class" type="java">
+    <authors>
+      <author>
+        <name>rensp</name>
+        <versionID>9f9981e9d602a12dff78f43c7683789bbe007602</versionID>
+        <timestamp>2017-11-14 16:28:44</timestamp>
+        <desc>修改缺陷13749</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+    </authors>
+  </file>
+  <file fullPath="Ensemble/modules/ensemble-tools/src/main/java/com/dcits/tools/input/String2CD2Json.java" model="Ensemble" pkgPath="com/dcits/tools/input/String2CD2Json.class" type="java">
+    <authors>
+      <author>
+        <name>Kevin</name>
+        <versionID>a567184cdf805f0f08779f6e79c35162fb938b02</versionID>
+        <timestamp>2017-11-14 15:28:41</timestamp>
+        <desc>替换System.out.println 为 logback 日志输出</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+    </authors>
+  </file>
+  <file fullPath="Ensemble/modules/ensemble-tools/src/main/java/com/dcits/param/db/ExcelMeta.java" model="Ensemble" pkgPath="com/dcits/param/db/ExcelMeta.class" type="java">
+    <authors>
+      <author>
+        <name>Kevin</name>
+        <versionID>339fc856bb41699d893da9eef0668b3a044e94a9</versionID>
+        <timestamp>2017-11-14 15:28:41</timestamp>
+        <desc>替换System.out.println 为 logback 日志输出</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+    </authors>
+  </file>
+  <file fullPath="Ensemble-Prod/modules/ensemble-model/src/main/java/com/dcits/ensemble/model/base/ProductModel.java" model="Ensemble" pkgPath="com/dcits/ensemble/model/base/ProductModel.class" type="java">
+    <authors>
+      <author>
+        <name>Kevin</name>
+        <versionID>f27cd2bd6cf781f17fb93f6fbf431b34b9f541e5</versionID>
+        <timestamp>2017-11-14 15:28:41</timestamp>
+        <desc>替换System.out.println 为 logback 日志输出</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+    </authors>
+  </file>
+  <file fullPath="Ensemble/modules/ensemble-fx/api/src/main/java/com/dcits/ensemble/fx/model/mbsdcore/Core1200013064Out.java" model="Ensemble" pkgPath="com/dcits/ensemble/fx/model/mbsdcore/Core1200013064Out.class" type="java">
+    <authors>
+      <author>
+        <name>duanze</name>
+        <versionID>58f59e745a471cf6926113a0e81036dbc1fe6f4f</versionID>
+        <timestamp>2017-11-14 10:45:48</timestamp>
+        <desc>增加待汇出信息修改接口</desc>
+        <changeType>ADD</changeType>
+        <check>true</check>
+      </author>
+    </authors>
+  </file>
+  <file fullPath="Ensemble-channel/modules/ensemble-channel-integration/online-all-integration/src/test/java/com/dcits/ensemble/test/JettyConnectorTest.java" model="Ensemble" pkgPath="Ensemble-channel/modules/ensemble-channel-integration/online-all-integration/src/test/java/com/dcits/ensemble/test/JettyConnectorTest.class" type="java">
+    <authors>
+      <author>
+        <name>Kevin</name>
+        <versionID>b324a257f7d9f43e4c82d93fa37d316b858b9f1c</versionID>
+        <timestamp>2017-11-14 15:28:41</timestamp>
+        <desc>替换System.out.println 为 logback 日志输出</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+    </authors>
+  </file>
+  <file fullPath="Ensemble/modules/ensemble-tb/core/src/test/java/com/dcits/ensemble/test/tb/TestUtil.java" model="Ensemble" pkgPath="Ensemble/modules/ensemble-tb/core/src/test/java/com/dcits/ensemble/test/tb/TestUtil.class" type="java">
+    <authors>
+      <author>
+        <name>Kevin</name>
+        <versionID>294faa6f091e3c663b132bddddcd5effb5b27254</versionID>
+        <timestamp>2017-11-14 15:28:41</timestamp>
+        <desc>替换System.out.println 为 logback 日志输出</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+    </authors>
+  </file>
+  <file fullPath="Ensemble/modules/ensemble-eod/src/test/java/com/dcits/ensemble/test/TestSchedule.java" model="Ensemble" pkgPath="Ensemble/modules/ensemble-eod/src/test/java/com/dcits/ensemble/test/TestSchedule.class" type="java">
+    <authors>
+      <author>
+        <name>Kevin</name>
+        <versionID>f6f217d705cf9d129ed0cf00b7f1ae5628b0880a</versionID>
+        <timestamp>2017-11-14 15:28:41</timestamp>
+        <desc>替换System.out.println 为 logback 日志输出</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+    </authors>
+  </file>
+  <file fullPath="Ensemble/modules/ensemble-integration/online-all-integration/src/test/java/com/ensemble/testng/ConvertHump.java" model="Ensemble" pkgPath="Ensemble/modules/ensemble-integration/online-all-integration/src/test/java/com/ensemble/testng/ConvertHump.class" type="java">
+    <authors>
+      <author>
+        <name>Kevin</name>
+        <versionID>720d06203d73cab584c6b763fa076316607875d2</versionID>
+        <timestamp>2017-11-14 15:28:41</timestamp>
+        <desc>替换System.out.println 为 logback 日志输出</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+    </authors>
+  </file>
+  <file fullPath="Ensemble/modules/ensemble-integration/online-all-integration/src/test/java/com/ensemble/test/RpcServiceTest.java" model="Ensemble" pkgPath="Ensemble/modules/ensemble-integration/online-all-integration/src/test/java/com/ensemble/test/RpcServiceTest.class" type="java">
+    <authors>
+      <author>
+        <name>Kevin</name>
+        <versionID>5a25422f1f7c29bcf06b2b480bdf28828aba8834</versionID>
+        <timestamp>2017-11-14 15:28:41</timestamp>
+        <desc>替换System.out.println 为 logback 日志输出</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+    </authors>
+  </file>
+  <file fullPath="Ensemble/modules/ensemble-fx/online/src/main/resources/META-INF/spring/galaxy-provider.xml" model="Ensemble" pkgPath="META-INF/spring/galaxy-provider.xml" type="xml">
+    <authors>
+      <author>
+        <name>duanze</name>
+        <versionID>364677249d021d458ba66e2f9c04f40c0c2c2143</versionID>
+        <timestamp>2017-11-14 10:45:48</timestamp>
+        <desc>增加待汇出信息修改接口</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+    </authors>
+  </file>
+  <file fullPath="Ensemble-channel/modules/ensemble-channel-integration/online-all-integration/src/test/java/com/dcits/ensemble/test/MyJettyConnTest01.java" model="Ensemble" pkgPath="Ensemble-channel/modules/ensemble-channel-integration/online-all-integration/src/test/java/com/dcits/ensemble/test/MyJettyConnTest01.class" type="java">
+    <authors>
+      <author>
+        <name>Kevin</name>
+        <versionID>7ab857164f17416006ef27c67a80f510c1a85c2f</versionID>
+        <timestamp>2017-11-14 15:28:41</timestamp>
+        <desc>替换System.out.println 为 logback 日志输出</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+    </authors>
+  </file>
+  <file fullPath="Ensemble/modules/ensemble-external-fx/core/src/main/java/com/dcits/ensemble/externalfx/business/MbBatchFinancialSettleFun.java" model="Ensemble" pkgPath="com/dcits/ensemble/externalfx/business/MbBatchFinancialSettleFun.class" type="java">
+    <authors>
+      <author>
+        <name>zhoubx</name>
+        <versionID>a28df7770236bde0f128f938704530c5f7810a46</versionID>
+        <timestamp>2017-11-14 16:18:42</timestamp>
+        <desc>Fix:注册同城票交-机构(柜员)日终未处理事项检查服务，提交全量、增量</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+    </authors>
+  </file>
+  <file fullPath="Ensemble/modules/ensemble-cif/online/src/main/java/com/dcits/ensemble/cif/online/service/mbsdcore/Core12009106.java" model="Ensemble" pkgPath="com/dcits/ensemble/cif/online/service/mbsdcore/Core12009106.class" type="java">
+    <authors>
+      <author>
+        <name>Kevin</name>
+        <versionID>42fff48968b9aba5cfaa379a565783b10e2670ee</versionID>
+        <timestamp>2017-11-14 15:28:41</timestamp>
+        <desc>替换System.out.println 为 logback 日志输出</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+    </authors>
+  </file>
+  <file fullPath="Ensemble-Prod/modules/ensemble-prod-integration/all-integration/src/test/java/com/ensemble/test/RpcServiceTest.java" model="Ensemble" pkgPath="Ensemble-Prod/modules/ensemble-prod-integration/all-integration/src/test/java/com/ensemble/test/RpcServiceTest.class" type="java">
+    <authors>
+      <author>
+        <name>Kevin</name>
+        <versionID>1409a9a046b1393fc46958857d6dcbf6decff68c</versionID>
+        <timestamp>2017-11-14 15:28:41</timestamp>
+        <desc>替换System.out.println 为 logback 日志输出</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+    </authors>
+  </file>
+  <file fullPath="Ensemble/modules/ensemble-mm/online/src/main/java/com/dcits/ensemble/mm/online/service/mbsdcore/Core14004205.java" model="Ensemble" pkgPath="com/dcits/ensemble/mm/online/service/mbsdcore/Core14004205.class" type="java">
+    <authors>
+      <author>
+        <name>Kevin</name>
+        <versionID>d08d4d6e2e21030e440ae30c48b7f0abd2a7ac2e</versionID>
+        <timestamp>2017-11-14 15:28:41</timestamp>
+        <desc>替换System.out.println 为 logback 日志输出</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+    </authors>
+  </file>
+  <file fullPath="Ensemble-Prod/modules/ensemble-busi/base/src/main/java/com/dcits/ensemble/busi/base/fun/amend/MbAcctInfoUpd.java" model="Ensemble" pkgPath="com/dcits/ensemble/busi/base/fun/amend/MbAcctInfoUpd.class" type="java">
+    <authors>
+      <author>
+        <name>Kevin</name>
+        <versionID>dd71ac9b133c8ceb7923f0b489a3b47ef5842ce0</versionID>
+        <timestamp>2017-11-14 15:28:41</timestamp>
+        <desc>替换System.out.println 为 logback 日志输出</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+    </authors>
+  </file>
+  <file fullPath="Ensemble-Prod/modules/ensemble-busi/base/src/main/java/com/dcits/ensemble/busi/base/component/settle/SettleCommon.java" model="Ensemble" pkgPath="com/dcits/ensemble/busi/base/component/settle/SettleCommon.class" type="java">
+    <authors>
+      <author>
+        <name>Kevin</name>
+        <versionID>5b18e2e55bd100d52270ba275896e32a387045fb</versionID>
+        <timestamp>2017-11-14 15:28:41</timestamp>
+        <desc>替换System.out.println 为 logback 日志输出</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+    </authors>
+  </file>
+  <file fullPath="Ensemble-Prod/modules/ensemble-prod-integration/all-integration/src/test/java/com/ensemble/test/TestDivide.java" model="Ensemble" pkgPath="Ensemble-Prod/modules/ensemble-prod-integration/all-integration/src/test/java/com/ensemble/test/TestDivide.class" type="java">
+    <authors>
+      <author>
+        <name>Kevin</name>
+        <versionID>0aa9129e939e29d4e5d44bbe0ec7a883e49a7fab</versionID>
+        <timestamp>2017-11-14 15:28:41</timestamp>
+        <desc>替换System.out.println 为 logback 日志输出</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+    </authors>
+  </file>
+  <file fullPath="Ensemble/modules/ensemble-tb/core/src/test/java/com/dcits/ensemble/test/voucher/TestVoucher.java" model="Ensemble" pkgPath="Ensemble/modules/ensemble-tb/core/src/test/java/com/dcits/ensemble/test/voucher/TestVoucher.class" type="java">
+    <authors>
+      <author>
+        <name>Kevin</name>
+        <versionID>417f3c9004a278da71c08ccdde9cd2188f3a3595</versionID>
+        <timestamp>2017-11-14 15:28:41</timestamp>
+        <desc>替换System.out.println 为 logback 日志输出</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+    </authors>
+  </file>
+  <file fullPath="Ensemble/mbsd/MbsdCore_OC.xls" model="Ensemble" pkgPath="Ensemble/mbsd/MbsdCore_OC.xls" type="xls">
+    <authors>
+      <author>
+        <name>zhoubx</name>
+        <versionID>4c98e53c22ee08f018ed97a6672fc7f36546cde4</versionID>
+        <timestamp>2017-11-14 16:18:42</timestamp>
+        <desc>Fix:注册同城票交-机构(柜员)日终未处理事项检查服务，提交全量、增量</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+    </authors>
+  </file>
+  <file fullPath="Ensemble/modules/ensemble-tools/src/main/java/com/dcits/tools/generator/EnsembleShellCallback.java" model="Ensemble" pkgPath="com/dcits/tools/generator/EnsembleShellCallback.class" type="java">
+    <authors>
+      <author>
+        <name>Kevin</name>
+        <versionID>a0606215a3219cd9c17605bce46f2f0c1e3acb98</versionID>
+        <timestamp>2017-11-14 15:28:41</timestamp>
+        <desc>替换System.out.println 为 logback 日志输出</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+    </authors>
+  </file>
+  <file fullPath="Ensemble-channel/modules/ensemble-unipay/core/src/main/java/com/dcits/ensemble/uc/event/UcTransferInEventServer.java" model="Ensemble" pkgPath="com/dcits/ensemble/uc/event/UcTransferInEventServer.class" type="java">
+    <authors>
+      <author>
+        <name>Kevin</name>
+        <versionID>aa6895f95de9e95c7bd33f404fd1a1bb5bbeb00b</versionID>
+        <timestamp>2017-11-14 15:28:41</timestamp>
+        <desc>替换System.out.println 为 logback 日志输出</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+    </authors>
+  </file>
+  <file fullPath="Ensemble-Prod/modules/ensemble-busi/base/src/main/java/com/dcits/ensemble/busi/base/fun/restraints/AcctRestraintsFun.java" model="Ensemble" pkgPath="com/dcits/ensemble/busi/base/fun/restraints/AcctRestraintsFun.class" type="java">
+    <authors>
+      <author>
+        <name>cuiln</name>
+        <versionID>f8946aac1ff953a3b226af08f128fe509156d7ab</versionID>
+        <timestamp>2017-11-14 15:54:07</timestamp>
+        <desc>FIX:司法查控续冻金额送空  不更新mb_acct_sec_balance</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+    </authors>
+  </file>
+  <file fullPath="Ensemble/modules/ensemble-integration/online-all-integration/src/test/java/com/dcits/ensemble/rb/online/service/mbsdcore/Core14000000Test.java" model="Ensemble" pkgPath="Ensemble/modules/ensemble-integration/online-all-integration/src/test/java/com/dcits/ensemble/rb/online/service/mbsdcore/Core14000000Test.class" type="java">
+    <authors>
+      <author>
+        <name>Kevin</name>
+        <versionID>853bbd7639aa92f2e16352d1ce578e5f03200518</versionID>
+        <timestamp>2017-11-14 15:28:41</timestamp>
+        <desc>替换System.out.println 为 logback 日志输出</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+    </authors>
+  </file>
+  <file fullPath="Ensemble/modules/ensemble-tb/core/src/test/java/com/dcits/ensemble/test/testforprod/TestUtil.java" model="Ensemble" pkgPath="Ensemble/modules/ensemble-tb/core/src/test/java/com/dcits/ensemble/test/testforprod/TestUtil.class" type="java">
+    <authors>
+      <author>
+        <name>Kevin</name>
+        <versionID>adb948a8b30b5f6b2e819329fb21f752c5666499</versionID>
+        <timestamp>2017-11-14 15:28:41</timestamp>
+        <desc>替换System.out.println 为 logback 日志输出</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+    </authors>
+  </file>
+  <file fullPath="Ensemble/modules/ensemble-service/src/main/java/com/dcits/ensemble/service/flow/batch/GkBatchTranFlow.java" model="Ensemble" pkgPath="com/dcits/ensemble/service/flow/batch/GkBatchTranFlow.class" type="java">
+    <authors>
+      <author>
+        <name>Kevin</name>
+        <versionID>ff85a02dd6d3c79a74c3be39af5fc0f4135f66a8</versionID>
+        <timestamp>2017-11-14 15:28:41</timestamp>
+        <desc>替换System.out.println 为 logback 日志输出</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+    </authors>
+  </file>
+  <file fullPath="Ensemble/modules/ensemble-fx/online/src/main/java/com/dcits/ensemble/fx/online/service/mbsdcore/Core1200013064.java" model="Ensemble" pkgPath="com/dcits/ensemble/fx/online/service/mbsdcore/Core1200013064.class" type="java">
+    <authors>
+      <author>
+        <name>duanze</name>
+        <versionID>9cb358460469707028cae32f1ad464f7705c3a00</versionID>
+        <timestamp>2017-11-14 10:45:48</timestamp>
+        <desc>增加待汇出信息修改接口</desc>
+        <changeType>ADD</changeType>
+        <check>true</check>
+      </author>
+    </authors>
+  </file>
+  <file fullPath="Ensemble/modules/ensemble-tools/src/main/java/com/dcits/param/generator/ClientSqlGenerstor.java" model="Ensemble" pkgPath="com/dcits/param/generator/ClientSqlGenerstor.class" type="java">
+    <authors>
+      <author>
+        <name>Kevin</name>
+        <versionID>2920efa6a25e6713ddc30865bc92f0c7271904fa</versionID>
+        <timestamp>2017-11-14 15:28:41</timestamp>
+        <desc>替换System.out.println 为 logback 日志输出</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+    </authors>
+  </file>
+  <file fullPath="Ensemble/modules/ensemble-fx/core/src/main/java/com/dcits/ensemble/fx/model/dict/FxBaseEvent.java" model="Ensemble" pkgPath="com/dcits/ensemble/fx/model/dict/FxBaseEvent.class" type="java">
+    <authors>
+      <author>
+        <name>Kevin</name>
+        <versionID>0ca80db751ab834718f762b8a90672fc8e211da7</versionID>
+        <timestamp>2017-11-14 15:28:41</timestamp>
+        <desc>替换System.out.println 为 logback 日志输出</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+    </authors>
+  </file>
+  <file fullPath="Ensemble/modules/ensemble-tools/src/main/java/com/dcits/mbsd/MbsdDict.java" model="Ensemble" pkgPath="com/dcits/mbsd/MbsdDict.class" type="java">
+    <authors>
+      <author>
+        <name>Kevin</name>
+        <versionID>c1545d1fd2c2dcd068c8a3c859601b485d98da9c</versionID>
+        <timestamp>2017-11-14 15:28:41</timestamp>
+        <desc>替换System.out.println 为 logback 日志输出</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+    </authors>
+  </file>
+  <file fullPath="Ensemble/modules/ensemble-tools/src/main/java/com/dcits/param/generator/SqlGenerator.java" model="Ensemble" pkgPath="com/dcits/param/generator/SqlGenerator.class" type="java">
+    <authors>
+      <author>
+        <name>Kevin</name>
+        <versionID>345d5b609381a4a4530a371c61e8f0b1a04e8a99</versionID>
+        <timestamp>2017-11-14 15:28:41</timestamp>
+        <desc>替换System.out.println 为 logback 日志输出</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+    </authors>
+  </file>
+  <file fullPath="Ensemble/modules/ensemble-eod/src/main/java/com/dcits/ensemble/eod/acct/DcAcctOpen.java" model="Ensemble" pkgPath="com/dcits/ensemble/eod/acct/DcAcctOpen.class" type="java">
+    <authors>
+      <author>
+        <name>limingming</name>
+        <versionID>985916bc3f3caa0d6abf24a81765e12f33075248</versionID>
+        <timestamp>2017-11-14 14:12:49</timestamp>
+        <desc>修改优化开户代码</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+      <author>
+        <name>limingming</name>
+        <versionID>aa99ae17b80c6274405357ecad36f6013002809f</versionID>
+        <timestamp>2017-11-14 11:30:45</timestamp>
+        <desc>修改开户代码</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+      <author>
+        <name>chengweid</name>
+        <versionID>d59d2159da75f8a44f661d09f74ce068814de7e2</versionID>
+        <timestamp>2017-11-14 10:02:54</timestamp>
+        <desc>代码优化</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+    </authors>
+  </file>
+  <file fullPath="Ensemble/modules/ensemble-integration/online-all-integration/src/test/java/com/ensemble/test/TestShared.java" model="Ensemble" pkgPath="Ensemble/modules/ensemble-integration/online-all-integration/src/test/java/com/ensemble/test/TestShared.class" type="java">
+    <authors>
+      <author>
+        <name>Kevin</name>
+        <versionID>d42a605d6c9c2c580717dccd70f913ca6bd49139</versionID>
+        <timestamp>2017-11-14 15:28:41</timestamp>
+        <desc>替换System.out.println 为 logback 日志输出</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+    </authors>
+  </file>
+  <file fullPath="Ensemble/modules/ensemble-integration/online-all-integration/src/test/java/com/ensemble/test/TestCountProcessor.java" model="Ensemble" pkgPath="Ensemble/modules/ensemble-integration/online-all-integration/src/test/java/com/ensemble/test/TestCountProcessor.class" type="java">
+    <authors>
+      <author>
+        <name>Kevin</name>
+        <versionID>a147d4e9a203207f3300f7ca6aff87f27564cf11</versionID>
+        <timestamp>2017-11-14 15:28:41</timestamp>
+        <desc>替换System.out.println 为 logback 日志输出</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+    </authors>
+  </file>
+  <file fullPath="Ensemble/modules/ensemble-fx/api/src/main/java/com/dcits/ensemble/fx/model/mbsdcore/Core1200013064In.java" model="Ensemble" pkgPath="com/dcits/ensemble/fx/model/mbsdcore/Core1200013064In.class" type="java">
+    <authors>
+      <author>
+        <name>duanze</name>
+        <versionID>94b0da339790cd521d336257ff98afee18352e1e</versionID>
+        <timestamp>2017-11-14 10:45:48</timestamp>
+        <desc>增加待汇出信息修改接口</desc>
+        <changeType>ADD</changeType>
+        <check>true</check>
+      </author>
+    </authors>
+  </file>
+  <file fullPath="Ensemble/modules/ensemble-integration/test-all-integration/src/test/java/com/ensemble/test/TestJsonPath.groovy" model="Ensemble" pkgPath="Ensemble/modules/ensemble-integration/test-all-integration/src/test/java/com/ensemble/test/TestJsonPath.groovy" type="groovy">
+    <authors>
+      <author>
+        <name>Kevin</name>
+        <versionID>2c0077e76daf005cddd249cad51c52fd44234c0c</versionID>
+        <timestamp>2017-11-14 15:28:41</timestamp>
+        <desc>替换System.out.println 为 logback 日志输出</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+    </authors>
+  </file>
+  <file fullPath="Ensemble-channel/modules/ensemble-unipay/core/src/main/java/com/dcits/ensemble/uc/event/UcTransferOutEventServer.java" model="Ensemble" pkgPath="com/dcits/ensemble/uc/event/UcTransferOutEventServer.class" type="java">
+    <authors>
+      <author>
+        <name>Kevin</name>
+        <versionID>a6e3aba693fa9b60356dd2848fd2852f778837d6</versionID>
+        <timestamp>2017-11-14 15:28:41</timestamp>
+        <desc>替换System.out.println 为 logback 日志输出</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+    </authors>
+  </file>
+  <file fullPath="Ensemble/modules/ensemble-external-fx/core/src/main/java/com/dcits/ensemble/externalfx/dao/FxMbPaymentMessageDao.java" model="Ensemble" pkgPath="com/dcits/ensemble/externalfx/dao/FxMbPaymentMessageDao.class" type="java">
+    <authors>
+      <author>
+        <name>duanze</name>
+        <versionID>596ee12de1d1aefb1ea1ede13d1a293941609079</versionID>
+        <timestamp>2017-11-14 10:45:48</timestamp>
+        <desc>增加待汇出信息修改接口</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+    </authors>
+  </file>
+  <file fullPath="Ensemble/modules/ensemble-integration/online-all-integration/src/test/java/com/ensemble/test/TestDivide.java" model="Ensemble" pkgPath="Ensemble/modules/ensemble-integration/online-all-integration/src/test/java/com/ensemble/test/TestDivide.class" type="java">
+    <authors>
+      <author>
+        <name>Kevin</name>
+        <versionID>7351091fe3347ae140a60d73ca1a37d059af61af</versionID>
+        <timestamp>2017-11-14 15:28:41</timestamp>
+        <desc>替换System.out.println 为 logback 日志输出</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+    </authors>
+  </file>
+  <file fullPath="Ensemble/modules/ensemble-service/src/main/java/com/dcits/ensemble/service/flow/amend/MatAmendFlow.java" model="Ensemble" pkgPath="com/dcits/ensemble/service/flow/amend/MatAmendFlow.class" type="java">
+    <authors>
+      <author>
+        <name>Kevin</name>
+        <versionID>cfa0290193fd0b7b86282ae4219db055bad5a968</versionID>
+        <timestamp>2017-11-14 15:28:41</timestamp>
+        <desc>替换System.out.println 为 logback 日志输出</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+    </authors>
+  </file>
+  <file fullPath="Ensemble/modules/ensemble-cd/online/src/main/java/com/dcits/ensemble/cd/online/service/mbsdcore/Core14006008.java" model="Ensemble" pkgPath="com/dcits/ensemble/cd/online/service/mbsdcore/Core14006008.class" type="java">
+    <authors>
+      <author>
+        <name>Kevin</name>
+        <versionID>ae0857ed575fd011e76bda584c54ab2771a9fda8</versionID>
+        <timestamp>2017-11-14 15:28:41</timestamp>
+        <desc>替换System.out.println 为 logback 日志输出</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+    </authors>
+  </file>
+  <file fullPath="Ensemble/modules/ensemble-service/src/main/java/com/dcits/ensemble/service/flow/drw/DrwDefaultVerifyFlowImpl.java" model="Ensemble" pkgPath="com/dcits/ensemble/service/flow/drw/DrwDefaultVerifyFlowImpl.class" type="java">
+    <authors>
+      <author>
+        <name>daiduan</name>
+        <versionID>1a3ea70a9a65575179c1aef00c0b040b868b9d0b</versionID>
+        <timestamp>2017-11-14 16:06:54</timestamp>
+        <desc>UPD:解决受托支付时报账户不存在问题</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+    </authors>
+  </file>
+  <file fullPath="Ensemble/modules/ensemble-service/src/main/java/com/dcits/ensemble/service/flow/lg/LgRecFlow.java" model="Ensemble" pkgPath="com/dcits/ensemble/service/flow/lg/LgRecFlow.class" type="java">
+    <authors>
+      <author>
+        <name>wanzheng</name>
+        <versionID>81f6c1dec69a54e674d783468d92f4840bee784b</versionID>
+        <timestamp>2017-11-14 09:39:56</timestamp>
+        <desc>保函回收到期后不能回收校验</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+    </authors>
+  </file>
+  <file fullPath="Ensemble/modules/ensemble-external-fx/core/src/main/java/com/dcits/ensemble/externalfx/handle/FxMbPaymentTranHistHandle.java" model="Ensemble" pkgPath="com/dcits/ensemble/externalfx/handle/FxMbPaymentTranHistHandle.class" type="java">
+    <authors>
+      <author>
+        <name>duanze</name>
+        <versionID>b6b9dfcfc3b59291ed79e1c99f902552aa7d3ecb</versionID>
+        <timestamp>2017-11-14 10:45:48</timestamp>
+        <desc>增加待汇出信息修改接口</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+    </authors>
+  </file>
+  <file fullPath="Ensemble-Prod/modules/ensemble-product/core/src/main/java/com/dcits/ensemble/product/model/EnumAttrValueMethod.java" model="Ensemble" pkgPath="com/dcits/ensemble/product/model/EnumAttrValueMethod.class" type="java">
+    <authors>
+      <author>
+        <name>Kevin</name>
+        <versionID>098f9e8b749a938dece63e7a9578656a477892f6</versionID>
+        <timestamp>2017-11-14 15:28:41</timestamp>
+        <desc>替换System.out.println 为 logback 日志输出</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+    </authors>
+  </file>
+  <file fullPath="Ensemble-Prod/modules/ensemble-prod-integration/all-integration/src/test/java/com/ensemble/testforprod/TestUtil.java" model="Ensemble" pkgPath="Ensemble-Prod/modules/ensemble-prod-integration/all-integration/src/test/java/com/ensemble/testforprod/TestUtil.class" type="java">
+    <authors>
+      <author>
+        <name>Kevin</name>
+        <versionID>66fbe4c2f872a6c4cf89156b17480c1495566a2f</versionID>
+        <timestamp>2017-11-14 15:28:41</timestamp>
+        <desc>替换System.out.println 为 logback 日志输出</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+    </authors>
+  </file>
+  <file fullPath="Ensemble-Prod/modules/ensemble-busi/base/src/main/java/com/dcits/ensemble/busi/base/fun/voucher/VouChangeEvent.java" model="Ensemble" pkgPath="com/dcits/ensemble/busi/base/fun/voucher/VouChangeEvent.class" type="java">
+    <authors>
+      <author>
+        <name>Kevin</name>
+        <versionID>9180784175ffc9eb62600f48df8b8480ee76d52f</versionID>
+        <timestamp>2017-11-14 15:28:41</timestamp>
+        <desc>替换System.out.println 为 logback 日志输出</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+    </authors>
+  </file>
+  <file fullPath="Ensemble-Prod/modules/ensemble-model/src/main/java/com/dcits/ensemble/model/dict/BaseEvent.java" model="Ensemble" pkgPath="com/dcits/ensemble/model/dict/BaseEvent.class" type="java">
+    <authors>
+      <author>
+        <name>Kevin</name>
+        <versionID>c5d7b79cf74cb28783e9dfe94e16696e64ec3c74</versionID>
+        <timestamp>2017-11-14 15:28:41</timestamp>
+        <desc>替换System.out.println 为 logback 日志输出</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+    </authors>
+  </file>
+  <file fullPath="Ensemble/modules/ensemble-tb/core/src/main/java/com/dcits/ensemble/tb/business/cash/TbCashOutConfirm.java" model="Ensemble" pkgPath="com/dcits/ensemble/tb/business/cash/TbCashOutConfirm.class" type="java">
+    <authors>
+      <author>
+        <name>Kevin</name>
+        <versionID>ae844964496587abcdf37dd8b5fe7952a51129a1</versionID>
+        <timestamp>2017-11-14 15:28:41</timestamp>
+        <desc>替换System.out.println 为 logback 日志输出</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+    </authors>
+  </file>
+</files>

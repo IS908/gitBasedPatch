@@ -28,7 +28,7 @@ public class GitServiceImpl implements GitService {
     private XmlBulider xmlBulider;
 
     @Override
-    public List<FileModel> genChangesFileListToday() {
+    public void genChangesFileListToday() {
         List<FileModel> fileModelList = new ArrayList<>();
         Map<String, List<FileDiffEntry>> lists = gitHandler.getCommitsLogByFile();
         for (String key : lists.keySet()) {
@@ -37,8 +37,13 @@ public class GitServiceImpl implements GitService {
             FileModel fileModel = diffEntry2FileModel(list);
             fileModelList.add(fileModel);
         }
-        xmlBulider.execute(fileModelList);
-        return null;
+        xmlBulider.entity2XmlFile(fileModelList);
+    }
+
+    @Override
+    public List<FileModel> getFileModelFromXml() {
+        List<FileModel> list = xmlBulider.getExtractFiles();
+        return list;
     }
 
     public FileModel diffEntry2FileModel(List<FileDiffEntry> entries) {

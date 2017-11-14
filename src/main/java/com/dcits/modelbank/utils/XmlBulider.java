@@ -1,24 +1,21 @@
 package com.dcits.modelbank.utils;
 
 import com.dcits.modelbank.model.FileModel;
+import org.dom4j.Document;
+import org.dom4j.DocumentException;
+import org.dom4j.DocumentHelper;
+import org.dom4j.Element;
+import org.dom4j.io.OutputFormat;
+import org.dom4j.io.SAXReader;
+import org.dom4j.io.XMLWriter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
 
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.transform.OutputKeys;
-import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerFactory;
-import javax.xml.transform.dom.DOMSource;
-import javax.xml.transform.stream.StreamResult;
-import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileOutputStream;
-import java.io.OutputStreamWriter;
-import java.util.List;
-import java.util.Map;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.Writer;
+import java.util.*;
 
 /**
  * @author qiqsa
@@ -28,97 +25,129 @@ import java.util.Map;
 public class XmlBulider {
     private static final Logger logger = LoggerFactory.getLogger(XmlBulider.class);
 
-    private String filePtah;
-    private String[] author;
+    private String filePath;
+    private String[] authorAttr;
 
-    public XmlBulider(String filePtah, String[] author) {
-        this.filePtah = filePtah;
-        this.author = author;
+    public XmlBulider(String filePath, String[] authorAttr) {
+        this.filePath = filePath.endsWith("/") ? filePath : filePath + "/";
+        this.authorAttr = authorAttr;
     }
 
-    //生成xml文件入口
-    public void execute(List<FileModel> list) {
-        createXmlFile(list);
-    }
+    /**
+     * 读取增量描述文件，筛选出确认上版本的增量文件列表
+     *
+     * @return
+     */
+    public List<FileModel> getExtractFiles() {
+        List<FileModel> list = new ArrayList<>();
 
-    private void createXmlFile(List<FileModel> list) {
-        try {
-            DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-            DocumentBuilder builder = factory.newDocumentBuilder();
-            Document document = builder.newDocument();
-            document.setXmlVersion("1.0");
+        String fileName = filePath + "patch" + DateUtil.getRunDate() + ".xml";
+        Document document = this.xmlReader(fileName);
+        Element rootElement = document.getRootElement();
 
-            Element root = document.createElement("files");
-            document.appendChild(root);
-            //
-            Element authorsElement = null;
-            Element fileElement = null;
-            for (FileModel fm : list) {
-                List<Map<String, String>> mapList = fm.getAuthors();
-                //设置file标签属性
-                fileElement = document.createElement("file");
-                fileElement.setAttribute("pkgPath", fm.getName());
-                fileElement.setAttribute("model", fm.getModule());
-                fileElement.setAttribute("type", fm.getType());
-                fileElement.setAttribute("fullPath", fm.getPath());
-
-                authorsElement = document.createElement("authors");
-
-                //将authors标签添加在file标签内部
-                fileElement.appendChild(authorsElement);
-
-                for (Map map : mapList) {
-                    Element authorElement = document.createElement("author");
-                    authorsElement.appendChild(authorElement);
-                    for (String key : author) {
-                        Element propertiesElement = document.createElement(key.toString());
-                        propertiesElement.setTextContent(map.get(key.toString()) + "");
-                        authorElement.appendChild(propertiesElement);
-                    }
+        Element fileElement, authorElement, checkElement;
+        for (Iterator file = rootElement.elementIterator("file"); file.hasNext(); ) {
+            fileElement = (Element) file.next();
+            for (Iterator check = fileElement.element("authors").elementIterator("author"); check.hasNext(); ) {
+                authorElement = (Element) check.next();
+                checkElement = authorElement.element("check");
+                if (Objects.equals("true", checkElement.getText())) {
+                    FileModel model = new FileModel();
+                    model.setPath(fileElement.attributeValue("fullPath"));
+                    model.setModule(fileElement.attributeValue("model"));
+                    model.setName(fileElement.attributeValue("pkgPath"));
+                    model.setType(fileElement.attributeValue("type"));
+                    list.add(model);
+                    break;
                 }
-                root.appendChild(fileElement);
             }
-            //开始把Document映射到文件
-            TransformerFactory transFactory = TransformerFactory.newInstance();
-            transFactory.setAttribute("indent-number", new Integer(2));
-            Transformer transFormer = transFactory.newTransformer();
-            transFormer.setOutputProperty(OutputKeys.INDENT, "yes");
-
-            //设置输出结果
-            DOMSource domSource = new DOMSource(document);
-
-            //生成xml文件
-            String runDate = DateUtil.getRunDate();
-            String pathAndName = filePtah + File.separator + "patch" + runDate + ".xml";
-            File file = new File(pathAndName);
-
-            //判断是否存在,如果不存在,则创建
-            if (!file.exists()) {
-                file.createNewFile();
-            }
-            //文件输出流
-            FileOutputStream out = new FileOutputStream(file);
-
-            //设置输入源
-            StreamResult xmlResult = new StreamResult(out);
-
-            //输出xml文件 控制xml文件格式
-            // transFormer.transform(domSource, xmlResult);
-            transFormer.transform(domSource, new StreamResult(new BufferedWriter(new OutputStreamWriter(out))));
-
-        } catch (Exception e) {
-            logger.error(e.getMessage());
-            throw new RuntimeException("Throw exception when create xml file[" + e.getMessage() + "]");
-        } finally {
-
         }
+
+        return list;
     }
 
-    public void setAuthor(String[] author) {
-        this.author = author;
+    /**
+     * 将信息转换为XML
+     *
+     * @param list FileModel
+     */
+    public void entity2XmlFile(List<FileModel> list) {
+        Document document = DocumentHelper.createDocument();
+        Element rootElement = document.addElement("files");
+        Element descElement = rootElement.addElement("description");
+        descElement.addAttribute("desc", "description");
+        for (FileModel model : list) {
+            Element fileElement = rootElement.addElement("file");
+            fileElement.addAttribute("fullPath", model.getPath());
+            fileElement.addAttribute("model", model.getModule());
+            fileElement.addAttribute("pkgPath", model.getName());
+            fileElement.addAttribute("type", model.getType());
+            Element authors = fileElement.addElement("authors");
+            for (Map<String, String> map : model.getAuthors()) {
+                Element author = authors.addElement("author");
+                for (String attr : authorAttr) {
+                    if (Objects.equals(null, map.get(attr))) continue;
+                    author.addElement(attr).setText(map.get(attr));
+                }
+            }
+        }
+//        logger.info(document.asXML());
+
+        this.xmlWriter(document, true);
     }
 
-    public void setFilePtah(String filePtah) {
-        this.filePtah = filePtah;
+    /**
+     * Xml写入文件
+     *
+     * @param rootElement 带有信息XML的Document
+     * @param format      格式化标志
+     */
+    private void xmlWriter(Document rootElement, boolean format) {
+        // 输入格式化 XML
+        OutputFormat formater = new OutputFormat();
+        formater.setIndent(format);
+        formater.setNewlines(format);
+
+        // 生成文件路径及文件名
+        String runDate = DateUtil.getRunDate();
+        String fileName = filePath + "patch" + runDate + ".xml";
+
+        // 开始写入到文件
+        try (Writer fileWriter = new FileWriter(fileName)) {
+            XMLWriter xmlWriter = new XMLWriter(fileWriter, formater);
+            xmlWriter.write(rootElement);
+            xmlWriter.flush();
+            xmlWriter.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    /**
+     * 读取XML文件为Document
+     *
+     * @param filePath
+     * @return
+     */
+    private Document xmlReader(String filePath) {
+        Document document = null;
+        try {
+            File file = new File(filePath);
+            SAXReader reader = new SAXReader();
+            document = reader.read(file);
+        } catch (DocumentException e) {
+            e.printStackTrace();
+        }
+        return document;
+    }
+
+
+    public void setAuthorAttr(String[] authorAttr) {
+        this.authorAttr = authorAttr;
+    }
+
+    public void setFilePath(String filePath) {
+        this.filePath = filePath;
     }
 }
