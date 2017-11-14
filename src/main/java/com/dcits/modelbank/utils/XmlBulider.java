@@ -15,6 +15,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Writer;
+import java.net.URL;
 import java.util.*;
 
 /**
@@ -25,12 +26,41 @@ import java.util.*;
 public class XmlBulider {
     private static final Logger logger = LoggerFactory.getLogger(XmlBulider.class);
 
-    private String filePath;
+    private String xmlFilePath;
     private String[] authorAttr;
 
-    public XmlBulider(String filePath, String[] authorAttr) {
-        this.filePath = filePath.endsWith("/") ? filePath : filePath + "/";
+    public XmlBulider(String xmlFilePath, String[] authorAttr) {
+        this.xmlFilePath = xmlFilePath.endsWith("/") ? xmlFilePath : xmlFilePath + "/";
         this.authorAttr = authorAttr;
+    }
+
+    public static void main(String[] args) {
+        XmlBulider xmlBulider = new XmlBulider("", new String[] {""});
+        String pomName = xmlBulider.pom2PackageName("D:\\fuxin\\ModelBank\\SmartEnsemble\\Ensemble\\modules\\ensemble-rb\\online\\pom.xml");
+        System.out.println(pomName);
+    }
+
+    /**
+     * 读取pom文件获得该pom文件对应的打包后的文件名
+     *
+     * @param pomPath pom文件路径
+     * @return 打包后的包名
+     */
+    public String pom2PackageName(String pomPath) {
+        Document document = this.xmlReader(pomPath);
+        Element root = document.getRootElement();
+
+        Element packaging = root.element("packaging");
+        String pkgType = Objects.equals(null, packaging)?"jar":packaging.getText();
+        Element artifactId = root.element("artifactId");
+        Element version = root.element("version");
+
+        if (Objects.equals(null, version) && !Objects.equals(null, root.element("parent"))) {
+            Element parent = root.element("parent");
+            version = parent.element("version");
+        }
+
+        return (artifactId.getText() + "-" + version.getText() + "." + pkgType);
     }
 
     /**
@@ -41,7 +71,7 @@ public class XmlBulider {
     public List<FileModel> getExtractFiles() {
         List<FileModel> list = new ArrayList<>();
 
-        String fileName = filePath + "patch" + DateUtil.getRunDate() + ".xml";
+        String fileName = xmlFilePath + "patch" + DateUtil.getRunDate() + ".xml";
         Document document = this.xmlReader(fileName);
         Element rootElement = document.getRootElement();
 
@@ -91,8 +121,6 @@ public class XmlBulider {
                 }
             }
         }
-//        logger.info(document.asXML());
-
         this.xmlWriter(document, true);
     }
 
@@ -110,7 +138,7 @@ public class XmlBulider {
 
         // 生成文件路径及文件名
         String runDate = DateUtil.getRunDate();
-        String fileName = filePath + "patch" + runDate + ".xml";
+        String fileName = xmlFilePath + "patch" + runDate + ".xml";
 
         // 开始写入到文件
         try (Writer fileWriter = new FileWriter(fileName)) {
@@ -147,7 +175,7 @@ public class XmlBulider {
         this.authorAttr = authorAttr;
     }
 
-    public void setFilePath(String filePath) {
-        this.filePath = filePath;
+    public void setXmlFilePath(String xmlFilePath) {
+        this.xmlFilePath = xmlFilePath;
     }
 }

@@ -3,7 +3,6 @@ package com.dcits.modelbank.utils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.xml.transform.stream.StreamResult;
 import java.io.*;
 import java.util.Objects;
 
@@ -14,6 +13,35 @@ import java.util.Objects;
  */
 public class FileUtil {
     private static final Logger logger = LoggerFactory.getLogger(FileUtil.class);
+
+    public static void main(String[] args) {
+        String filePath = FileUtil.findFilePath("D:/fuxin/ModelBank/SmartEnsemble/Ensemble/modules/ensemble-rb/online/src/main/java/com/dcits/ensemble/rb/online/service/mbsdcore/Core10000101.java", "pom.xml");
+        System.out.println(filePath);
+    }
+
+    /**
+     * 查找该文件对应的pom文件
+     *
+     * @param filePath     指定的文件的绝对目录
+     * @param findFileName 要查找的文件名
+     * @return
+     */
+    public static String findFilePath(String filePath, String findFileName) {
+        String[] pomPath = filePath.split("src/main/");
+        if (Objects.equals(null, pomPath) || pomPath.length < 2) return null;
+        String pom = pomPath[0] + "pom.xml";
+        File file = new File(pom);
+        if (!file.exists()) return null;// TODO: 2017/11/14 文件不存在抛出异常
+        return pom;
+    }
+
+    /**
+     * @param filePath
+     * @return
+     */
+    public static boolean isFileInPackage(String filePath) {
+        return filePath.contains("/src/main");
+    }
 
     /**
      * 读取文件内容到输入流

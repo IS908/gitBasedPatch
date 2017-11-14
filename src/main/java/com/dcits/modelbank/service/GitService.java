@@ -13,4 +13,6 @@ public interface GitService {
     void genChangesFileListToday();
 
     List<FileModel> getFileModelFromXml();
+
+    void patchFileExecute();
 }

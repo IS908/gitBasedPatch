@@ -8,17 +8,17 @@
 
 * git status显示路径：Ensemble/modules/ensemble-cd/api/src/main/java/com/dcits/ensemble/cd/model/mbsdcore/Core12006002In.java
 
-  * filePath：Ensemble/modules/ensemble-cd/api/src/main/java
+  * xmlFilePath：Ensemble/modules/ensemble-cd/api/src/main/java
 
   * package：com/dcits/ensemble/cd/model/mbsdcore/Core12006002In.java
 
 * git status显示路径：Ensemble/modules/ensemble-cd/api/src/main/resources/META-INF/spring/galaxy-consumer.xml
 
-  * filePath：Ensemble/modules/ensemble-cd/api/src/main/resources
+  * xmlFilePath：Ensemble/modules/ensemble-cd/api/src/main/resources
 
   * package：META-INF/spring/galaxy-consumer.xml
 
-* 注：filePath \+ package 为开发人员便于定位具体文件位置；package为maven打包的jar包中的class路径
+* 注：xmlFilePath \+ package 为开发人员便于定位具体文件位置；package为maven打包的jar包中的class路径
 
 > 3、git log中显示文件路径，确定该文件打包后所在的jar包名称
 > \- 找到该文件所在模块的pom.xml文件
