@@ -2,7 +2,7 @@
 
 ## TODO列表
 
-> 1、根据 git log commitId 列出对应该次提交的文件提交列表 ---- done
+> 1、根据 git log commitId 列出对应该次提交的文件提交列表 ---> DONE
 
 > 2、根据git status给出的路径，将其拆分为路径与包路径，示例如下：
 
@@ -18,11 +18,12 @@
 
   * package：META-INF/spring/galaxy-consumer.xml
 
-* 注：xmlFilePath \+ package 为开发人员便于定位具体文件位置；package为maven打包的jar包中的class路径
+* 注：xmlFilePath + package 为开发人员便于定位具体文件位置；package为maven打包的jar包中的class路径
 
 > 3、git log中显示文件路径，确定该文件打包后所在的jar包名称
-> \- 找到该文件所在模块的pom.xml文件
-> \- 匹配该文件下的groupId \+ artifactId \+ version \+ packaging这四要素，拼接后便是maven打包的jar名称。
+
+- 找到该文件所在模块的pom.xml文件
+- 匹配该文件下的groupId + artifactId + version + packaging这四要素，拼接后便是maven打包的jar名称。
 
 > 4、实现日增量文件列表的前端可视化；
 
