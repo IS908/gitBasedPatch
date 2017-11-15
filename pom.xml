@@ -111,26 +111,107 @@
 
     <build>
         <finalName>modelBank-CI</finalName>
+        <sourceDirectory>src/main/java</sourceDirectory>
+        <resources>
+            <!-- 控制资源文件的拷贝 -->
+            <resource>
+                <directory>src/main/resources</directory>
+                <includes>
+                    <include>**/*.properties</include>
+                    <include>**/*.xml</include>
+                    <include>**/*.tld</include>
+                </includes>
+                <!--<filtering>false</filtering>-->
+
+                <!-- 配置文件外置（在打包时取消注释）
+                    资源文件拷贝到编译输出路径target的子文件夹config目录下，最终结构如下:
+                    target
+                       ...config
+                           ...spring
+                           ...mapper
+                           ...env
+                       ...lib
+                       ...generateImportCarSql.jar
+                 -->
+                <targetPath>${project.build.directory}/config</targetPath>
+            </resource>
+        </resources>
+
         <plugins>
 
+            <!-- 设置编译版本 -->
             <plugin>
-                <artifactId> maven-assembly-plugin </artifactId>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.1</version>
                 <configuration>
-                    <descriptorRefs>
-                        <descriptorRef>jar-with-dependencies</descriptorRef>
-                    </descriptorRefs>
+                    <source>1.7</source>
+                    <target>1.7</target>
+                    <encoding>UTF-8</encoding>
+                </configuration>
+            </plugin>
+
+            <!-- 打包jar文件时，配置manifest文件，加入lib包的jar依赖 -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <configuration>
                     <archive>
+                        <!-- 清单文件 -->
                         <manifest>
                             <mainClass>com.dcits.modelbank.Main</mainClass>
+                            <addClasspath>true</addClasspath>
+                            <classpathPrefix>lib/</classpathPrefix>
                         </manifest>
+                        <!-- 给清单文件添加键值对(配置文件外置) -->
+                        <manifestEntries>
+                            <Class-Path>config/</Class-Path>
+                        </manifestEntries>
                     </archive>
+                    <classesDirectory>
+                    </classesDirectory>
+                </configuration>
+            </plugin>
+            <!-- 拷贝依赖的jar包到lib目录 -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>copy</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>copy-dependencies</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>
+                                ${project.build.directory}/lib
+                            </outputDirectory>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <!-- 解决资源文件的编码问题 -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>2.5</version>
+                <configuration>
+                    <encoding>UTF-8</encoding>
+                </configuration>
+            </plugin>
+            <!-- 打包source文件为jar文件 -->
+            <plugin>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>2.1</version>
+                <configuration>
+                    <attach>true</attach>
                 </configuration>
                 <executions>
                     <execution>
-                        <id>make-assembly</id>
-                        <phase>package</phase>
+                        <phase>compile</phase>
                         <goals>
-                            <goal>single</goal>
+                            <goal>jar</goal>
                         </goals>
                     </execution>
                 </executions>
@@ -145,20 +226,6 @@
                     <target>1.7</target>
                 </configuration>
             </plugin>
-            <plugin>
-                <groupId>org.eclipse.jetty</groupId>
-                <artifactId>jetty-maven-plugin</artifactId>
-                <version>9.4.5.v20170502</version>
-            </plugin>
-            <!--<plugin>-->
-                <!--<groupId>external.atlassian.jgitflow</groupId>-->
-                <!--<artifactId>jgitflow-maven-plugin</artifactId>-->
-                <!--<version>1.0-m5.1</version>-->
-                <!--<configuration>-->
-                    <!--<username>chenkun</username>-->
-                    <!--<password>kevin0635</password>-->
-                <!--</configuration>-->
-            <!--</plugin>-->
         </plugins>
     </build>
 </project>

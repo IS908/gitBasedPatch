@@ -1,14 +1,10 @@
 package com.dcits.modelbank;
 
-import com.dcits.modelbank.jgit.helper.GitHelper;
 import com.dcits.modelbank.service.GitService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-
-import javax.annotation.Resource;
-import javax.xml.transform.Source;
 
 /**
  * Created on 2017-11-15 15:34.
@@ -22,17 +18,32 @@ public class Main {
     private GitService gitService;
 
     public Main() {
-        this.context = new ClassPathXmlApplicationContext("applicationContext.xml");
+        this.context = new ClassPathXmlApplicationContext("classpath*:applicationContext.xml");
         gitService = (GitService) context.getBean("gitService");
     }
 
     public static void main(String[] args) {
-        if (args.length < 1) {
-            System.out.println("默认操作命令如下：");
+        if (args.length != 1) {
+            System.out.println("请输入命令参数，默认操作命令如下：");
+            System.out.println("a：生成增量描述文件；");
+            System.out.println("b：进行增量文件抽取；");
+            return;
+        }
+        Main main = new Main();
+        String cmd = args[0].trim();
+        switch (cmd) {
+            case "a":
+                main.gitService.genChangesFileListToday();
+                break;
+            case "b":
+                main.gitService.patchFileExecute();
+                break;
+            default:
+                System.out.println("输入指令超出范围！");
+                break;
         }
 
-        Main main = new Main();
-        main.gitService.genChangesFileListToday();
+
     }
 
     public void setContext(ApplicationContext context) {

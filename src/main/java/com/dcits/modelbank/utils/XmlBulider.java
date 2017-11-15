@@ -34,12 +34,6 @@ public class XmlBulider {
         this.authorAttr = authorAttr;
     }
 
-    public static void main(String[] args) {
-        XmlBulider xmlBulider = new XmlBulider("", new String[] {""});
-        String pomName = xmlBulider.pom2PackageName("D:\\fuxin\\ModelBank\\SmartEnsemble\\Ensemble\\modules\\ensemble-rb\\online\\pom.xml");
-        System.out.println(pomName);
-    }
-
     /**
      * 读取pom文件获得该pom文件对应的打包后的文件名
      *
@@ -135,6 +129,7 @@ public class XmlBulider {
         OutputFormat formater = new OutputFormat();
         formater.setIndent(format);
         formater.setNewlines(format);
+        formater.setEncoding("utf-8");
 
         // 生成文件路径及文件名
         String runDate = DateUtil.getRunDate();
@@ -163,6 +158,7 @@ public class XmlBulider {
         try {
             File file = new File(filePath);
             SAXReader reader = new SAXReader();
+            reader.setEncoding("utf-8");
             document = reader.read(file);
         } catch (DocumentException e) {
             e.printStackTrace();

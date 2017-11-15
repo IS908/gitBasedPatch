@@ -1,6 +1,8 @@
 package com.dcits.modelbank.utils;
 
 import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.*;
 import java.util.Enumeration;
@@ -12,6 +14,67 @@ import java.util.zip.*;
  * @author kevin
  */
 public class ZipUtil {
+    private static final Logger logger = LoggerFactory.getLogger(ZipUtil.class);
+
+    /**
+     * @param sourceFileName
+     * @param zipFileName
+     * @throws Exception
+     */
+    public static void zip(String sourceFileName, String zipFileName) throws Exception {
+        //File zipFile = new File(zipFileName);
+        logger.info("增量包压缩中...");
+
+        //创建zip输出流
+        ZipOutputStream out = new ZipOutputStream(new FileOutputStream(zipFileName));
+
+        //创建缓冲输出流
+        BufferedOutputStream bos = new BufferedOutputStream(out);
+        File sourceFile = new File(sourceFileName);
+
+        //调用函数
+        compress(out, bos, sourceFile, sourceFile.getName());
+
+        bos.close();
+        out.close();
+        logger.info("压缩完成");
+    }
+
+    /**
+     * 进行压缩操作
+     *
+     * @param out
+     * @param bos
+     * @param sourceFile
+     * @param base
+     * @throws Exception
+     */
+    private static void compress(ZipOutputStream out, BufferedOutputStream bos, File sourceFile, String base) throws Exception {
+        //如果路径为目录（文件夹）
+        if (sourceFile.isDirectory()) {
+            //取出文件夹中的文件（或子文件夹）
+            File[] flist = sourceFile.listFiles();
+
+            //如果文件夹为空，则空目录不写入增量压缩包
+            if (flist.length == 0) return;
+            //如果文件夹不为空，则递归调用compress，文件夹中的每一个文件（或文件夹）进行压缩
+            for (File file : flist) {
+                compress(out, bos, file, base + "/" + file.getName());
+            }
+        } else {//如果不是目录（文件夹），即为文件，则先写入目录进入点，之后将文件写入zip文件中
+            out.putNextEntry(new ZipEntry(base));
+            try (FileInputStream fos = new FileInputStream(sourceFile);
+                 BufferedInputStream bis = new BufferedInputStream(fos)) {
+                int tag;
+                logger.info(base);
+                //将源文件写入到zip文件中
+                while ((tag = bis.read()) != -1) {
+                    bos.write(tag);
+                }
+            }
+        }
+    }
+
     /**
      * 递归压缩文件夹
      *
@@ -28,7 +91,7 @@ public class ZipUtil {
         //如果是文件，则直接压缩该文件
         if (file.isFile()) {
             int count, bufferLen = 1024;
-            byte data[] = new byte[bufferLen];
+            byte[] data = new byte[bufferLen];
 
             //获取文件相对于压缩文件夹根目录的子路径
             String subPath = file.getAbsolutePath();
