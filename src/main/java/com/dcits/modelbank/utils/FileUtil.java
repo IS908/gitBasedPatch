@@ -5,6 +5,7 @@ import org.slf4j.LoggerFactory;
 
 import java.io.*;
 import java.util.Objects;
+import java.util.Set;
 
 /**
  * Created on 2017-11-10 17:01.
@@ -13,11 +14,6 @@ import java.util.Objects;
  */
 public class FileUtil {
     private static final Logger logger = LoggerFactory.getLogger(FileUtil.class);
-
-    public static void main(String[] args) {
-        String filePath = FileUtil.findFilePath("D:/fuxin/ModelBank/SmartEnsemble/Ensemble/modules/ensemble-rb/online/src/main/java/com/dcits/ensemble/rb/online/service/mbsdcore/Core10000101.java", "pom.xml");
-        System.out.println(filePath);
-    }
 
     /**
      * 查找该文件对应的pom文件
@@ -108,6 +104,47 @@ public class FileUtil {
     }
 
     /**
+     * 根据maven编译文件目录及增量jar包清单进行文件筛选
+     *
+     * @param path maven编译文件目录
+     * @param set  增量文件清单
+     */
+    public static void filterFile(String path, Set<String> set) {
+        File file = new File(path);
+        if (file.exists()) {
+            File[] files = file.listFiles();
+            if (files.length == 0) {
+                logger.info(file.getName() + "文件夹是空的");
+                return;
+            }
+            for (File file2 : files) {
+                if (file2.isDirectory()) {
+                    logger.info("文件夹:" + file2.getAbsolutePath());
+                    filterFile(file2.getAbsolutePath(), set);
+                } else {
+                    logger.info("文件:" + file2.getAbsolutePath());
+                    if (set.contains(file2.getName())) continue;
+                    file2.delete();
+                }
+            }
+        }
+    }
+
+    public static void deleteEmptyFolder(String path) {
+        File file = new File(path);
+        if (file.exists() && file.isDirectory()) {
+            File[] files = file.listFiles();
+            if (files.length == 0) {
+                file.delete();
+                return;
+            }
+            for (File file1: files) {
+
+            }
+        }
+    }
+
+    /**
      * 写文件
      *
      * @param path
@@ -132,7 +169,6 @@ public class FileUtil {
         return result;
     }
 
-
     /**
      * 创建文件夹
      *
@@ -151,159 +187,6 @@ public class FileUtil {
             }
         }
     }
-
-//    /**
-//     * 获取文件偏移量与实际读取行数，缓冲区默认64K
-//     *
-//     * @param file 文件路径
-//     * @param pos  字节偏移量
-//     * @param num  记录数
-//     * @return
-//     */
-//    private static FilePositions bufferedRandomAccessFileRowCount(File file, long pos, int num) {
-//        return bufferedRandomAccessFileRowCount(file, pos, num, -1);
-//    }
-
-//    /**
-//     * 获取文件偏移量与实际读取行数，自定义缓冲区大小
-//     *
-//     * @param file 文件
-//     * @param pos  字节偏移量
-//     * @param num  记录数
-//     * @param size 缓冲区大小
-//     * @return
-//     */
-//    private static FilePositions bufferedRandomAccessFileRowCount(File file, long pos, int num, int size) {
-//        BufferedRandomAccessFile reader = null;
-//        FilePositions res = null;
-//        int count = 0;
-//        try {
-//            if (size < 0) {
-//                reader = new BufferedRandomAccessFile(file, "r");
-//            } else {
-//                reader = new BufferedRandomAccessFile(file, "r", size);
-//            }
-//            reader.seek(pos);
-//            for (int i = 0; i < num; i++) {
-//                String pin = reader.readLine();
-//                if (Objects.equals(null, str) || Objects.equals("", str.trim())) {
-//                    break;
-//                }
-//                count++;
-//            }
-//            res = new FilePositions(reader.getFilePointer(), count);
-//        } catch (Exception e) {
-//            if (logger.isErrorEnabled())
-//                logger.error(e.getCause().getMessage());
-//        } finally {
-//            try {
-//                if (reader != null) {
-//                    reader.close();
-//                }
-//            } catch (IOException e) {
-//                if (logger.isErrorEnabled())
-//                    logger.error(e.getCause().getMessage());
-//            }
-//        }
-//        return res;
-//    }
-
-
-//    /**
-//     * 通过BufferedRandomAccessFile获取文件偏移量与实际读取行数，默认缓冲区64K
-//     *
-//     * @param file 文件
-//     * @param pos  字节偏移量
-//     * @param num  记录数
-//     * @return
-//     */
-//    public static List<String> bufferedRandomAccessFileReadRows(File file, String encoding, long pos, int num) {
-//        return bufferedRandomAccessFileReadRows(file, encoding, pos, num, -1);
-//    }
-
-//    /**
-//     * 通过BufferedRandomAccessFile获取文件偏移量与实际读取行数，自定义缓冲区大小
-//     *
-//     * @param file 文件
-//     * @param pos  字节偏移量
-//     * @param num  记录数
-//     * @param size 缓冲区大小
-//     * @return
-//     */
-//    public static List<String> bufferedRandomAccessFileReadRows(File file, String encoding, long pos, int num, int size) {
-//        List<String> pins = new ArrayList();
-//        BufferedRandomAccessFile reader = null;
-//        try {
-//            if (size < 0) {
-//                reader = new BufferedRandomAccessFile(file, "r");
-//            } else {
-//                reader = new BufferedRandomAccessFile(file, "r", size);
-//            }
-//            reader.seek(pos);
-//            for (int i = 0; i < num; i++) {
-//                String pin = reader.readLine();
-//                if (Objects.equals(null, str) || Objects.equals("", str.trim())) {
-//                    break;
-//                }
-//                pins.add(new String(pin.getBytes("8859_1"), encoding));
-//            }
-//        } catch (Exception e) {
-//            if (logger.isErrorEnabled())
-//                logger.error(e.getCause().getMessage());
-//        } finally {
-//            try {
-//                if (reader != null) {
-//                    reader.close();
-//                }
-//            } catch (IOException e) {
-//                if (logger.isErrorEnabled())
-//                    logger.error(e.getCause().getMessage());
-//            }
-//        }
-//        return pins;
-//    }
-
-
-//    /**
-//     * 获取文件总行数
-//     *
-//     * @param filePath
-//     * @return
-//     */
-//    public static TwoTuple<Long, List<FilePositions>> getRowCount(String filePath, int splitNum) {
-//        return getRowCount(filePath, splitNum, -1);
-//    }
-
-//    /**
-//     * 获取文件总行数
-//     *
-//     * @param filePath
-//     * @return
-//     */
-//    public static TwoTuple<Long, List<FilePositions>> getRowCount(String filePath, int splitNum, int size) {
-//        long pos = 0L;
-//        long total = 0L;
-//        List<FilePositions> lSpilt = new ArrayList();
-//        while (true) {
-//            FilePositions fPos;
-//            if (size < 0)
-//                fPos = bufferedRandomAccessFileRowCount(new File(filePath), pos, splitNum);
-//            else
-//                fPos = bufferedRandomAccessFileRowCount(new File(filePath), pos, splitNum, size);
-//            int count = fPos.getNum();
-//            total += count;
-//            lSpilt.add(new FilePositions(pos, count));
-//            if (count == 0) {
-//                break;
-//            }
-//            if (count < splitNum) {
-//                break;
-//            }
-//            pos = fPos.getPos();
-//        }
-//        return new TwoTuple<>(total, lSpilt);
-//    }
-
 
     /**
      * 获取文件总行数

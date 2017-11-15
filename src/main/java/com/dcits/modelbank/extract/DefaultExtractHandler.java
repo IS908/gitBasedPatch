@@ -3,6 +3,7 @@ package com.dcits.modelbank.extract;
 import com.dcits.modelbank.model.FileModel;
 import com.dcits.modelbank.utils.DateUtil;
 import com.dcits.modelbank.utils.FileUtil;
+import com.dcits.modelbank.utils.ZipUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -25,6 +26,13 @@ public class DefaultExtractHandler extends PatchExtractHandler {
         logger.info("result目录：" + super.resultDir);
         // 将增量jar包列表输出到文件
         FileUtil.writeFile(resultDir + "/" + DateUtil.getRunDate() + ".txt", set.toString().replace(", ", "\n"));
+        FileUtil.filterFile(targetDir, set);
+        try {
+            ZipUtil.zip(targetDir, resultDir, "patch.zip");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         for (String jarName : set) {
             logger.info(jarName);
         }
