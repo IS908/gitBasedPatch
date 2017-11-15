@@ -40,8 +40,17 @@ public class DefaultFilePathHandler extends FilePathHandler {
             case "groovy":      // *.groovy
                 pkgPath = this.getGroovyPkgPath(fullPath);
                 break;
-            case "ignore":
+            case "sql":
+            case "sh":
+            case "bat":
+            case "txt":
+            case "log":
             case "jar":
+            case "xls":
+            case "xlsx":
+            case "doc":
+            case "docx":
+            case "ignore":
             default:
                 pkgPath = fullPath;
                 break;

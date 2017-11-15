@@ -14,6 +14,30 @@
       </author>
     </authors>
   </file>
+  <file fullPath="Ensemble-Prod/modules/ensemble-dbmanage/src/main/resources/META-INF/mapper/MbTranHist.xml" model="Ensemble" pkgPath="META-INF/mapper/MbTranHist.xml" type="xml">
+    <authors>
+      <author>
+        <name>liuxci</name>
+        <versionID>541af3aa05f6a278c40d0e1924e3f9f152df50ed</versionID>
+        <timestamp>2017-11-15 11:08:38</timestamp>
+        <desc>Mod：修改010110交易明细排序方式</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+    </authors>
+  </file>
+  <file fullPath="Ensemble/modules/ensemble-dc/online/src/main/java/com/dcits/ensemble/dc/online/service/mbsdcore/Core12000501.java" model="Ensemble" pkgPath="com/dcits/ensemble/dc/online/service/mbsdcore/Core12000501.class" type="java">
+    <authors>
+      <author>
+        <name>limingming</name>
+        <versionID>40887f49e55b89d2b97fd3b50c5d3ae9c2e9c7b4</versionID>
+        <timestamp>2017-11-15 10:37:30</timestamp>
+        <desc>BUG_00014479 新增当账户存在限制信息不允许转让</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+    </authors>
+  </file>
   <file fullPath="Ensemble/modules/ensemble-rb/online/src/main/java/com/dcits/ensemble/rb/online/service/mbsdcore/Core14000113.java" model="Ensemble" pkgPath="com/dcits/ensemble/rb/online/service/mbsdcore/Core14000113.class" type="java">
     <authors>
       <author>
@@ -38,6 +62,30 @@
       </author>
     </authors>
   </file>
+  <file fullPath="Ensemble/modules/ensemble-service/src/main/java/com/dcits/ensemble/service/flow/change/TermChangeFlowImpl.java" model="Ensemble" pkgPath="com/dcits/ensemble/service/flow/change/TermChangeFlowImpl.class" type="java">
+    <authors>
+      <author>
+        <name>dupfc</name>
+        <versionID>dc07391b6d02ac009a7914deac5e1f29fb504e10</versionID>
+        <timestamp>2017-11-15 10:50:58</timestamp>
+        <desc>fix by dupfc 存期变更联动变更利率时继承最新已生效分户利率及浮动</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+    </authors>
+  </file>
+  <file fullPath="Ensemble/modules/ensemble-service/src/main/java/com/dcits/ensemble/service/flow/external/SingleAccountFlowImpl.java" model="Ensemble" pkgPath="com/dcits/ensemble/service/flow/external/SingleAccountFlowImpl.class" type="java">
+    <authors>
+      <author>
+        <name>lixch</name>
+        <versionID>5a64d0091705d19ee61de9d17f12acc24bd8626a</versionID>
+        <timestamp>2017-11-15 14:12:26</timestamp>
+        <desc>增加国库支行清算处理</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+    </authors>
+  </file>
   <file fullPath="Ensemble/mbsd/MbsdCore_CL.xls" model="Ensemble" pkgPath="Ensemble/mbsd/MbsdCore_CL.xls" type="xls">
     <authors>
       <author>
@@ -57,6 +105,18 @@
         <versionID>4ef4e63b8db1fd82c2f9153759df38d9d1a5aaf7</versionID>
         <timestamp>2017-11-15 10:10:57</timestamp>
         <desc>FIX:修改1806缺陷</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+    </authors>
+  </file>
+  <file fullPath="Ensemble/modules/ensemble-service/src/main/java/com/dcits/ensemble/service/flow/batch/BatchPayRollFlow.java" model="Ensemble" pkgPath="com/dcits/ensemble/service/flow/batch/BatchPayRollFlow.class" type="java">
+    <authors>
+      <author>
+        <name>minhao</name>
+        <versionID>c1ff708935132d1e75eb9bac2db03b02af68db9f</versionID>
+        <timestamp>2017-11-15 11:24:50</timestamp>
+        <desc>MOD 修改对私对公判断错误</desc>
         <changeType>MODIFY</changeType>
         <check>true</check>
       </author>

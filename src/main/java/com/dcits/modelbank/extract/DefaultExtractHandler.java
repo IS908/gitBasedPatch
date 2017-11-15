@@ -21,6 +21,7 @@ public class DefaultExtractHandler extends PatchExtractHandler {
     @Override
     protected void fileTransfer(Set<String> set) {
         logger.info("target目录：" + super.targetDir);
+        logger.info("result目录：" + super.resultDir);
         for (String jarName : set) {
             logger.info(jarName);
         }
