@@ -35,14 +35,14 @@ public class GitServiceImplTest {
         gitService.genChangesFileListToday();
     }
 
-    @Test
-    public void getFileModelFromXml() {
-        List<FileModel> list = gitService.getFileModelFromXml();
-        logger.info("确认后的增量文件总数：" + list.size());
-        for (FileModel model: list) {
-            logger.info(model.toString());
-        }
-    }
+//    @Test
+//    public void getFileModelFromXml() {
+//        List<FileModel> list = gitService.getFileModelFromXml();
+//        logger.info("确认后的增量文件总数：" + list.size());
+//        for (FileModel model: list) {
+//            logger.info(model.toString());
+//        }
+//    }
 
     @Test
     public void patchFileExecute() {

@@ -10,9 +10,19 @@ import java.util.List;
  * @author kevin
  */
 public interface GitService {
+    /**
+     * 获取当天的增量文件列表
+     */
     void genChangesFileListToday();
 
-    List<FileModel> getFileModelFromXml();
+//    /**
+//     *
+//     * @return
+//     */
+//    List<FileModel> getFileModelFromXml();
 
+    /**
+     *
+     */
     void patchFileExecute();
 }

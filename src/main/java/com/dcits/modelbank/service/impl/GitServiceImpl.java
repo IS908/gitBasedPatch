@@ -49,11 +49,11 @@ public class GitServiceImpl implements GitService {
         xmlBulider.entity2XmlFile(fileModelList);
     }
 
-    @Override
-    public List<FileModel> getFileModelFromXml() {
-        List<FileModel> list = xmlBulider.getExtractFiles();
-        return list;
-    }
+//    @Override
+//    public List<FileModel> getFileModelFromXml() {
+//        List<FileModel> list = xmlBulider.getExtractFiles();
+//        return list;
+//    }
 
     public FileModel diffEntry2FileModel(List<FileDiffEntry> entries) {
         FileModel fileModel = new FileModel();

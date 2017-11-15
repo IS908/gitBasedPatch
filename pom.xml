@@ -107,6 +107,30 @@
     <build>
         <finalName>modelBank-CI</finalName>
         <plugins>
+
+            <plugin>
+                <artifactId> maven-assembly-plugin </artifactId>
+                <configuration>
+                    <descriptorRefs>
+                        <descriptorRef>jar-with-dependencies</descriptorRef>
+                    </descriptorRefs>
+                    <archive>
+                        <manifest>
+                            <mainClass>com.dcits.modelbank.Main</mainClass>
+                        </manifest>
+                    </archive>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>make-assembly</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -121,15 +145,15 @@
                 <artifactId>jetty-maven-plugin</artifactId>
                 <version>9.4.5.v20170502</version>
             </plugin>
-            <plugin>
-                <groupId>external.atlassian.jgitflow</groupId>
-                <artifactId>jgitflow-maven-plugin</artifactId>
-                <version>1.0-m5.1</version>
-                <configuration>
-                    <username>chenkun</username>
-                    <password>kevin0635</password>
-                </configuration>
-            </plugin>
+            <!--<plugin>-->
+                <!--<groupId>external.atlassian.jgitflow</groupId>-->
+                <!--<artifactId>jgitflow-maven-plugin</artifactId>-->
+                <!--<version>1.0-m5.1</version>-->
+                <!--<configuration>-->
+                    <!--<username>chenkun</username>-->
+                    <!--<password>kevin0635</password>-->
+                <!--</configuration>-->
+            <!--</plugin>-->
         </plugins>
     </build>
 </project>
