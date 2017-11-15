@@ -43,34 +43,26 @@ public abstract class PatchExtractHandler {
         this.xmlBulider = xmlBulider;
     }
 
+    /**
+     * 定义执行流程
+     */
     public void execute() {
         // 解析增量描述文件，获取增量文件列表
         List<FileModel> list = xmlBulider.getExtractFiles();
         // 获取所有要抽取的包名（增量报名）
         Set<String> set = this.getAllPackageName(list);
-        logger.info("增量jar包数量：" + set.size());
-        for (String pName : set) {
-            logger.info(pName);
-        }
-        // 开始将增量
-
+        // 开始增量文件抽取操作
+        fileTransfer(set);
     }
 
+    /**
+     * 执行文件增量抽取
+     *
+     * @param set
+     */
     protected abstract void fileTransfer(Set<String> set);
 
-    public Set<String> getAllPackageName(List<FileModel> list) {
-        Set<String> set = new HashSet<>();
-        for (FileModel file : list) {
-            String filePath = this.sourceDir + file.getPath();
-            if (!isFileInPackage(filePath)) continue;
-
-            String pomPath = FileUtil.findFilePath(filePath, "pom.xml");
-            if (Objects.equals(null, pomPath) || Objects.equals("", pomPath)) continue;
-            String packageName = xmlBulider.pom2PackageName(pomPath);
-            set.add(packageName);
-        }
-        return set;
-    }
+    protected abstract Set<String> getAllPackageName(List<FileModel> list);
 
     // TODO: 2017/11/10 执行流程
     /**

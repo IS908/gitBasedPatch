@@ -2,4 +2,64 @@
 
 <files>
   <description desc="description"/>
+  <file fullPath="Ensemble/modules/ensemble-eod/src/main/java/com/dcits/ensemble/eod/acct/DcAcctOpen.java" model="Ensemble" pkgPath="com/dcits/ensemble/eod/acct/DcAcctOpen.class" type="java">
+    <authors>
+      <author>
+        <name>limingming</name>
+        <versionID>3abe70d39453bd1534be81c1c870da468b36eeb5</versionID>
+        <timestamp>2017-11-15 09:20:37</timestamp>
+        <desc>解决账户限制存在逻辑问题</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+    </authors>
+  </file>
+  <file fullPath="Ensemble/modules/ensemble-rb/online/src/main/java/com/dcits/ensemble/rb/online/service/mbsdcore/Core14000113.java" model="Ensemble" pkgPath="com/dcits/ensemble/rb/online/service/mbsdcore/Core14000113.class" type="java">
+    <authors>
+      <author>
+        <name>xuxjj</name>
+        <versionID>d4e425fdac90b1fde1129ead15d6b695173d22f7</versionID>
+        <timestamp>2017-11-15 09:20:03</timestamp>
+        <desc>Modify by xuxjj 20171114 for 修复缺陷15139----输入附属卡后，不回显起始和终止凭证号</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+    </authors>
+  </file>
+  <file fullPath="Ensemble-Prod/modules/ensemble-busi/base/src/main/java/com/dcits/ensemble/busi/base/fun/voucher/VouChangeEvent.java" model="Ensemble" pkgPath="com/dcits/ensemble/busi/base/fun/voucher/VouChangeEvent.class" type="java">
+    <authors>
+      <author>
+        <name>xuxjj</name>
+        <versionID>0a36f3b57857b10523e5e477a745120dd70bb5c1</versionID>
+        <timestamp>2017-11-15 09:33:20</timestamp>
+        <desc>Modify by xuxjj 20171115 for 临时处理磁条卡换IC卡提交后报“999994”</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+    </authors>
+  </file>
+  <file fullPath="Ensemble/mbsd/MbsdCore_CL.xls" model="Ensemble" pkgPath="Ensemble/mbsd/MbsdCore_CL.xls" type="xls">
+    <authors>
+      <author>
+        <name>fangmt</name>
+        <versionID>a5250d2703aeabf3e3c27de1291cbcc6dce30f3a</versionID>
+        <timestamp>2017-11-15 10:01:59</timestamp>
+        <desc>修改保函接口文档</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+    </authors>
+  </file>
+  <file fullPath="Ensemble/modules/ensemble-service/src/main/java/com/dcits/ensemble/service/micro/dos/AcctHangMicro.java" model="Ensemble" pkgPath="com/dcits/ensemble/service/micro/dos/AcctHangMicro.class" type="java">
+    <authors>
+      <author>
+        <name>cuiln</name>
+        <versionID>4ef4e63b8db1fd82c2f9153759df38d9d1a5aaf7</versionID>
+        <timestamp>2017-11-15 10:10:57</timestamp>
+        <desc>FIX:修改1806缺陷</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+    </authors>
+  </file>
 </files>
