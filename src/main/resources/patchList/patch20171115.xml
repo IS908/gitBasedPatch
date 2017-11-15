@@ -98,8 +98,28 @@
       </author>
     </authors>
   </file>
+  <file fullPath="Ensemble/modules/ensemble-service/src/main/java/com/dcits/ensemble/service/flow/batch/BatchPayRollFlow.java" model="Ensemble" pkgPath="com/dcits/ensemble/service/flow/batch/BatchPayRollFlow.class" type="java">
+    <authors>
+      <author>
+        <name>minhao</name>
+        <versionID>c1ff708935132d1e75eb9bac2db03b02af68db9f</versionID>
+        <timestamp>2017-11-15 11:24:50</timestamp>
+        <desc>MOD 修改对私对公判断错误</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+    </authors>
+  </file>
   <file fullPath="Ensemble/modules/ensemble-service/src/main/java/com/dcits/ensemble/service/micro/dos/AcctHangMicro.java" model="Ensemble" pkgPath="com/dcits/ensemble/service/micro/dos/AcctHangMicro.class" type="java">
     <authors>
+      <author>
+        <name>cuiln</name>
+        <versionID>dd42feb27577b9acb8720b9d8776021c1c203f44</versionID>
+        <timestamp>2017-11-15 14:29:09</timestamp>
+        <desc>FIX:修改1806缺陷</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
       <author>
         <name>cuiln</name>
         <versionID>4ef4e63b8db1fd82c2f9153759df38d9d1a5aaf7</versionID>
@@ -110,13 +130,13 @@
       </author>
     </authors>
   </file>
-  <file fullPath="Ensemble/modules/ensemble-service/src/main/java/com/dcits/ensemble/service/flow/batch/BatchPayRollFlow.java" model="Ensemble" pkgPath="com/dcits/ensemble/service/flow/batch/BatchPayRollFlow.class" type="java">
+  <file fullPath="Ensemble-Prod/modules/ensemble-common/src/main/resources/error/RB_error_zh_CN.properties" model="Ensemble" pkgPath="error/RB_error_zh_CN.properties" type="properties">
     <authors>
       <author>
-        <name>minhao</name>
-        <versionID>c1ff708935132d1e75eb9bac2db03b02af68db9f</versionID>
-        <timestamp>2017-11-15 11:24:50</timestamp>
-        <desc>MOD 修改对私对公判断错误</desc>
+        <name>cuiln</name>
+        <versionID>91fb925c651f23be9f05e814d6621ed40484515d</versionID>
+        <timestamp>2017-11-15 14:48:44</timestamp>
+        <desc>FIX:增加错误码</desc>
         <changeType>MODIFY</changeType>
         <check>true</check>
       </author>
