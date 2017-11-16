@@ -32,10 +32,10 @@ public class Main {
         Main main = new Main();
         String cmd = args[0].trim();
         switch (cmd) {
-            case "a":
+            case "c":
                 main.gitService.genChangesFileListToday();
                 break;
-            case "b":
+            case "o":
                 main.gitService.patchFileExecute();
                 break;
             default:

@@ -2,6 +2,42 @@
 
 <files>
   <description desc="description"/>
+  <file fullPath="Ensemble/mbsd/MbsdCore_RB.xls" model="Ensemble" pkgPath="Ensemble/mbsd/MbsdCore_RB.xls" type="xls">
+    <authors>
+      <author>
+        <name>dupfc</name>
+        <versionID>759053793f784f078bd57c34e3f27dd90b092fbb</versionID>
+        <timestamp>2017-11-16 10:32:38</timestamp>
+        <desc>fix by dupfc 账户基本信息查询接口增加字段返回原始开户日/原始到期日</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+    </authors>
+  </file>
+  <file fullPath="Ensemble/modules/ensemble-external/api/src/main/java/com/dcits/ensemble/external/model/mbsdcore/Core10003001Out.java" model="Ensemble" pkgPath="com/dcits/ensemble/external/model/mbsdcore/Core10003001Out.class" type="java">
+    <authors>
+      <author>
+        <name>zhouwsa</name>
+        <versionID>5868661b5d74c0cde30b8f039d6c72c837f0628f</versionID>
+        <timestamp>2017-11-16 10:54:13</timestamp>
+        <desc>10003001out增加可用余额</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+    </authors>
+  </file>
+  <file fullPath="Ensemble/modules/ensemble-service/src/main/java/com/dcits/ensemble/service/batch/MbBatchReversalFun.java" model="Ensemble" pkgPath="com/dcits/ensemble/service/batch/MbBatchReversalFun.class" type="java">
+    <authors>
+      <author>
+        <name>minhao</name>
+        <versionID>48334c991535b9cfadcd0ebb95c14c9b57928beb</versionID>
+        <timestamp>2017-11-16 10:16:13</timestamp>
+        <desc>Fix #15301 冲正失败记录失败笔数、失败描述</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+    </authors>
+  </file>
   <file fullPath="Ensemble/modules/ensemble-eod/src/main/java/com/dcits/ensemble/eod/acct/DueLgTran.java" model="Ensemble" pkgPath="com/dcits/ensemble/eod/acct/DueLgTran.class" type="java">
     <authors>
       <author>
@@ -38,6 +74,18 @@
       </author>
     </authors>
   </file>
+  <file fullPath="Ensemble/modules/ensemble-rb/online/src/main/java/com/dcits/ensemble/rb/online/service/mbsdcore/Core14000007.java" model="Ensemble" pkgPath="com/dcits/ensemble/rb/online/service/mbsdcore/Core14000007.class" type="java">
+    <authors>
+      <author>
+        <name>dupfc</name>
+        <versionID>93f51a8553a17ac8c2cc73959ec9e688250d0c03</versionID>
+        <timestamp>2017-11-16 10:32:38</timestamp>
+        <desc>fix by dupfc 账户基本信息查询接口增加字段返回原始开户日/原始到期日</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+    </authors>
+  </file>
   <file fullPath="Ensemble/modules/ensemble-dc/online/src/main/java/com/dcits/ensemble/dc/online/service/inner/StageAmtUpdate.java" model="Ensemble" pkgPath="com/dcits/ensemble/dc/online/service/inner/StageAmtUpdate.class" type="java">
     <authors>
       <author>
@@ -45,6 +93,18 @@
         <versionID>fd1b9e3a7f28bae18eba65cc659387b08b69b313</versionID>
         <timestamp>2017-11-16 09:55:04</timestamp>
         <desc>兑付报空指针问题</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+    </authors>
+  </file>
+  <file fullPath="Ensemble/modules/ensemble-rb/api/src/main/java/com/dcits/ensemble/rb/model/mbsdcore/Core14000007Out.java" model="Ensemble" pkgPath="com/dcits/ensemble/rb/model/mbsdcore/Core14000007Out.class" type="java">
+    <authors>
+      <author>
+        <name>dupfc</name>
+        <versionID>6a274cfdd06cc3e5d8b49795b85b4697c301f283</versionID>
+        <timestamp>2017-11-16 10:32:38</timestamp>
+        <desc>fix by dupfc 账户基本信息查询接口增加字段返回原始开户日/原始到期日</desc>
         <changeType>MODIFY</changeType>
         <check>true</check>
       </author>
@@ -74,6 +134,18 @@
       </author>
     </authors>
   </file>
+  <file fullPath="Ensemble/modules/ensemble-oc/online/src/main/java/com/dcits/ensemble/oc/online/service/mbsdcore/Core12000622.java" model="Ensemble" pkgPath="com/dcits/ensemble/oc/online/service/mbsdcore/Core12000622.class" type="java">
+    <authors>
+      <author>
+        <name>liuxbh</name>
+        <versionID>efb0b48e9f1ac6539dfabf69ba3cff00a28d96b4</versionID>
+        <timestamp>2017-11-16 09:17:43</timestamp>
+        <desc>FIX:修改同城票提出提出被退票未校验柜员缺陷</desc>
+        <changeType>MODIFY</changeType>
+        <check>true</check>
+      </author>
+    </authors>
+  </file>
   <file fullPath="Ensemble/modules/ensemble-dc/online/src/main/java/com/dcits/ensemble/dc/online/service/inner/DcTohonor.java" model="Ensemble" pkgPath="com/dcits/ensemble/dc/online/service/inner/DcTohonor.class" type="java">
     <authors>
       <author>
@@ -98,13 +170,13 @@
       </author>
     </authors>
   </file>
-  <file fullPath="Ensemble/modules/ensemble-oc/online/src/main/java/com/dcits/ensemble/oc/online/service/mbsdcore/Core12000622.java" model="Ensemble" pkgPath="com/dcits/ensemble/oc/online/service/mbsdcore/Core12000622.class" type="java">
+  <file fullPath="Ensemble/modules/ensemble-service/src/main/java/com/dcits/ensemble/service/micro/lg/LgAutoMicro.java" model="Ensemble" pkgPath="com/dcits/ensemble/service/micro/lg/LgAutoMicro.class" type="java">
     <authors>
       <author>
-        <name>liuxbh</name>
-        <versionID>efb0b48e9f1ac6539dfabf69ba3cff00a28d96b4</versionID>
-        <timestamp>2017-11-16 09:17:43</timestamp>
-        <desc>FIX:修改同城票提出提出被退票未校验柜员缺陷</desc>
+        <name>fangmt</name>
+        <versionID>bc3041900fa3eb6b47f3cafff3f88417d2c3e577</versionID>
+        <timestamp>2017-11-16 09:23:46</timestamp>
+        <desc>保函到期处理JOB修改</desc>
         <changeType>MODIFY</changeType>
         <check>true</check>
       </author>
@@ -115,18 +187,6 @@
       <author>
         <name>fangmt</name>
         <versionID>705d2377e315a96a1127591c6989d18c748e6639</versionID>
-        <timestamp>2017-11-16 09:23:46</timestamp>
-        <desc>保函到期处理JOB修改</desc>
-        <changeType>MODIFY</changeType>
-        <check>true</check>
-      </author>
-    </authors>
-  </file>
-  <file fullPath="Ensemble/modules/ensemble-service/src/main/java/com/dcits/ensemble/service/micro/lg/LgAutoMicro.java" model="Ensemble" pkgPath="com/dcits/ensemble/service/micro/lg/LgAutoMicro.class" type="java">
-    <authors>
-      <author>
-        <name>fangmt</name>
-        <versionID>bc3041900fa3eb6b47f3cafff3f88417d2c3e577</versionID>
         <timestamp>2017-11-16 09:23:46</timestamp>
         <desc>保函到期处理JOB修改</desc>
         <changeType>MODIFY</changeType>

@@ -12,10 +12,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.File;
-import java.io.FileWriter;
+import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.Writer;
-import java.net.URL;
 import java.util.*;
 
 /**
@@ -45,7 +43,7 @@ public class XmlBulider {
         Element root = document.getRootElement();
 
         Element packaging = root.element("packaging");
-        String pkgType = Objects.equals(null, packaging)?"jar":packaging.getText();
+        String pkgType = Objects.equals(null, packaging) ? "jar" : packaging.getText();
         Element artifactId = root.element("artifactId");
         Element version = root.element("version");
 
@@ -136,8 +134,8 @@ public class XmlBulider {
         String fileName = xmlFilePath + "patch" + runDate + ".xml";
 
         // 开始写入到文件
-        try (Writer fileWriter = new FileWriter(fileName)) {
-            XMLWriter xmlWriter = new XMLWriter(fileWriter, formater);
+        try (FileOutputStream fos = new FileOutputStream(fileName)) {
+            XMLWriter xmlWriter = new XMLWriter(fos, formater);
             xmlWriter.write(rootElement);
             xmlWriter.flush();
             xmlWriter.close();
