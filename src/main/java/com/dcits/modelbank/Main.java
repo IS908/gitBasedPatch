@@ -17,7 +17,7 @@ public class Main {
     private ApplicationContext context;
     private GitService gitService;
 
-    public Main() {
+    private Main() {
         this.context = new ClassPathXmlApplicationContext("classpath*:applicationContext.xml");
         gitService = (GitService) context.getBean("gitService");
     }
@@ -42,15 +42,5 @@ public class Main {
                 System.out.println("输入指令超出范围！");
                 break;
         }
-
-
-    }
-
-    public void setContext(ApplicationContext context) {
-        this.context = context;
-    }
-
-    public void setGitService(GitService gitService) {
-        this.gitService = gitService;
     }
 }
