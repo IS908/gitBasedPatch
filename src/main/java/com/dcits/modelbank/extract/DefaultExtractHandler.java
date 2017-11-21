@@ -27,16 +27,18 @@ public class DefaultExtractHandler extends PatchExtractHandler {
         // 将增量jar包列表输出到文件
         FileUtil.writeFile(resultDir + "/" + DateUtil.getRunDate() + ".txt", set.toString().replace(", ", "\n"));
         FileUtil.filterFile(targetDir, set);
-        String fileName = "patch-" + DateUtil.getRunDate() + ".zip";
+        String fileName = "app_modelbank_ins_" + DateUtil.getRunDate() + ".zip";
         try {
             ZipUtil.zip(targetDir, fileName);
         } catch (Exception e) {
             e.printStackTrace();
         }
 
+        logger.error("增量抽取完毕，抽取的增量包列表如下：");
         for (String jarName : set) {
             logger.info(jarName);
         }
+
     }
 
     @Override
