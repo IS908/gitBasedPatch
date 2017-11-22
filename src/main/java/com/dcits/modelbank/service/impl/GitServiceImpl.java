@@ -1,7 +1,6 @@
 package com.dcits.modelbank.service.impl;
 
 import com.dcits.modelbank.extract.PatchExtractHandler;
-import com.dcits.modelbank.jgit.FilePathHandler;
 import com.dcits.modelbank.jgit.GitHandler;
 import com.dcits.modelbank.model.FileDiffEntry;
 import com.dcits.modelbank.model.FileModel;
@@ -41,7 +40,6 @@ public class GitServiceImpl implements GitService {
         List<FileModel> fileModelList = new ArrayList<>();
         Map<String, List<FileDiffEntry>> lists = gitHandler.getCommitsLogByFile();
         for (String key : lists.keySet()) {
-            logger.info(key);
             List<FileDiffEntry> list = lists.get(key);
             FileModel fileModel = diffEntry2FileModel(list);
             fileModelList.add(fileModel);
@@ -49,12 +47,12 @@ public class GitServiceImpl implements GitService {
         xmlBulider.entity2XmlFile(fileModelList);
     }
 
-//    @Override
-//    public List<FileModel> getFileModelFromXml() {
-//        List<FileModel> list = xmlBulider.getExtractFiles();
-//        return list;
-//    }
-
+    /**
+     * 实体类之间的转换
+     *
+     * @param entries
+     * @return
+     */
     public FileModel diffEntry2FileModel(List<FileDiffEntry> entries) {
         FileModel fileModel = new FileModel();
         if (entries.size() < 1) return fileModel;

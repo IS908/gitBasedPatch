@@ -1,15 +1,13 @@
 package com.dcits.modelbank.extract;
 
 import com.dcits.modelbank.model.FileModel;
-import com.dcits.modelbank.utils.FileUtil;
 import com.dcits.modelbank.utils.XmlBulider;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.annotation.Resource;
-import java.util.HashSet;
+import java.io.File;
 import java.util.List;
-import java.util.Objects;
 import java.util.Set;
 
 /**
@@ -28,7 +26,7 @@ public abstract class PatchExtractHandler {
     protected XmlBulider xmlBulider;
 
     public void setSourceDir(String sourceDir) {
-        this.sourceDir = sourceDir.endsWith("/") ? sourceDir : sourceDir + "/";
+        this.sourceDir = sourceDir.endsWith(File.separator) ? sourceDir : sourceDir + File.separator;
     }
 
     public void setTargetDir(String targetDir) {

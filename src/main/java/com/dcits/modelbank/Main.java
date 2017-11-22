@@ -34,6 +34,7 @@ public class Main {
         switch (cmd) {
             case "xml":
                 main.gitService.genChangesFileListToday();
+                System.out.println("增量描述文件抽取完毕！");
                 break;
             case "zip":
                 main.gitService.patchFileExecute();

@@ -75,7 +75,7 @@ public class GitHelper {
         try {
             return builder
                     .setFS(FS.DETECTED)
-                    .setGitDir(new File(this.rootDir + "\\" + Const.GIT))
+                    .setGitDir(new File(this.rootDir + File.separator + Const.GIT))
                     .readEnvironment()
                     .build();
         } catch (IOException e) {

@@ -1,6 +1,5 @@
 package com.dcits.modelbank.service.impl;
 
-import com.dcits.modelbank.model.FileModel;
 import com.dcits.modelbank.service.GitService;
 import org.junit.Before;
 import org.junit.Test;
@@ -8,10 +7,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-
-import java.util.List;
-
-import static org.junit.Assert.*;
 
 /**
  * Created on 2017-11-08 23:46.

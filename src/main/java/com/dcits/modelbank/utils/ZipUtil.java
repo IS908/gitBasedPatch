@@ -59,7 +59,7 @@ public class ZipUtil {
             if (flist.length == 0) return;
             //如果文件夹不为空，则递归调用compress，文件夹中的每一个文件（或文件夹）进行压缩
             for (File file : flist) {
-                compress(out, bos, file, base + "/" + file.getName());
+                compress(out, bos, file, base + File.separator + file.getName());
             }
         } else {//如果不是目录（文件夹），即为文件，则先写入目录进入点，之后将文件写入zip文件中
             out.putNextEntry(new ZipEntry(base));

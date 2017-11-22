@@ -7,6 +7,7 @@ import com.dcits.modelbank.utils.ZipUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.File;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
@@ -25,7 +26,7 @@ public class DefaultExtractHandler extends PatchExtractHandler {
         logger.info("target目录：" + super.targetDir);
         logger.info("result目录：" + super.resultDir);
         // 将增量jar包列表输出到文件
-        FileUtil.writeFile(resultDir + "/" + DateUtil.getRunDate() + ".txt", set.toString().replace(", ", "\n"));
+        FileUtil.writeFile(resultDir + File.separator + DateUtil.getRunDate() + ".txt", set.toString().replace(", ", "\n"));
         FileUtil.filterFile(targetDir, set);
         String fileName = "app_modelbank_ins_" + DateUtil.getRunDate() + ".zip";
         try {
@@ -34,11 +35,7 @@ public class DefaultExtractHandler extends PatchExtractHandler {
             e.printStackTrace();
         }
 
-        logger.error("增量抽取完毕，抽取的增量包列表如下：");
-        for (String jarName : set) {
-            logger.info(jarName);
-        }
-
+        logger.warn("增量抽取完毕，抽取的增量包文件数量为： " + set.size());
     }
 
     @Override

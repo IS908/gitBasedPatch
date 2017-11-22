@@ -114,16 +114,18 @@ public class FileUtil {
         if (file.exists()) {
             File[] files = file.listFiles();
             if (files.length == 0) {
-                logger.info(file.getName() + "文件夹是空的");
+//                logger.info(file.getName() + "文件夹是空的");
                 return;
             }
             for (File file2 : files) {
                 if (file2.isDirectory()) {
-                    logger.info("文件夹:" + file2.getAbsolutePath());
+//                    logger.info("文件夹:" + file2.getAbsolutePath());
                     filterFile(file2.getAbsolutePath(), set);
                 } else {
-                    logger.info("文件:" + file2.getAbsolutePath());
-                    if (set.contains(file2.getName())) continue;
+                    if (set.contains(file2.getName())) {
+                        logger.info("抽取增量包：" + file2.getName());
+                        continue;
+                    }
                     file2.delete();
                 }
             }

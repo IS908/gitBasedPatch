@@ -97,7 +97,6 @@
                 <includes>
                     <include>**/*.properties</include>
                     <include>**/*.xml</include>
-                    <include>**/*.tld</include>
                 </includes>
                 <!--<filtering>false</filtering>-->
 
@@ -142,11 +141,9 @@
                         </manifest>
                         <!-- 给清单文件添加键值对(配置文件外置) -->
                         <manifestEntries>
-                            <Class-Path>src/main/resources/</Class-Path>
+                            <Class-Path>conf/</Class-Path>
                         </manifestEntries>
                     </archive>
-                    <classesDirectory>
-                    </classesDirectory>
                 </configuration>
             </plugin>
             <!-- 拷贝依赖的jar包到lib目录 -->
