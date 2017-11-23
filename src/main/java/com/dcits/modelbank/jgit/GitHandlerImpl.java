@@ -19,6 +19,8 @@ import org.eclipse.jgit.lib.*;
 import org.eclipse.jgit.revwalk.RevCommit;
 import org.eclipse.jgit.revwalk.RevTree;
 import org.eclipse.jgit.revwalk.RevWalk;
+import org.eclipse.jgit.submodule.SubmoduleStatus;
+import org.eclipse.jgit.submodule.SubmoduleWalk;
 import org.eclipse.jgit.transport.FetchResult;
 import org.eclipse.jgit.transport.PushResult;
 import org.eclipse.jgit.treewalk.CanonicalTreeParser;
@@ -61,6 +63,17 @@ public class GitHandlerImpl implements GitHandler {
 
     public void setGitHelper(GitHelper gitHelper) {
         this.gitHelper = gitHelper;
+    }
+
+    @Override
+    public Git getGit() {
+        return gitHelper.getGitInstance();
+    }
+
+    @Override
+    public SubmoduleWalk getSubmodules() throws IOException {
+        SubmoduleWalk walk = SubmoduleWalk.forIndex(gitHelper.getGitInstance().getRepository());
+        return walk;
     }
 
     @Override

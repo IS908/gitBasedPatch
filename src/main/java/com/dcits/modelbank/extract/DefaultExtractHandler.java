@@ -6,6 +6,7 @@ import com.dcits.modelbank.utils.FileUtil;
 import com.dcits.modelbank.utils.ZipUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Service;
 
 import java.io.File;
 import java.util.HashSet;
@@ -18,6 +19,7 @@ import java.util.Set;
  *
  * @author kevin
  */
+@Service("patchExtractHandler")
 public class DefaultExtractHandler extends PatchExtractHandler {
     private static final Logger logger = LoggerFactory.getLogger(DefaultExtractHandler.class);
 
@@ -43,6 +45,7 @@ public class DefaultExtractHandler extends PatchExtractHandler {
         Set<String> set = new HashSet<>();
         for (FileModel file : list) {
             String filePath = this.sourceDir + file.getPath();
+            logger.info(filePath);
             if (!isFileInPackage(filePath)) continue;
 
             String pomPath = FileUtil.findFilePath(filePath, "pom.xml");

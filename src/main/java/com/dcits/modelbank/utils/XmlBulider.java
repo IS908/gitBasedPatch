@@ -27,8 +27,8 @@ public class XmlBulider {
     private String xmlFilePath;
     private String[] authorAttr;
 
-    public XmlBulider(String xmlFilePath, String[] authorAttr) {
-        this.xmlFilePath = xmlFilePath.endsWith(File.separator) ? xmlFilePath : xmlFilePath + File.separator;
+    public XmlBulider(String[] authorAttr) {
+//        this.xmlFilePath = xmlFilePath.endsWith(File.separator) ? xmlFilePath : xmlFilePath + File.separator;
         this.authorAttr = authorAttr;
     }
 
@@ -64,6 +64,7 @@ public class XmlBulider {
         List<FileModel> list = new ArrayList<>();
 
         String fileName = xmlFilePath + "patch" + DateUtil.getRunDate() + ".xml";
+        logger.info("增量文件路径：" + fileName);
         Document document = this.xmlReader(fileName);
         Element rootElement = document.getRootElement();
 
@@ -84,7 +85,7 @@ public class XmlBulider {
                 }
             }
         }
-
+        logger.info(String.valueOf(list.size()));
         return list;
     }
 
@@ -158,6 +159,7 @@ public class XmlBulider {
             SAXReader reader = new SAXReader();
             reader.setEncoding("utf-8");
             document = reader.read(file);
+            logger.info(document.toString());
         } catch (DocumentException e) {
             e.printStackTrace();
         }
@@ -170,6 +172,6 @@ public class XmlBulider {
     }
 
     public void setXmlFilePath(String xmlFilePath) {
-        this.xmlFilePath = xmlFilePath;
+        this.xmlFilePath = xmlFilePath.endsWith(File.separator) ? xmlFilePath : xmlFilePath + File.separator;
     }
 }

@@ -2,13 +2,18 @@ package com.dcits.modelbank.jgit;
 
 import com.dcits.modelbank.jgit.helper.PullEnum;
 import com.dcits.modelbank.model.FileDiffEntry;
+import org.eclipse.jgit.api.Git;
 import org.eclipse.jgit.api.PullResult;
 import org.eclipse.jgit.blame.BlameResult;
 import org.eclipse.jgit.diff.DiffEntry;
 import org.eclipse.jgit.lib.ObjectId;
+import org.eclipse.jgit.lib.Repository;
 import org.eclipse.jgit.revwalk.RevCommit;
+import org.eclipse.jgit.submodule.SubmoduleStatus;
+import org.eclipse.jgit.submodule.SubmoduleWalk;
 import org.eclipse.jgit.transport.FetchResult;
 
+import java.io.IOException;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
@@ -19,11 +24,19 @@ import java.util.Map;
  * @author kevin
  */
 public interface GitHandler {
+    Git getGit();
+
+    /**
+     * 获取所有子模块
+     * @return
+     */
+    SubmoduleWalk getSubmodules() throws IOException;
+
     /**
      * 获取指定文件的blame信息
      *
-     * @param commitID
-     * @param file
+     * @param commitID 对应的版本号
+     * @param file 指定文件
      * @return
      */
     BlameResult fileBlame(String commitID, String file);

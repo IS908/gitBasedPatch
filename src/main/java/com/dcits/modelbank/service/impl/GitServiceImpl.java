@@ -31,11 +31,6 @@ public class GitServiceImpl implements GitService {
     private PatchExtractHandler patchExtractHandler;
 
     @Override
-    public void patchFileExecute() {
-        patchExtractHandler.execute();
-    }
-
-    @Override
     public void genChangesFileListToday() {
         List<FileModel> fileModelList = new ArrayList<>();
         Map<String, List<FileDiffEntry>> lists = gitHandler.getCommitsLogByFile();
@@ -45,6 +40,11 @@ public class GitServiceImpl implements GitService {
             fileModelList.add(fileModel);
         }
         xmlBulider.entity2XmlFile(fileModelList);
+    }
+
+    @Override
+    public void patchFileExecute() {
+        patchExtractHandler.execute();
     }
 
     /**
