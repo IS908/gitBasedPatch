@@ -103,14 +103,14 @@
                 <!-- 配置文件外置（在打包时取消注释）
                     资源文件拷贝到编译输出路径target的子文件夹config目录下，最终结构如下:
                     target
-                       ...config
+                       ...conf
                            ...spring
                            ...mapper
                            ...env
                        ...lib
                        ...generateImportCarSql.jar
                  -->
-                <targetPath>${project.build.directory}/conf</targetPath>
+                <!--<targetPath>${project.build.directory}/conf</targetPath>-->
             </resource>
         </resources>
 
