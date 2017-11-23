@@ -22,11 +22,11 @@ public class ZipUtil {
      * @throws Exception
      */
     public static void zip(String sourceFileName, String zipFileName) throws Exception {
-        //File zipFile = new File(zipFileName);
         logger.info("增量包压缩中...");
+        File zipFile = new File(zipFileName);
 
         //创建zip输出流
-        ZipOutputStream out = new ZipOutputStream(new FileOutputStream(zipFileName));
+        ZipOutputStream out = new ZipOutputStream(new FileOutputStream(zipFile));
 
         //创建缓冲输出流
         BufferedOutputStream bos = new BufferedOutputStream(out);

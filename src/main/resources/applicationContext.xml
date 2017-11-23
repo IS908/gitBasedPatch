@@ -11,21 +11,6 @@
     <context:property-placeholder location="classpath*:git.properties"/>
     <context:component-scan base-package="com.dcits.modelbank"/>
 
-    <!-- 操作的本地Git项目配置库信息加载 -->
-    <bean name="gitHelper" class="com.dcits.modelbank.jgit.helper.GitHelper">
-        <!--<property name="rootDir" value="${git.source.dir}"/>-->
-        <property name="userName" value="${git.user.name}"/>
-        <property name="userEmail" value="${git.user.email}"/>
-        <property name="remoteUrl" value="${git.remote.url}"/>
-        <!--<property name="credentialsProvider" ref="credentialsProvider"/>-->
-    </bean>
-
-    <!-- git 的 http 请求用户名密码验证 -->
-    <!--<bean name="credentialsProvider" class="org.eclipse.jgit.transport.UsernamePasswordCredentialsProvider">-->
-        <!--<constructor-arg name="username" value="${git.user.name}"/>-->
-        <!--<constructor-arg name="password" value="${git.user.password}"/>-->
-    <!--</bean>-->
-
     <!-- FilePathHandler抽象类暴露相应接口，通过继承抽象类实现个性化方法 -->
     <bean name="filePathHandler" class="com.dcits.modelbank.jgit.DefaultFilePathHandler"/>
 
@@ -43,5 +28,21 @@
             </list>
         </constructor-arg>
     </bean>
+
+
+    <!-- 操作的本地Git项目配置库信息加载 -->
+    <!--<bean name="gitHelper" class="com.dcits.modelbank.jgit.helper.GitHelper">-->
+        <!--<property name="rootDir" value="${git.source.dir}"/>-->
+        <!--<property name="userName" value="${git.user.name}"/>-->
+        <!--<property name="userEmail" value="${git.user.email}"/>-->
+        <!--<property name="remoteUrl" value="${git.remote.url}"/>-->
+        <!--<property name="credentialsProvider" ref="credentialsProvider"/>-->
+    <!--</bean>-->
+
+    <!-- git 的 http 请求用户名密码验证 -->
+    <!--<bean name="credentialsProvider" class="org.eclipse.jgit.transport.UsernamePasswordCredentialsProvider">-->
+        <!--<constructor-arg name="username" value="${git.user.name}"/>-->
+        <!--<constructor-arg name="password" value="${git.user.password}"/>-->
+    <!--</bean>-->
 
 </beans>

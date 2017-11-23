@@ -22,9 +22,14 @@ public class Main {
     private ApplicationContext context;
     private GitService gitService;
 
-    private Main(String gitDir, String sourceDir, String targetDir, String resultDir) {
+    private Main(String[] paths) {
+        String baseDir = paths[1].trim();
+        baseDir = baseDir.endsWith(File.separator) ? baseDir : baseDir + File.separator;
+        String gitDir = baseDir + paths[2].trim();
+        String sourceDir = baseDir + paths[3].trim();
+        String targetDir = baseDir + paths[4].trim();
+        String resultDir = baseDir + paths[5].trim();
         this.context = new ClassPathXmlApplicationContext("classpath*:applicationContext.xml");
-        resultDir = resultDir.endsWith(File.separator) ? resultDir : resultDir + File.separator;
         // 设置类的初始值的设定
         GitHelper gitHelper = context.getBean(GitHelper.class);
         gitHelper.setRootDir(gitDir);
@@ -41,16 +46,17 @@ public class Main {
     }
 
     public static void main(String[] args) {
-        if (args.length != 5) {
+        if (args.length != 6) {
             System.out.println("请指定命令参数，默认操作命令如下：[xml/zip] [gitDir] [sourceDir] [targetDir] [resultDir]");
             System.out.println("xml：生成增量描述文件/zip：进行增量文件抽取；");
+            System.out.println("baseDir：抽取增量项目跟路径");
             System.out.println("gitDir：项目中.git文件夹路径");
             System.out.println("sourceDir：进行增量文件抽取；");
             System.out.println("targetDir：进行增量文件抽取；");
             System.out.println("resultDir：进行增量文件抽取。");
             return;
         }
-        Main main = new Main(args[1].trim(), args[2].trim(), args[3].trim(), args[4].trim());
+        Main main = new Main(args);
         String cmd = args[0].trim();
         switch (cmd) {
             case "xml":

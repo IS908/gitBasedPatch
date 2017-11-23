@@ -30,7 +30,7 @@ public class DefaultExtractHandler extends PatchExtractHandler {
         // 将增量jar包列表输出到文件
         FileUtil.writeFile(resultDir + File.separator + DateUtil.getRunDate() + ".txt", set.toString().replace(", ", "\n"));
         FileUtil.filterFile(targetDir, set);
-        String fileName = "app_modelbank_ins_" + DateUtil.getRunDate() + ".zip";
+        String fileName = resultDir + "app_modelbank_ins_" + DateUtil.getRunDate() + ".zip";
         try {
             ZipUtil.zip(targetDir, fileName);
         } catch (Exception e) {

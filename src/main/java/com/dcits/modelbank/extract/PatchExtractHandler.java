@@ -26,15 +26,18 @@ public abstract class PatchExtractHandler {
     protected XmlBulider xmlBulider;
 
     public void setSourceDir(String sourceDir) {
-        this.sourceDir = sourceDir.endsWith(File.separator) ? sourceDir : sourceDir + File.separator;
+        this.sourceDir = sourceDir.endsWith(File.separator) ?
+                sourceDir : (sourceDir + File.separator);
     }
 
     public void setTargetDir(String targetDir) {
-        this.targetDir = targetDir;
+        this.targetDir = targetDir.endsWith(File.separator) ?
+                targetDir : (targetDir + File.separator);
     }
 
     public void setResultDir(String resultDir) {
-        this.resultDir = resultDir;
+        this.resultDir = resultDir.endsWith(File.separator) ?
+                resultDir : resultDir + File.separator;
     }
 
     public void setXmlBulider(XmlBulider xmlBulider) {
