@@ -3,7 +3,7 @@ package com.dcits.modelbank.extract;
 import com.dcits.modelbank.model.FileModel;
 import com.dcits.modelbank.utils.DateUtil;
 import com.dcits.modelbank.utils.FileUtil;
-import com.dcits.modelbank.utils.ZipUtil;
+import com.dcits.modelbank.utils.ZipUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -32,7 +32,7 @@ public class DefaultExtractHandler extends PatchExtractHandler {
         FileUtil.filterFile(targetDir, set);
         String fileName = resultDir + "app_modelbank_ins_" + DateUtil.getRunDate() + ".zip";
         try {
-            ZipUtil.zip(targetDir, fileName);
+            ZipUtils.zip(targetDir, fileName);
         } catch (Exception e) {
             e.printStackTrace();
         }

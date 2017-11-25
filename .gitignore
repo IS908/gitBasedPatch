@@ -1,5 +1,6 @@
 target/
 *.class
+logs/
 
 # 本地个性化配置文件，避免提交覆盖，进行个性化配置忽略，但该文件需要手工创建
 src/main/resources/my.properties
