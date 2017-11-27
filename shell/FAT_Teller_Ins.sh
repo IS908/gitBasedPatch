@@ -62,7 +62,7 @@ CHECK_INTERVAL() {
     for i in `seq $1`
     do
         sleep 10s
-        echo 'check' $i
+        echo 'check' ${i}
     done
 }
 #################### Function END ####################
