@@ -16,6 +16,8 @@ echo **********************************************************
 # 4、将增量目标码打成压缩包待部署
 
 #################### Var Setting START ####################
+SIGN_FLAG=Y
+SIGN_PWD=Y
 FILE_PATH=`pwd`
 RUNDATE=`date +%Y%m%d`
 TAG_NO=02
@@ -33,6 +35,7 @@ BUILD=""
 TEMP=""
 #################### Var Setting END ####################
 
+export ANT_HOME=${ANT_HOME}
 cd ${BUILD_PATH}
 ##检查增量执行文件是否存在
 if [ ! -e "build.properties" ]; then 
@@ -74,10 +77,11 @@ done
 #筛选需要编译的交易
 BUILD=${BUILD//SmartTeller9\\trans\\/}
 BUILD=${BUILD//.jar/}
-echo "需要打版本的交易有："$BUILD
-sed -i "/sourceBase=/s/=.*/=${BUILD//\\/\\\\}/" build.properties
+echo "需要打版本的交易为："$BUILD
+sed -i "/sourceBase=/s/=.*/=${BUILD//\\/\\\}/" build.properties
 
 # 进行增量交易的编译
+echo "开始编译"
 ant -buildfile build.xml
 # 进行增量抽取工作
 
