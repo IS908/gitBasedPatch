@@ -1,213 +1,241 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <maven2-moduleset plugin="maven-plugin@2.17">
-  <actions/>
-  <description>全量版本发布流程</description>
-  <keepDependencies>false</keepDependencies>
-  <properties>
-    <jenkins.model.BuildDiscarderProperty>
-      <strategy class="hudson.tasks.LogRotator">
-        <daysToKeep>1</daysToKeep>
-        <numToKeep>1</numToKeep>
-        <artifactDaysToKeep>-1</artifactDaysToKeep>
-        <artifactNumToKeep>-1</artifactNumToKeep>
-      </strategy>
-    </jenkins.model.BuildDiscarderProperty>
-    <hudson.model.ParametersDefinitionProperty>
-      <parameterDefinitions>
-        <hudson.model.StringParameterDefinition>
-          <name>TAG_NO</name>
-          <description>基线号，如20170808_01,默认会在TAG_NO前拼ModelBank_Full_</description>
-          <defaultValue></defaultValue>
-        </hudson.model.StringParameterDefinition>
-      </parameterDefinitions>
-    </hudson.model.ParametersDefinitionProperty>
-  </properties>
-  <scm class="hudson.plugins.git.GitSCM" plugin="git@3.5.1">
-    <configVersion>2</configVersion>
-    <userRemoteConfigs>
-      <hudson.plugins.git.UserRemoteConfig>
-        <url>http://57.25.2.187:8082/dcits/ModelBank.git</url>
-        <credentialsId>gitlab</credentialsId>
-      </hudson.plugins.git.UserRemoteConfig>
-    </userRemoteConfigs>
-    <branches>
-      <hudson.plugins.git.BranchSpec>
-        <name>*/develop</name>
-      </hudson.plugins.git.BranchSpec>
-    </branches>
-    <doGenerateSubmoduleConfigurations>false</doGenerateSubmoduleConfigurations>
-    <browser class="hudson.plugins.git.browser.GitLab">
-      <url>http://57.25.2.187:8082</url>
-      <version>9.5</version>
-    </browser>
-    <submoduleCfg class="list"/>
-    <extensions>
-      <hudson.plugins.git.extensions.impl.SubmoduleOption>
-        <disableSubmodules>false</disableSubmodules>
-        <recursiveSubmodules>true</recursiveSubmodules>
-        <trackingSubmodules>false</trackingSubmodules>
-        <reference></reference>
-        <parentCredentials>true</parentCredentials>
-      </hudson.plugins.git.extensions.impl.SubmoduleOption>
-    </extensions>
-  </scm>
-  <canRoam>true</canRoam>
-  <disabled>false</disabled>
-  <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
-  <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
-  <triggers/>
-  <concurrentBuild>false</concurrentBuild>
-  <rootModule>
-    <groupId>com.dcits.modelBank</groupId>
-    <artifactId>modelBank</artifactId>
-  </rootModule>
-  <goals>clean package -Pflow -Dmaven.test.skip=true -U</goals>
-  <aggregatorStyleBuild>true</aggregatorStyleBuild>
-  <incrementalBuild>false</incrementalBuild>
-  <ignoreUpstremChanges>false</ignoreUpstremChanges>
-  <ignoreUnsuccessfulUpstreams>false</ignoreUnsuccessfulUpstreams>
-  <archivingDisabled>false</archivingDisabled>
-  <siteArchivingDisabled>false</siteArchivingDisabled>
-  <fingerprintingDisabled>false</fingerprintingDisabled>
-  <resolveDependencies>false</resolveDependencies>
-  <processPlugins>false</processPlugins>
-  <mavenValidationLevel>-1</mavenValidationLevel>
-  <runHeadless>false</runHeadless>
-  <disableTriggerDownstreamProjects>false</disableTriggerDownstreamProjects>
-  <blockTriggerWhenBuilding>true</blockTriggerWhenBuilding>
-  <settings class="jenkins.mvn.DefaultSettingsProvider"/>
-  <globalSettings class="jenkins.mvn.DefaultGlobalSettingsProvider"/>
-  <reporters/>
-  <publishers/>
-  <buildWrappers>
-    <hudson.plugins.ws__cleanup.PreBuildCleanup plugin="ws-cleanup@0.34">
-      <deleteDirs>false</deleteDirs>
-      <cleanupParameter></cleanupParameter>
-      <externalDelete></externalDelete>
-    </hudson.plugins.ws__cleanup.PreBuildCleanup>
-  </buildWrappers>
-  <prebuilders>
-    <hudson.tasks.Shell>
-      <command>cd $WORKSPACE
-git checkout -b develop origin/develop
-git pull http://jenkins:digital1@57.25.2.187:8082/dcits/ModelBank.git
+    <actions/>
+    <description>全量版本发布流程</description>
+    <keepDependencies>false</keepDependencies>
+    <properties>
+        <jenkins.model.BuildDiscarderProperty>
+            <strategy class="hudson.tasks.LogRotator">
+                <daysToKeep>1</daysToKeep>
+                <numToKeep>1</numToKeep>
+                <artifactDaysToKeep>-1</artifactDaysToKeep>
+                <artifactNumToKeep>-1</artifactNumToKeep>
+            </strategy>
+        </jenkins.model.BuildDiscarderProperty>
+        <hudson.model.ParametersDefinitionProperty>
+            <parameterDefinitions>
+                <hudson.model.StringParameterDefinition>
+                    <name>TAG_NO</name>
+                    <description>基线号，如20170808_01,默认会在TAG_NO前拼ModelBank_Full_</description>
+                    <defaultValue></defaultValue>
+                </hudson.model.StringParameterDefinition>
+            </parameterDefinitions>
+        </hudson.model.ParametersDefinitionProperty>
+    </properties>
+    <scm class="hudson.plugins.git.GitSCM" plugin="git@3.5.1">
+        <configVersion>2</configVersion>
+        <userRemoteConfigs>
+            <hudson.plugins.git.UserRemoteConfig>
+                <url>http://57.25.2.187:8082/dcits/ModelBank.git</url>
+                <credentialsId>gitlab</credentialsId>
+            </hudson.plugins.git.UserRemoteConfig>
+        </userRemoteConfigs>
+        <branches>
+            <hudson.plugins.git.BranchSpec>
+                <name>*/develop</name>
+            </hudson.plugins.git.BranchSpec>
+        </branches>
+        <doGenerateSubmoduleConfigurations>false</doGenerateSubmoduleConfigurations>
+        <browser class="hudson.plugins.git.browser.GitLab">
+            <url>http://57.25.2.187:8082</url>
+            <version>9.5</version>
+        </browser>
+        <submoduleCfg class="list"/>
+        <extensions>
+            <hudson.plugins.git.extensions.impl.SubmoduleOption>
+                <disableSubmodules>false</disableSubmodules>
+                <recursiveSubmodules>true</recursiveSubmodules>
+                <trackingSubmodules>false</trackingSubmodules>
+                <reference></reference>
+                <parentCredentials>true</parentCredentials>
+            </hudson.plugins.git.extensions.impl.SubmoduleOption>
+        </extensions>
+    </scm>
+    <canRoam>true</canRoam>
+    <disabled>false</disabled>
+    <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
+    <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+    <triggers/>
+    <concurrentBuild>false</concurrentBuild>
+    <rootModule>
+        <groupId>com.dcits.modelBank</groupId>
+        <artifactId>modelBank</artifactId>
+    </rootModule>
+    <goals>clean package -Pflow -Dmaven.test.skip=true -U</goals>
+    <aggregatorStyleBuild>true</aggregatorStyleBuild>
+    <incrementalBuild>false</incrementalBuild>
+    <ignoreUpstremChanges>false</ignoreUpstremChanges>
+    <ignoreUnsuccessfulUpstreams>false</ignoreUnsuccessfulUpstreams>
+    <archivingDisabled>false</archivingDisabled>
+    <siteArchivingDisabled>false</siteArchivingDisabled>
+    <fingerprintingDisabled>false</fingerprintingDisabled>
+    <resolveDependencies>false</resolveDependencies>
+    <processPlugins>false</processPlugins>
+    <mavenValidationLevel>-1</mavenValidationLevel>
+    <runHeadless>false</runHeadless>
+    <disableTriggerDownstreamProjects>false</disableTriggerDownstreamProjects>
+    <blockTriggerWhenBuilding>true</blockTriggerWhenBuilding>
+    <settings class="jenkins.mvn.DefaultSettingsProvider"/>
+    <globalSettings class="jenkins.mvn.DefaultGlobalSettingsProvider"/>
+    <reporters/>
+    <publishers/>
+    <buildWrappers>
+        <hudson.plugins.ws__cleanup.PreBuildCleanup plugin="ws-cleanup@0.34">
+            <deleteDirs>false</deleteDirs>
+            <cleanupParameter></cleanupParameter>
+            <externalDelete></externalDelete>
+        </hudson.plugins.ws__cleanup.PreBuildCleanup>
+    </buildWrappers>
+    <prebuilders>
+        <hudson.tasks.Shell>
+            <command>cd $WORKSPACE
+                git checkout -b develop origin/develop
+                git pull http://jenkins:digital1@57.25.2.187:8082/dcits/ModelBank.git
 
-cd $WORKSPACE/SmartEnsemble
-git checkout -b develop origin/develop
-git pull http://jenkins:digital1@57.25.2.187:8082/dcits/SmartEnsemble.git
-git reset --hard
-git tag -a &quot;SmartEnsemble_&quot;${TAG_NO} -m &quot;Jenkins Git plugin tagging with SmartEnsemble&quot;
-git push http://jenkins:digital1@57.25.2.187:8082/dcits/SmartEnsemble.git &quot;SmartEnsemble_&quot;${TAG_NO}
+                cd $WORKSPACE/SmartEnsemble
+                git checkout -b develop origin/develop
+                git pull http://jenkins:digital1@57.25.2.187:8082/dcits/SmartEnsemble.git
+                git reset --hard
+                git tag -a &quot;SmartEnsemble_&quot;${TAG_NO} -m &quot;Jenkins Git plugin tagging with SmartEnsemble&quot;
+                git push http://jenkins:digital1@57.25.2.187:8082/dcits/SmartEnsemble.git &quot;SmartEnsemble_&quot;${TAG_NO}
 
-cd $WORKSPACE
-git reset --hard</command>
-    </hudson.tasks.Shell>
-  </prebuilders>
-  <postbuilders>
-    <jenkins.plugins.publish__over__ssh.BapSshBuilderPlugin plugin="publish-over-ssh@1.17">
-      <delegate>
-        <consolePrefix>SSH: </consolePrefix>
-        <delegate>
-          <publishers>
-            <jenkins.plugins.publish__over__ssh.BapSshPublisher>
-              <configName>57.25.2.111</configName>
-              <verbose>false</verbose>
-              <transfers>
-                <jenkins.plugins.publish__over__ssh.BapSshTransfer>
-                  <remoteDirectory>backup/ModelBank/ModelBank_Full_${TAG_NO}</remoteDirectory>
-                  <sourceFiles>**/modelBank-integration-assembly.tar.gz</sourceFiles>
-                  <excludes></excludes>
-                  <removePrefix></removePrefix>
-                  <remoteDirectorySDF>false</remoteDirectorySDF>
-                  <flatten>false</flatten>
-                  <cleanRemote>false</cleanRemote>
-                  <noDefaultExcludes>false</noDefaultExcludes>
-                  <makeEmptyDirs>false</makeEmptyDirs>
-                  <patternSeparator>[, ]+</patternSeparator>
-                  <execCommand>#!/bin/bash
-source ~/.bashrc
+                cd $WORKSPACE
+                git reset --hard
+            </command>
+        </hudson.tasks.Shell>
+    </prebuilders>
+    <postbuilders>
+        <jenkins.plugins.publish__over__ssh.BapSshBuilderPlugin plugin="publish-over-ssh@1.17">
+            <delegate>
+                <consolePrefix>SSH:</consolePrefix>
+                <delegate>
+                    <publishers>
+                        <jenkins.plugins.publish__over__ssh.BapSshPublisher>
+                            <configName>57.25.2.111</configName>
+                            <verbose>false</verbose>
+                            <transfers>
+                                <jenkins.plugins.publish__over__ssh.BapSshTransfer>
+                                    <remoteDirectory>backup/ModelBank/ModelBank_Full_${TAG_NO}</remoteDirectory>
+                                    <sourceFiles>**/modelBank-integration-assembly.tar.gz</sourceFiles>
+                                    <excludes></excludes>
+                                    <removePrefix></removePrefix>
+                                    <remoteDirectorySDF>false</remoteDirectorySDF>
+                                    <flatten>false</flatten>
+                                    <cleanRemote>false</cleanRemote>
+                                    <noDefaultExcludes>false</noDefaultExcludes>
+                                    <makeEmptyDirs>false</makeEmptyDirs>
+                                    <patternSeparator>[, ]+</patternSeparator>
+                                    <execCommand>#!/bin/bash
+                                        source ~/.bashrc
 
-echo **********************************************************
-echo **                                                      **
-echo **             ModelBank Deploy Shell                   **
-echo **              http://www.dcits.com                    **
-echo **            author:chenkunh@dcits.com                 **
-echo **                                                      **
-echo **********************************************************
+                                        echo **********************************************************
+                                        echo ** **
+                                        echo ** ModelBank Deploy Shell **
+                                        echo ** http://www.dcits.com **
+                                        echo ** author:chenkunh@dcits.com **
+                                        echo ** **
+                                        echo **********************************************************
 
-#################### Var Setting START #################### #run_status=`netstat -anp|grep 9001|awk &apos;{printf $7}&apos;|cut -d/ -f1`
-# 应用端口号，注意需加单引号 PORT_APP=&apos;9001&apos;
-# 启动应用检查时间间隔设定(单位：秒) CHECK_TIME=24
+                                        #################### Var Setting START #################### #run_status=`netstat
+                                        -anp|grep 9001|awk &apos;{printf $7}&apos;|cut -d/ -f1`
+                                        # 应用端口号，注意需加单引号 PORT_APP=&apos;9001&apos;
+                                        # 启动应用检查时间间隔设定(单位：秒) CHECK_TIME=24
 
-# 应用状态 APP_RUN_STATUS - 0：停止状态；1：启动状态 APP_RUN_STATUS=-10 MSG_START_SUCCESS=&apos;APP应用启动状态&apos; MSG_STOP_SUCCESS=&apos;APP应用停止状态&apos; MSG_STOP_FAILD=&apos;APP应用停止失败，请人工停止原应用并部署&apos; MSG_STATUS_ERROR=&apos;APP应用状态未知,请人工确认当前状态&apos; ENSEMBLE_HOME=/app/dcits/ensemble BACKUP_HOME=/app/dcits/backup/ModelBank/ModelBank_Full_${TAG_NO} TAR_GZ_HOME=${BACKUP_HOME}/modules/modelBank-all-integration/target
-#################### Var Setting END ####################
+                                        # 应用状态 APP_RUN_STATUS - 0：停止状态；1：启动状态 APP_RUN_STATUS=-10 MSG_START_SUCCESS=&apos;APP应用启动状态&apos;
+                                        MSG_STOP_SUCCESS=&apos;APP应用停止状态&apos; MSG_STOP_FAILD=&apos;APP应用停止失败，请人工停止原应用并部署&apos;
+                                        MSG_STATUS_ERROR=&apos;APP应用状态未知,请人工确认当前状态&apos;
+                                        ENSEMBLE_HOME=/app/dcits/ensemble
+                                        BACKUP_HOME=/app/dcits/backup/ModelBank/ModelBank_Full_${TAG_NO}
+                                        TAR_GZ_HOME=${BACKUP_HOME}/modules/modelBank-all-integration/target
+                                        #################### Var Setting END ####################
 
-#################### Function START ####################
-# 检查应用是否停止 并返回状态码：停止成功:1；停止失败:0
-CheckStopState(){ OLD_PID_APP=`/usr/sbin/lsof -n -P -t -i :${PORT_APP}`	echo &apos;OLD_PID_APP:&apos; $OLD_PID_APP APP_RUN_STATUS=`ps -ef | grep $OLD_PID_APP | grep -v &apos;grep&apos; | wc -l`	echo &apos;APP_RUN_STATUS:&apos; $APP_RUN_STATUS
-    if [ $APP_RUN_STATUS -eq 0 ];then        # 成功停止        echo $MSG_STOP_SUCCESS    fi
-}
+                                        #################### Function START ####################
+                                        # 检查应用是否停止 并返回状态码：停止成功:1；停止失败:0
+                                        CheckStopState(){ OLD_PID_APP=`/usr/sbin/lsof -n -P -t -i :${PORT_APP}` echo
+                                        &apos;OLD_PID_APP:&apos; $OLD_PID_APP APP_RUN_STATUS=`ps -ef | grep $OLD_PID_APP
+                                        | grep -v &apos;grep&apos; | wc -l` echo &apos;APP_RUN_STATUS:&apos;
+                                        $APP_RUN_STATUS
+                                        if [ $APP_RUN_STATUS -eq 0 ];then # 成功停止 echo $MSG_STOP_SUCCESS fi
+                                        }
 
-# 检查应用是否启动 并返回状态码：启动成功:1；启动失败:0
-CheckStartState() { PID_APP=`/usr/sbin/lsof -n -P -t -i :${PORT_APP}`    echo &apos;PID_APP:&apos; $PID_APP APP_RUN_STATUS=`ps -ef | grep ${PID_APP} | grep -v &apos;grep&apos; | wc -l`    echo &apos;APP_RUN_STATUS:&apos; $APP_RUN_STATUS    if [ $APP_RUN_STATUS -eq 1 ]    then        echo $MSG_START_SUCCESS    else APP_RUN_STATUS=-1        echo $MSG_STATUS_ERROR    fi
-}
+                                        # 检查应用是否启动 并返回状态码：启动成功:1；启动失败:0
+                                        CheckStartState() { PID_APP=`/usr/sbin/lsof -n -P -t -i :${PORT_APP}` echo
+                                        &apos;PID_APP:&apos; $PID_APP APP_RUN_STATUS=`ps -ef | grep ${PID_APP} | grep -v
+                                        &apos;grep&apos; | wc -l` echo &apos;APP_RUN_STATUS:&apos; $APP_RUN_STATUS if [
+                                        $APP_RUN_STATUS -eq 1 ] then echo $MSG_START_SUCCESS else APP_RUN_STATUS=-1 echo
+                                        $MSG_STATUS_ERROR fi
+                                        }
 
-CHECK_INTERVAL() {    for i in `seq $1`    do        sleep 10s        echo &apos;check&apos; $i    done
-}
-#################### Function END ####################
+                                        CHECK_INTERVAL() { for i in `seq $1` do sleep 10s echo &apos;check&apos; $i done
+                                        }
+                                        #################### Function END ####################
 
 
-# 备份全量包
-cd ${BACKUP_HOME}
-mv  ${TAR_GZ_HOME}/modelBank-integration-assembly.tar.gz  ${BACKUP_HOME}
-rm -rf ${BACKUP_HOME}/modules
-tar -zxf  ${BACKUP_HOME}/modelBank-integration-assembly.tar.gz
+                                        # 备份全量包
+                                        cd ${BACKUP_HOME}
+                                        mv ${TAR_GZ_HOME}/modelBank-integration-assembly.tar.gz ${BACKUP_HOME}
+                                        rm -rf ${BACKUP_HOME}/modules
+                                        tar -zxf ${BACKUP_HOME}/modelBank-integration-assembly.tar.gz
 
-# 检查并停止应用，以备部署新应用
-CheckStopState
-if [ $APP_RUN_STATUS -ne 0 ];then    sh ${ENSEMBLE_HOME}/modelBank-integration/bin/stop.sh	CHECK_INTERVAL 1    for i in `seq 3`    do           CheckStopState        if [ $APP_RUN_STATUS -eq 0 ];then            break        fi        CHECK_INTERVAL 3    done    if [ $APP_RUN_STATUS -ne 0 ];then        # 停止失败        echo $MSG_STOP_FAILD        exit    fi
-fi
+                                        # 检查并停止应用，以备部署新应用
+                                        CheckStopState
+                                        if [ $APP_RUN_STATUS -ne 0 ];then sh
+                                        ${ENSEMBLE_HOME}/modelBank-integration/bin/stop.sh CHECK_INTERVAL 1 for i in
+                                        `seq 3` do CheckStopState if [ $APP_RUN_STATUS -eq 0 ];then break fi
+                                        CHECK_INTERVAL 3 done if [ $APP_RUN_STATUS -ne 0 ];then # 停止失败 echo
+                                        $MSG_STOP_FAILD exit fi
+                                        fi
 
-# 备份原应用包
-cd ${ENSEMBLE_HOME}
-if [[ -d ${ENSEMBLE_HOME}/modelBank-integration-old/ ]];then    rm -rf ${ENSEMBLE_HOME}/modelBank-integration-old
-fi
+                                        # 备份原应用包
+                                        cd ${ENSEMBLE_HOME}
+                                        if [[ -d ${ENSEMBLE_HOME}/modelBank-integration-old/ ]];then rm -rf
+                                        ${ENSEMBLE_HOME}/modelBank-integration-old
+                                        fi
 
-if [[ -d ${ENSEMBLE_HOME}/modelBank-integration/ ]];then    mv ${ENSEMBLE_HOME}/modelBank-integration ${ENSEMBLE_HOME}/modelBank-integration-old
-fi
+                                        if [[ -d ${ENSEMBLE_HOME}/modelBank-integration/ ]];then mv
+                                        ${ENSEMBLE_HOME}/modelBank-integration
+                                        ${ENSEMBLE_HOME}/modelBank-integration-old
+                                        fi
 
-# 部署新的应用包，并启动新应用
-mv ${BACKUP_HOME}/modelBank-integration ${ENSEMBLE_HOME}
-sh ${ENSEMBLE_HOME}/modelBank-integration/bin/start.sh
-CHECK_INTERVAL $CHECK_TIME
+                                        # 部署新的应用包，并启动新应用
+                                        mv ${BACKUP_HOME}/modelBank-integration ${ENSEMBLE_HOME}
+                                        sh ${ENSEMBLE_HOME}/modelBank-integration/bin/start.sh
+                                        CHECK_INTERVAL $CHECK_TIME
 
-# 检查新部署应用是否启动成功
-CheckStartState
-if [ $APP_RUN_STATUS -eq 1 ];then    # 新应用启动，删除旧应用    rm -rf ${ENSEMBLE_HOME}/modelBank-integration-old    echo $MSG_START_SUCCESS
-else    for i in `seq 5`    do           CheckStartState        if [ $APP_RUN_STATUS -eq 1 ];then            # 新应用启动，删除旧应用            rm -rf ${ENSEMBLE_HOME}/modelBank-integration-old            echo $MSG_START_SUCCESS            break        fi        sh ${ENSEMBLE_HOME}/modelBank-integration/bin/start.sh        CHECK_INTERVAL $CHECK_TIME    done    if [ $APP_RUN_STATUS -eq 0 ];then        # 新部署应用多次尝试启动失败，未知异常待人工检查状态        echo $MSG_STATUS_ERROR    fi
-fi
-</execCommand>
-                  <execTimeout>0</execTimeout>
-                  <usePty>false</usePty>
-                  <useAgentForwarding>false</useAgentForwarding>
-                </jenkins.plugins.publish__over__ssh.BapSshTransfer>
-              </transfers>
-              <useWorkspaceInPromotion>false</useWorkspaceInPromotion>
-              <usePromotionTimestamp>false</usePromotionTimestamp>
-            </jenkins.plugins.publish__over__ssh.BapSshPublisher>
-          </publishers>
-          <continueOnError>false</continueOnError>
-          <failOnError>false</failOnError>
-          <alwaysPublishFromMaster>false</alwaysPublishFromMaster>
-          <hostConfigurationAccess class="jenkins.plugins.publish_over_ssh.BapSshPublisherPlugin" reference="../.."/>
-        </delegate>
-      </delegate>
-    </jenkins.plugins.publish__over__ssh.BapSshBuilderPlugin>
-  </postbuilders>
-  <runPostStepsIfResult>
-    <name>SUCCESS</name>
-    <ordinal>0</ordinal>
-    <color>BLUE</color>
-    <completeBuild>true</completeBuild>
-  </runPostStepsIfResult>
+                                        # 检查新部署应用是否启动成功
+                                        CheckStartState
+                                        if [ $APP_RUN_STATUS -eq 1 ];then # 新应用启动，删除旧应用 rm -rf
+                                        ${ENSEMBLE_HOME}/modelBank-integration-old echo $MSG_START_SUCCESS
+                                        else for i in `seq 5` do CheckStartState if [ $APP_RUN_STATUS -eq 1 ];then #
+                                        新应用启动，删除旧应用 rm -rf ${ENSEMBLE_HOME}/modelBank-integration-old echo
+                                        $MSG_START_SUCCESS break fi sh
+                                        ${ENSEMBLE_HOME}/modelBank-integration/bin/start.sh CHECK_INTERVAL $CHECK_TIME
+                                        done if [ $APP_RUN_STATUS -eq 0 ];then # 新部署应用多次尝试启动失败，未知异常待人工检查状态 echo
+                                        $MSG_STATUS_ERROR fi
+                                        fi
+                                    </execCommand>
+                                    <execTimeout>0</execTimeout>
+                                    <usePty>false</usePty>
+                                    <useAgentForwarding>false</useAgentForwarding>
+                                </jenkins.plugins.publish__over__ssh.BapSshTransfer>
+                            </transfers>
+                            <useWorkspaceInPromotion>false</useWorkspaceInPromotion>
+                            <usePromotionTimestamp>false</usePromotionTimestamp>
+                        </jenkins.plugins.publish__over__ssh.BapSshPublisher>
+                    </publishers>
+                    <continueOnError>false</continueOnError>
+                    <failOnError>false</failOnError>
+                    <alwaysPublishFromMaster>false</alwaysPublishFromMaster>
+                    <hostConfigurationAccess class="jenkins.plugins.publish_over_ssh.BapSshPublisherPlugin"
+                                             reference="../.."/>
+                </delegate>
+            </delegate>
+        </jenkins.plugins.publish__over__ssh.BapSshBuilderPlugin>
+    </postbuilders>
+    <runPostStepsIfResult>
+        <name>SUCCESS</name>
+        <ordinal>0</ordinal>
+        <color>BLUE</color>
+        <completeBuild>true</completeBuild>
+    </runPostStepsIfResult>
 </maven2-moduleset>
