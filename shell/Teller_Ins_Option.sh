@@ -27,7 +27,8 @@ MSG_NOT_EXIST_PROPERTIES='不存在增量执行文件build.properties，不可�
 MSG_NOT_EXIST_INCFILE='不存在增量清单文件，不可以进行打增量版本'
 strA="SmartTeller9\trans"
 strB=".jar"
-BUILD=""
+BUILD1=""
+BUILD2=""
 FIRST=0
 #################### Var Setting END ####################
 
@@ -38,7 +39,7 @@ if [ ! -e "build.properties" ]; then
 	exit 0
 fi
 
-echo $RUNDATE
+#echo $RUNDATE
 ##检查增量清单是否存在
 if [ ! -e "$INCFILE" ]; then 
 	echo $MSG_NOT_EXIST_INCFILE
@@ -52,26 +53,26 @@ for line in $(cat ${INCFILE})
 do 
     if [[ "$line" =~ "${strA}" ]]
     then
-	#echo "包含SmartTeller9\trans"
-	if [[ "$line" =~ "${strB}" ]]
-	then
-		echo "包含jar"
-		if test $FIRST -ne 0;then
-			echo "不是第一次"
-			BUILD=${BUILD},${line}
-		else
-			echo "是第一次"
-			BUILD="$line"
-			FIRST=1
-			echo "第一次"$BUILD
-		fi	
-	else
-		echo "不包含jar"
-	fi
-    else
-	echo "不包含SmartTeller9\trans"
+        #echo "包含SmartTeller9\trans"
+        if [[ "$line" =~ "${strB}" ]]
+        then
+    #		echo "包含jar"
+            if test ${FIRST} -ne 0;then
+                BUILD2=`echo ${BUILD1},${line}`
+            else
+                BUILD2=`echo ${line}`
+                FIRST=1
+            fi
+            BUILD1=${BUILD2}
+#        else
+#            echo "不包含jar"
+        fi
+#    else
+#	echo "不包含SmartTeller9\trans"
     fi
 done
+
+echo $BUILD2 | `sed -i "s/SmartTeller9\trans\//g"`
 
 # 进行增量交易的编译
 
