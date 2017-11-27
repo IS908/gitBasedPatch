@@ -78,11 +78,12 @@ done
 BUILD=${BUILD//SmartTeller9\\trans\\/}
 BUILD=${BUILD//.jar/}
 echo "需要打版本的交易为："$BUILD
-sed -i "/sourceBase=/s/=.*/=${BUILD//\\/\\\}/" build.properties
+sed -i "/sourceBase=/s/=.*/=${BUILD//\\/\/}/" build.properties
 
 # 进行增量交易的编译
 echo "开始编译"
 ant -buildfile build.xml
 # 进行增量抽取工作
+
 
 # 进行增量包的发布
