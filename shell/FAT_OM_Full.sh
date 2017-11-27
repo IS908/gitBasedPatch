@@ -49,13 +49,13 @@ CheckStartState() {
     PID_APP=`/usr/sbin/lsof -n -P -t -i :${PORT_APP}`
     echo 'PID_APP:' $PID_APP
     APP_RUN_STATUS=`ps -ef | grep ${PID_APP} | grep -v 'grep' | wc -l`
-    echo 'APP_RUN_STATUS:' $APP_RUN_STATUS
-    if [ $APP_RUN_STATUS -eq 1 ]
+    echo 'APP_RUN_STATUS:' ${APP_RUN_STATUS}
+    if [ ${APP_RUN_STATUS} -eq 1 ]
     then
-        echo $MSG_START_SUCCESS
+        echo ${MSG_START_SUCCESS}
     else
         APP_RUN_STATUS=-1
-        echo $MSG_STATUS_ERROR
+        echo ${MSG_STATUS_ERROR}
     fi
 }
 
@@ -63,7 +63,7 @@ CHECK_INTERVAL() {
     for i in `seq $1`
     do
         sleep 10s
-        echo 'check' $i
+        echo 'check' ${i}
     done
 }
 #################### Function END ####################
@@ -75,21 +75,21 @@ mv ${BACKUP_HOME}/ensemble-om-1.0.4-SNAPSHOT ${BACKUP_HOME}/ensemble-om
 
 # 检查并停止应用，以备部署新应用
 CheckStopState
-if [ $APP_RUN_STATUS -ne 0 ];then
+if [ ${APP_RUN_STATUS} -ne 0 ];then
     echo 'App stopping ...'
     sh ${OM_HOME}/ensemble-om/bin/stop.sh
 	CHECK_INTERVAL 1
     for i in `seq 3`
     do   
         CheckStopState
-        if [ $APP_RUN_STATUS -eq 0 ];then
+        if [ ${APP_RUN_STATUS} -eq 0 ];then
             break
         fi
         CHECK_INTERVAL 3
     done
-    if [ $APP_RUN_STATUS -ne 0 ];then
+    if [ ${APP_RUN_STATUS} -ne 0 ];then
         # 停止失败
-        echo $MSG_STOP_FAILD
+        echo ${MSG_STOP_FAILD}
         exit
     fi
 fi
@@ -108,31 +108,31 @@ fi
 mv ${BACKUP_HOME}/ensemble-om ${OM_HOME}
 echo 'App starting ...'
 sh ${OM_HOME}/ensemble-om/bin/start.sh
-CHECK_INTERVAL $CHECK_TIME
+CHECK_INTERVAL ${CHECK_TIME}
 
 
 # 检查新部署应用是否启动成功
 CheckStartState
-if [ $APP_RUN_STATUS -eq 1 ];then
+if [ ${APP_RUN_STATUS} -eq 1 ];then
     # 新应用启动，删除旧应用
     rm -rf ${OM_HOME}/ensemble-om-old
-    echo $MSG_START_SUCCESS
+    echo ${MSG_START_SUCCESS}
 else
     for i in `seq 5`
     do   
         CheckStartState
-        if [ $APP_RUN_STATUS -eq 1 ];then
+        if [ ${APP_RUN_STATUS} -eq 1 ];then
             # 新应用启动，删除旧应用
             rm -rf ${OM_HOME}/ensemble-om-old
-            echo $MSG_START_SUCCESS
+            echo ${MSG_START_SUCCESS}
             break
         fi
         echo 'Retry App starting ...'
         sh ${OM_HOME}/ensemble-om/bin/start.sh
-        CHECK_INTERVAL $CHECK_TIME
+        CHECK_INTERVAL ${CHECK_TIME}
     done
-    if [ $APP_RUN_STATUS -eq 0 ];then
+    if [ ${APP_RUN_STATUS} -eq 0 ];then
         # 新部署应用多次尝试启动失败，未知异常待人工检查状态
-        echo $MSG_STATUS_ERROR
+        echo ${MSG_STATUS_ERROR}
     fi
 fi

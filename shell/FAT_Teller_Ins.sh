@@ -33,28 +33,28 @@ ZIP_HOME=${BACKUP_HOME}
 # 检查应用是否停止 并返回状态码：停止成功:1；停止失败:0
 CheckStopState(){
     OLD_PID_APP=`/usr/sbin/lsof -n -P -t -i :${PORT_APP}`
-	echo 'OLD_PID_APP:' $OLD_PID_APP
-    APP_RUN_STATUS=`ps -ef | grep $OLD_PID_APP | grep -v 'grep' | wc -l`
-	echo 'APP_RUN_STATUS:' $APP_RUN_STATUS
+	echo 'OLD_PID_APP:' ${OLD_PID_APP}
+    APP_RUN_STATUS=`ps -ef | grep ${OLD_PID_APP} | grep -v 'grep' | wc -l`
+	echo 'APP_RUN_STATUS:' ${APP_RUN_STATUS}
 
-    if [ $APP_RUN_STATUS -eq 0 ];then
+    if [ ${APP_RUN_STATUS} -eq 0 ];then
         # 成功停止
-        echo $MSG_STOP_SUCCESS
+        echo ${MSG_STOP_SUCCESS}
     fi
 }
 
 # 检查应用是否启动 并返回状态码：启动成功:1；启动失败:0
 CheckStartState() {
     PID_APP=`/usr/sbin/lsof -n -P -t -i :${PORT_APP}`
-    echo 'PID_APP:' $PID_APP
+    echo 'PID_APP:' ${PID_APP}
     APP_RUN_STATUS=`ps -ef | grep ${PID_APP} | grep -v 'grep' | wc -l`
-    echo 'APP_RUN_STATUS:' $APP_RUN_STATUS
-    if [ $APP_RUN_STATUS -eq 1 ]
+    echo 'APP_RUN_STATUS:' ${APP_RUN_STATUS}
+    if [ ${APP_RUN_STATUS} -eq 1 ]
     then
-        echo $MSG_START_SUCCESS
+        echo ${MSG_START_SUCCESS}
     else
         APP_RUN_STATUS=-1
-        echo $MSG_STATUS_ERROR
+        echo ${MSG_STATUS_ERROR}
     fi
 }
 
@@ -73,21 +73,21 @@ unzip ${BACKUP_HOME}/SmartTellerV9.4.5.zip
 
 # 检查并停止应用，以备部署新应用
 CheckStopState
-if [ $APP_RUN_STATUS -ne 0 ];then
+if [ ${APP_RUN_STATUS} -ne 0 ];then
     echo 'App stopping ...'
     sh ${TELLER_HOME}/stop.sh
 	CHECK_INTERVAL 1
     for i in `seq 3`
     do   
         CheckStopState
-        if [ $APP_RUN_STATUS -eq 0 ];then
+        if [ ${APP_RUN_STATUS} -eq 0 ];then
             break
         fi
         CHECK_INTERVAL 3
     done
-    if [ $APP_RUN_STATUS -ne 0 ];then
+    if [ ${APP_RUN_STATUS} -ne 0 ];then
         # 停止失败
-        echo $MSG_STOP_FAILD
+        echo ${MSG_STOP_FAILD}
         exit
     fi
 fi
@@ -106,30 +106,30 @@ fi
 mv ${BACKUP_HOME}/SmartTeller9 ${TELLER_HOME}
 echo 'App starting ...'
 sh ${TELLER_HOME}/SmartTeller9/start
-CHECK_INTERVAL $CHECK_TIME
+CHECK_INTERVAL ${CHECK_TIME}
 
 # 检查新部署应用是否启动成功
 CheckStartState
-if [ $APP_RUN_STATUS -eq 1 ];then
+if [ ${APP_RUN_STATUS} -eq 1 ];then
     # 新应用启动，删除旧应用
     rm -rf ${TELLER_HOME}/SmartTeller9-old
-    echo $MSG_START_SUCCESS
+    echo ${MSG_START_SUCCESS}
 else
     for i in `seq 5`
     do   
         CheckStartState
-        if [ $APP_RUN_STATUS -eq 1 ];then
+        if [ ${APP_RUN_STATUS} -eq 1 ];then
             # 新应用启动，删除旧应用
             rm -rf ${TELLER_HOME}/SmartTeller9-old
-            echo $MSG_START_SUCCESS
+            echo ${MSG_START_SUCCESS}
             break
         fi
         echo 'Retry App starting ...'
         sh ${TELLER_HOME}/start
-        CHECK_INTERVAL $CHECK_TIME
+        CHECK_INTERVAL ${CHECK_TIME}
     done
-    if [ $APP_RUN_STATUS -eq 0 ];then
+    if [ ${APP_RUN_STATUS} -eq 0 ];then
         # 新部署应用多次尝试启动失败，未知异常待人工检查状态
-        echo $MSG_STATUS_ERROR
+        echo ${MSG_STATUS_ERROR}
     fi
 fi
