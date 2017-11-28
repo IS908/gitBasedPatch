@@ -32,9 +32,9 @@ ANT_HOME=${FILE_PATH}/tools/ant/
 
 MSG_NOT_EXIST_PROPERTIES='不存在增量执行文件build.properties，不可以进行打增量版本'
 MSG_NOT_EXIST_INCFILE='不存在增量清单文件，不可以进行打增量版本'
-strA="SmartTeller9\trans"
-strB=".jar"
-strC="VENUS"
+PREFIX="SmartTeller9\trans"
+SERFIX=".jar"
+VENUS_JAR="VENUS"
 FIRST=0
 BUILD=""
 TEMP=""
@@ -69,11 +69,11 @@ cp ${BUILD_PROPERTIES} temp.properties
 for line in $(cat ${INCFILE})
 do 
     TEMP2=$line
-    if [[ "$line" =~ "${strA}" ]]
+    if [[ "$line" =~ "${PREFIX}" ]]
     then
 #        echo "包含SmartTeller9\trans"
         echo ${TEMP2//\\/\/} >>${INCFILE_NEW}
-        if [[ "$line" =~ "${strB}" ]]
+        if [[ "$line" =~ "${SERFIX}" ]]
         then
 #   		echo "包含jar"
             if test ${FIRST} -ne 0;then
@@ -83,13 +83,11 @@ do
                 FIRST=1
             fi
             TEMP=${BUILD}
-#        else
-#            echo "不包含jar"
         fi
     else
 	TEMP2=${TEMP2//\\/\/}
 	echo "="$TEMP2
-        if [[ "${TEMP2}" =~ "${strC}" ]]
+        if [[ "${TEMP2}" =~ "${VENUS_JAR}" ]]
         then
 #	        echo "不包含SmartTeller9\trans，包含VENUS"
             TEMP2=${TEMP2//VENUS/SmartTeller9\/trans}
