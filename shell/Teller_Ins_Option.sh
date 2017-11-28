@@ -1,5 +1,5 @@
 #!/bin/bash
-#source ~/.bashrc
+source ~/.bashrc
 
 echo **********************************************************
 echo **                                                      **
@@ -23,11 +23,12 @@ RUNDATE=`date +%Y%m%d`
 TAG_NO=02
 BUILD_PATH=${FILE_PATH}
 SIGN_PATH=${FILE_PATH}/SmartTeller9/InteractiveFrame_ClientResource/application
+SIGN_JAR=SmartTeller9/InteractiveFrame_ClientResource/application/*.jar
 BUILD_PROPERTIES=${BUILD_PATH}/build.properties
 INCFILE=${FILE_PATH}/RUNALL/app_${RUNDATE}${TAG_NO}.txt
 INCFILE_NEW=${FILE_PATH}/RUNALL/app_${RUNDATE}${TAG_NO}.txt~
 TARGET=app_SmartTeller9_${RUNDATE}_${TAG_NO}_patch.zip
-ANT_HOME=${FILE_PATH}/tools\ant\
+ANT_HOME=${FILE_PATH}/tools/ant/
 
 MSG_NOT_EXIST_PROPERTIES='不存在增量执行文件build.properties，不可以进行打增量版本'
 MSG_NOT_EXIST_INCFILE='不存在增量清单文件，不可以进行打增量版本'
@@ -60,7 +61,9 @@ fi
 if [ -e "$TARGET" ]; then 
 	rm "$TARGET"
 fi
+
 cp ${BUILD_PROPERTIES} temp.properties
+
 # 读取增量描述文件，进行增量配置文件的处理
 ##将增量清单中需要编译的交易提取出来,将不编译写入过度清单文件
 for line in $(cat ${INCFILE})
@@ -68,11 +71,11 @@ do
     TEMP2=$line
     if [[ "$line" =~ "${strA}" ]]
     then
-        #echo "包含SmartTeller9\trans"
+#        echo "包含SmartTeller9\trans"
         echo ${TEMP2//\\/\/} >>${INCFILE_NEW}
         if [[ "$line" =~ "${strB}" ]]
         then
-    #		echo "包含jar"
+#   		echo "包含jar"
             if test ${FIRST} -ne 0;then
                 BUILD=`echo ${TEMP},${line}`
             else
@@ -88,7 +91,7 @@ do
 	echo "="$TEMP2
         if [[ "${TEMP2}" =~ "${strC}" ]]
         then
-	        echo "不包含SmartTeller9\trans，包含VENUS"
+#	        echo "不包含SmartTeller9\trans，包含VENUS"
             TEMP2=${TEMP2//VENUS/SmartTeller9\/trans}
             echo -e $TEMP2 >> ${INCFILE_NEW}
         else
@@ -105,18 +108,19 @@ sed -i "/sourceBase=/s/=.*/=${BUILD//\\/\\/\\}/" temp.properties
 
 # 进行增量交易的编译
 echo "开始编译交易"
-#ant -buildfile build_ins.xml
+ant -buildfile build_ins.xml
 
 ##签名
 if [[ ${SIGN_FLAG}="Y" ]]
 then
-    echo 开始进行签名
+    echo "开始进行签名"
     cd ${SIGN_PATH}
     ant -f sign.xml
 fi
 
+# 进行增量抽取
+##增量清单文件逐个压缩到增量目标zip
 cd ${BUILD_PATH}
-# 进行增量抽取工作
 if [ -e "$INCFILE_NEW" ]; then
     echo "增量版本开始打包..."
 	for line in $(cat ${INCFILE_NEW})
@@ -125,5 +129,13 @@ if [ -e "$INCFILE_NEW" ]; then
     done
 fi
 
+##签名jar包压缩到增量目标zip
+if [[ ${SIGN_FLAG}="Y" ]]
+then
+    zip -q -r ${TARGET} ${SIGN_JAR}
+fi
+
+##将SmartTeller9_1.0.0.jar公共包压缩到增量目标zip包
+zip -q -r ${TARGET} SmartTeller9/trans/SmartTeller9_1.0.0.jar
 
 # 进行增量包的发布
