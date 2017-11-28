@@ -32,8 +32,8 @@ ANT_HOME=${FILE_PATH}/tools/ant/
 
 MSG_NOT_EXIST_PROPERTIES='不存在增量执行文件build.properties，不可以进行打增量版本'
 MSG_NOT_EXIST_INCFILE='不存在增量清单文件，不可以进行打增量版本'
-PREFIX="SmartTeller9\trans"
-SERFIX=".jar"
+prefix="SmartTeller9\trans"
+surfix=".jar"
 VENUS_JAR="VENUS"
 FIRST=0
 BUILD=""
@@ -45,12 +45,12 @@ export ANT_HOME=${ANT_HOME}
 cd ${BUILD_PATH}
 ##检查增量执行文件是否存在
 if [ ! -e "build.properties" ]; then 
-	echo $MSG_NOT_EXIST_PROPERTIES
+	echo ${MSG_NOT_EXIST_PROPERTIES}
 	exit 0
 fi
 ##检查增量清单是否存在
 if [ ! -e "$INCFILE" ]; then 
-	echo $MSG_NOT_EXIST_INCFILE
+	echo ${MSG_NOT_EXIST_INCFILE}
 	exit 1
 fi
 ##删除同名的过度增量清单
@@ -68,12 +68,12 @@ cp ${BUILD_PROPERTIES} patch.properties
 ##将增量清单中需要编译的交易提取出来,将不编译写入过度清单文件
 for line in $(cat ${INCFILE})
 do 
-    TEMP2=$line
-    if [[ "$line" =~ "${PREFIX}" ]]
+    TEMP2=${line}
+    if [[ "$line" =~ "${prefix}" ]]
     then
 #        echo "包含SmartTeller9\trans"
         echo ${TEMP2//\\/\/} >>${INCFILE_NEW}
-        if [[ "$line" =~ "${SERFIX}" ]]
+        if [[ "$line" =~ "${surfix}" ]]
         then
 #   		echo "包含jar"
             if test ${FIRST} -ne 0;then
@@ -86,14 +86,14 @@ do
         fi
     else
 	TEMP2=${TEMP2//\\/\/}
-	echo "="$TEMP2
+	echo "="${TEMP2}
         if [[ "${TEMP2}" =~ "${VENUS_JAR}" ]]
         then
 #	        echo "不包含SmartTeller9\trans，包含VENUS"
             TEMP2=${TEMP2//VENUS/SmartTeller9\/trans}
-            echo -e $TEMP2 >> ${INCFILE_NEW}
+            echo -e ${TEMP2} >> ${INCFILE_NEW}
         else
-            echo -e $TEMP2 >> ${INCFILE_NEW}
+            echo -e ${TEMP2} >> ${INCFILE_NEW}
         fi
     fi
 done
@@ -119,7 +119,7 @@ fi
 # 进行增量抽取
 ##增量清单文件逐个压缩到增量目标zip
 cd ${BUILD_PATH}
-if [ -e "$INCFILE_NEW" ]; then
+if [ -e "${INCFILE_NEW}" ]; then
     echo "增量版本开始打包..."
 	for line in $(cat ${INCFILE_NEW})
     do
