@@ -3,29 +3,16 @@ source ~/.bashrc
 
 echo **********************************************************
 echo **                                                      **
-echo **             ModelBank Deploy Shell                   **
+echo **            Fintelligen Deploy Shell                  **
 echo **              http://www.dcits.com                    **
 echo **            author:chenkunh@dcits.com                 **
 echo **                                                      **
 echo **********************************************************
-# 脚本说明：
-# 部署包备份，在部署的相应服务器上进行备份，其它位置不做备份，
-# 备份目录：
-# 全量包：~/backup/Fintelligen/Fintelligen_Full_${TAG_NO}/*.tar.gz 
-# 增量包：~/backup/Fintelligen/Fintelligen_Ins_${TAG_NO}/*.zip
-# 其中 ${TAG_NO} 与 GitLab 上的 Tag 保持一致
-# 
-# 1、停止当前应用服务
-# 2、备份全量包到指定目录并解压
-# 3、重命名旧的应用包，部署新的应用包
-# 4、启动服务：
-# 5、若启动成功，则删除旧的应用包
-# 6、若启动失败，保留旧的应用包
 
 #################### Var Setting START ####################
 #run_status=`netstat -anp|grep 9001|awk '{printf $7}'|cut -d/ -f1`
 # 应用端口号，注意需加单引号
-PORT_APP=''
+PORT_APP='8001'
 # 启动应用检查时间间隔设定(单位：秒)
 CHECK_TIME=9
 
