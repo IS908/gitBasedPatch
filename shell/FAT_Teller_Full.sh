@@ -90,6 +90,7 @@ cd ${BACKUP_HOME}
 mkdir SmartTeller9
 cd SmartTeller9
 unzip ${BACKUP_HOME}/SmartTellerV9.4.5.zip
+echo Teller9_Full_${TAG_NO} > ${BACKUP_HOME}/SmartTeller9/VERSIONID
 
 # 检查并停止应用，以备部署新应用
 CheckStopState
