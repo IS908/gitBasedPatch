@@ -66,7 +66,7 @@ CHECK_INTERVAL() {
     for i in `seq $1`
     do
         sleep 10s
-        echo 'check' ${i}
+        echo 'check' ${i}0s
         CheckAppState
         if [ ${APP_RUN_STATUS} -ne 0 ];then
             break
@@ -86,7 +86,7 @@ START_TELLER() {
 # 新应用发布成功后，备份被替换的旧应用（主要为日志备份）
 BACKUP_OLD_APP() {
     versionNum=`cat ${APP_HOME}/SmartTeller9/VERSIONID`
-    tar -czf ${BACKUP_HOME}/../${versionNum}/SmartTeller9-end.tar.gz ${APP_HOME}/SmartTeller9-old
+    tar -czf ${BACKUP_HOME}/SmartTeller9-end.tar.gz ${APP_HOME}/SmartTeller9-old
     rm -rf ${APP_HOME}/SmartTeller9-old
 }
 #################### Function END ####################
