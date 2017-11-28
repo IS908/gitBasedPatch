@@ -20,14 +20,13 @@ SIGN_FLAG=Y
 SIGN_PWD=
 FILE_PATH=`pwd`
 RUNDATE=`date +%Y%m%d`
-TAG_NO=02
 BUILD_PATH=${FILE_PATH}
 SIGN_PATH=${FILE_PATH}/SmartTeller9/InteractiveFrame_ClientResource/application
 SIGN_JAR=SmartTeller9/InteractiveFrame_ClientResource/application/*.jar
 BUILD_PROPERTIES=${BUILD_PATH}/build.properties
-INCFILE=${FILE_PATH}/RUNALL/app_${RUNDATE}${TAG_NO}.txt
-INCFILE_NEW=${FILE_PATH}/RUNALL/app_${RUNDATE}${TAG_NO}.txt~
-TARGET=app_SmartTeller9_${RUNDATE}_${TAG_NO}_patch.zip
+INCFILE=${FILE_PATH}/RUNALL/app_${RUNDATE}.txt
+INCFILE_NEW=${FILE_PATH}/RUNALL/app_${RUNDATE}.txt~
+TARGET=app_SmartTeller9_${RUNDATE}_${BUILD_NUMBER}_patch.zip
 ANT_HOME=${FILE_PATH}/tools/ant/
 
 MSG_NOT_EXIST_PROPERTIES='不存在增量执行文件build.properties，不可以进行打增量版本'
