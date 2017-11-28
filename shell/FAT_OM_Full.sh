@@ -3,17 +3,15 @@ source ~/.bashrc
 
 echo **********************************************************
 echo **                                                      **
-echo **             ModelBank Deploy Shell                   **
+echo **            EnsembleOM Deploy Shell                   **
 echo **              http://www.dcits.com                    **
 echo **            author:chenkunh@dcits.com                 **
 echo **                                                      **
 echo **********************************************************
 
-
 #################### Var Setting START ####################
-#run_status=`netstat -anp|grep 9001|awk '{printf $7}'|cut -d/ -f1`
 # 应用端口号，注意需加单引号
-PORT_APP=''
+PORT_APP='18889'
 # 启动应用检查时间间隔设定(单位：10秒)
 CHECK_TIME=9
 
@@ -27,27 +25,27 @@ MSG_STATUS_ERROR='APP应用状态未知,请人工确认当前状态'
 DCITS_HOME=/app/dcits
 OM_HOME=${DCITS_HOME}/ensemble
 BACKUP_HOME=${DCITS_HOME}/backup/EnsembleOM/EnsembleOM_Full_${TAG_NO}
-TAR_GZ_HOME=${BACKUP_HOME}
+ZIP_HOME=${BACKUP_HOME}/target
 #################### Var Setting END ####################
 
 #################### Function START ####################
 # 检查应用是否停止 并返回状态码：停止成功:1；停止失败:0
 CheckStopState(){
     OLD_PID_APP=`/usr/sbin/lsof -n -P -t -i :${PORT_APP}`
-	echo 'OLD_PID_APP:' $OLD_PID_APP
-    APP_RUN_STATUS=`ps -ef | grep $OLD_PID_APP | grep -v 'grep' | wc -l`
-	echo 'APP_RUN_STATUS:' $APP_RUN_STATUS
+	echo 'OLD_PID_APP:' ${OLD_PID_APP}
+    APP_RUN_STATUS=`ps -ef | grep ${OLD_PID_APP} | grep -v 'grep' | wc -l`
+	echo 'APP_RUN_STATUS:' ${APP_RUN_STATUS}
 
-    if [ $APP_RUN_STATUS -eq 0 ];then
+    if [ ${APP_RUN_STATUS} -eq 0 ];then
         # 成功停止
-        echo $MSG_STOP_SUCCESS
+        echo ${MSG_STOP_SUCCESS}
     fi
 }
 
 # 检查应用是否启动 并返回状态码：启动成功:1；启动失败:0
 CheckStartState() {
     PID_APP=`/usr/sbin/lsof -n -P -t -i :${PORT_APP}`
-    echo 'PID_APP:' $PID_APP
+    echo 'PID_APP:' ${PID_APP}
     APP_RUN_STATUS=`ps -ef | grep ${PID_APP} | grep -v 'grep' | wc -l`
     echo 'APP_RUN_STATUS:' ${APP_RUN_STATUS}
     if [ ${APP_RUN_STATUS} -eq 1 ]
@@ -70,6 +68,7 @@ CHECK_INTERVAL() {
 
 # 备份全量包，并解压包已备部署 DONE
 cd ${BACKUP_HOME}
+mv ${ZIP_HOME}/ensemble-om-1.0.4-SNAPSHOT-assembly.zip ${BACKUP_HOME}
 unzip ${BACKUP_HOME}/ensemble-om-1.0.4-SNAPSHOT-assembly.zip
 mv ${BACKUP_HOME}/ensemble-om-1.0.4-SNAPSHOT ${BACKUP_HOME}/ensemble-om
 
@@ -84,6 +83,9 @@ if [ ${APP_RUN_STATUS} -ne 0 ];then
         CheckStopState
         if [ ${APP_RUN_STATUS} -eq 0 ];then
             break
+        else
+            echo 'Retry OM stopping ...'
+            sh ${OM_HOME}/ensemble-om/bin/stop.sh
         fi
         CHECK_INTERVAL 3
     done
@@ -106,10 +108,9 @@ fi
 
 # 部署新的应用包，并启动新应用
 mv ${BACKUP_HOME}/ensemble-om ${OM_HOME}
-echo 'App starting ...'
+echo 'OM starting ...'
 sh ${OM_HOME}/ensemble-om/bin/start.sh
 CHECK_INTERVAL ${CHECK_TIME}
-
 
 # 检查新部署应用是否启动成功
 CheckStartState
@@ -126,9 +127,10 @@ else
             rm -rf ${OM_HOME}/ensemble-om-old
             echo ${MSG_START_SUCCESS}
             break
+        else
+            echo 'Retry App starting ...'
+            sh ${OM_HOME}/ensemble-om/bin/start.sh
         fi
-        echo 'Retry App starting ...'
-        sh ${OM_HOME}/ensemble-om/bin/start.sh
         CHECK_INTERVAL ${CHECK_TIME}
     done
     if [ ${APP_RUN_STATUS} -eq 0 ];then
