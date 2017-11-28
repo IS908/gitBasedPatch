@@ -21,23 +21,23 @@ SIGN_PWD=
 FILE_PATH=`pwd`
 RUNDATE=`date +%Y%m%d`
 BUILD_PATH=${FILE_PATH}
-SIGN_PATH=${FILE_PATH}/SmartTeller9/InteractiveFrame_ClientResource/application
-SIGN_JAR=SmartTeller9/InteractiveFrame_ClientResource/application/*.jar
-BUILD_PROPERTIES=${BUILD_PATH}/build.properties
-INCFILE=${FILE_PATH}/RUNALL/app_${RUNDATE}.txt
-INCFILE_NEW=${FILE_PATH}/RUNALL/app_${RUNDATE}.txt~
-TARGET=app_SmartTeller9_Ins_${TAG_NO}.zip
 ANT_HOME=${FILE_PATH}/tools/ant/
+TARGET=app_SmartTeller9_Ins_${TAG_NO}.zip
+INCFILE=${FILE_PATH}/RUNALL/app_${RUNDATE}.txt
+BUILD_PROPERTIES=${BUILD_PATH}/build.properties
+INCFILE_NEW=${FILE_PATH}/RUNALL/app_${RUNDATE}.txt~
+SIGN_JAR=SmartTeller9/InteractiveFrame_ClientResource/application/*.jar
+SIGN_PATH=${FILE_PATH}/SmartTeller9/InteractiveFrame_ClientResource/application
 
-MSG_NOT_EXIST_PROPERTIES='不存在增量执行文件build.properties，不可以进行打增量版本'
-MSG_NOT_EXIST_INCFILE='不存在增量清单文件，不可以进行打增量版本'
-prefix="SmartTeller9\trans"
-surfix=".jar"
-VENUS_JAR="VENUS"
-FIRST=0
-BUILD=""
 TEMP=""
 TEMP2=""
+BUILD=""
+FIRST=0
+surfix=".jar"
+VENUS_JAR="VENUS"
+prefix="SmartTeller9\trans"
+MSG_NOT_EXIST_INCFILE='不存在增量清单文件，不可以进行打增量版本'
+MSG_NOT_EXIST_PROPERTIES='不存在增量执行文件build.properties，不可以进行打增量版本'
 #################### Var Setting END ####################
 
 export ANT_HOME=${ANT_HOME}
@@ -64,7 +64,9 @@ fi
 cp ${BUILD_PROPERTIES} patch.properties
 
 # 读取增量描述文件，进行增量配置文件的处理
-##将增量清单中需要编译的交易提取出来,将不编译写入过度清单文件
+##处理思路：1、筛选需要编译的交易，将需要编译的交易写入增量执行文件patch.properties
+##         2、将不需要编译的文件写入过度增量清单
+##         3、期间将windows中\路径替换为linux中/，将不编译的VENUS交易路径替换为SmartTeller9\trans
 for line in $(cat ${INCFILE})
 do 
     TEMP2=${line}
@@ -97,7 +99,7 @@ do
     fi
 done
 
-#筛选需要编译的交易
+#将需要编译的交易写入编译执行文件
 BUILD=${BUILD//SmartTeller9\\trans\\/}
 BUILD=${BUILD//.jar/}
 echo "需要打版本的交易为："$BUILD
@@ -116,7 +118,7 @@ then
 fi
 
 # 进行增量抽取
-##增量清单文件逐个压缩到增量目标zip
+##根据增量清单文件逐个将文件压缩到增量目标zip
 cd ${BUILD_PATH}
 if [ -e "${INCFILE_NEW}" ]; then
     echo "增量版本开始打包..."
@@ -135,4 +137,4 @@ fi
 ##将SmartTeller9_1.0.0.jar公共包压缩到增量目标zip包
 zip -q -r ${TARGET} SmartTeller9/trans/SmartTeller9_1.0.0.jar
 
-# 进行增量包的发布
+echo "SmartTeller9增量编译结束。。。"

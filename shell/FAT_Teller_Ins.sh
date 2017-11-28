@@ -26,8 +26,9 @@ MSG_STATUS_ERROR='APP应用状态未知,请人工确认当前状态'
 
 DCITS_HOME=/app/dcits
 APP_HOME=${DCITS_HOME}/ensemble
-BACKUP_HOME=${DCITS_HOME}/backup/SmartTeller9/Teller9_Full_${TAG_NO}
+BACKUP_HOME=${DCITS_HOME}/backup/SmartTeller9/Teller9_Ins_${TAG_NO}
 ZIP_HOME=${BACKUP_HOME}
+TARGET=app_SmartTeller9_Ins_${TAG_NO}.zip
 
 ########## Var Setting END ##########
 
@@ -79,7 +80,7 @@ START_TELLER() {
 cd ${BACKUP_HOME}
 mkdir SmartTeller9
 cd SmartTeller9
-unzip ${BACKUP_HOME}/SmartTellerV9.4.5.zip
+unzip ${BACKUP_HOME}/${TARGET}
 
 # 检查并停止应用，以备部署新应用
 CheckStopState
