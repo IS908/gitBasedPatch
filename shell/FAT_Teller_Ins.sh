@@ -6,7 +6,7 @@ echo **                                                      **
 echo **              Teller9 Deploy Shell                    **
 echo **              http://www.dcits.com                    **
 echo **            author:chenkunh@dcits.com                 **
-echo **                                                      **
+echo **            update by zhangjig@dcits.com              **
 echo **********************************************************
 
 #注意的点 Teller 的启动脚本 start 启动为 ./run.sh ，执行start脚本前需先cd切换到Teller目录下增加执行权限，再sh start，否则会调用不到run.sh
@@ -19,10 +19,10 @@ CHECK_TIME=12
 
 # 应用状态 APP_RUN_STATUS - 0：停止状态；1：启动状态
 APP_RUN_STATUS=-10
-MSG_START_SUCCESS='APP应用启动状态'
-MSG_STOP_SUCCESS='APP应用停止状态'
-MSG_STOP_FAILD='APP应用停止失败，请人工停止原应用并部署'
-MSG_STATUS_ERROR='APP应用状态未知,请人工确认当前状态'
+MSG_START_SUCCESS='Teller应用启动状态'
+MSG_STOP_SUCCESS='Teller应用停止状态'
+MSG_STOP_FAILD='Teller应用停止失败，请人工停止原应用并部署'
+MSG_STATUS_ERROR='Teller应用状态未知,请人工确认当前状态'
 
 DCITS_HOME=/app/dcits
 APP_HOME=${DCITS_HOME}/ensemble
@@ -65,27 +65,33 @@ CHECK_INTERVAL() {
     for i in `seq $1`
     do
         sleep 10s
-        echo check ${i}
+        echo 'check' ${i}
+        CheckStartState
+        if [ ${APP_RUN_STATUS} -eq 1 ];then
+            break
+        fi
     done
 }
 
+# 启动teller应用
 START_TELLER() {
     cd ${APP_HOME}/SmartTeller9
     chmod 755 ${APP_HOME}/SmartTeller9/*
     sh start
 }
+
+# 新应用发布成功后，备份被替换的旧应用（主要为日志备份）
+BACKUP_OLD_APP() {
+    versionNum=`cat ${APP_HOME}/SmartTeller9/VERSIONID`
+    tar -czf ${BACKUP_HOME}/../${versionNum}/SmartTeller9-end.tar.gz ${APP_HOME}/SmartTeller9-old
+    rm -rf ${APP_HOME}/SmartTeller9-old
+}
 #################### Function END ####################
 
-# 备份全量包，并解压包已备部署 DONE
-cd ${BACKUP_HOME}
-mkdir SmartTeller9
-cd SmartTeller9
-unzip ${BACKUP_HOME}/${TARGET}
-
-# 检查并停止应用，以备部署新应用
+# 检查并停止应用
 CheckStopState
 if [ ${APP_RUN_STATUS} -ne 0 ];then
-    echo 'App stopping ...'
+    echo 'Teller stopping ...'
     sh ${APP_HOME}/SmartTeller9/stop.sh
 	CHECK_INTERVAL 1
     for i in `seq 3`
@@ -93,6 +99,9 @@ if [ ${APP_RUN_STATUS} -ne 0 ];then
         CheckStopState
         if [ ${APP_RUN_STATUS} -eq 0 ];then
             break
+        else
+            echo 'Retry Teller stopping ...'
+            sh ${APP_HOME}/SmartTeller9/stop.sh skip
         fi
         sh ${APP_HOME}/SmartTeller9/stop.sh
         CHECK_INTERVAL 3
@@ -111,19 +120,25 @@ if [[ -d ${APP_HOME}/SmartTeller9-old/ ]];then
 fi
 
 if [[ -d ${APP_HOME}/SmartTeller9/ ]];then
-    mv ${APP_HOME}/SmartTeller9 ${APP_HOME}/SmartTeller9-old
+    cp ${APP_HOME}/SmartTeller9 ${APP_HOME}/SmartTeller9-old
 fi
 
+# 备份全量包，并解压增量包 DONE
+cd ${BACKUP_HOME}
+
+unzip -o -d ${APP_HOME}  ${BACKUP_HOME}/${TARGET}
+
 # 部署新的应用包，并启动新应用
-mv ${BACKUP_HOME}/SmartTeller9 ${APP_HOME}
+#mv -f ${BACKUP_HOME}/SmartTeller9 ${APP_HOME}/SmartTeller9
 echo 'Teller starting ...'
 START_TELLER
 CHECK_INTERVAL ${CHECK_TIME}
 
 # 检查新部署应用是否启动成功
+CheckStartState
 if [ ${APP_RUN_STATUS} -eq 1 ];then
     # 新应用启动，删除旧应用
-    rm -rf ${APP_HOME}/SmartTeller9-old
+    BACKUP_OLD_APP
     echo ${MSG_START_SUCCESS}
 else
     for i in `seq 5`
@@ -131,11 +146,12 @@ else
         CheckStartState
         if [ ${APP_RUN_STATUS} -eq 1 ];then
             # 新应用启动，删除旧应用
-            rm -rf ${APP_HOME}/SmartTeller9-old
+            echo "Start successful, deleting old app ..."
+            BACKUP_OLD_APP
             echo ${MSG_START_SUCCESS}
             break
         else
-            echo 'Retry App starting ...'
+            echo 'Retry Teller starting ...'
             START_TELLER
         fi
         CHECK_INTERVAL ${CHECK_TIME}
