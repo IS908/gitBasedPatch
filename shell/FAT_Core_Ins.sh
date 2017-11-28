@@ -41,13 +41,17 @@ ZIP_HOME=${BACKUP_HOME}/modules/modelBank-all-integration/target
 #################### Var Setting END ####################
 
 #################### Function START ####################
+# 检查应用当前状态
+CheckAppState() {
+    PID_APP=`/usr/sbin/lsof -n -P -t -i :${PORT_APP}`
+    echo 'PID_APP: ' ${PID_APP}
+    APP_RUN_STATUS=`ps -ef | grep ${PID_APP} | grep -v 'grep' | wc -l`
+    echo 'APP_RUN_STATUS: ' ${APP_RUN_STATUS}
+}
+
 # 检查应用是否停止 并返回状态码：停止成功:1；停止失败:0
 CheckStopState(){
-    OLD_PID_APP=`/usr/sbin/lsof -n -P -t -i :${PORT_APP}`
-	echo 'OLD_PID_APP:' ${OLD_PID_APP}
-    APP_RUN_STATUS=`ps -ef | grep ${OLD_PID_APP} | grep -v 'grep' | wc -l`
-	echo 'APP_RUN_STATUS:' ${APP_RUN_STATUS}
-
+    CheckAppState
     if [ ${APP_RUN_STATUS} -eq 0 ];then
         # 成功停止
         echo ${MSG_STOP_SUCCESS}
@@ -56,10 +60,7 @@ CheckStopState(){
 
 # 检查应用是否启动 并返回状态码：启动成功:1；启动失败:0
 CheckStartState() {
-    PID_APP=`/usr/sbin/lsof -n -P -t -i :${PORT_APP}`
-    echo 'PID_APP: ' ${PID_APP}
-    APP_RUN_STATUS=`ps -ef | grep ${PID_APP} | grep -v 'grep' | wc -l`
-    echo 'APP_RUN_STATUS: ' ${APP_RUN_STATUS}
+    CheckAppState
     if [ ${APP_RUN_STATUS} -eq 1 ]
     then
         echo ${MSG_START_SUCCESS}
@@ -69,11 +70,16 @@ CheckStartState() {
     fi
 }
 
+# 间隔状态检查
 CHECK_INTERVAL() {
     for i in `seq $1`
     do
         sleep 10s
-        echo 'check' ${i}
+        echo 'check' ${i}0s
+        CheckAppState
+        if [ ${APP_RUN_STATUS} -ne 0 ];then
+            break
+        fi
     done
 }
 

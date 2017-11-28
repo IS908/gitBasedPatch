@@ -15,7 +15,7 @@ echo **********************************************************
 # 应用端口号，注意需加单引号
 PORT_APP='9080'
 # 启动应用检查时间间隔设定(单位：10秒)
-CHECK_TIME=12
+CHECK_TIME=18
 
 # 应用状态 APP_RUN_STATUS - 0：停止状态；1：启动状态
 APP_RUN_STATUS=-10
@@ -33,13 +33,17 @@ TARGET=app_SmartTeller9_Ins_${TAG_NO}.zip
 ########## Var Setting END ##########
 
 #################### Function START ####################
+# 检查应用当前状态
+CheckAppState() {
+    PID_APP=`/usr/sbin/lsof -n -P -t -i :${PORT_APP}`
+    echo 'PID_APP: ' ${PID_APP}
+    APP_RUN_STATUS=`ps -ef | grep ${PID_APP} | grep -v 'grep' | wc -l`
+    echo 'APP_RUN_STATUS: ' ${APP_RUN_STATUS}
+}
+
 # 检查应用是否停止 并返回状态码：停止成功:1；停止失败:0
 CheckStopState(){
-    OLD_PID_APP=`/usr/sbin/lsof -n -P -t -i :${PORT_APP}`
-	echo 'OLD_PID_APP:' ${OLD_PID_APP}
-    APP_RUN_STATUS=`ps -ef | grep ${OLD_PID_APP} | grep -v 'grep' | wc -l`
-	echo 'APP_RUN_STATUS:' ${APP_RUN_STATUS}
-
+    CheckAppState
     if [ ${APP_RUN_STATUS} -eq 0 ];then
         # 成功停止
         echo ${MSG_STOP_SUCCESS}
@@ -48,10 +52,7 @@ CheckStopState(){
 
 # 检查应用是否启动 并返回状态码：启动成功:1；启动失败:0
 CheckStartState() {
-    PID_APP=`/usr/sbin/lsof -n -P -t -i :${PORT_APP}`
-    echo 'PID_APP:' ${PID_APP}
-    APP_RUN_STATUS=`ps -ef | grep ${PID_APP} | grep -v 'grep' | wc -l`
-    echo 'APP_RUN_STATUS:' ${APP_RUN_STATUS}
+    CheckAppState
     if [ ${APP_RUN_STATUS} -eq 1 ]
     then
         echo ${MSG_START_SUCCESS}
@@ -66,7 +67,7 @@ CHECK_INTERVAL() {
     do
         sleep 10s
         echo 'check' ${i}
-        CheckStartState
+        CheckAppState
         if [ ${APP_RUN_STATUS} -ne 0 ];then
             break
         fi
