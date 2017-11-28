@@ -62,7 +62,7 @@ if [ -e "$TARGET" ]; then
 	rm "$TARGET"
 fi
 
-cp ${BUILD_PROPERTIES} temp.properties
+cp ${BUILD_PROPERTIES} patch.properties
 
 # 读取增量描述文件，进行增量配置文件的处理
 ##将增量清单中需要编译的交易提取出来,将不编译写入过度清单文件
@@ -102,7 +102,7 @@ done
 BUILD=${BUILD//SmartTeller9\\trans\\/}
 BUILD=${BUILD//.jar/}
 echo "需要打版本的交易为："$BUILD
-sed -i "/sourceBase=/s/=.*/=${BUILD//\\/\\/\\}/" temp.properties
+sed -i "/sourceBase=/s/=.*/=${BUILD//\\/\/}/" patch.properties
 
 # 进行增量交易的编译
 echo "开始编译交易"
