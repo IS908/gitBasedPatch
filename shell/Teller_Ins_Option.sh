@@ -17,22 +17,26 @@ echo **********************************************************
 
 #################### Var Setting START ####################
 SIGN_FLAG=Y
-SIGN_PWD=Y
+SIGN_PWD=
 FILE_PATH=`pwd`
 RUNDATE=`date +%Y%m%d`
 TAG_NO=02
 BUILD_PATH=${FILE_PATH}
 BUILD_PROPERTIES=${BUILD_PATH}/build.properties
 INCFILE=${FILE_PATH}/RUNALL/app_${RUNDATE}${TAG_NO}.txt
+INCFILE_NEW=${FILE_PATH}/RUNALL/app_${RUNDATE}${TAG_NO}.txt~
+TARGET=app_SmartTeller9_${RUNDATE}_${TAG_NO}_patch.zip
 ANT_HOME=${FILE_PATH}/tools\ant\
 
 MSG_NOT_EXIST_PROPERTIES='不存在增量执行文件build.properties，不可以进行打增量版本'
 MSG_NOT_EXIST_INCFILE='不存在增量清单文件，不可以进行打增量版本'
 strA="SmartTeller9\trans"
 strB=".jar"
+strC="VENUS"
 FIRST=0
 BUILD=""
 TEMP=""
+TEMP2=""
 #################### Var Setting END ####################
 
 export ANT_HOME=${ANT_HOME}
@@ -42,15 +46,22 @@ if [ ! -e "build.properties" ]; then
 	echo $MSG_NOT_EXIST_PROPERTIES
 	exit 0
 fi
-
-#echo $RUNDATE
 ##检查增量清单是否存在
 if [ ! -e "$INCFILE" ]; then 
 	echo $MSG_NOT_EXIST_INCFILE
 	exit 1
 fi
+##删除同名的过度增量清单
+if [ -e "$INCFILE_NEW" ]; then 
+	rm "$INCFILE_NEW"
+fi
+##删除同名zip增量包
+if [ -e "$TARGET" ]; then 
+	rm "$TARGET"
+fi
 
 # 读取增量描述文件，进行增量配置文件的处理
+##将增量清单中需要编译的交易提取出来,将不编译写入过度清单文件
 for line in $(cat ${INCFILE})
 do 
     if [[ "$line" =~ "${strA}" ]]
@@ -69,8 +80,15 @@ do
 #        else
 #            echo "不包含jar"
         fi
-#    else
-#	echo "不包含SmartTeller9\trans"
+    else
+#	    echo "不包含SmartTeller9\trans，包含VENUS"
+        if [[ "$line" =~ "${strC}" ]]
+        then
+            TEMP2=${$line//VENUS/SmartTeller9\\trans\\}
+            echo -e "\r\n"$TEMP2 >> ${INCFILE_NEW}
+        els
+            echo $line >> ${INCFILE_NEW}
+        fi
     fi
 done
 
@@ -78,12 +96,16 @@ done
 BUILD=${BUILD//SmartTeller9\\trans\\/}
 BUILD=${BUILD//.jar/}
 echo "需要打版本的交易为："$BUILD
-sed -i "/sourceBase=/s/=.*/=${BUILD//\\/\\/\\}/" build.properties
+sed -i "/sourceBase=/s/=.*/=${BUILD//\\/\\/\\}/" temp.properties
 
 # 进行增量交易的编译
 echo "开始编译"
-ant -buildfile build.xml
+#ant -buildfile build_ins.xml
+
 # 进行增量抽取工作
+
+
+##替换app文件中的venus为SmartTeller9\trans\
 
 
 # 进行增量包的发布
