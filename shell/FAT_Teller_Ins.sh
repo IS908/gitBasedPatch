@@ -67,7 +67,7 @@ CHECK_INTERVAL() {
         sleep 10s
         echo 'check' ${i}
         CheckStartState
-        if [ ${APP_RUN_STATUS} -eq 1 ];then
+        if [ ${APP_RUN_STATUS} -ne 0 ];then
             break
         fi
     done
@@ -75,6 +75,8 @@ CHECK_INTERVAL() {
 
 # 启动teller应用
 START_TELLER() {
+    cd ${APP_HOME}
+    tar zxf ${DCITS_HOME}/backup/template/telconf.tar.gz
     cd ${APP_HOME}/SmartTeller9
     chmod 755 ${APP_HOME}/SmartTeller9/*
     sh start
