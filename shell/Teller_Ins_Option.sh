@@ -26,7 +26,7 @@ SIGN_JAR=SmartTeller9/InteractiveFrame_ClientResource/application/*.jar
 BUILD_PROPERTIES=${BUILD_PATH}/build.properties
 INCFILE=${FILE_PATH}/RUNALL/app_${RUNDATE}.txt
 INCFILE_NEW=${FILE_PATH}/RUNALL/app_${RUNDATE}.txt~
-TARGET=app_SmartTeller9_${RUNDATE}_${BUILD_NUMBER}_patch.zip
+TARGET=app_SmartTeller9_Ins_${TAG_NO}.zip
 ANT_HOME=${FILE_PATH}/tools/ant/
 
 MSG_NOT_EXIST_PROPERTIES='不存在增量执行文件build.properties，不可以进行打增量版本'
