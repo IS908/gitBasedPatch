@@ -5,7 +5,7 @@ echo **********************************************************
 echo **                                                      **
 echo **            Teller9 Ins Deploy Shell                  **
 echo **              http://www.dcits.com                    **
-echo **            author:chenkunh@dcits.com                 **
+echo **            author:zhangjig@dcits.com                 **
 echo **                                                      **
 echo **********************************************************
 
@@ -22,6 +22,7 @@ FILE_PATH=`pwd`
 RUNDATE=`date +%Y%m%d`
 TAG_NO=02
 BUILD_PATH=${FILE_PATH}
+SIGN_PATH=${FILE_PATH}/SmartTeller9/InteractiveFrame_ClientResource/application
 BUILD_PROPERTIES=${BUILD_PATH}/build.properties
 INCFILE=${FILE_PATH}/RUNALL/app_${RUNDATE}${TAG_NO}.txt
 INCFILE_NEW=${FILE_PATH}/RUNALL/app_${RUNDATE}${TAG_NO}.txt~
@@ -59,14 +60,16 @@ fi
 if [ -e "$TARGET" ]; then 
 	rm "$TARGET"
 fi
-
+cp ${BUILD_PROPERTIES} temp.properties
 # 读取增量描述文件，进行增量配置文件的处理
 ##将增量清单中需要编译的交易提取出来,将不编译写入过度清单文件
 for line in $(cat ${INCFILE})
 do 
+    TEMP2=$line
     if [[ "$line" =~ "${strA}" ]]
     then
         #echo "包含SmartTeller9\trans"
+        echo ${TEMP2//\\/\/} >>${INCFILE_NEW}
         if [[ "$line" =~ "${strB}" ]]
         then
     #		echo "包含jar"
@@ -81,13 +84,15 @@ do
 #            echo "不包含jar"
         fi
     else
-#	    echo "不包含SmartTeller9\trans，包含VENUS"
-        if [[ "$line" =~ "${strC}" ]]
+	TEMP2=${TEMP2//\\/\/}
+	echo "="$TEMP2
+        if [[ "${TEMP2}" =~ "${strC}" ]]
         then
-            TEMP2=${$line//VENUS/SmartTeller9\\trans\\}
-            echo -e "\r\n"$TEMP2 >> ${INCFILE_NEW}
-        els
-            echo $line >> ${INCFILE_NEW}
+	        echo "不包含SmartTeller9\trans，包含VENUS"
+            TEMP2=${TEMP2//VENUS/SmartTeller9\/trans}
+            echo -e $TEMP2 >> ${INCFILE_NEW}
+        else
+            echo -e $TEMP2 >> ${INCFILE_NEW}
         fi
     fi
 done
@@ -99,13 +104,26 @@ echo "需要打版本的交易为："$BUILD
 sed -i "/sourceBase=/s/=.*/=${BUILD//\\/\\/\\}/" temp.properties
 
 # 进行增量交易的编译
-echo "开始编译"
+echo "开始编译交易"
 #ant -buildfile build_ins.xml
 
+##签名
+if [[ ${SIGN_FLAG}="Y" ]]
+then
+    echo 开始进行签名
+    cd ${SIGN_PATH}
+    ant -f sign.xml
+fi
+
+cd ${BUILD_PATH}
 # 进行增量抽取工作
-
-
-##替换app文件中的venus为SmartTeller9\trans\
+if [ -e "$INCFILE_NEW" ]; then
+    echo "增量版本开始打包..."
+	for line in $(cat ${INCFILE_NEW})
+    do
+        zip -q -r ${TARGET}  $line
+    done
+fi
 
 
 # 进行增量包的发布
