@@ -16,8 +16,7 @@ echo **********************************************************
 # 4、将增量目标码打成压缩包待部署
 
 #################### Var Setting START ####################
-SIGN_FLAG=Y
-SIGN_PWD=
+SIGN_FLAG="Y"
 FILE_PATH=`pwd`
 RUNDATE=`date +%Y%m%d`
 BUILD_PATH=${FILE_PATH}
@@ -87,7 +86,6 @@ do
         fi
     else
 	TEMP2=${TEMP2//\\/\/}
-	echo "="${TEMP2}
         if [[ "${TEMP2}" =~ "${VENUS_JAR}" ]]
         then
 #	        echo "不包含SmartTeller9\trans，包含VENUS"
@@ -106,15 +104,17 @@ echo "需要打版本的交易为："$BUILD
 sed -i "/sourceBase=/s/=.*/=${BUILD//\\/\/}/" patch.properties
 
 # 进行增量交易的编译
-echo "开始编译交易"
+echo "开始构建交易"
 ant -buildfile build_ins.xml
 
 ##签名
-if [[ ${SIGN_FLAG}="Y" ]]
+if [[ ${SIGN_FLAG} = "Y" ]]
 then
     echo "开始进行签名"
     cd ${SIGN_PATH}
     ant -f sign.xml
+else
+    echo "不进行签名"    
 fi
 
 # 进行增量抽取
@@ -129,12 +129,14 @@ if [ -e "${INCFILE_NEW}" ]; then
 fi
 
 ##签名jar包压缩到增量目标zip
-if [[ ${SIGN_FLAG}="Y" ]]
+if [[ ${SIGN_FLAG} = "Y" ]]
 then
     zip -q -r ${TARGET} ${SIGN_JAR}
+else
+    echo "不签名，不需要进行签名jar的压缩"
 fi
 
 ##将SmartTeller9_1.0.0.jar公共包压缩到增量目标zip包
 zip -q -r ${TARGET} SmartTeller9/trans/SmartTeller9_1.0.0.jar
 
-echo "SmartTeller9增量编译结束。。。"
+echo "SmartTeller9增量版本构建结束。。。"
