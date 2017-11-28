@@ -19,7 +19,6 @@ import org.eclipse.jgit.lib.*;
 import org.eclipse.jgit.revwalk.RevCommit;
 import org.eclipse.jgit.revwalk.RevTree;
 import org.eclipse.jgit.revwalk.RevWalk;
-import org.eclipse.jgit.submodule.SubmoduleStatus;
 import org.eclipse.jgit.submodule.SubmoduleWalk;
 import org.eclipse.jgit.transport.FetchResult;
 import org.eclipse.jgit.transport.PushResult;
@@ -49,7 +48,7 @@ public class GitHandlerImpl implements GitHandler {
     @Resource
     private GitHelper gitHelper;
     @Resource
-    private FilePathHandler filePathHandler;
+    private BaseFilePathHandler baseFilePathHandler;
 
     /**
      * 私有构造方法，进行一次初始化
@@ -503,9 +502,9 @@ public class GitHandlerImpl implements GitHandler {
         FileDiffEntry fileDiffEntry = new FileDiffEntry();
 
         String fullPath = entry.getPath(DiffEntry.Side.NEW);
-        String fileType = filePathHandler.getFileType(fullPath);
-        String pkgPath = filePathHandler.getPkgPath(fullPath, fileType);
-        String moduleName = filePathHandler.getModuleName(fullPath, fileType);
+        String fileType = baseFilePathHandler.getFileType(fullPath);
+        String pkgPath = baseFilePathHandler.getPkgPath(fullPath, fileType);
+        String moduleName = baseFilePathHandler.getModuleName(fullPath, fileType);
 
         fileDiffEntry.setFullPath(fullPath);
         fileDiffEntry.setPkgPath(pkgPath);
@@ -634,7 +633,7 @@ public class GitHandlerImpl implements GitHandler {
         return treeWalk;
     }
 
-    public void setFilePathHandler(FilePathHandler filePathHandler) {
-        this.filePathHandler = filePathHandler;
+    public void setBaseFilePathHandler(BaseFilePathHandler baseFilePathHandler) {
+        this.baseFilePathHandler = baseFilePathHandler;
     }
 }

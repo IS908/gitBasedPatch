@@ -12,7 +12,7 @@
     <context:component-scan base-package="com.dcits.modelbank"/>
 
     <!-- FilePathHandler抽象类暴露相应接口，通过继承抽象类实现个性化方法 -->
-    <bean name="filePathHandler" class="com.dcits.modelbank.jgit.DefaultFilePathHandler"/>
+    <bean name="baseFilePathHandler" class="com.dcits.modelbank.jgit.DefaultBaseFilePathHandler"/>
 
     <!-- 生成xml文件bean配置信息 -start-->
     <bean id="xmlBulider" class="com.dcits.modelbank.utils.XmlBulider">
@@ -43,6 +43,13 @@
     <bean name="credentialsProvider" class="org.eclipse.jgit.transport.UsernamePasswordCredentialsProvider">
         <constructor-arg name="username" value="${git.user.name}"/>
         <constructor-arg name="password" value="${git.user.password}"/>
+    </bean>
+
+    <!-- 增量抽取具体实现类 -->
+    <bean id="patchExtractHandler" class="com.dcits.modelbank.extract.DefaultExtractHandlerBase">
+        <property name="sourceDir" value="${git.source.dir}"/>
+        <property name="targetDir" value="${git.target.dir}"/>
+        <property name="resultDir" value="${git.result.dir}"/>
     </bean>
 
 </beans>

@@ -5,7 +5,7 @@ package com.dcits.modelbank.jgit;
  *
  * @author kevin
  */
-public abstract class FilePathHandler {
+public abstract class BaseFilePathHandler {
     /**
      * 根据文件相对路径及文件类型获取文件打包后的包内路径
      *

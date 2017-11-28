@@ -1,6 +1,6 @@
 package com.dcits.modelbank.service.impl;
 
-import com.dcits.modelbank.extract.PatchExtractHandler;
+import com.dcits.modelbank.extract.BasePatchExtractHandler;
 import com.dcits.modelbank.jgit.GitHandler;
 import com.dcits.modelbank.model.FileDiffEntry;
 import com.dcits.modelbank.model.FileModel;
@@ -28,7 +28,7 @@ public class GitServiceImpl implements GitService {
     @Resource
     private XmlBulider xmlBulider;
     @Resource
-    private PatchExtractHandler patchExtractHandler;
+    private BasePatchExtractHandler basePatchExtractHandler;
 
     @Override
     public void genChangesFileListToday() {
@@ -44,7 +44,7 @@ public class GitServiceImpl implements GitService {
 
     @Override
     public void patchFileExecute() {
-        patchExtractHandler.execute();
+        basePatchExtractHandler.execute();
     }
 
     /**

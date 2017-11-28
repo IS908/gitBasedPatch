@@ -16,8 +16,8 @@ import java.util.Set;
  *
  * @author kevin
  */
-public abstract class PatchExtractHandler {
-    private static final Logger logger = LoggerFactory.getLogger(PatchExtractHandler.class);
+public abstract class BasePatchExtractHandler {
+    private static final Logger logger = LoggerFactory.getLogger(BasePatchExtractHandler.class);
 
     protected String sourceDir;
     protected String targetDir;

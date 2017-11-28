@@ -10,7 +10,7 @@ import java.util.Set;
  *
  * @author kevin
  */
-public class TellerExtractHandler extends PatchExtractHandler {
+public class TellerExtractHandlerBase extends BasePatchExtractHandler {
     @Override
     protected void fileTransfer(Set<String> set) {
 

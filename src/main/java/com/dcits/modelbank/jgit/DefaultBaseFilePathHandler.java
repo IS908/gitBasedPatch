@@ -10,8 +10,8 @@ import java.util.Objects;
  *
  * @author kevin
  */
-public class DefaultFilePathHandler extends FilePathHandler {
-    private static final Logger logger = LoggerFactory.getLogger(DefaultFilePathHandler.class);
+public class DefaultBaseFilePathHandler extends BaseFilePathHandler {
+    private static final Logger logger = LoggerFactory.getLogger(DefaultBaseFilePathHandler.class);
 
     private static final String EMPTY = "";
     private static final String JAVA_SPLIT = "main/java/";

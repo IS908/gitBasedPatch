@@ -20,8 +20,8 @@ import java.util.Set;
  * @author kevin
  */
 @Service("patchExtractHandler")
-public class DefaultExtractHandler extends PatchExtractHandler {
-    private static final Logger logger = LoggerFactory.getLogger(DefaultExtractHandler.class);
+public class DefaultExtractHandlerBase extends BasePatchExtractHandler {
+    private static final Logger logger = LoggerFactory.getLogger(DefaultExtractHandlerBase.class);
 
     @Override
     protected void fileTransfer(Set<String> set) {

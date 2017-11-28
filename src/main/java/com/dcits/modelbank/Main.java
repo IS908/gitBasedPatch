@@ -1,6 +1,6 @@
 package com.dcits.modelbank;
 
-import com.dcits.modelbank.extract.PatchExtractHandler;
+import com.dcits.modelbank.extract.BasePatchExtractHandler;
 import com.dcits.modelbank.jgit.helper.GitHelper;
 import com.dcits.modelbank.service.GitService;
 import com.dcits.modelbank.utils.XmlBulider;
@@ -36,7 +36,7 @@ public class Main {
         XmlBulider xmlBulider = context.getBean(XmlBulider.class);
         xmlBulider.setXmlFilePath(resultDir);
         // 输入输出目录的设定
-        PatchExtractHandler extractHandler = context.getBean(PatchExtractHandler.class);
+        BasePatchExtractHandler extractHandler = context.getBean(BasePatchExtractHandler.class);
         extractHandler.setSourceDir(sourceDir);
         extractHandler.setTargetDir(targetDir);
         extractHandler.setResultDir(resultDir);

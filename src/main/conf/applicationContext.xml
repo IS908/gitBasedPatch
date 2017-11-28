@@ -14,10 +14,10 @@
     <!-- 操作的本地Git项目配置库信息加载 -->
     <bean name="gitHelper" class="com.dcits.modelbank.jgit.helper.GitHelper">
         <property name="rootDir" value="${git.source.dir}"/>
-        <property name="userName" value="${git.user.name}"/>
-        <property name="userEmail" value="${git.user.email}"/>
-        <property name="remoteUrl" value="${git.remote.url}"/>
-        <property name="credentialsProvider" ref="credentialsProvider"/>
+        <!--<property name="userName" value="${git.user.name}"/>-->
+        <!--<property name="userEmail" value="${git.user.email}"/>-->
+        <!--<property name="remoteUrl" value="${git.remote.url}"/>-->
+        <!--<property name="credentialsProvider" ref="credentialsProvider"/>-->
     </bean>
 
     <!-- git 的 http 请求用户名密码验证 -->
@@ -27,11 +27,11 @@
     </bean>
 
     <!-- FilePathHandler抽象类暴露相应接口，通过继承抽象类实现个性化方法 -->
-    <bean name="filePathHandler" class="com.dcits.modelbank.jgit.DefaultFilePathHandler"/>
+    <bean name="baseFilePathHandler" class="com.dcits.modelbank.jgit.DefaultBaseFilePathHandler"/>
 
     <!-- 生成xml文件bean配置信息 -start-->
     <bean id="xmlBulider" class="com.dcits.modelbank.utils.XmlBulider">
-        <constructor-arg name="xmlFilePath" value="${git.xml.filePath}"/>
+        <!--<constructor-arg name="xmlFilePath" value="${git.xml.filePath}"/>-->
         <constructor-arg name="authorAttr">
             <list>
                 <value>name</value>
@@ -45,7 +45,7 @@
     </bean>
 
     <!-- 增量抽取具体实现类 -->
-    <bean id="patchExtractHandler" class="com.dcits.modelbank.extract.DefaultExtractHandler">
+    <bean id="patchExtractHandler" class="com.dcits.modelbank.extract.DefaultExtractHandlerBase">
         <property name="sourceDir" value="${git.source.dir}"/>
         <property name="targetDir" value="${git.target.dir}"/>
         <property name="resultDir" value="${git.result.dir}"/>
