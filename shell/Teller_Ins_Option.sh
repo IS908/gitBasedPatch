@@ -33,7 +33,7 @@ ANT_HOME=${FILE_PATH}/tools/ant/
 MSG_NOT_EXIST_PROPERTIES='不存在增量执行文件build.properties，不可以进行打增量版本'
 MSG_NOT_EXIST_INCFILE='不存在增量清单文件，不可以进行打增量版本'
 PREFIX="SmartTeller9\trans"
-SERFIX=".jar"
+SURFIX=".jar"
 VENUS_JAR="VENUS"
 FIRST=0
 BUILD=""
@@ -73,7 +73,7 @@ do
     then
 #        echo "包含SmartTeller9\trans"
         echo ${TEMP2//\\/\/} >>${INCFILE_NEW}
-        if [[ "$line" =~ "${SERFIX}" ]]
+        if [[ "$line" =~ "${SURFIX}" ]]
         then
 #   		echo "包含jar"
             if test ${FIRST} -ne 0;then
