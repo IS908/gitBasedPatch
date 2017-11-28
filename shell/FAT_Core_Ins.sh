@@ -138,9 +138,10 @@ else
             rm -rf ${ENSEMBLE_HOME}/modelBank-integration-old
             echo ${MSG_START_SUCCESS}
             break
+        else
+            echo 'Retry App starting ...'
+            sh ${ENSEMBLE_HOME}/modelBank-integration/bin/start.sh
         fi
-        echo 'Retry App starting ...'
-        sh ${ENSEMBLE_HOME}/modelBank-integration/bin/start.sh
         CHECK_INTERVAL ${CHECK_TIME}
     done
     if [ ${APP_RUN_STATUS} -eq 0 ];then
