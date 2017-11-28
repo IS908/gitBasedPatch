@@ -78,6 +78,13 @@ CHECK_INTERVAL() {
         echo 'check' ${i}
     done
 }
+
+# 新应用发布成功后，备份被替换的旧应用（主要为日志备份）
+BACKUP_OLD_APP() {
+    versionNum=`cat ${ENSEMBLE_HOME}/modelBank-integration-old/VERSIONID`
+    tar -czf ${BACKUP_HOME}/../${versionNum}/modelBank-integration-end.tar.gz ${ENSEMBLE_HOME}/modelBank-integration-old
+    rm -rf ${ENSEMBLE_HOME}/modelBank-integration-old
+}
 #################### Function END ####################
 
 # 备份全量包
@@ -85,6 +92,7 @@ cd ${BACKUP_HOME}
 mv  ${TAR_GZ_HOME}/modelBank-integration-assembly.tar.gz  ${BACKUP_HOME}
 rm -rf ${BACKUP_HOME}/modules
 tar -zxf  ${BACKUP_HOME}/modelBank-integration-assembly.tar.gz
+echo ModelBank_Full_${TAG_NO} > ${BACKUP_HOME}/modelBank-integration/VERSIONID
 
 # 检查并停止应用，以备部署新应用
 CheckStopState
@@ -126,16 +134,16 @@ CHECK_INTERVAL ${CHECK_TIME}
 # 检查新部署应用是否启动成功
 CheckStartState
 if [ ${APP_RUN_STATUS} -eq 1 ];then
-    # 新应用启动，删除旧应用
-    rm -rf ${ENSEMBLE_HOME}/modelBank-integration-old
+    # 新应用启动，备份并删除旧应用
+    BACKUP_OLD_APP
     echo ${MSG_START_SUCCESS}
 else
     for i in `seq 5`
     do   
         CheckStartState
         if [ ${APP_RUN_STATUS} -eq 1 ];then
-            # 新应用启动，删除旧应用
-            rm -rf ${ENSEMBLE_HOME}/modelBank-integration-old
+            # 新应用启动，备份并删除旧应用
+            BACKUP_OLD_APP
             echo ${MSG_START_SUCCESS}
             break
         else

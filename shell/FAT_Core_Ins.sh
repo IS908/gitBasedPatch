@@ -76,6 +76,15 @@ CHECK_INTERVAL() {
         echo 'check' ${i}
     done
 }
+
+# 新应用发布成功后，备份被替换的旧应用（作为增量替换前的全量状态，以便增量发布后可回退上一个版本）
+BACKUP_OLD_APP() {
+    rm -rf ${ENSEMBLE_HOME}/modelBank-integration-old/logs
+    versionNum=`cat ${ENSEMBLE_HOME}/modelBank-integration-old/VERSIONID`
+    tar -czf ${BACKUP_HOME}/../${versionNum}/modelBank-integration-end.tar.gz ${ENSEMBLE_HOME}/modelBank-integration-old
+    echo ModelBank_Ins_${TAG_NO} > ${ENSEMBLE_HOME}/modelBank-integration/VERSIONID
+    rm -rf ${ENSEMBLE_HOME}/modelBank-integration-old
+}
 #################### Function END ####################
 
 
@@ -126,16 +135,16 @@ CHECK_INTERVAL ${CHECK_TIME}
 # 检查新部署应用是否启动成功
 CheckStartState
 if [ ${APP_RUN_STATUS} -eq 1 ];then
-    # 新应用启动，删除旧应用
-    rm -rf ${ENSEMBLE_HOME}/modelBank-integration-old
+    # 新应用启动，备份并删除旧应用
+    BACKUP_OLD_APP
     echo $MSG_START_SUCCESS
 else
     for i in `seq 5`
     do   
         CheckStartState
         if [ ${APP_RUN_STATUS} -eq 1 ];then
-            # 新应用启动，删除旧应用
-            rm -rf ${ENSEMBLE_HOME}/modelBank-integration-old
+            # 新应用启动，备份并删除旧应用
+            BACKUP_OLD_APP
             echo ${MSG_START_SUCCESS}
             break
         else

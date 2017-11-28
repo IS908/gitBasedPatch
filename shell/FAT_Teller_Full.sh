@@ -68,10 +68,18 @@ CHECK_INTERVAL() {
     done
 }
 
+# 启动teller应用
 START_TELLER() {
     cd ${APP_HOME}/SmartTeller9
     chmod 755 ${APP_HOME}/SmartTeller9/*
     sh start
+}
+
+# 新应用发布成功后，备份被替换的旧应用（主要为日志备份）
+BACKUP_OLD_APP() {
+    versionNum=`cat ${APP_HOME}/SmartTeller9/VERSIONID`
+    tar -czf ${BACKUP_HOME}/../${versionNum}/SmartTeller9-end.tar.gz ${APP_HOME}/SmartTeller9-old
+    rm -rf ${APP_HOME}/SmartTeller9-old
 }
 #################### Function END ####################
 
@@ -126,7 +134,7 @@ CHECK_INTERVAL ${CHECK_TIME}
 CheckStartState
 if [ ${APP_RUN_STATUS} -eq 1 ];then
     # 新应用启动，删除旧应用
-    rm -rf ${APP_HOME}/SmartTeller9-old
+    BACKUP_OLD_APP
     echo ${MSG_START_SUCCESS}
 else
     for i in `seq 5`
@@ -135,7 +143,7 @@ else
         if [ ${APP_RUN_STATUS} -eq 1 ];then
             # 新应用启动，删除旧应用
             echo "Start successful, deleting old app ..."
-            rm -rf ${APP_HOME}/SmartTeller9-old
+            BACKUP_OLD_APP
             echo ${MSG_START_SUCCESS}
             break
         else
