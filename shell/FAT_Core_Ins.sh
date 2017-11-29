@@ -143,7 +143,7 @@ CheckStartState
 if [ ${APP_RUN_STATUS} -eq 1 ];then
     # 新应用启动，备份并删除旧应用
     BACKUP_OLD_APP
-    echo $MSG_START_SUCCESS
+    echo ${MSG_START_SUCCESS}
 else
     for i in `seq 5`
     do   
