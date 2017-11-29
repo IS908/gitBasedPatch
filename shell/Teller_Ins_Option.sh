@@ -16,12 +16,12 @@ echo **********************************************************
 # 4、将增量目标码打成压缩包待部署
 
 #################### Var Setting START ####################
-SIGN_FLAG="Y"
+SIGN_FLAG="N"
 FILE_PATH=`pwd`
 RUNDATE=`date +%Y%m%d`
 BUILD_PATH=${FILE_PATH}
 ANT_HOME=${FILE_PATH}/tools/ant/
-TARGET=app_SmartTeller9_Ins_${TAG_NO}.zip
+TARGET=APP_SmartTeller9_Ins_${TAG_NO}.zip
 INCFILE=${FILE_PATH}/RUNALL/app_${RUNDATE}.txt
 BUILD_PROPERTIES=${BUILD_PATH}/build.properties
 INCFILE_NEW=${FILE_PATH}/RUNALL/app_${RUNDATE}.txt~
