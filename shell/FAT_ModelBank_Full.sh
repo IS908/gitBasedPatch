@@ -11,8 +11,8 @@ echo **********************************************************
 # 脚本说明：
 # 部署包备份，在部署的相应服务器上进行备份，其它位置不做备份，
 # 备份目录：
-# 全量包：~/backup/${TAG_NO}/*.tar.gz 
-# 增量包：~/backup/${TAG_NO}/*.zip
+# 全量包：~/backup/ModelBank/App_${TAG_NAME}.tar.gz
+# 增量包：~/backup/ModelBank/App_${TAG_NAME}.zip
 # 其中 ${TAG_NO} 与 GitLab 上的 Tag 保持一致
 # 
 # 1、停止当前应用服务
