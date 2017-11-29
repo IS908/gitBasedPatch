@@ -80,8 +80,9 @@ START_TELLER() {
     cd ${APP_HOME}
     tar zxf ${DCITS_HOME}/backup/template/telconf.tar.gz
     cd ${SIGN_PATH}
-    ant -f sign.xml
+    # ant -f sign.xml
     cd ${APP_HOME}/SmartTeller9
+    sed -i 's/ssoindex/fxindex/g' ./configuration/config.ini
     chmod 755 ${APP_HOME}/SmartTeller9/*
     sh start
 }
