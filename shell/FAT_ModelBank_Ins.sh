@@ -36,8 +36,10 @@ MSG_STATUS_ERROR='APP应用状态未知,请人工确认当前状态'
 
 DCITS_HOME=/app/dcits
 ENSEMBLE_HOME=${DCITS_HOME}/ensemble
-BACKUP_HOME=${DCITS_HOME}/backup/ModelBank/ModelBank_Ins_${TAG_NO}
-ZIP_HOME=${BACKUP_HOME}/modules/modelBank-all-integration/target
+BACKUP_HOME=${DCITS_HOME}/backup/ModelBank
+TAG_NAME=ModelBank_Ins_${TAG_NO}
+BACKUP_TEMP=${BACKUP_HOME}/${TAG_NAME}
+ZIP_HOME=${BACKUP_TEMP}/modules/modelBank-all-integration/target
 ######## Var Setting END ########
 
 ######## Function START ########
@@ -74,8 +76,8 @@ CheckStartState() {
 CHECK_INTERVAL() {
     for i in `seq $1`
     do
-        sleep 10s
         echo 'check' ${i}0s
+        sleep 10s
         CheckAppState
         if [ ${APP_RUN_STATUS} -ne 0 ];then
             break
@@ -85,26 +87,25 @@ CHECK_INTERVAL() {
 
 # 新应用发布成功后，备份被替换的旧应用（作为增量替换前的全量状态，以便增量发布后可回退上一个版本）
 BACKUP_OLD_APP() {
-    rm -rf ${ENSEMBLE_HOME}/modelBank-integration-old/logs
-    versionNum=`cat ${ENSEMBLE_HOME}/modelBank-integration-old/VERSIONID`
-    tar -czf ${BACKUP_HOME}/../${versionNum}/modelBank-integration-end.tar.gz ${ENSEMBLE_HOME}/modelBank-integration-old
-    echo ModelBank_Ins_${TAG_NO} > ${ENSEMBLE_HOME}/modelBank-integration/VERSIONID
-    rm -rf ${ENSEMBLE_HOME}/modelBank-integration-old
+    echo App_${TAG_NAME} > ${ENSEMBLE_HOME}/ModelBank/VERSIONID
+    rm -rf ${ENSEMBLE_HOME}/ModelBank-old/logs
+    versionNum=`cat ${ENSEMBLE_HOME}/ModelBank-old/VERSIONID`
+    tar -czf ${BACKUP_HOME}/${versionNum}-end.tar.gz ${ENSEMBLE_HOME}/ModelBank-old
+    rm -rf ${ENSEMBLE_HOME}/ModelBank-old
 }
 ######## Function END ########
 
-
-# 移动增量包到相应备份目录下，并解压
-cd ${BACKUP_HOME}
-mv  ${ZIP_HOME}/app_modelbank_ins.zip  ${BACKUP_HOME}
-rm -rf modules
-unzip app_modelbank_ins.zip
+# 移动增量包到相应备份目录下
+mv  ${ZIP_HOME}/app_modelbank_ins.zip  ${BACKUP_HOME}/App_${TAG_NAME}.zip
+cd ${BACKUP_TEMP}
+unzip ${BACKUP_HOME}/App_${TAG_NAME}.zip
+mv modelBank-integration ModelBank
 
 # 检查并停止应用，以备部署新应用
 CheckStopState
 if [ ${APP_RUN_STATUS} -ne 0 ];then
     echo 'App stopping ...'
-    sh ${ENSEMBLE_HOME}/modelBank-integration/bin/stop.sh
+    sh ${ENSEMBLE_HOME}/ModelBank/bin/stop.sh
 	CHECK_INTERVAL 1
     for i in `seq 3`
     do   
@@ -112,7 +113,7 @@ if [ ${APP_RUN_STATUS} -ne 0 ];then
         if [ ${APP_RUN_STATUS} -eq 0 ];then
             break
         fi
-        CHECK_INTERVAL 3
+        CHECK_INTERVAL 6
     done
     if [ ${APP_RUN_STATUS} -ne 0 ];then
         # 停止失败
@@ -123,19 +124,19 @@ fi
 
 # 备份原应用包
 cd ${ENSEMBLE_HOME}
-if [[ -d ${ENSEMBLE_HOME}/modelBank-integration-old/ ]];then
-    rm -rf ${ENSEMBLE_HOME}/modelBank-integration-old
+if [[ -d ${ENSEMBLE_HOME}/ModelBank-old/ ]];then
+    rm -rf ${ENSEMBLE_HOME}/ModelBank-old
 fi
 
-if [[ -d ${ENSEMBLE_HOME}/modelBank-integration/ ]];then
-    cp -r ${ENSEMBLE_HOME}/modelBank-integration ${ENSEMBLE_HOME}/modelBank-integration-old
+if [[ -d ${ENSEMBLE_HOME}/ModelBank/ ]];then
+    cp -r ${ENSEMBLE_HOME}/ModelBank ${ENSEMBLE_HOME}/ModelBank-old
 fi
 
 # 部署增量应用包，并启动应用
-mv -f ${BACKUP_HOME}/modelBank-integration/lib/* ${ENSEMBLE_HOME}/modelBank-integration/lib/
-rm -rf ${BACKUP_HOME}/modelBank-integration
+mv -f ${BACKUP_TEMP}/ModelBank/lib/* ${ENSEMBLE_HOME}/ModelBank/lib/
+rm -rf ${BACKUP_TEMP}
 echo 'App starting ...'
-sh ${ENSEMBLE_HOME}/modelBank-integration/bin/start.sh
+sh ${ENSEMBLE_HOME}/ModelBank/bin/start.sh
 CHECK_INTERVAL ${CHECK_TIME}
 
 # 检查新部署应用是否启动成功
@@ -155,7 +156,7 @@ else
             break
         else
             echo 'Retry App starting ...'
-            sh ${ENSEMBLE_HOME}/modelBank-integration/bin/start.sh
+            sh ${ENSEMBLE_HOME}/ModelBank/bin/start.sh
         fi
         CHECK_INTERVAL ${CHECK_TIME}
     done

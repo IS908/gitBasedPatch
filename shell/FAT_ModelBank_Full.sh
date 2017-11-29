@@ -38,9 +38,10 @@ MSG_STATUS_ERROR='APP应用状态未知,请人工确认当前状态'
 
 DCITS_HOME=/app/dcits
 ENSEMBLE_HOME=${DCITS_HOME}/ensemble
-BACKUP_HOME=${DCITS_HOME}/backup/ModelBank/ModelBank_Full_${TAG_NO}
+BACKUP_HOME=${DCITS_HOME}/backup/ModelBank
+BACKUP_TEMP=${BACKUP_HOME}/ModelBank_Full_${TAG_NO}
 TAG_NAME=ModelBank_Full_${TAG_NO}
-TAR_GZ_HOME=${BACKUP_HOME}/modules/modelBank-all-integration/target
+TAR_GZ_HOME=${BACKUP_TEMP}/modules/modelBank-all-integration/target
 ######## Var Setting END ########
 
 ######## Function START ########
@@ -88,18 +89,18 @@ CHECK_INTERVAL() {
 # 新应用发布成功后，备份被替换的旧应用（主要为日志备份）
 BACKUP_OLD_APP() {
     versionNum=`cat ${ENSEMBLE_HOME}/ModelBank-old/VERSIONID`
-    tar -czf ${BACKUP_HOME}/../${versionNum}-end.tar.gz ${ENSEMBLE_HOME}/ModelBank-old
+    tar -czf ${BACKUP_HOME}/${versionNum}-end.tar.gz ${ENSEMBLE_HOME}/ModelBank-old
     rm -rf ${ENSEMBLE_HOME}/ModelBank-old
 }
 ######## Function END ########
 
 # 备份全量包
-mv  ${TAR_GZ_HOME}/modelBank-integration-assembly.tar.gz  ${BACKUP_HOME}/../App_${TAG_NAME}.tar.gz
-rm -rf ${BACKUP_HOME}/modules
-cd ${BACKUP_HOME}
-tar -zxf  ${BACKUP_HOME}/../App_${TAG_NAME}.tar.gz
-mv ${BACKUP_HOME}/modelBank-integration ${BACKUP_HOME}/ModelBank
-echo App_${TAG_NAME} > ${BACKUP_HOME}/ModelBank/VERSIONID
+mv  ${TAR_GZ_HOME}/modelBank-integration-assembly.tar.gz  ${BACKUP_HOME}/App_${TAG_NAME}.tar.gz
+rm -rf ${BACKUP_TEMP}/modules
+cd ${BACKUP_TEMP}
+tar -zxf  ${BACKUP_HOME}/App_${TAG_NAME}.tar.gz
+mv ${BACKUP_TEMP}/modelBank-integration ${BACKUP_TEMP}/ModelBank
+echo App_${TAG_NAME} > ${BACKUP_TEMP}/ModelBank/VERSIONID
 
 # 检查并停止应用，以备部署新应用
 CheckStopState
@@ -133,8 +134,8 @@ if [[ -d ${ENSEMBLE_HOME}/ModelBank/ ]];then
 fi
 
 # 部署新的应用包到指定目录，并删除临时文件夹
-mv ${BACKUP_HOME}/ModelBank ${ENSEMBLE_HOME}
-rm -rf ${BACKUP_HOME}
+mv ${BACKUP_TEMP}/ModelBank ${ENSEMBLE_HOME}
+rm -rf ${BACKUP_TEMP}
 
 # 新部署应用启动
 echo 'App starting ...'
