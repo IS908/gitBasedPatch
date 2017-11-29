@@ -16,7 +16,7 @@ echo **********************************************************
 # 4、将增量目标码打成压缩包待部署
 
 #################### Var Setting START ####################
-SIGN_FLAG="Y"
+SIGN_FLAG="N"
 FILE_PATH=`pwd`
 RUNDATE=`date +%Y%m%d`
 BUILD_PATH=${FILE_PATH}

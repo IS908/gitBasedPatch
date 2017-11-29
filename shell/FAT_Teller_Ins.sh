@@ -30,7 +30,7 @@ BACKUP_HOME=${DCITS_HOME}/backup/SmartTeller9
 ZIP_HOME=${BACKUP_HOME}
 VERSION_ID=APP_SmartTeller9_Ins_${TAG_NO}
 TARGET=${VERSION_ID}.zip
-
+SIGN_PATH=${FILE_PATH}/SmartTeller9/InteractiveFrame_ClientResource/application
 ########## Var Setting END ##########
 
 #################### Function START ####################
@@ -79,6 +79,8 @@ CHECK_INTERVAL() {
 START_TELLER() {
     cd ${APP_HOME}
     tar zxf ${DCITS_HOME}/backup/template/telconf.tar.gz
+    cd ${SIGN_PATH}
+    ant -f sign.xml
     cd ${APP_HOME}/SmartTeller9
     chmod 755 ${APP_HOME}/SmartTeller9/*
     sh start
