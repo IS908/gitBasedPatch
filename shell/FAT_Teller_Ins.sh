@@ -26,9 +26,10 @@ MSG_STATUS_ERROR='Teller应用状态未知,请人工确认当前状态'
 
 DCITS_HOME=/app/dcits
 APP_HOME=${DCITS_HOME}/ensemble
-BACKUP_HOME=${DCITS_HOME}/backup/SmartTeller9/Teller9_Ins_${TAG_NO}
+BACKUP_HOME=${DCITS_HOME}/backup/SmartTeller9
 ZIP_HOME=${BACKUP_HOME}
-TARGET=app_SmartTeller9_Ins_${TAG_NO}.zip
+VERSION_ID=APP_SmartTeller9_Ins_${TAG_NO}
+TARGET=${VERSION_ID}.zip
 
 ########## Var Setting END ##########
 
@@ -123,16 +124,16 @@ if [[ -d ${APP_HOME}/SmartTeller9-old/ ]];then
 fi
 
 if [[ -d ${APP_HOME}/SmartTeller9/ ]];then
-    cp ${APP_HOME}/SmartTeller9 ${APP_HOME}/SmartTeller9-old
+    cp -r ${APP_HOME}/SmartTeller9 ${APP_HOME}/SmartTeller9-old
 fi
 
 # 备份全量包，并解压增量包 DONE
 cd ${BACKUP_HOME}
 
 unzip -o -d ${APP_HOME}  ${BACKUP_HOME}/${TARGET}
+echo ${VERSION_ID} > ${APP_HOME}/SmartTeller9/VERSIONID
 
 # 部署新的应用包，并启动新应用
-#mv -f ${BACKUP_HOME}/SmartTeller9 ${APP_HOME}/SmartTeller9
 echo 'Teller starting ...'
 START_TELLER
 CHECK_INTERVAL ${CHECK_TIME}
