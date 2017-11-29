@@ -136,7 +136,7 @@
                                         echo ** **
                                         echo **********************************************************
 
-                                        #################### Var Setting START #################### #run_status=`netstat
+                                        ######## Var Setting START ######## #run_status=`netstat
                                         -anp|grep 9001|awk &apos;{printf $7}&apos;|cut -d/ -f1`
                                         # 应用端口号，注意需加单引号 PORT_APP=&apos;9001&apos;
                                         # 启动应用检查时间间隔设定(单位：秒) CHECK_TIME=24
@@ -147,9 +147,9 @@
                                         ENSEMBLE_HOME=/app/dcits/ensemble
                                         BACKUP_HOME=/app/dcits/backup/ModelBank/ModelBank_Full_${TAG_NO}
                                         TAR_GZ_HOME=${BACKUP_HOME}/modules/modelBank-all-integration/target
-                                        #################### Var Setting END ####################
+                                        ######## Var Setting END ########
 
-                                        #################### Function START ####################
+                                        ######## Function START ########
                                         # 检查应用是否停止 并返回状态码：停止成功:1；停止失败:0
                                         CheckStopState(){ OLD_PID_APP=`/usr/sbin/lsof -n -P -t -i :${PORT_APP}` echo
                                         &apos;OLD_PID_APP:&apos; $OLD_PID_APP APP_RUN_STATUS=`ps -ef | grep $OLD_PID_APP
@@ -168,7 +168,7 @@
 
                                         CHECK_INTERVAL() { for i in `seq $1` do sleep 10s echo &apos;check&apos; $i done
                                         }
-                                        #################### Function END ####################
+                                        ######## Function END ########
 
 
                                         # 备份全量包

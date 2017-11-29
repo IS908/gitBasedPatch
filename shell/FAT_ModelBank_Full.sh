@@ -22,7 +22,7 @@ echo **********************************************************
 # 5、若启动成功，则删除旧的应用包
 # 6、若启动失败，保留旧的应用包
 
-#################### Var Setting START ####################
+######## Var Setting START ########
 #run_status=`netstat -anp|grep 9001|awk '{printf $7}'|cut -d/ -f1`
 # 应用端口号，注意需加单引号
 PORT_APP='9001'
@@ -41,9 +41,9 @@ ENSEMBLE_HOME=${DCITS_HOME}/ensemble
 BACKUP_HOME=${DCITS_HOME}/backup/ModelBank/ModelBank_Full_${TAG_NO}
 TAG_NAME=ModelBank_Full_${TAG_NO}
 TAR_GZ_HOME=${BACKUP_HOME}/modules/modelBank-all-integration/target
-#################### Var Setting END ####################
+######## Var Setting END ########
 
-#################### Function START ####################
+######## Function START ########
 # 检查应用当前状态
 CheckAppState() {
     PID_APP=`/usr/sbin/lsof -n -P -t -i :${PORT_APP}`
@@ -91,7 +91,7 @@ BACKUP_OLD_APP() {
     tar -czf ${BACKUP_HOME}/../${versionNum}-end.tar.gz ${ENSEMBLE_HOME}/ModelBank-old
     rm -rf ${ENSEMBLE_HOME}/ModelBank-old
 }
-#################### Function END ####################
+######## Function END ########
 
 # 备份全量包
 mv  ${TAR_GZ_HOME}/modelBank-integration-assembly.tar.gz  ${BACKUP_HOME}/../App_${TAG_NAME}.tar.gz

@@ -20,7 +20,7 @@ echo **********************************************************
 # 3、解压增量包并安装增量包
 # 4、启动服务
 
-#################### Var Setting START ####################
+######## Var Setting START ########
 #run_status=`netstat -anp|grep 9001|awk '{printf $7}'|cut -d/ -f1`
 # 应用端口号，注意需加单引号
 PORT_APP='9001'
@@ -38,9 +38,9 @@ DCITS_HOME=/app/dcits
 ENSEMBLE_HOME=${DCITS_HOME}/ensemble
 BACKUP_HOME=${DCITS_HOME}/backup/ModelBank/ModelBank_Ins_${TAG_NO}
 ZIP_HOME=${BACKUP_HOME}/modules/modelBank-all-integration/target
-#################### Var Setting END ####################
+######## Var Setting END ########
 
-#################### Function START ####################
+######## Function START ########
 # 检查应用当前状态
 CheckAppState() {
     PID_APP=`/usr/sbin/lsof -n -P -t -i :${PORT_APP}`
@@ -91,7 +91,7 @@ BACKUP_OLD_APP() {
     echo ModelBank_Ins_${TAG_NO} > ${ENSEMBLE_HOME}/modelBank-integration/VERSIONID
     rm -rf ${ENSEMBLE_HOME}/modelBank-integration-old
 }
-#################### Function END ####################
+######## Function END ########
 
 
 # 移动增量包到相应备份目录下，并解压

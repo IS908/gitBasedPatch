@@ -10,7 +10,7 @@ echo **                                                      **
 echo **********************************************************
 
 
-#################### Var Setting START ####################
+######## Var Setting START ########
 #run_status=`netstat -anp|grep 9001|awk '{printf $7}'|cut -d/ -f1`
 # 应用端口号，注意需加单引号
 PORT_APP=''
@@ -28,9 +28,9 @@ DCITS_HOME=/app/dcits
 OM_HOME=${DCITS_HOME}/ensemble
 BACKUP_HOME=${DCITS_HOME}/backup/EnsembleOM/EnsembleOM_Full_${TAG_NO}
 TAR_GZ_HOME=${BACKUP_HOME}
-#################### Var Setting END ####################
+######## Var Setting END ########
 
-#################### Function START ####################
+######## Function START ########
 # 检查应用是否停止 并返回状态码：停止成功:1；停止失败:0
 CheckStopState(){
     OLD_PID_APP=`/usr/sbin/lsof -n -P -t -i :${PORT_APP}`
@@ -66,7 +66,7 @@ CHECK_INTERVAL() {
         echo 'check' ${i}
     done
 }
-#################### Function END ####################
+######## Function END ########
 
 # 备份全量包，并解压包已备部署 DONE
 cd ${BACKUP_HOME}

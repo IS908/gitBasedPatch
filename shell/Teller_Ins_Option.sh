@@ -15,7 +15,7 @@ echo **********************************************************
 # 3、进行签名
 # 4、将增量目标码打成压缩包待部署
 
-#################### Var Setting START ####################
+######## Var Setting START ########
 SIGN_FLAG="N"
 FILE_PATH=`pwd`
 RUNDATE=`date +%Y%m%d`
@@ -37,7 +37,7 @@ VENUS_JAR="VENUS"
 prefix="SmartTeller9\trans"
 MSG_NOT_EXIST_INCFILE='不存在增量清单文件，不可以进行打增量版本'
 MSG_NOT_EXIST_PROPERTIES='不存在增量执行文件build.properties，不可以进行打增量版本'
-#################### Var Setting END ####################
+######## Var Setting END ########
 
 export ANT_HOME=${ANT_HOME}
 cd ${BUILD_PATH}

@@ -33,7 +33,7 @@ TARGET=${VERSION_ID}.zip
 SIGN_PATH=${APP_HOME}/SmartTeller9/InteractiveFrame_ClientResource/application
 ########## Var Setting END ##########
 
-#################### Function START ####################
+######## Function START ########
 # 检查应用当前状态
 CheckAppState() {
     PID_APP=`/usr/sbin/lsof -n -P -t -i :${PORT_APP}`
@@ -93,7 +93,7 @@ BACKUP_OLD_APP() {
     tar -czf ${BACKUP_HOME}/SmartTeller9-end.tar.gz ${APP_HOME}/SmartTeller9-old
     rm -rf ${APP_HOME}/SmartTeller9-old
 }
-#################### Function END ####################
+######## Function END ########
 
 # 检查并停止应用
 CheckStopState

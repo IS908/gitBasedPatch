@@ -31,7 +31,7 @@ ZIP_HOME=${BACKUP_HOME}
 
 ########## Var Setting END ##########
 
-#################### Function START ####################
+######## Function START ########
 # 检查应用是否停止 并返回状态码：停止成功:1；停止失败:0
 CheckStopState(){
     OLD_PID_APP=`/usr/sbin/lsof -n -P -t -i :${PORT_APP}`
@@ -83,7 +83,7 @@ BACKUP_OLD_APP() {
     tar -czf ${BACKUP_HOME}/../${versionNum}/SmartTeller9-end.tar.gz ${APP_HOME}/SmartTeller9-old
     rm -rf ${APP_HOME}/SmartTeller9-old
 }
-#################### Function END ####################
+######## Function END ########
 
 # 备份全量包，并解压包已备部署 DONE
 cd ${BACKUP_HOME}
