@@ -30,7 +30,7 @@ BACKUP_HOME=${DCITS_HOME}/backup/SmartTeller9
 ZIP_HOME=${BACKUP_HOME}
 VERSION_ID=APP_SmartTeller9_Ins_${TAG_NO}
 TARGET=${VERSION_ID}.zip
-SIGN_PATH=${FILE_PATH}/SmartTeller9/InteractiveFrame_ClientResource/application
+SIGN_PATH=${APP_HOME}/SmartTeller9/InteractiveFrame_ClientResource/application
 ########## Var Setting END ##########
 
 #################### Function START ####################
