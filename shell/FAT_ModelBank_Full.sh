@@ -1,6 +1,9 @@
 #!/bin/bash
 source ~/.bashrc
 
+# Source files: **/modelBank-integration-assembly.tar.gz
+# Remote directory: backup/ModelBank/ModelBank_Full_${TAG_NO}
+
 echo **********************************************************
 echo **                                                      **
 echo **             ModelBank Deploy Shell                   **
