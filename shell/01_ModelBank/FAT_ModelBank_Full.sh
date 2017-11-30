@@ -1,8 +1,24 @@
 #!/bin/bash
 source ~/.bashrc
 
+# Jenkins 配置：
 # Source files: **/modelBank-integration-assembly.tar.gz
 # Remote directory: backup/ModelBank/ModelBank_Full_${TAG_NO}
+# GIT 子模块相关shell：
+#
+#cd $WORKSPACE
+#git checkout -b release/dailyFix origin/release/dailyFix
+#git pull http://jenkins:digital1@57.25.2.187:8082/dcits/ModelBank.git
+#
+#cd $WORKSPACE/SmartEnsemble
+#git checkout -b release/dailyFix origin/release/dailyFix
+#git pull http://jenkins:digital1@57.25.2.187:8082/dcits/SmartEnsemble.git
+#git reset --hard
+#git tag -a "SmartEnsemble_"${TAG_NO} -m "Jenkins Git plugin tagging with SmartEnsemble"
+#git push http://jenkins:digital1@57.25.2.187:8082/dcits/SmartEnsemble.git "SmartEnsemble_"${TAG_NO}
+#
+#cd $WORKSPACE
+#git reset --hard
 
 echo **********************************************************
 echo **                                                      **
@@ -40,10 +56,11 @@ MSG_STOP_FAILD='APP应用停止失败，请人工停止原应用并部署'
 MSG_STATUS_ERROR='APP应用状态未知,请人工确认当前状态'
 
 DCITS_HOME=/app/dcits
-ENSEMBLE_HOME=${DCITS_HOME}
-BACKUP_HOME=${DCITS_HOME}/backup/ModelBank
-BACKUP_TEMP=${BACKUP_HOME}/ModelBank_Full_${TAG_NO}
+APP_NMAE=ModelBank
+APP_ORIGIN_NAME=modelBank-integration
 TAG_NAME=ModelBank_Full_${TAG_NO}
+BACKUP_HOME=${DCITS_HOME}/backup/${APP_NMAE}
+BACKUP_TEMP=${BACKUP_HOME}/${TAG_NAME}
 TAR_GZ_HOME=${BACKUP_TEMP}/modules/modelBank-all-integration/target
 ######## Var Setting END ########
 
@@ -91,9 +108,9 @@ CHECK_INTERVAL() {
 
 # 新应用发布成功后，备份被替换的旧应用（主要为日志备份）
 BACKUP_OLD_APP() {
-    versionNum=`cat ${ENSEMBLE_HOME}/ModelBank-old/VERSIONID`
-    tar -czf ${BACKUP_HOME}/${versionNum}-end.tar.gz ${ENSEMBLE_HOME}/ModelBank-old
-    rm -rf ${ENSEMBLE_HOME}/ModelBank-old
+    versionNum=`cat ${DCITS_HOME}/ModelBank-old/VERSIONID`
+    tar -czf ${BACKUP_HOME}/${versionNum}-end.tar.gz ${DCITS_HOME}/ModelBank-old
+    rm -rf ${DCITS_HOME}/ModelBank-old
 }
 ######## Function END ########
 
@@ -109,7 +126,7 @@ echo App_${TAG_NAME} > ${BACKUP_TEMP}/ModelBank/VERSIONID
 CheckStopState
 if [ ${APP_RUN_STATUS} -ne 0 ];then
     echo 'App stopping ...'
-    sh ${ENSEMBLE_HOME}/ModelBank/bin/stop.sh
+    sh ${DCITS_HOME}/ModelBank/bin/stop.sh
 	CHECK_INTERVAL 1
     for i in `seq 3`
     do   
@@ -127,22 +144,23 @@ if [ ${APP_RUN_STATUS} -ne 0 ];then
 fi
 
 # 原应用包文件夹重命名
-cd ${ENSEMBLE_HOME}
-if [[ -d ${ENSEMBLE_HOME}/ModelBank-old/ ]];then
-    rm -rf ${ENSEMBLE_HOME}/ModelBank-old
+cd ${DCITS_HOME}
+if [[ -d ${DCITS_HOME}/ModelBank-old/ ]];then
+    rm -rf ${DCITS_HOME}/ModelBank-old
 fi
 
-if [[ -d ${ENSEMBLE_HOME}/ModelBank/ ]];then
-    mv ${ENSEMBLE_HOME}/ModelBank ${ENSEMBLE_HOME}/ModelBank-old
+if [[ -d ${DCITS_HOME}/ModelBank/ ]];then
+    mv ${DCITS_HOME}/ModelBank ${DCITS_HOME}/ModelBank-old
 fi
 
 # 部署新的应用包到指定目录，并删除临时文件夹
-mv ${BACKUP_TEMP}/ModelBank ${ENSEMBLE_HOME}
+mv ${BACKUP_TEMP}/ModelBank ${DCITS_HOME}
 rm -rf ${BACKUP_TEMP}
 
 # 新部署应用启动
 echo 'App starting ...'
-sh ${ENSEMBLE_HOME}/ModelBank/bin/start.sh
+cd ${DCITS_HOME}/ModelBank/bin
+./start.sh
 CHECK_INTERVAL ${CHECK_TIME}
 
 # 检查新部署应用是否启动成功
@@ -153,7 +171,7 @@ if [ ${APP_RUN_STATUS} -eq 1 ];then
     echo ${MSG_START_SUCCESS}
 else
     for i in `seq 5`
-    do   
+    do
         CheckStartState
         if [ ${APP_RUN_STATUS} -eq 1 ];then
             # 新应用启动，备份并删除旧应用
@@ -162,7 +180,8 @@ else
             break
         else
             echo 'Retry App starting ...'
-            sh ${ENSEMBLE_HOME}/ModelBank/bin/start.sh
+            cd ${DCITS_HOME}/ModelBank/bin
+            ./start.sh
         fi
         CHECK_INTERVAL ${CHECK_TIME}
     done
