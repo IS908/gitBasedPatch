@@ -35,7 +35,7 @@ MSG_STOP_FAILD='APP应用停止失败，请人工停止原应用并部署'
 MSG_STATUS_ERROR='APP应用状态未知,请人工确认当前状态'
 
 DCITS_HOME=/app/dcits
-ENSEMBLE_HOME=${DCITS_HOME}/ensemble
+ENSEMBLE_HOME=${DCITS_HOME}
 BACKUP_HOME=${DCITS_HOME}/backup/ModelBank
 TAG_NAME=ModelBank_Ins_${TAG_NO}
 BACKUP_TEMP=${BACKUP_HOME}/${TAG_NAME}
