@@ -70,8 +70,8 @@ CHECK_INTERVAL() {
 
 # 启动teller应用
 START_TELLER() {
-    cd ${APP_HOME}
-    tar zxf ${DCITS_HOME}/backup/template/telconf.tar.gz
+#    cd ${APP_HOME}
+#    tar zxf ${DCITS_HOME}/backup/template/telconf.tar.gz
     cd ${APP_HOME}/SmartTeller9
     chmod 755 ${APP_HOME}/SmartTeller9/*
     sh start

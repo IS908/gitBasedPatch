@@ -77,8 +77,8 @@ CHECK_INTERVAL() {
 
 # 启动teller应用
 START_TELLER() {
-    cd ${APP_HOME}
-    tar zxf ${DCITS_HOME}/backup/template/telconf.tar.gz
+#    cd ${APP_HOME}
+#    tar zxf ${DCITS_HOME}/backup/template/telconf.tar.gz
 #    cd ${SIGN_PATH}
 #    ant -f sign.xml
     cd ${APP_HOME}/SmartTeller9
