@@ -55,17 +55,19 @@ MSG_STOP_SUCCESS='APP应用停止状态'
 MSG_STOP_FAILD='APP应用停止失败，请人工停止原应用并部署'
 MSG_STATUS_ERROR='APP应用状态未知,请人工确认当前状态'
 
-###############################
-### 来自Jenkins的变量TAG_NO ###
-###############################
+#################################
+### 来自Jenkins的变量TAG_NAME ###
+#################################
 
 DCITS_HOME=/app/dcits
 APP_NMAE=ModelBank
 APP_ORIGIN_NAME=modelBank-integration
-TAG_NAME=ModelBank_Full_${TAG_NO}
 BACKUP_HOME=${DCITS_HOME}/backup/${APP_NMAE}
+echo ${BACKUP_HOME}
 BACKUP_TEMP=${BACKUP_HOME}/${TAG_NAME}
+echo ${BACKUP_TEMP}
 TAR_GZ_HOME=${BACKUP_TEMP}/modules/modelBank-all-integration/target
+echo ${TAR_GZ_HOME}
 ######## Var Setting END ########
 
 ######## Function START ########
@@ -163,7 +165,8 @@ rm -rf ${BACKUP_TEMP}
 
 # 新部署应用启动
 echo 'App starting ...'
-sh ${DCITS_HOME}/ModelBank/bin/start.sh
+cd ${DCITS_HOME}/ModelBank/bin
+./start.sh
 CHECK_INTERVAL ${CHECK_TIME}
 
 # 检查新部署应用是否启动成功
@@ -183,7 +186,8 @@ else
             break
         else
             echo 'Retry App starting ...'
-            sh ${DCITS_HOME}/ModelBank/bin/start.sh
+            cd ${DCITS_HOME}/ModelBank/bin
+            ./start.sh
         fi
         CHECK_INTERVAL ${CHECK_TIME}
     done
