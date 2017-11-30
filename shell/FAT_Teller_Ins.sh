@@ -110,7 +110,6 @@ if [ ${APP_RUN_STATUS} -ne 0 ];then
             echo 'Retry Teller stopping ...'
             sh ${APP_HOME}/SmartTeller9/stop.sh skip
         fi
-        sh ${APP_HOME}/SmartTeller9/stop.sh
         CHECK_INTERVAL 3
     done
     if [ ${APP_RUN_STATUS} -ne 0 ];then
