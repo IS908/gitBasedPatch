@@ -25,8 +25,8 @@ MSG_STOP_FAILD='Teller应用停止失败，请人工停止原应用并部署'
 MSG_STATUS_ERROR='Teller应用状态未知,请人工确认当前状态'
 
 DCITS_HOME=/app/dcits
-APP_HOME=${DCITS_HOME}/ensemble
-BACKUP_HOME=${DCITS_HOME}/backup/SmartTeller9/Teller9_Full_${TAG_NO}
+APP_HOME=${DCITS_HOME}
+BACKUP_HOME=${DCITS_HOME}/backup/SmartTeller9
 ZIP_HOME=${BACKUP_HOME}
 
 ########## Var Setting END ##########
