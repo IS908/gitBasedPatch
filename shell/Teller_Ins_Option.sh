@@ -14,6 +14,11 @@ echo **********************************************************
 # 2、进行增量交易的构建
 # 3、进行签名
 # 4、将增量目标码打成压缩包待部署
+#
+
+#不同环境下脚本修改指南
+#   Var Setting中修改：
+#
 
 ######## Var Setting START ########
 SIGN_FLAG="N"
@@ -105,7 +110,7 @@ sed -i "/sourceBase=/s/=.*/=${BUILD//\\/\/}/" patch.properties
 
 # 进行增量交易的编译
 echo "开始构建交易"
-ant -buildfile build_ins.xml
+ant -buildfile build_ins.xml -DtargetEnv=${TARGET_ENV}
 
 ##签名
 if [[ ${SIGN_FLAG} = "Y" ]]

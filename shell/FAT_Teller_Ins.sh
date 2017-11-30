@@ -11,6 +11,14 @@ echo **********************************************************
 
 #注意的点 Teller 的启动脚本 start 启动为 ./run.sh ，执行start脚本前需先cd切换到Teller目录下增加执行权限，再sh start，否则会调用不到run.sh
 
+#不同环境下脚本修改指南
+#   Var Setting中修改：
+#       1、PORT_APP 端口号
+#       2、DCITS_HOME 应用部署主目录
+#  非阜新银行项目，请注释掉第93行：sed -i 's/ssoindex/fxindex/g' ./configuration/config.ini
+#
+
+
 ########## Var Setting START ##########
 # 应用端口号，注意需加单引号
 PORT_APP='9080'
