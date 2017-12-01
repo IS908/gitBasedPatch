@@ -125,7 +125,7 @@ then
     cd ${SIGN_PATH}
     ant -f sign.xml
 else
-    echo "不进行签名"    
+    echo "无客户端jar包更新，不需要签名"    
 fi
 
 # 进行增量交易压缩
