@@ -93,8 +93,8 @@ START_TELLER() {
 
 # 新应用发布成功后，备份被替换的旧应用（主要为日志备份）
 BACKUP_OLD_APP() {
-    versionNum=`cat ${APP_HOME}/SmartTeller9-old/VERSIONID`
-    tar -czf ${BACKUP_HOME}/${versionNum}-end.tar.gz  ${APP_HOME}/SmartTeller9-old
+#    versionNum=`cat ${APP_HOME}/SmartTeller9/VERSIONID`
+    tar -czf ${BACKUP_HOME}/SmartTeller9-${TAG_NO}.tar.gz  ${APP_HOME}/SmartTeller9-old
     rm -rf ${APP_HOME}/SmartTeller9-old
 }
 ######## Function END ########
@@ -106,7 +106,7 @@ mkdir SmartTeller9
 cd SmartTeller9
 unzip ${BACKUP_HOME}/${TARGET}
 echo ${VERSION_ID} > ${BACKUP_HOME}/SmartTeller9/VERSIONID
-echo ${VERSION_ID} > ${BACKUP_HOME}/SmartTeller9/VERSION_LIST
+echo ${VERSION_ID} > ${BACKUP_TEMP}/SmartTeller9/VERSION_LIST
 
 # 检查并停止应用，以备部署新应用
 CheckStopState

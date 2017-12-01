@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Teller签名脚本
-
+echo "开始执行SmartTeller9签名脚本"
 export ANT_HOME=${WORKSPACE}/tools/ant/
 cd ${WORKSPACE}
 mkdir SmartTeller9
@@ -13,3 +13,5 @@ ant -f sign.xml
 
 cd ${WORKSPACE}/SmartTeller9
 zip -r ${WORKSPACE}/App_${TAG_NAME}.zip ./*
+
+echo "结束执行SmartTeller9签名脚本。。。"
