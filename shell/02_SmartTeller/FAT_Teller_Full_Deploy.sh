@@ -15,10 +15,11 @@ echo **********************************************************
 #   Var Setting中修改：
 #       1、PORT_APP 端口号
 #       2、DCITS_HOME 应用部署主目录
-#  非阜新银行项目，请注释掉第88行：sed -i 's/ssoindex/fxindex/g' ./configuration/config.ini
+#  非阜新银行项目，请注释掉第89行：sed -i 's/ssoindex/fxindex/g' ./configuration/config.ini
 #
 
 ########## Var Setting START ##########
+echo "开始SmartTeller9全量部署"
 # 应用端口号，注意需加单引号
 PORT_APP='9080'
 # 启动应用检查时间间隔设定(单位：10秒)
@@ -35,6 +36,8 @@ DCITS_HOME=/app/dcits
 APP_HOME=${DCITS_HOME}
 BACKUP_HOME=${DCITS_HOME}/backup/SmartTeller9
 ZIP_HOME=${BACKUP_HOME}
+VERSION_ID=App_SmartTeller9_Full_${TAG_NO}
+TARGET=${VERSION_ID}.zip
 
 ########## Var Setting END ##########
 
@@ -82,28 +85,27 @@ CHECK_INTERVAL() {
 
 # 启动teller应用
 START_TELLER() {
-#    cd ${APP_HOME}
-#    tar zxf ${DCITS_HOME}/backup/template/telconf.tar.gz
     cd ${APP_HOME}/SmartTeller9
-    sed -i 's/ssoindex/fxindex/g' ./configuration/config.ini
+#    sed -i 's/ssoindex/fxindex/g' ./configuration/config.ini
     chmod 755 ${APP_HOME}/SmartTeller9/*
     sh start
 }
 
 # 新应用发布成功后，备份被替换的旧应用（主要为日志备份）
 BACKUP_OLD_APP() {
-    versionNum=`cat ${APP_HOME}/SmartTeller9/VERSIONID`
-    tar -czf ${BACKUP_HOME}/../${versionNum}/SmartTeller9-end.tar.gz ${APP_HOME}/SmartTeller9-old
+#    versionNum=`cat ${APP_HOME}/SmartTeller9/VERSIONID`
+    tar -czf ${BACKUP_HOME}/SmartTeller9-${TAG_NO}.tar.gz  ${APP_HOME}/SmartTeller9-old
     rm -rf ${APP_HOME}/SmartTeller9-old
 }
 ######## Function END ########
 
 # 备份全量包，并解压包已备部署 DONE
+echo "部署的TAG_NO为："${TAG_NO}
 cd ${BACKUP_HOME}
 mkdir SmartTeller9
 cd SmartTeller9
-unzip ${BACKUP_HOME}/SmartTellerV9.4.5.zip
-echo Teller9_Full_${TAG_NO} > ${BACKUP_HOME}/SmartTeller9/VERSIONID
+unzip ${BACKUP_HOME}/${TARGET}
+echo ${VERSION_ID} > ${BACKUP_HOME}/SmartTeller9/VERSIONID
 
 # 检查并停止应用，以备部署新应用
 CheckStopState
@@ -172,3 +174,5 @@ else
         echo ${MSG_STATUS_ERROR}
     fi
 fi
+
+echo "结束SmartTeller9全量部署。。。"
