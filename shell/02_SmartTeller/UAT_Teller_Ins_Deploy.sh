@@ -36,7 +36,7 @@ APP_HOME=${DCITS_HOME}
 CACHE_HOME=${DCITS_HOME}/SmartTeller9/configuration
 BACKUP_HOME=${DCITS_HOME}/backup/SmartTeller9
 ZIP_HOME=${BACKUP_HOME}
-VERSION_ID=App_SmartTeller9_Ins_${TAG_NO}
+VERSION_ID=App_${TAG_NAME}
 TARGET=${VERSION_ID}.zip
 ########## Var Setting END ##########
 

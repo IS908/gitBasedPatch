@@ -5,8 +5,7 @@ echo **********************************************************
 echo **                                                      **
 echo **              Teller9 Deploy Shell                    **
 echo **              http://www.dcits.com                    **
-echo **            author:chenkunh@dcits.com                 **
-echo **            update by zhangjig@dcits.com              **
+echo **            author  zhangjig@dcits.com                **
 echo **********************************************************
 
 #注意的点 Teller 的启动脚本 start 启动为 ./run.sh ，执行start脚本前需先cd切换到Teller目录下增加执行权限，再sh start，否则会调用不到run.sh
@@ -36,7 +35,7 @@ DCITS_HOME=/app/dcits
 APP_HOME=${DCITS_HOME}
 BACKUP_HOME=${DCITS_HOME}/backup/SmartTeller9
 ZIP_HOME=${BACKUP_HOME}
-VERSION_ID=App_SmartTeller9_Full_${TAG_NO}
+VERSION_ID=App_${TAG_NAME}
 TARGET=${VERSION_ID}.zip
 
 ########## Var Setting END ##########
@@ -93,20 +92,20 @@ START_TELLER() {
 
 # 新应用发布成功后，备份被替换的旧应用（主要为日志备份）
 BACKUP_OLD_APP() {
-#    versionNum=`cat ${APP_HOME}/SmartTeller9/VERSIONID`
-    tar -czf ${BACKUP_HOME}/SmartTeller9-${TAG_NO}.tar.gz  ${APP_HOME}/SmartTeller9-old
+    versionNum=`cat ${APP_HOME}/SmartTeller9-old/VERSIONID`
+    tar -czf ${BACKUP_HOME}/${versionNum}-end.tar.gz  ${APP_HOME}/SmartTeller9-old
     rm -rf ${APP_HOME}/SmartTeller9-old
 }
 ######## Function END ########
 
 # 备份全量包，并解压包已备部署 DONE
-echo "部署的TAG_NO为："${TAG_NO}
+echo "部署的TAG_NAME为："${TAG_NAME}
 cd ${BACKUP_HOME}
 mkdir SmartTeller9
 cd SmartTeller9
 unzip ${BACKUP_HOME}/${TARGET}
 echo ${VERSION_ID} > ${BACKUP_HOME}/SmartTeller9/VERSIONID
-echo ${VERSION_ID} > ${BACKUP_TEMP}/SmartTeller9/VERSION_LIST
+echo ${VERSION_ID} > ${BACKUP_HOME}/SmartTeller9/VERSION_LIST
 
 # 检查并停止应用，以备部署新应用
 CheckStopState
