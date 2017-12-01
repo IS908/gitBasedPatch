@@ -15,7 +15,7 @@ echo **********************************************************
 #   Var Setting中修改：
 #       1、PORT_APP 端口号
 #       2、DCITS_HOME 应用部署主目录
-#  非阜新银行项目，请注释掉第93行：sed -i 's/ssoindex/fxindex/g' ./configuration/config.ini
+#  非阜新银行项目，请注释掉第89行：sed -i 's/ssoindex/fxindex/g' ./configuration/config.ini
 #
 
 
@@ -34,14 +34,16 @@ MSG_STATUS_ERROR='Teller应用状态未知,请人工确认当前状态'
 
 DCITS_HOME=/app/dcits
 APP_HOME=${DCITS_HOME}
+CACHE_HOME=${DCITS_HOME}/SmartTeller9/configuration
 BACKUP_HOME=${DCITS_HOME}/backup/SmartTeller9
 ZIP_HOME=${BACKUP_HOME}
-VERSION_ID=APP_SmartTeller9_Ins_${TAG_NO}
+VERSION_ID=App_SmartTeller9_Ins_${TAG_NO}
 TARGET=${VERSION_ID}.zip
 SIGN_PATH=${APP_HOME}/SmartTeller9/InteractiveFrame_ClientResource/application
 ########## Var Setting END ##########
 
 ######## Function START ########
+echo "开始SmartTeller9增量版本部署"
 # 检查应用当前状态
 CheckAppState() {
     PID_APP=`/usr/sbin/lsof -n -P -t -i :${PORT_APP}`
@@ -85,21 +87,22 @@ CHECK_INTERVAL() {
 
 # 启动teller应用
 START_TELLER() {
-#    cd ${APP_HOME}
-#    tar zxf ${DCITS_HOME}/backup/template/telconf.tar.gz
-#    cd ${SIGN_PATH}
-#    ant -f sign.xml
     cd ${APP_HOME}/SmartTeller9
-    sed -i 's/ssoindex/fxindex/g' ./configuration/config.ini
+#    sed -i 's/ssoindex/fxindex/g' ./configuration/config.ini
     chmod 755 ${APP_HOME}/SmartTeller9/*
     sh start
 }
 
 # 新应用发布成功后，备份被替换的旧应用（主要为日志备份）
 BACKUP_OLD_APP() {
-    versionNum=`cat ${APP_HOME}/SmartTeller9/VERSIONID`
-    tar -czf ${BACKUP_HOME}/SmartTeller9-end.tar.gz ${APP_HOME}/SmartTeller9-old
+#    versionNum=`cat ${APP_HOME}/SmartTeller9/VERSIONID`
+    tar -czf ${BACKUP_HOME}/SmartTeller9-${TAG_NO}.tar.gz  ${APP_HOME}/SmartTeller9-old
     rm -rf ${APP_HOME}/SmartTeller9-old
+}
+
+DELETE_TELLER9_CACHE() {
+    cd ${CACHE_HOME}
+    rm -rf org.eclipse.*
 }
 ######## Function END ########
 
@@ -143,6 +146,10 @@ cd ${BACKUP_HOME}
 unzip -o -d ${APP_HOME}  ${BACKUP_HOME}/${TARGET}
 echo ${VERSION_ID} > ${APP_HOME}/SmartTeller9/VERSIONID
 
+# 删除缓存文件
+echo '删除缓存文件'
+DELETE_TELLER9_CACHE
+
 # 部署新的应用包，并启动新应用
 echo 'Teller starting ...'
 START_TELLER
@@ -175,3 +182,5 @@ else
         echo ${MSG_STATUS_ERROR}
     fi
 fi
+
+echo "结束SmartTeller9增量版本部署..."

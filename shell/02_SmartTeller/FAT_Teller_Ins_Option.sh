@@ -3,7 +3,7 @@ source ~/.bashrc
 
 echo **********************************************************
 echo **                                                      **
-echo **            Teller9 Ins Deploy Shell                  **
+echo **            Teller9 Ins Build Shell                  **
 echo **              http://www.dcits.com                    **
 echo **            author:zhangjig@dcits.com                 **
 echo **                                                      **
@@ -16,21 +16,18 @@ echo **********************************************************
 # 4、将增量目标码打成压缩包待部署
 #
 
-#不同环境下脚本修改指南
-#   Var Setting中修改：
-#
-
 ######## Var Setting START ########
 SIGN_FLAG="N"
 FILE_PATH=`pwd`
 RUNDATE=`date +%Y%m%d`
 BUILD_PATH=${FILE_PATH}
 ANT_HOME=${FILE_PATH}/tools/ant/
-TARGET=APP_SmartTeller9_Ins_${TAG_NO}.zip
+TARGET=App_SmartTeller9_Ins_${TAG_NO}.zip
 INCFILE=${FILE_PATH}/RUNALL/app_${RUNDATE}.txt
 BUILD_PROPERTIES=${BUILD_PATH}/build.properties
 INCFILE_NEW=${FILE_PATH}/RUNALL/app_${RUNDATE}.txt~
 SIGN_JAR=SmartTeller9/InteractiveFrame_ClientResource/application/*.jar
+SIGN_FILES=SmartTeller9/InteractiveFrame_ClientResource/application/.*.jar
 SIGN_PATH=${FILE_PATH}/SmartTeller9/InteractiveFrame_ClientResource/application
 
 TEMP=""
@@ -46,6 +43,7 @@ MSG_NOT_EXIST_PROPERTIES='不存在增量执行文件build.properties，不可�
 
 export ANT_HOME=${ANT_HOME}
 cd ${BUILD_PATH}
+echo "开始SmartTeller9增量版本构建"
 ##检查增量执行文件是否存在
 if [ ! -e "build.properties" ]; then 
 	echo ${MSG_NOT_EXIST_PROPERTIES}
@@ -112,6 +110,14 @@ sed -i "/sourceBase=/s/=.*/=${BUILD//\\/\/}/" patch.properties
 echo "开始构建交易"
 ant -buildfile build_ins.xml -DtargetEnv=${TARGET_ENV}
 
+# 检查是否需要签名操作
+count=`grep -c "${SIGN_FILES}" ${INCFILE_NEW}` 
+if [[ count -gt 0 ]]
+then
+    echo "有客户端jar包更新，需要进行签名操作"
+    SIGN_FLAG="Y"
+fi
+
 ##签名
 if [[ ${SIGN_FLAG} = "Y" ]]
 then
@@ -119,7 +125,7 @@ then
     cd ${SIGN_PATH}
     ant -f sign.xml
 else
-    echo "不进行签名"    
+    echo "无客户端jar包更新，不需要签名"    
 fi
 
 # 进行增量交易压缩
@@ -144,4 +150,4 @@ fi
 ##将SmartTeller9_1.0.0.jar公共包压缩到增量目标zip包
 zip -q -r ${TARGET} SmartTeller9/trans/SmartTeller9_1.0.0.jar
 
-echo "SmartTeller9增量版本构建结束。。。"
+echo "结束SmartTeller9增量版本构建。。。"
