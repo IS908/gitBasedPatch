@@ -14,8 +14,8 @@ source ~/.bashrc
 #git checkout -b release/dailyFix origin/release/dailyFix
 #git pull http://jenkins:digital1@57.25.2.187:8082/dcits/SmartEnsemble.git
 #git reset --hard
-#git tag -a "SmartEnsemble_"${TAG_NO} -m "Jenkins Git plugin tagging with SmartEnsemble"
-#git push http://jenkins:digital1@57.25.2.187:8082/dcits/SmartEnsemble.git "SmartEnsemble_"${TAG_NO}
+#git tag -a "FAT_SmartEnsemble_Full_"${TAG_NO} -m "Jenkins Git plugin tagging with SmartEnsemble"
+#git push http://jenkins:digital1@57.25.2.187:8082/dcits/SmartEnsemble.git "FAT_SmartEnsemble_Full_"${TAG_NO}
 #
 #cd $WORKSPACE
 #git reset --hard
@@ -62,7 +62,7 @@ MSG_STATUS_ERROR='APP应用状态未知,请人工确认当前状态'
 DCITS_HOME=/app/dcits
 APP_NMAE=ModelBank
 APP_ORIGIN_NAME=modelBank-integration
-TAG_NAME=ModelBank_Full_${TAG_NO}
+TAG_NAME=FAT_ModelBank_Full_${TAG_NO}
 BACKUP_HOME=${DCITS_HOME}/backup/${APP_NMAE}
 BACKUP_TEMP=${BACKUP_HOME}/${TAG_NAME}
 TAR_GZ_HOME=${BACKUP_TEMP}/modules/modelBank-all-integration/target
@@ -124,7 +124,9 @@ rm -rf ${BACKUP_TEMP}/modules
 cd ${BACKUP_TEMP}
 tar -zxf  ${BACKUP_HOME}/App_${TAG_NAME}.tar.gz
 mv ${BACKUP_TEMP}/modelBank-integration ${BACKUP_TEMP}/ModelBank
+# 创建VERSIONID到部署包，与源码的Tag相对应
 echo App_${TAG_NAME} > ${BACKUP_TEMP}/ModelBank/VERSIONID
+echo App_${TAG_NAME} > ${BACKUP_TEMP}/ModelBank/VERSION_LIST
 
 # 检查并停止应用，以备部署新应用
 CheckStopState
