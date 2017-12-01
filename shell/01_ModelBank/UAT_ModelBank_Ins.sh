@@ -38,9 +38,10 @@ MSG_STATUS_ERROR='APP应用状态未知,请人工确认当前状态'
 ### 来自Jenkins的变量TAG_NAME ###
 #################################
 
+APP_NAME=ModelBank
 DCITS_HOME=/app/dcits
 ENSEMBLE_HOME=${DCITS_HOME}
-BACKUP_HOME=${DCITS_HOME}/backup/ModelBank
+BACKUP_HOME=${DCITS_HOME}/backup/${APP_NAME}
 TAG_NAME=ModelBank_Ins_${TAG_NO}
 BACKUP_TEMP=${BACKUP_HOME}/${TAG_NAME}
 ZIP_HOME=${BACKUP_TEMP}/modules/modelBank-all-integration/target
@@ -91,11 +92,14 @@ CHECK_INTERVAL() {
 
 # 新应用发布成功后，备份被替换的旧应用（作为增量替换前的全量状态，以便增量发布后可回退上一个版本）
 BACKUP_OLD_APP() {
-    echo App_${TAG_NAME} > ${ENSEMBLE_HOME}/ModelBank/VERSIONID
-    rm -rf ${ENSEMBLE_HOME}/ModelBank-old/logs
-    versionNum=`cat ${ENSEMBLE_HOME}/ModelBank-old/VERSIONID`
-    tar -czf ${BACKUP_HOME}/${versionNum}-end.tar.gz ${ENSEMBLE_HOME}/ModelBank-old
-    rm -rf ${ENSEMBLE_HOME}/ModelBank-old
+    versionNum=`cat ${ENSEMBLE_HOME}/${APP_NAME}-old/VERSIONID`
+    cd ${DCITS_HOME}
+    tar -czf ${BACKUP_HOME}/${versionNum}-end.tar.gz ${APP_NAME}-old
+    rm -rf ${ENSEMBLE_HOME}/${APP_NAME}-old
+
+    # 部署成功，更新VERSIONID，并在VERSION_LIST中追加增量版本号
+    echo App_${TAG_NAME} > ${DCITS_HOME}/${APP_NAME}/VERSIONID
+    echo App_${TAG_NAME} >> ${DCITS_HOME}/${APP_NAME}/VERSION_LIST
 }
 ######## Function END ########
 
@@ -103,13 +107,13 @@ BACKUP_OLD_APP() {
 mv  ${ZIP_HOME}/app_modelbank_ins.zip  ${BACKUP_HOME}/App_${TAG_NAME}.zip
 cd ${BACKUP_TEMP}
 unzip ${BACKUP_HOME}/App_${TAG_NAME}.zip
-mv modelBank-integration ModelBank
+mv modelBank-integration ${APP_NAME}
 
 # 检查并停止应用，以备部署新应用
 CheckStopState
 if [ ${APP_RUN_STATUS} -ne 0 ];then
     echo 'App stopping ...'
-    sh ${ENSEMBLE_HOME}/ModelBank/bin/stop.sh
+    sh ${ENSEMBLE_HOME}/${APP_NAME}/bin/stop.sh
 	CHECK_INTERVAL 1
     for i in `seq 3`
     do   
@@ -128,19 +132,19 @@ fi
 
 # 备份原应用包
 cd ${ENSEMBLE_HOME}
-if [[ -d ${ENSEMBLE_HOME}/ModelBank-old/ ]];then
-    rm -rf ${ENSEMBLE_HOME}/ModelBank-old
+if [[ -d ${ENSEMBLE_HOME}/${APP_NAME}-old/ ]];then
+    rm -rf ${ENSEMBLE_HOME}/${APP_NAME}-old
 fi
 
-if [[ -d ${ENSEMBLE_HOME}/ModelBank/ ]];then
-    cp -r ${ENSEMBLE_HOME}/ModelBank ${ENSEMBLE_HOME}/ModelBank-old
+if [[ -d ${ENSEMBLE_HOME}/${APP_NAME}/ ]];then
+    cp -r ${ENSEMBLE_HOME}/${APP_NAME} ${ENSEMBLE_HOME}/${APP_NAME}-old
 fi
 
 # 部署增量应用包，并启动应用
-mv -f ${BACKUP_TEMP}/ModelBank/lib/* ${ENSEMBLE_HOME}/ModelBank/lib/
+mv -f ${BACKUP_TEMP}/${APP_NAME}/lib/* ${ENSEMBLE_HOME}/${APP_NAME}/lib/
 rm -rf ${BACKUP_TEMP}
 echo 'App starting ...'
-sh ${ENSEMBLE_HOME}/ModelBank/bin/start.sh
+sh ${ENSEMBLE_HOME}/${APP_NAME}/bin/start.sh
 CHECK_INTERVAL ${CHECK_TIME}
 
 # 检查新部署应用是否启动成功
@@ -160,7 +164,7 @@ else
             break
         else
             echo 'Retry App starting ...'
-            sh ${ENSEMBLE_HOME}/ModelBank/bin/start.sh
+            sh ${ENSEMBLE_HOME}/${APP_NAME}/bin/start.sh
         fi
         CHECK_INTERVAL ${CHECK_TIME}
     done
