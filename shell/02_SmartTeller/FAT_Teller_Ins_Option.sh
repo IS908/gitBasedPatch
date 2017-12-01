@@ -27,6 +27,7 @@ INCFILE=${FILE_PATH}/RUNALL/app_${RUNDATE}.txt
 BUILD_PROPERTIES=${BUILD_PATH}/build.properties
 INCFILE_NEW=${FILE_PATH}/RUNALL/app_${RUNDATE}.txt~
 SIGN_JAR=SmartTeller9/InteractiveFrame_ClientResource/application/*.jar
+SIGN_FILES=SmartTeller9/InteractiveFrame_ClientResource/application/.*.jar
 SIGN_PATH=${FILE_PATH}/SmartTeller9/InteractiveFrame_ClientResource/application
 
 TEMP=""
@@ -108,6 +109,14 @@ sed -i "/sourceBase=/s/=.*/=${BUILD//\\/\/}/" patch.properties
 # 进行增量交易的编译
 echo "开始构建交易"
 ant -buildfile build_ins.xml -DtargetEnv=${TARGET_ENV}
+
+# 检查是否需要签名操作
+count=`grep -c "${SIGN_FILES}" ${INCFILE_NEW}` 
+if [[ count -gt 0 ]]
+then
+    echo "有客户端jar包更新，需要进行签名操作"
+    SIGN_FLAG="Y"
+fi
 
 ##签名
 if [[ ${SIGN_FLAG} = "Y" ]]

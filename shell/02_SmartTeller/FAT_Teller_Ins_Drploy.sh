@@ -34,6 +34,7 @@ MSG_STATUS_ERROR='Teller应用状态未知,请人工确认当前状态'
 
 DCITS_HOME=/app/dcits
 APP_HOME=${DCITS_HOME}
+CACHE_HOME=${DCITS_HOME}/SmartTeller9/configuration
 BACKUP_HOME=${DCITS_HOME}/backup/SmartTeller9
 ZIP_HOME=${BACKUP_HOME}
 VERSION_ID=App_SmartTeller9_Ins_${TAG_NO}
@@ -42,6 +43,7 @@ SIGN_PATH=${APP_HOME}/SmartTeller9/InteractiveFrame_ClientResource/application
 ########## Var Setting END ##########
 
 ######## Function START ########
+echo "开始SmartTeller9增量版本部署"
 # 检查应用当前状态
 CheckAppState() {
     PID_APP=`/usr/sbin/lsof -n -P -t -i :${PORT_APP}`
@@ -97,6 +99,11 @@ BACKUP_OLD_APP() {
     tar -czf ${BACKUP_HOME}/SmartTeller9-${TAG_NO}.tar.gz  ${APP_HOME}/SmartTeller9-old
     rm -rf ${APP_HOME}/SmartTeller9-old
 }
+
+DELETE_TELLER9_CACHE() {
+    cd ${CACHE_HOME}
+    rm -rf org.eclipse.*
+}
 ######## Function END ########
 
 # 检查并停止应用
@@ -139,6 +146,10 @@ cd ${BACKUP_HOME}
 unzip -o -d ${APP_HOME}  ${BACKUP_HOME}/${TARGET}
 echo ${VERSION_ID} > ${APP_HOME}/SmartTeller9/VERSIONID
 
+# 删除缓存文件
+echo '删除缓存文件'
+DELETE_TELLER9_CACHE
+
 # 部署新的应用包，并启动新应用
 echo 'Teller starting ...'
 START_TELLER
@@ -171,3 +182,5 @@ else
         echo ${MSG_STATUS_ERROR}
     fi
 fi
+
+echo "结束SmartTeller9增量版本部署..."
