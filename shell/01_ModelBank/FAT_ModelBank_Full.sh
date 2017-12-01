@@ -6,18 +6,18 @@ source ~/.bashrc
 # Remote directory: backup/ModelBank/ModelBank_Full_${TAG_NO}
 # GIT 子模块相关shell：
 #
-#cd $WORKSPACE
+#cd ${WORKSPACE}
 #git checkout -b release/dailyFix origin/release/dailyFix
 #git pull http://jenkins:digital1@57.25.2.187:8082/dcits/ModelBank.git
 #
-#cd $WORKSPACE/SmartEnsemble
+#cd ${WORKSPACE}/SmartEnsemble
 #git checkout -b release/dailyFix origin/release/dailyFix
 #git pull http://jenkins:digital1@57.25.2.187:8082/dcits/SmartEnsemble.git
 #git reset --hard
 #git tag -a "FAT_SmartEnsemble_Full_"${TAG_NO} -m "Jenkins Git plugin tagging with SmartEnsemble"
 #git push http://jenkins:digital1@57.25.2.187:8082/dcits/SmartEnsemble.git "FAT_SmartEnsemble_Full_"${TAG_NO}
 #
-#cd $WORKSPACE
+#cd ${WORKSPACE}
 #git reset --hard
 
 echo **********************************************************
@@ -112,9 +112,9 @@ CHECK_INTERVAL() {
 
 # 新应用发布成功后，备份被替换的旧应用（主要为日志备份）
 BACKUP_OLD_APP() {
-    versionNum=`cat ${DCITS_HOME}/ModelBank-old/VERSIONID`
-    tar -czf ${BACKUP_HOME}/${versionNum}-end.tar.gz ${DCITS_HOME}/ModelBank-old
-    rm -rf ${DCITS_HOME}/ModelBank-old
+    versionNum=`cat ${DCITS_HOME}/${APP_NMAE}-old/VERSIONID`
+    tar -czf ${BACKUP_HOME}/${versionNum}-end.tar.gz ${DCITS_HOME}/${APP_NMAE}-old
+    rm -rf ${DCITS_HOME}/${APP_NMAE}-old
 }
 ######## Function END ########
 
@@ -123,16 +123,16 @@ mv  ${TAR_GZ_HOME}/modelBank-integration-assembly.tar.gz  ${BACKUP_HOME}/App_${T
 rm -rf ${BACKUP_TEMP}/modules
 cd ${BACKUP_TEMP}
 tar -zxf  ${BACKUP_HOME}/App_${TAG_NAME}.tar.gz
-mv ${BACKUP_TEMP}/modelBank-integration ${BACKUP_TEMP}/ModelBank
+mv ${BACKUP_TEMP}/modelBank-integration ${BACKUP_TEMP}/${APP_NMAE}
 # 创建VERSIONID到部署包，与源码的Tag相对应
-echo App_${TAG_NAME} > ${BACKUP_TEMP}/ModelBank/VERSIONID
-echo App_${TAG_NAME} > ${BACKUP_TEMP}/ModelBank/VERSION_LIST
+echo App_${TAG_NAME} > ${BACKUP_TEMP}/${APP_NMAE}/VERSIONID
+echo App_${TAG_NAME} > ${BACKUP_TEMP}/${APP_NMAE}/VERSION_LIST
 
 # 检查并停止应用，以备部署新应用
 CheckStopState
 if [ ${APP_RUN_STATUS} -ne 0 ];then
     echo 'App stopping ...'
-    sh ${DCITS_HOME}/ModelBank/bin/stop.sh
+    sh ${DCITS_HOME}/${APP_NMAE}/bin/stop.sh
 	CHECK_INTERVAL 1
     for i in `seq 3`
     do   
@@ -151,21 +151,21 @@ fi
 
 # 原应用包文件夹重命名
 cd ${DCITS_HOME}
-if [[ -d ${DCITS_HOME}/ModelBank-old/ ]];then
-    rm -rf ${DCITS_HOME}/ModelBank-old
+if [[ -d ${DCITS_HOME}/${APP_NMAE}-old/ ]];then
+    rm -rf ${DCITS_HOME}/${APP_NMAE}-old
 fi
 
-if [[ -d ${DCITS_HOME}/ModelBank/ ]];then
-    mv ${DCITS_HOME}/ModelBank ${DCITS_HOME}/ModelBank-old
+if [[ -d ${DCITS_HOME}/${APP_NMAE}/ ]];then
+    mv ${DCITS_HOME}/${APP_NMAE} ${DCITS_HOME}/${APP_NMAE}-old
 fi
 
 # 部署新的应用包到指定目录，并删除临时文件夹
-mv ${BACKUP_TEMP}/ModelBank ${DCITS_HOME}
+mv ${BACKUP_TEMP}/${APP_NMAE} ${DCITS_HOME}
 rm -rf ${BACKUP_TEMP}
 
 # 新部署应用启动
 echo 'App starting ...'
-sh ${DCITS_HOME}/ModelBank/bin/start.sh
+sh ${DCITS_HOME}/${APP_NMAE}/bin/start.sh
 CHECK_INTERVAL ${CHECK_TIME}
 
 # 检查新部署应用是否启动成功
@@ -185,7 +185,7 @@ else
             break
         else
             echo 'Retry App starting ...'
-            sh ${DCITS_HOME}/ModelBank/bin/start.sh
+            sh ${DCITS_HOME}/${APP_NMAE}/bin/start.sh
         fi
         CHECK_INTERVAL ${CHECK_TIME}
     done
