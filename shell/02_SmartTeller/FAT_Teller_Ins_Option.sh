@@ -23,9 +23,9 @@ RUNDATE=`date +%Y%m%d`
 BUILD_PATH=${FILE_PATH}
 ANT_HOME=${FILE_PATH}/tools/ant/
 TARGET=App_SmartTeller9_Ins_${TAG_NO}.zip
-INCFILE=${FILE_PATH}/RUNALL/app_${RUNDATE}.txt
+INCFILE=${FILE_PATH}/RUNALL/app_${INSFILE_NAME}.txt
 BUILD_PROPERTIES=${BUILD_PATH}/build.properties
-INCFILE_NEW=${FILE_PATH}/RUNALL/app_${RUNDATE}.txt~
+INCFILE_NEW=${INCFILE}~
 SIGN_JAR=SmartTeller9/InteractiveFrame_ClientResource/application/*.jar
 SIGN_FILES=SmartTeller9/InteractiveFrame_ClientResource/application/.*.jar
 SIGN_PATH=${FILE_PATH}/SmartTeller9/InteractiveFrame_ClientResource/application
@@ -50,6 +50,7 @@ if [ ! -e "build.properties" ]; then
 	exit 0
 fi
 ##检查增量清单是否存在
+echo "增量清单名称是："app_${INSFILE_NAME}.txt
 if [ ! -e "$INCFILE" ]; then 
 	echo ${MSG_NOT_EXIST_INCFILE}
 	exit 1
