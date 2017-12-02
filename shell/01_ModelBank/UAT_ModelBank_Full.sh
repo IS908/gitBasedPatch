@@ -124,7 +124,7 @@ cd ${BACKUP_TEMP}
 tar -zxf  ${BACKUP_HOME}/App_${TAG_NAME}.tar.gz
 mv ${BACKUP_TEMP}/${APP_ORIGIN_NAME} ${BACKUP_TEMP}/${APP_NMAE}
 echo App_${TAG_NAME} > ${BACKUP_TEMP}/${APP_NMAE}/versionid.txt
-echo App_${TAG_NAME} > ${BACKUP_TEMP}/${APP_NMAE}/versionlist.txt
+echo App_${TAG_NAME} > ${BACKUP_TEMP}/${APP_NMAE}/version_list.txt
 
 # 检查并停止应用，以备部署新应用
 CheckStopState

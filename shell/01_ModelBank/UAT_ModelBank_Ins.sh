@@ -99,7 +99,7 @@ BACKUP_OLD_APP() {
 
     # 部署成功，更新versionid.txt，并在versionid.txt中追加增量版本号
     echo App_${TAG_NAME} > ${DCITS_HOME}/${APP_NAME}/versionid.txt
-    echo App_${TAG_NAME} >> ${DCITS_HOME}/${APP_NAME}/versionid.txt
+    echo App_${TAG_NAME} >> ${DCITS_HOME}/${APP_NAME}/version_list.txt
 }
 ######## Function END ########
 
