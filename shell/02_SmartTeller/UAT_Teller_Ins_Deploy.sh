@@ -86,14 +86,14 @@ CHECK_INTERVAL() {
 # 启动teller应用
 START_TELLER() {
     cd ${APP_HOME}/SmartTeller9
-#    sed -i 's/ssoindex/fxindex/g' ./configuration/config.ini
+    sed -i 's/ssoindex/fxindex/g' ./configuration/config.ini
     chmod 755 ${APP_HOME}/SmartTeller9/*
     sh start
 }
 
 # 新应用发布成功后，备份被替换的旧应用（主要为日志备份）
 BACKUP_OLD_APP() {
-    versionNum=`cat ${APP_HOME}/SmartTeller9-old/VERSIONID`
+    versionNum=`cat ${APP_HOME}/SmartTeller9-old/versionid.txt`
     tar -czf ${BACKUP_HOME}/${versionNum}-end.tar.gz  ${APP_HOME}/SmartTeller9-old
     rm -rf ${APP_HOME}/SmartTeller9-old
 }
@@ -139,11 +139,11 @@ if [[ -d ${APP_HOME}/SmartTeller9/ ]];then
 fi
 
 # 备份全量包，并解压增量包 DONE
+echo "开始解压增量压缩包..."
 cd ${BACKUP_HOME}
-
 unzip -o -d ${APP_HOME}  ${BACKUP_HOME}/${TARGET}
-echo ${VERSION_ID} > ${APP_HOME}/SmartTeller9/VERSIONID
-echo ${VERSION_ID} >> ${APP_HOME}/SmartTeller9/VERSION_LIST
+echo ${VERSION_ID} > ${APP_HOME}/SmartTeller9/versionid.txt
+echo ${VERSION_ID} >> ${APP_HOME}/SmartTeller9/version_list.txt
 
 # 删除缓存文件
 echo '删除缓存文件'

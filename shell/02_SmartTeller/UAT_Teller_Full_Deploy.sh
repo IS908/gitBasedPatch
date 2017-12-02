@@ -14,7 +14,7 @@ echo **********************************************************
 #   Var Setting中修改：
 #       1、PORT_APP 端口号
 #       2、DCITS_HOME 应用部署主目录
-#  非阜新银行项目，请注释掉第89行：sed -i 's/ssoindex/fxindex/g' ./configuration/config.ini
+#  非阜新银行项目，请注释掉第88行：sed -i 's/ssoindex/fxindex/g' ./configuration/config.ini
 #
 
 ########## Var Setting START ##########
@@ -85,14 +85,14 @@ CHECK_INTERVAL() {
 # 启动teller应用
 START_TELLER() {
     cd ${APP_HOME}/SmartTeller9
-#    sed -i 's/ssoindex/fxindex/g' ./configuration/config.ini
+    sed -i 's/ssoindex/fxindex/g' ./configuration/config.ini
     chmod 755 ${APP_HOME}/SmartTeller9/*
     sh start
 }
 
 # 新应用发布成功后，备份被替换的旧应用（主要为日志备份）
 BACKUP_OLD_APP() {
-    versionNum=`cat ${APP_HOME}/SmartTeller9-old/VERSIONID`
+    versionNum=`cat ${APP_HOME}/SmartTeller9-old/versionid.txt`
     tar -czf ${BACKUP_HOME}/${versionNum}-end.tar.gz  ${APP_HOME}/SmartTeller9-old
     rm -rf ${APP_HOME}/SmartTeller9-old
 }
@@ -104,8 +104,8 @@ cd ${BACKUP_HOME}
 mkdir SmartTeller9
 cd SmartTeller9
 unzip ${BACKUP_HOME}/${TARGET}
-echo ${VERSION_ID} > ${BACKUP_HOME}/SmartTeller9/VERSIONID
-echo ${VERSION_ID} > ${BACKUP_HOME}/SmartTeller9/VERSION_LIST
+echo ${VERSION_ID} > ${BACKUP_HOME}/SmartTeller9/versionid.txt
+echo ${VERSION_ID} > ${BACKUP_HOME}/SmartTeller9/version_list.txt
 
 # 检查并停止应用，以备部署新应用
 CheckStopState
