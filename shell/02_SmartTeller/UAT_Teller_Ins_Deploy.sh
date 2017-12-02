@@ -86,7 +86,7 @@ CHECK_INTERVAL() {
 # 启动teller应用
 START_TELLER() {
     cd ${APP_HOME}/SmartTeller9
-#    sed -i 's/ssoindex/fxindex/g' ./configuration/config.ini
+    sed -i 's/ssoindex/fxindex/g' ./configuration/config.ini
     chmod 755 ${APP_HOME}/SmartTeller9/*
     sh start
 }

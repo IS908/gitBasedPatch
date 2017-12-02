@@ -14,7 +14,7 @@ echo **********************************************************
 #   Var Setting中修改：
 #       1、PORT_APP 端口号
 #       2、DCITS_HOME 应用部署主目录
-#  非阜新银行项目，请注释掉第89行：sed -i 's/ssoindex/fxindex/g' ./configuration/config.ini
+#  非阜新银行项目，请注释掉第88行：sed -i 's/ssoindex/fxindex/g' ./configuration/config.ini
 #
 
 ########## Var Setting START ##########
@@ -85,7 +85,7 @@ CHECK_INTERVAL() {
 # 启动teller应用
 START_TELLER() {
     cd ${APP_HOME}/SmartTeller9
-#    sed -i 's/ssoindex/fxindex/g' ./configuration/config.ini
+    sed -i 's/ssoindex/fxindex/g' ./configuration/config.ini
     chmod 755 ${APP_HOME}/SmartTeller9/*
     sh start
 }
