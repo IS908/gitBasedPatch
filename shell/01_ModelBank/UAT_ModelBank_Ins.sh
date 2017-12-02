@@ -25,7 +25,7 @@ echo **********************************************************
 # 应用端口号，注意需加单引号
 PORT_APP='9001'
 # 启动应用检查时间间隔设定(单位：秒)
-CHECK_TIME=24
+CHECK_TIME=30
 
 # 应用状态 APP_RUN_STATUS - 0：停止状态；1：启动状态
 APP_RUN_STATUS=-10
@@ -92,14 +92,14 @@ CHECK_INTERVAL() {
 
 # 新应用发布成功后，备份被替换的旧应用（作为增量替换前的全量状态，以便增量发布后可回退上一个版本）
 BACKUP_OLD_APP() {
-    versionNum=`cat ${ENSEMBLE_HOME}/${APP_NAME}-old/VERSIONID`
+    versionNum=`cat ${ENSEMBLE_HOME}/${APP_NAME}-old/versionid.txt`
     cd ${DCITS_HOME}
     tar -czf ${BACKUP_HOME}/${versionNum}-end.tar.gz ${APP_NAME}-old
     rm -rf ${ENSEMBLE_HOME}/${APP_NAME}-old
 
-    # 部署成功，更新VERSIONID，并在VERSION_LIST中追加增量版本号
-    echo App_${TAG_NAME} > ${DCITS_HOME}/${APP_NAME}/VERSIONID
-    echo App_${TAG_NAME} >> ${DCITS_HOME}/${APP_NAME}/VERSION_LIST
+    # 部署成功，更新versionid.txt，并在versionid.txt中追加增量版本号
+    echo App_${TAG_NAME} > ${DCITS_HOME}/${APP_NAME}/versionid.txt
+    echo App_${TAG_NAME} >> ${DCITS_HOME}/${APP_NAME}/versionid.txt
 }
 ######## Function END ########
 
@@ -163,6 +163,7 @@ else
             echo ${MSG_START_SUCCESS}
             break
         else
+            sh ${DCITS_HOME}/${APP_NMAE}/bin/stop.sh
             echo 'Retry App starting ...'
             sh ${ENSEMBLE_HOME}/${APP_NAME}/bin/start.sh
         fi

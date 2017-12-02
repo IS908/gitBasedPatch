@@ -45,7 +45,7 @@ echo **********************************************************
 # 应用端口号，注意需加单引号
 PORT_APP='9001'
 # 启动应用检查时间间隔设定(单位：10秒)
-CHECK_TIME=24
+CHECK_TIME=30
 
 # 应用状态 APP_RUN_STATUS - 0：停止状态；1：启动状态
 APP_RUN_STATUS=-10
@@ -110,7 +110,7 @@ CHECK_INTERVAL() {
 
 # 新应用发布成功后，备份被替换的旧应用（主要为日志备份）
 BACKUP_OLD_APP() {
-    versionNum=`cat ${DCITS_HOME}/${APP_NMAE}-old/VERSIONID`
+    versionNum=`cat ${DCITS_HOME}/${APP_NMAE}-old/versionid.txt`
     cd ${DCITS_HOME}
     tar -czf ${BACKUP_HOME}/${versionNum}-end.tar.gz ${APP_NMAE}-old
     rm -rf ${DCITS_HOME}/${APP_NMAE}-old
@@ -123,8 +123,8 @@ rm -rf ${BACKUP_TEMP}/modules
 cd ${BACKUP_TEMP}
 tar -zxf  ${BACKUP_HOME}/App_${TAG_NAME}.tar.gz
 mv ${BACKUP_TEMP}/${APP_ORIGIN_NAME} ${BACKUP_TEMP}/${APP_NMAE}
-echo App_${TAG_NAME} > ${BACKUP_TEMP}/${APP_NMAE}/VERSIONID
-echo App_${TAG_NAME} > ${BACKUP_TEMP}/${APP_NMAE}/VERSION_LIST
+echo App_${TAG_NAME} > ${BACKUP_TEMP}/${APP_NMAE}/versionid.txt
+echo App_${TAG_NAME} > ${BACKUP_TEMP}/${APP_NMAE}/versionlist.txt
 
 # 检查并停止应用，以备部署新应用
 CheckStopState
@@ -184,6 +184,7 @@ else
             echo ${MSG_START_SUCCESS}
             break
         else
+            sh ${DCITS_HOME}/${APP_NMAE}/bin/stop.sh
             echo 'Retry App starting ...'
             cd ${DCITS_HOME}
             tar -zxf ${DCITS_HOME}/backup/Template/modelconf.tar.gz
