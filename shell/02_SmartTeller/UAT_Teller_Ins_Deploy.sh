@@ -139,8 +139,8 @@ if [[ -d ${APP_HOME}/SmartTeller9/ ]];then
 fi
 
 # 备份全量包，并解压增量包 DONE
+echo "开始解压增量压缩包..."
 cd ${BACKUP_HOME}
-
 unzip -o -d ${APP_HOME}  ${BACKUP_HOME}/${TARGET}
 echo ${VERSION_ID} > ${APP_HOME}/SmartTeller9/VERSIONID
 echo ${VERSION_ID} >> ${APP_HOME}/SmartTeller9/VERSION_LIST
