@@ -96,6 +96,7 @@ BACKUP_OLD_APP() {
     versionNum=`cat ${APP_HOME}/SmartTeller9-old/versionid.txt`
     tar -czf ${BACKUP_HOME}/${versionNum}-end.tar.gz  ${APP_HOME}/SmartTeller9-old
     rm -rf ${APP_HOME}/SmartTeller9-old
+#    rm ${BACKUP_HOME}/${versionNum}.zip
 }
 
 DELETE_TELLER9_CACHE() {

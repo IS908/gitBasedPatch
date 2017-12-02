@@ -38,6 +38,7 @@ ZIP_HOME=${BACKUP_HOME}
 VERSION_ID=App_SmartTeller9_Full_${TAG_NO}
 TARGET=${VERSION_ID}.zip
 
+
 ########## Var Setting END ##########
 
 ######## Function START ########
@@ -95,6 +96,7 @@ BACKUP_OLD_APP() {
     versionNum=`cat ${APP_HOME}/SmartTeller9-old/versionid.txt`
     tar -czf ${BACKUP_HOME}/${versionNum}-end.tar.gz  ${APP_HOME}/SmartTeller9-old
     rm -rf ${APP_HOME}/SmartTeller9-old
+#    rm ${BACKUP_HOME}/${versionNum}.zip
 }
 ######## Function END ########
 
