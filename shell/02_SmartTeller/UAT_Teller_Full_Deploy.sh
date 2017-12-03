@@ -45,7 +45,7 @@ TARGET=${VERSION_ID}.zip
 CheckAppState() {
     PID_APP=`/usr/sbin/lsof -n -P -t -i :${PORT_APP}`
     echo 'PID_APP:' ${PID_APP}
-    APP_RUN_STATUS=`ps -ef | grep ${PID_APP} | grep -v 'grep' | wc -l`
+    APP_RUN_STATUS=`ps -ef | grep "${PID_APP}" | grep -v 'grep' | wc -l`
     echo 'APP_RUN_STATUS:' ${APP_RUN_STATUS}
 }
 
