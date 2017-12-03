@@ -60,10 +60,10 @@ MSG_STATUS_ERROR='APP应用状态未知,请人工确认当前状态'
 ###############################
 
 DCITS_HOME=/app/dcits
-APP_NMAE=ModelBank
+APP_NAME=ModelBank
 APP_ORIGIN_NAME=modelBank-integration
 TAG_NAME=ModelBank_Full_${TAG_NO}
-BACKUP_HOME=${DCITS_HOME}/backup/${APP_NMAE}
+BACKUP_HOME=${DCITS_HOME}/backup/${APP_NAME}
 BACKUP_TEMP=${BACKUP_HOME}/${TAG_NAME}
 TAR_GZ_HOME=${BACKUP_TEMP}/modules/modelBank-all-integration/target
 ######## Var Setting END ########
@@ -112,10 +112,10 @@ CHECK_INTERVAL() {
 
 # 新应用发布成功后，备份被替换的旧应用（主要为日志备份）
 BACKUP_OLD_APP() {
-    versionNum=`cat ${DCITS_HOME}/${APP_NMAE}-old/versionid.txt`
+    versionNum=`cat ${DCITS_HOME}/${APP_NAME}-old/versionid.txt`
     cd ${DCITS_HOME}
-    tar -czf ${BACKUP_HOME}/${versionNum}-end.tar.gz ${APP_NMAE}-old
-    rm -rf ${DCITS_HOME}/${APP_NMAE}-old
+    tar -czf ${BACKUP_HOME}/${versionNum}-end.tar.gz ${APP_NAME}-old/
+    rm -rf ${DCITS_HOME}/${APP_NAME}-old
 }
 ######## Function END ########
 
@@ -124,16 +124,16 @@ mv  ${TAR_GZ_HOME}/modelBank-integration-assembly.tar.gz  ${BACKUP_HOME}/App_${T
 rm -rf ${BACKUP_TEMP}/modules
 cd ${BACKUP_TEMP}
 tar -zxf  ${BACKUP_HOME}/App_${TAG_NAME}.tar.gz
-mv ${BACKUP_TEMP}/modelBank-integration ${BACKUP_TEMP}/${APP_NMAE}
+mv ${BACKUP_TEMP}/modelBank-integration ${BACKUP_TEMP}/${APP_NAME}
 # 创建versionid.txt到部署包，与源码的Tag相对应
-echo App_${TAG_NAME} > ${BACKUP_TEMP}/${APP_NMAE}/versionid.txt
-echo App_${TAG_NAME} > ${BACKUP_TEMP}/${APP_NMAE}/version_list.txt
+echo App_${TAG_NAME} > ${BACKUP_TEMP}/${APP_NAME}/versionid.txt
+echo App_${TAG_NAME} > ${BACKUP_TEMP}/${APP_NAME}/version_list.txt
 
 # 检查并停止应用，以备部署新应用
 CheckStopState
 if [ ${APP_RUN_STATUS} -ne 0 ];then
     echo 'App stopping ...'
-    sh ${DCITS_HOME}/${APP_NMAE}/bin/stop.sh
+    sh ${DCITS_HOME}/${APP_NAME}/bin/stop.sh
 	CHECK_INTERVAL 1
     for i in `seq 3`
     do   
@@ -152,21 +152,21 @@ fi
 
 # 原应用包文件夹重命名
 cd ${DCITS_HOME}
-if [[ -d ${DCITS_HOME}/${APP_NMAE}-old/ ]];then
-    rm -rf ${DCITS_HOME}/${APP_NMAE}-old
+if [[ -d ${DCITS_HOME}/${APP_NAME}-old/ ]];then
+    rm -rf ${DCITS_HOME}/${APP_NAME}-old
 fi
 
-if [[ -d ${DCITS_HOME}/${APP_NMAE}/ ]];then
-    mv ${DCITS_HOME}/${APP_NMAE} ${DCITS_HOME}/${APP_NMAE}-old
+if [[ -d ${DCITS_HOME}/${APP_NAME}/ ]];then
+    mv ${DCITS_HOME}/${APP_NAME} ${DCITS_HOME}/${APP_NAME}-old
 fi
 
 # 部署新的应用包到指定目录，并删除临时文件夹
-mv ${BACKUP_TEMP}/${APP_NMAE} ${DCITS_HOME}
+mv ${BACKUP_TEMP}/${APP_NAME} ${DCITS_HOME}
 rm -rf ${BACKUP_TEMP}
 
 # 新部署应用启动
 echo 'App starting ...'
-sh ${DCITS_HOME}/${APP_NMAE}/bin/start.sh
+sh ${DCITS_HOME}/${APP_NAME}/bin/start.sh
 CHECK_INTERVAL ${CHECK_TIME}
 
 # 检查新部署应用是否启动成功
@@ -185,9 +185,9 @@ else
             echo ${MSG_START_SUCCESS}
             break
         else
-            sh ${DCITS_HOME}/${APP_NMAE}/bin/stop.sh
+            sh ${DCITS_HOME}/${APP_NAME}/bin/stop.sh
             echo 'Retry App starting ...'
-            sh ${DCITS_HOME}/${APP_NMAE}/bin/start.sh
+            sh ${DCITS_HOME}/${APP_NAME}/bin/start.sh
         fi
         CHECK_INTERVAL ${CHECK_TIME}
     done

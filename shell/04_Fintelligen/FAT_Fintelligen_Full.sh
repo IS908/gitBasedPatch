@@ -23,23 +23,28 @@ MSG_STOP_SUCCESS='APP应用停止状态'
 MSG_STOP_FAILD='APP应用停止失败，请人工停止原应用并部署'
 MSG_STATUS_ERROR='APP应用状态未知,请人工确认当前状态'
 
-DCITS_HOME=/app/dcits
-FINTELLIGEN_HOME=${DCITS_HOME}/ensemble
-BACKUP_HOME=${DCITS_HOME}/backup/Fintelligen/Fintelligen_Full_${TAG_NO}
-TAG_NAME=Fintelligen_Full_${TAG_NO}
-TAR_GZ_HOME=${BACKUP_HOME}/modules/fintelligen-integration/online-all-integration/target
+APP_NAME=Fintelligen
+APP_HOME=/app/dcits
+TAG_NAME=Fintelligen_Full_${TAG_NO}         # Fintelligen_Full_${TAG_NO}
+BACKUP_HOME=${APP_HOME}/backup/${APP_NAME}  # /app/dcits/backup/Fintelligen
+BACKUP_TEMP=${BACKUP_HOME}/${TAG_NAME}      # /app/dcits/backup/Fintelligen/Fintelligen_Full_${TAG_NO}
+
+APP_OLD_NAME=fintelligen-integration
+TAR_GZ_PATH=${BACKUP_TEMP}/modules/fintelligen-integration/online-all-integration/target/fintelligen-integration-assembly.tar.gz
 ######## Var Setting END ########
 
 ######## Function START ########
-# 检查应用
+# 检查应用当前状态
+CheckAppState() {
+    PID_APP=`/usr/sbin/lsof -n -P -t -i :${PORT_APP}`
+    echo 'PID_APP: ' ${PID_APP}
+    APP_RUN_STATUS=`ps -ef | grep ${PID_APP} | grep -v 'grep' | wc -l`
+    echo 'APP_RUN_STATUS: ' ${APP_RUN_STATUS}
+}
 
 # 检查应用是否停止 并返回状态码：停止成功:1；停止失败:0
 CheckStopState(){
-    OLD_PID_APP=`/usr/sbin/lsof -n -P -t -i :${PORT_APP}`
-	echo 'OLD_PID_APP:' ${OLD_PID_APP}
-    APP_RUN_STATUS=`ps -ef | grep ${OLD_PID_APP} | grep -v 'grep' | wc -l`
-	echo 'APP_RUN_STATUS:' ${APP_RUN_STATUS}
-
+    CheckAppState
     if [ ${APP_RUN_STATUS} -eq 0 ];then
         # 成功停止
         echo ${MSG_STOP_SUCCESS}
@@ -48,10 +53,7 @@ CheckStopState(){
 
 # 检查应用是否启动 并返回状态码：启动成功:1；启动失败:0
 CheckStartState() {
-    PID_APP=`/usr/sbin/lsof -n -P -t -i :${PORT_APP}`
-    echo 'PID_APP:' ${PID_APP}
-    APP_RUN_STATUS=`ps -ef | grep ${PID_APP} | grep -v 'grep' | wc -l`
-    echo 'APP_RUN_STATUS:' ${APP_RUN_STATUS}
+    CheckAppState
     if [ ${APP_RUN_STATUS} -eq 1 ]
     then
         echo ${MSG_START_SUCCESS}
@@ -60,27 +62,44 @@ CheckStartState() {
         echo ${MSG_STATUS_ERROR}
     fi
 }
-# 睡眠时间设定
+
 CHECK_INTERVAL() {
     for i in `seq $1`
     do
+        echo 'check' ${i}0s
         sleep 10s
-        echo 'check' ${i}
+        CheckAppState
+        if [ ${APP_RUN_STATUS} -ne 0 ];then
+            break
+        fi
     done
+}
+
+# 新应用发布成功后，备份被替换的旧应用（主要为日志备份）
+BACKUP_OLD_APP() {
+    versionNum=`cat ${APP_HOME}/${APP_NAME}-old/versionid.txt`
+    cd ${APP_HOME}
+    tar -czf ${BACKUP_HOME}/${versionNum}-end.tar.gz ${APP_NAME}-old/
+#    需做判定压缩包是否生成相应的压缩包，确认后进行旧版文件夹删除
+    rm -rf ${APP_HOME}/${APP_NAME}-old
 }
 ######## Function END ########
 
 # 备份全量包
-cd ${BACKUP_HOME}
-mv ${TAR_GZ_HOME}/fintelligen-integration-assembly.tar.gz ${BACKUP_HOME}
-rm -rf ${BACKUP_HOME}/modules
-tar -zxf ${BACKUP_HOME}/fintelligen-integration-assembly.tar.gz
+mv ${TAR_GZ_PATH} ${BACKUP_HOME}/App_${TAG_NAME}.tar.gz
+rm -rf ${BACKUP_TEMP}/modules
+cd ${BACKUP_TEMP}
+tar -zxf ${BACKUP_HOME}/App_${TAG_NAME}.tar.gz
+mv ${BACKUP_TEMP}/${APP_OLD_NAME} ${BACKUP_TEMP}/${APP_NAME}
+# 创建versionid.txt到部署包，与源码的Tag相对应
+echo App_${TAG_NAME} > ${BACKUP_TEMP}/${APP_NAME}/versionid.txt
+echo App_${TAG_NAME} > ${BACKUP_TEMP}/${APP_NAME}/version_list.txt
 
 # 检查并部署新应用，以备部署新应用
 CheckStopState
 if [ ${APP_RUN_STATUS} -ne 0 ];then
     echo 'App stopping ...'
-    sh ${FINTELLIGEN_HOME}/fintelligen-integration/bin/stop.sh
+    sh ${APP_HOME}/${APP_NAME}/bin/stop.sh
 	CHECK_INTERVAL 1
     for i in `seq 3`
     do   
@@ -98,26 +117,25 @@ if [ ${APP_RUN_STATUS} -ne 0 ];then
 fi
 
 # 备份原应用包
-cd ${FINTELLIGEN_HOME}
-if [[ -d ${FINTELLIGEN_HOME}/fintelligen-integration-old/ ]];then
-    rm -rf ${FINTELLIGEN_HOME}/fintelligen-integration-old
+if [[ -d ${APP_HOME}/${APP_NAME}-old/ ]];then
+    rm -rf ${APP_HOME}/${APP_NAME}-old
 fi
 
-if [[ -d ${FINTELLIGEN_HOME}/fintelligen-integration/ ]];then
-    mv ${FINTELLIGEN_HOME}/fintelligen-integration ${FINTELLIGEN_HOME}/fintelligen-integration-old
+if [[ -d ${APP_HOME}/${APP_NAME}/ ]];then
+    mv ${APP_HOME}/${APP_NAME} ${APP_HOME}/${APP_NAME}-old
 fi
 
 # 部署新的应用包，并启动新应用
-mv ${BACKUP_HOME}/fintelligen-integration ${FINTELLIGEN_HOME}
+mv ${BACKUP_HOME}/${APP_NAME} ${APP_HOME}
 echo 'App starting ...'
-sh ${FINTELLIGEN_HOME}/fintelligen-integration/bin/start.sh
+sh ${APP_HOME}/${APP_NAME}/bin/start.sh
 CHECK_INTERVAL ${CHECK_TIME}
 
 # 检查新部署应用是否启动成功
 CheckStartState
 if [ ${APP_RUN_STATUS} -eq 1 ];then
     # 新应用启动，删除旧应用
-    rm -rf ${FINTELLIGEN_HOME}/fintelligen-integration-old
+    rm -rf ${APP_HOME}/${APP_NAME}-old
     echo ${MSG_START_SUCCESS}
 else
     for i in `seq 5`
@@ -125,12 +143,12 @@ else
         CheckStartState
         if [ ${APP_RUN_STATUS} -eq 1 ];then
             # 新应用启动，删除旧应用
-            rm -rf ${FINTELLIGEN_HOME}/fintelligen-integration-old
+            rm -rf ${APP_HOME}/${APP_NAME}-old
             echo ${MSG_START_SUCCESS}
             break
         else
             echo 'Retry App starting ...'
-            sh ${FINTELLIGEN_HOME}/fintelligen-integration/bin/start.sh
+            sh ${APP_HOME}/${APP_NAME}/bin/start.sh
         fi
         CHECK_INTERVAL ${CHECK_TIME}
     done
