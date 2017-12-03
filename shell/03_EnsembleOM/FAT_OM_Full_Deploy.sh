@@ -154,6 +154,10 @@ fi
 echo "移动应用到部署目录"
 mv ${BACKUP_HOME}/${APP_NMAE} ${DCITS_HOME}
 
+cd $DCITS_HOME
+#echo replace conf
+tar -zxvf ~/backup/Template/omconf.tar.gz
+
 # 新部署应用启动
 echo 'App starting ...'
 sh ${DCITS_HOME}/${APP_NMAE}/bin/start.sh

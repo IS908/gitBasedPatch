@@ -97,6 +97,12 @@ BACKUP_OLD_APP() {
     rm -rf ${APP_HOME}/SmartTeller9-old
 #   rm ${BACKUP_HOME}/${versionNum}.zip
 }
+
+TAR_TEMPLETE() {
+    cd $DCITS_HOME
+    echo replace conf
+    tar -zxvf ~/backup/Template/telconf.tar.gz
+}
 ######## Function END ########
 
 # 备份全量包，并解压包已备部署 DONE
@@ -142,13 +148,9 @@ if [[ -d ${APP_HOME}/SmartTeller9/ ]];then
     mv ${APP_HOME}/SmartTeller9 ${APP_HOME}/SmartTeller9-old
 fi
 
-#cd $DCITS_HOME
-#echo replace conf
-#tar -zxvf ~/backup/Template/telconf.tar.gz
-
-
 # 部署新的应用包，并启动新应用
 mv ${BACKUP_HOME}/SmartTeller9 ${APP_HOME}
+TAR_TEMPLETE
 echo 'Teller starting ...'
 START_TELLER
 CHECK_INTERVAL ${CHECK_TIME}
