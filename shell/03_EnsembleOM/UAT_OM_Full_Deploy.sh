@@ -15,7 +15,6 @@ echo **                                                      **
 echo **********************************************************
 # 脚本说明：
 # 部署包备份，在部署的相应服务器上进行备份，其它位置不做备份
-# 其中 ${TAG_NO} 与 GitLab 上的 Tag 保持一致
 # 
 # 1、停止当前应用服务
 # 2、备份全量包到指定目录并解压
@@ -44,9 +43,9 @@ MSG_STATUS_ERROR='APP应用状态未知,请人工确认当前状态'
 DCITS_HOME=/app/dcits
 APP_NMAE=EnsembleOM
 UNZIP_NAME=ensemble-om-1.0.4-SNAPSHOT
-TAG_NAME=App_EnsembleOM_Full_${TAG_NO}
+SOURCE_NAME=App_${TAG_NAME}
 SOURCE=ensemble-om-1.0.4-SNAPSHOT-assembly.zip
-NEW_SOURCE=${TAG_NAME}.zip
+NEW_SOURCE=${SOURCE_NAME}.zip
 BACKUP_HOME=${DCITS_HOME}/backup/${APP_NMAE}
 ######## Var Setting END ########
 
@@ -109,14 +108,14 @@ mv  ${SOURCE}   ${BACKUP_HOME}/${NEW_SOURCE}
 cd ../
 rm -rf target
 unzip ${NEW_SOURCE}
-mv ${UNZIP_NAME} ${TAG_NAME}
+mv ${UNZIP_NAME} ${SOURCE_NAME}
 # 创建versionid.txt到部署包，与源码的zip相对应
 echo "创建versionid.txt到部署包"
-echo ${TAG_NAME} > ${BACKUP_HOME}/${TAG_NAME}/versionid.txt
-echo ${TAG_NAME} > ${BACKUP_HOME}/${TAG_NAME}/version_list.txt
+echo ${SOURCE_NAME} > ${BACKUP_HOME}/${SOURCE_NAME}/versionid.txt
+echo ${SOURCE_NAME} > ${BACKUP_HOME}/${SOURCE_NAME}/version_list.txt
 #将应用包更名
-echo "将应用包更名:"${TAG_NAME}
-mv ${TAG_NAME} ${APP_NMAE}
+echo "将应用包更名:"${SOURCE_NAME}
+mv ${SOURCE_NAME} ${APP_NMAE}
 
 # 检查并停止应用，以备部署新应用
 CheckStopState

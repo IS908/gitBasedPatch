@@ -3,17 +3,17 @@ source ~/.bashrc
 
 echo **********************************************************
 echo **                                                      **
-echo **             ModelBank Deploy Shell                   **
+echo **          EnsembleOM Ins Deploy Shell                 **
 echo **              http://www.dcits.com                    **
-echo **            author:chenkunh@dcits.com                 **
+echo **            author:zhangjig@dcits.com                 **
 echo **                                                      **
 echo **********************************************************
 
 
 ######## Var Setting START ########
-#run_status=`netstat -anp|grep 9001|awk '{printf $7}'|cut -d/ -f1`
+#run_status=`netstat -anp|grep 18889|awk '{printf $7}'|cut -d/ -f1`
 # 应用端口号，注意需加单引号
-PORT_APP=''
+PORT_APP='18889'
 # 启动应用检查时间间隔设定(单位：10秒)
 CHECK_TIME=9
 
@@ -25,8 +25,8 @@ MSG_STOP_FAILD='APP应用停止失败，请人工停止原应用并部署'
 MSG_STATUS_ERROR='APP应用状态未知,请人工确认当前状态'
 
 DCITS_HOME=/app/dcits
-OM_HOME=${DCITS_HOME}/ensemble
-BACKUP_HOME=${DCITS_HOME}/backup/EnsembleOM/EnsembleOM_Full_${TAG_NO}
+OM_HOME=${DCITS_HOME}
+BACKUP_HOME=${DCITS_HOME}/backup/EnsembleOM/
 TAR_GZ_HOME=${BACKUP_HOME}
 ######## Var Setting END ########
 
