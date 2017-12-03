@@ -8,7 +8,7 @@ echo **              http://www.dcits.com                    **
 echo **            author zhangjig@dcits.com                 **
 echo **********************************************************
 
-#注意的点 Teller 的启动脚本 start 启动为 ./run.sh ，执行start脚本前需先cd切换到Teller目录下增加执行权限，再sh start，否则会调用不到run.sh
+#注意的点 Teller 的启动脚本 start 启动为 ./start ，执行start脚本前需先cd切换到Teller目录下增加执行权限，再sh start，否则会调用不到run.sh
 
 #不同环境下脚本修改指南
 #   Var Setting中修改：
