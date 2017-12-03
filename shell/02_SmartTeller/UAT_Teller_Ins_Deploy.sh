@@ -3,8 +3,8 @@ source ~/.bashrc
 
 echo **********************************************************
 echo **                                                      **
-echo **              Teller9 Deploy Shell                    **
-echo **              http://www.dcits.com                    **
+echo **          Teller9 Ins Deploy Shell                    **
+echo **             http://www.dcits.com                     **
 echo **            author zhangjig@dcits.com                 **
 echo **********************************************************
 
