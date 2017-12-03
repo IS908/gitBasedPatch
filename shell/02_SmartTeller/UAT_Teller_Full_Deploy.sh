@@ -3,7 +3,7 @@ source ~/.bashrc
 
 echo **********************************************************
 echo **                                                      **
-echo **              Teller9 Full Deploy Shell               **
+echo **              Teller9 Deploy Shell                    **
 echo **              http://www.dcits.com                    **
 echo **            author  zhangjig@dcits.com                **
 echo **********************************************************
@@ -141,6 +141,11 @@ fi
 if [[ -d ${APP_HOME}/SmartTeller9/ ]];then
     mv ${APP_HOME}/SmartTeller9 ${APP_HOME}/SmartTeller9-old
 fi
+
+#cd $DCITS_HOME
+#echo replace conf
+#tar -zxvf ~/backup/Template/telconf.tar.gz
+
 
 # 部署新的应用包，并启动新应用
 mv ${BACKUP_HOME}/SmartTeller9 ${APP_HOME}
