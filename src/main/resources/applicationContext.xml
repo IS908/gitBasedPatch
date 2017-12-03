@@ -16,7 +16,7 @@
 
     <!-- 生成xml文件bean配置信息 -start-->
     <bean id="xmlBulider" class="com.dcits.modelbank.utils.XmlBulider">
-        <!--<constructor-arg name="xmlFilePath" value="${git.xml.filePath}"/>-->
+        <constructor-arg name="xmlFilePath" value="${git.result.dir}"/>
         <constructor-arg name="authorAttr">
             <list>
                 <value>name</value>

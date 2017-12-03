@@ -11,6 +11,14 @@ public interface GitService {
      */
     void genChangesFileListToday();
 
+    /**
+     * 获取两个Tag之间的增量文件列表
+     *
+     * @param tagStart 开始Tag
+     * @param tagEnd   截止Tag
+     */
+    void genChangesFileListBetweenTag(String tagStart, String tagEnd);
+
 //    /**
 //     *
 //     * @return
@@ -18,7 +26,14 @@ public interface GitService {
 //    List<FileModel> getFileModelFromXml();
 
     /**
-     *
+     * 进行增量文件的抽取
      */
     void patchFileExecute();
+
+    /**
+     * 获取Tag对应的版本的提交时间
+     *
+     * @param tagName
+     */
+    void getCommitTimeByTag(String tagName);
 }

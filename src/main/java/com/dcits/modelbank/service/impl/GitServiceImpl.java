@@ -43,8 +43,25 @@ public class GitServiceImpl implements GitService {
     }
 
     @Override
+    public void genChangesFileListBetweenTag(String tagStart, String tagEnd) {
+        List<FileModel> fileModelList = new ArrayList<>();
+        Map<String, List<FileDiffEntry>> lists = gitHandler.getCommitsLogByFile(tagStart, tagEnd);
+        for (String key : lists.keySet()) {
+            List<FileDiffEntry> list = lists.get(key);
+            FileModel fileModel = diffEntry2FileModel(list);
+            fileModelList.add(fileModel);
+        }
+        xmlBulider.entity2XmlFile(fileModelList);
+    }
+
+    @Override
     public void patchFileExecute() {
         basePatchExtractHandler.execute();
+    }
+
+    @Override
+    public void getCommitTimeByTag(String tagName) {
+        gitHandler.commitTimeOfTag(tagName);
     }
 
     /**

@@ -27,7 +27,8 @@ public class XmlBulider {
     private String xmlFilePath;
     private String[] authorAttr;
 
-    public XmlBulider(String[] authorAttr) {
+    public XmlBulider(String xmlFilePath, String[] authorAttr) {
+        this.xmlFilePath = xmlFilePath.endsWith(File.separator) ? xmlFilePath : xmlFilePath + File.separator;
         this.authorAttr = authorAttr;
     }
 

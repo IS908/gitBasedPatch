@@ -7,9 +7,7 @@ import org.eclipse.jgit.api.PullResult;
 import org.eclipse.jgit.blame.BlameResult;
 import org.eclipse.jgit.diff.DiffEntry;
 import org.eclipse.jgit.lib.ObjectId;
-import org.eclipse.jgit.lib.Repository;
 import org.eclipse.jgit.revwalk.RevCommit;
-import org.eclipse.jgit.submodule.SubmoduleStatus;
 import org.eclipse.jgit.submodule.SubmoduleWalk;
 import org.eclipse.jgit.transport.FetchResult;
 
@@ -28,6 +26,7 @@ public interface GitHandler {
 
     /**
      * 获取所有子模块
+     *
      * @return
      */
     SubmoduleWalk getSubmodules() throws IOException;
@@ -36,7 +35,7 @@ public interface GitHandler {
      * 获取指定文件的blame信息
      *
      * @param commitID 对应的版本号
-     * @param file 指定文件
+     * @param file     指定文件
      * @return
      */
     BlameResult fileBlame(String commitID, String file);
@@ -160,4 +159,28 @@ public interface GitHandler {
      * @return
      */
     Map<String, List<FileDiffEntry>> getCommitsLogByFile();
+
+    /**
+     * 获取指定两个Tag之间的增量文件列表
+     * @param tagStart
+     * @param tagEnd
+     * @return
+     */
+    Map<String, List<FileDiffEntry>> getCommitsLogByFile(String tagStart, String tagEnd);
+
+//    /**
+//     * 判断是否存在该Tag
+//     *
+//     * @param tagName
+//     * @return
+//     */
+//    boolean checkTagExists(String tagName);
+
+    /**
+     * 根据Tag获取Tag对应版本号的提交时间
+     *
+     * @param tag
+     * @return
+     */
+    int commitTimeOfTag(String tag);
 }

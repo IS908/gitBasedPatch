@@ -15,6 +15,7 @@ import org.eclipse.jgit.blame.BlameResult;
 import org.eclipse.jgit.diff.DiffEntry;
 import org.eclipse.jgit.errors.AmbiguousObjectException;
 import org.eclipse.jgit.errors.IncorrectObjectTypeException;
+import org.eclipse.jgit.errors.MissingObjectException;
 import org.eclipse.jgit.lib.*;
 import org.eclipse.jgit.revwalk.RevCommit;
 import org.eclipse.jgit.revwalk.RevTree;
@@ -75,6 +76,54 @@ public class GitHandlerImpl implements GitHandler {
         return walk;
     }
 
+
+
+    /**
+     * 判断是否存在该Tag
+     *
+     * @param tagName
+     * @return
+     */
+    private boolean tagExists(Git git, String tagName) throws GitAPIException {
+        if (Objects.equals(null, tagName) || tagName.trim().length() < 1) return false;
+        List<Ref> tagList = git.tagList().call();
+        for (Ref ref : tagList) {
+            String tag = ref.getName().substring(10);
+            if (Objects.equals(tagName.trim(), tag)) return true;
+        }
+        return false;
+    }
+
+    @Override
+    public int commitTimeOfTag(String tag) {
+        int commitTime = -1;
+        try (Repository repository = gitHelper.openJGitRepository(); Git git = new Git(repository)) {
+            if (!tagExists(git, tag)) return commitTime;
+            List<Ref> tagList = git.tagList().call();
+            for (Ref ref : tagList) {
+                if (!Objects.equals(tag, ref.getName().substring(10).trim())) continue;
+                // fetch all commits for this tag
+                LogCommand log = git.log();
+                Ref peeledRef = git.getRepository().peel(ref);
+                if (peeledRef.getPeeledObjectId() != null) {
+                    log.add(peeledRef.getPeeledObjectId());
+                } else {
+                    log.add(ref.getObjectId());
+                }
+                Iterable<RevCommit> logs = log.call();
+                Iterator<RevCommit> revCommitIterator = logs.iterator();
+                if (revCommitIterator.hasNext()) {
+                    RevCommit rev = revCommitIterator.next();
+                    commitTime = rev.getCommitTime();
+                }
+                break;
+            }
+        } catch (GitAPIException | MissingObjectException | IncorrectObjectTypeException e) {
+            e.printStackTrace();
+        }
+        return commitTime;
+    }
+
     @Override
     public BlameResult fileBlame(String commitID, String file) {
         BlameResult blame = null;
@@ -100,6 +149,34 @@ public class GitHandlerImpl implements GitHandler {
     }
 
     /**
+     * @param git
+     * @param beginTag
+     * @param endTag
+     * @return
+     */
+    private List<RevCommit> getLogRevCommitBetweenTag(Git git, String beginTag, String endTag) {
+        int begin = this.commitTimeOfTag(beginTag);
+        int end = this.commitTimeOfTag(endTag);
+        List<RevCommit> commits = new ArrayList<>(64);
+        try {
+            LogCommand logCmd = git.log();
+            logCmd.setMaxCount(512);
+            Iterable<RevCommit> logCommit = logCmd.call();
+            Iterator<RevCommit> iterator = logCommit.iterator();
+            while (iterator.hasNext()) {
+                RevCommit revCommit = iterator.next();
+                int commitTime = revCommit.getCommitTime();
+                if (commitTime <= end && commitTime >= begin && revCommit.getParentCount() == 1) {
+                    commits.add(revCommit);
+                }
+            }
+        } catch (GitAPIException e) {
+            e.printStackTrace();
+        }
+        return commits;
+    }
+
+    /**
      * 获取当天提交记录的 RevCommit
      *
      * @return
@@ -109,7 +186,7 @@ public class GitHandlerImpl implements GitHandler {
         List<RevCommit> commits = new ArrayList<>(64);
         try {
             LogCommand logCmd = git.log();
-            logCmd.setMaxCount(128);
+            logCmd.setMaxCount(512);
             Iterable<RevCommit> logCommit = logCmd.call();
             Iterator<RevCommit> iterator = logCommit.iterator();
             while (iterator.hasNext()) {
@@ -440,6 +517,25 @@ public class GitHandlerImpl implements GitHandler {
              Repository repository = gitHelper.openJGitRepository()) {
 
             List<RevCommit> commits = this.getLogRevCommitToday(git);
+            List<FileDiffEntry> fileDiffEntries = this.getFileDiffEntryByCommit(commits, repository, git);
+            for (FileDiffEntry entry : fileDiffEntries) {
+                String fullPath = entry.getFullPath();
+                List<FileDiffEntry> diffList = files.get(fullPath);
+                if (Objects.equals(null, diffList)) diffList = new ArrayList<>();
+                diffList.add(entry);
+                files.put(fullPath, diffList);
+            }
+        }
+        return files;
+    }
+
+    @Override
+    public Map<String, List<FileDiffEntry>> getCommitsLogByFile(String tagStart, String tagEnd) {
+        Map<String, List<FileDiffEntry>> files = new HashMap<>();
+        try (Git git = gitHelper.getGitInstance();
+             Repository repository = gitHelper.openJGitRepository()) {
+
+            List<RevCommit> commits = this.getLogRevCommitBetweenTag(git, tagStart, tagEnd);
             List<FileDiffEntry> fileDiffEntries = this.getFileDiffEntryByCommit(commits, repository, git);
             for (FileDiffEntry entry : fileDiffEntries) {
                 String fullPath = entry.getFullPath();

@@ -27,21 +27,29 @@ public class GitServiceImplTest {
 
     @Test
     public void genChangesFileListToday() throws Exception {
+        /**
+         * Main_xml
+          */
         gitService.genChangesFileListToday();
     }
 
-//    @Test
-//    public void getFileModelFromXml() {
-//        List<FileModel> list = gitService.getFileModelFromXml();
-//        logger.info("确认后的增量文件总数：" + list.size());
-//        for (FileModel model: list) {
-//            logger.info(model.toString());
-//        }
-//    }
+    @Test
+    public void genChangesFileListByTags() {
+        String tagStart = "SmartEnsemble_Full_20171202_04";
+        String tagEnd = "SmartEnsemble_Full_20171203_01";
+        gitService.genChangesFileListBetweenTag(tagStart, tagEnd);
+    }
 
     @Test
     public void patchFileExecute() {
+        /**
+         * Main_zip
+         */
         gitService.patchFileExecute();
     }
 
+    @Test
+    public void getCommitTimeByTag() {
+        gitService.getCommitTimeByTag("SmartEnsemble_Full_20171202_04");
+    }
 }
