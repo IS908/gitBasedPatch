@@ -94,8 +94,8 @@ CHECK_INTERVAL() {
 # 新应用发布成功后，备份被替换的旧应用（主要为日志备份）
 BACKUP_OLD_APP() {
     echo "tar备份开始"
-    versionNum=`cat ${DCITS_HOME}/${APP_NMAE}-old/versionid.txt`
     cd ${DCITS_HOME}
+    versionNum=`cat ${DCITS_HOME}/${APP_NMAE}-old/versionid.txt`
     tar -czf ${BACKUP_HOME}/${versionNum}-end.tar.gz ${APP_NMAE}-old
     rm -rf ${DCITS_HOME}/${APP_NMAE}-old
 }

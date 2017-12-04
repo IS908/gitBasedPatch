@@ -95,8 +95,8 @@ CHECK_INTERVAL() {
 # 新应用发布成功后，备份被替换的旧应用（主要为日志备份）
 BACKUP_OLD_APP() {
     echo "tar备份开始"
-    versionNum=`cat ${DCITS_HOME}/${APP_NMAE}-old/versionid.txt`
     cd ${DCITS_HOME}
+    versionNum=`cat ${DCITS_HOME}/${APP_NMAE}-old/versionid.txt`
     tar -czf ${BACKUP_HOME}/${versionNum}-end.tar.gz ${APP_NMAE}-old
     rm -rf ${DCITS_HOME}/${APP_NMAE}-old
 }
@@ -153,6 +153,10 @@ fi
 # 部署新的应用包到指定目录，并删除临时文件夹
 echo "移动应用到部署目录"
 mv ${BACKUP_HOME}/${APP_NMAE} ${DCITS_HOME}
+
+cd $DCITS_HOME
+#echo replace conf
+tar -zxvf ~/backup/Template/omconf.tar.gz
 
 # 新部署应用启动
 echo 'App starting ...'

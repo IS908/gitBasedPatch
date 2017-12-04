@@ -8,7 +8,7 @@ echo **             http://www.dcits.com                     **
 echo **            author zhangjig@dcits.com                 **
 echo **********************************************************
 
-#注意的点 Teller 的启动脚本 start 启动为 ./run.sh ，执行start脚本前需先cd切换到Teller目录下增加执行权限，再sh start，否则会调用不到run.sh
+#注意的点 Teller 的启动脚本 start 启动为 ./start ，执行start脚本前需先cd切换到Teller目录下增加执行权限，再sh start，否则会调用不到run.sh
 
 #不同环境下脚本修改指南
 #   Var Setting中修改：
@@ -93,8 +93,9 @@ START_TELLER() {
 
 # 新应用发布成功后，备份被替换的旧应用（主要为日志备份）
 BACKUP_OLD_APP() {
+    cd ${APP_HOME}
     versionNum=`cat ${APP_HOME}/SmartTeller9-old/versionid.txt`
-    tar -czf ${BACKUP_HOME}/${versionNum}-end.tar.gz  ${APP_HOME}/SmartTeller9-old
+    tar -czf ${BACKUP_HOME}/${versionNum}-end.tar.gz  SmartTeller9-old
     rm -rf ${APP_HOME}/SmartTeller9-old
 #    rm ${BACKUP_HOME}/${versionNum}.zip
 }
@@ -102,6 +103,12 @@ BACKUP_OLD_APP() {
 DELETE_TELLER9_CACHE() {
     cd ${CACHE_HOME}
     rm -rf org.eclipse.*
+}
+
+TAR_TEMPLETE() {
+    cd $DCITS_HOME
+    echo replace conf
+    tar -zxvf ~/backup/Template/telconf.tar.gz
 }
 ######## Function END ########
 
