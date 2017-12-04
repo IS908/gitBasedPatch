@@ -112,7 +112,7 @@ echo "部署的TAG_NAME为："${TAG_NAME}
 cd ${BACKUP_HOME}
 mkdir SmartTeller9
 cd SmartTeller9
-unzip ${BACKUP_HOME}/${TARGET}
+unzip -q  ${BACKUP_HOME}/${TARGET}
 echo ${VERSION_ID} > ${BACKUP_HOME}/SmartTeller9/versionid.txt
 echo ${VERSION_ID} > ${BACKUP_HOME}/SmartTeller9/version_list.txt
 
@@ -152,7 +152,7 @@ fi
 
 # 部署新的应用包，并启动新应用
 mv ${BACKUP_HOME}/SmartTeller9 ${APP_HOME}
-TAR_TEMPLETE
+#TAR_TEMPLETE
 echo 'Teller starting ...'
 START_TELLER
 CHECK_INTERVAL ${CHECK_TIME}

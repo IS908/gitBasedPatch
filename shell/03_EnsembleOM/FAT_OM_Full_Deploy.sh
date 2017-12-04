@@ -108,7 +108,7 @@ cd ${BACKUP_HOME}/target
 mv  ${SOURCE}   ${BACKUP_HOME}/${NEW_SOURCE}
 cd ../
 rm -rf target
-unzip ${NEW_SOURCE}
+unzip -q ${NEW_SOURCE}
 mv ${UNZIP_NAME} ${TAG_NAME}
 # 创建versionid.txt到部署包，与源码的zip相对应
 echo "创建versionid.txt到部署包"
@@ -155,7 +155,7 @@ echo "移动应用到部署目录"
 mv ${BACKUP_HOME}/${APP_NMAE} ${DCITS_HOME}
 
 cd $DCITS_HOME
-#echo replace conf
+echo replace conf
 tar -zxvf ~/backup/Template/omconf.tar.gz
 
 # 新部署应用启动
