@@ -113,7 +113,7 @@ echo "部署的TAG_NO为："${TAG_NO}
 cd ${BACKUP_HOME}
 mkdir SmartTeller9
 cd SmartTeller9
-unzip ${BACKUP_HOME}/${TARGET}
+unzip -q  ${BACKUP_HOME}/${TARGET}
 echo ${VERSION_ID} > ${BACKUP_HOME}/SmartTeller9/versionid.txt
 echo ${VERSION_ID} > ${BACKUP_HOME}/SmartTeller9/version_list.txt
 
