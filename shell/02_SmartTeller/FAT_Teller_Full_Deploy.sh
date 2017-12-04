@@ -33,6 +33,7 @@ MSG_STATUS_ERROR='Teller应用状态未知,请人工确认当前状态'
 
 DCITS_HOME=/app/dcits
 APP_HOME=${DCITS_HOME}
+CACHE_HOME=${DCITS_HOME}/SmartTeller9/configuration
 BACKUP_HOME=${DCITS_HOME}/backup/SmartTeller9
 ZIP_HOME=${BACKUP_HOME}
 VERSION_ID=App_SmartTeller9_Full_${TAG_NO}
@@ -93,10 +94,17 @@ START_TELLER() {
 
 # 新应用发布成功后，备份被替换的旧应用（主要为日志备份）
 BACKUP_OLD_APP() {
+    cd ${APP_HOME}
     versionNum=`cat ${APP_HOME}/SmartTeller9-old/versionid.txt`
-    tar -czf ${BACKUP_HOME}/${versionNum}-end.tar.gz  ${APP_HOME}/SmartTeller9-old
+    tar -czf ${BACKUP_HOME}/${versionNum}-end.tar.gz  SmartTeller9-old
     rm -rf ${APP_HOME}/SmartTeller9-old
 #    rm ${BACKUP_HOME}/${versionNum}.zip
+}
+
+TAR_TEMPLETE() {
+    cd $DCITS_HOME
+    echo replace conf
+    tar -zxvf ~/backup/Template/telconf.tar.gz
 }
 ######## Function END ########
 
