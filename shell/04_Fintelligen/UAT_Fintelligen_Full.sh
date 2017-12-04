@@ -25,7 +25,6 @@ MSG_STATUS_ERROR='APP应用状态未知,请人工确认当前状态'
 
 APP_NAME=Fintelligen
 APP_HOME=/app/dcits
-TAG_NAME=Fintelligen_Full_${TAG_NO}
 BACKUP_HOME=${APP_HOME}/backup/${APP_NAME}
 BACKUP_TEMP=${BACKUP_HOME}/${TAG_NAME}
 
