@@ -71,6 +71,7 @@ MSG_STATUS_ERROR='APP应用状态未知,请人工确认当前状态'
 
 APP_NAME=ModelBank
 DCITS_HOME=/app/dcits
+APP_ORIGIN_NAME=modelBank-integration
 BACKUP_HOME=${DCITS_HOME}/backup/${APP_NAME}
 TAG_NAME=ModelBank_Ins_${TAG_NO}
 BACKUP_TEMP=${BACKUP_HOME}/${TAG_NAME}
@@ -137,7 +138,7 @@ BACKUP_OLD_APP() {
 mv  ${ZIP_HOME}/app_modelbank_ins.zip  ${BACKUP_HOME}/App_${TAG_NAME}.zip
 cd ${BACKUP_TEMP}
 unzip ${BACKUP_HOME}/App_${TAG_NAME}.zip
-mv modelBank-integration ${APP_NAME}
+mv ${BACKUP_HOME}/${APP_ORIGIN_NAME} ${BACKUP_HOME}/${APP_NAME}
 
 # 检查并停止应用，以备部署新应用
 CheckStopState
