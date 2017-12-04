@@ -159,6 +159,7 @@ DELETE_TELLER9_CACHE
 
 # 部署新的应用包，并启动新应用
 echo 'Teller starting ...'
+TAR_TEMPLETE
 START_TELLER
 CHECK_INTERVAL ${CHECK_TIME}
 

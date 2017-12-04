@@ -152,7 +152,7 @@ fi
 
 # 部署新的应用包，并启动新应用
 mv ${BACKUP_HOME}/SmartTeller9 ${APP_HOME}
-TAR_TEMPLETE
+#TAR_TEMPLETE
 echo 'Teller starting ...'
 START_TELLER
 CHECK_INTERVAL ${CHECK_TIME}
