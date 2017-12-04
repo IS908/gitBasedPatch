@@ -14,6 +14,7 @@ public class DefaultBaseFilePathHandler extends BaseFilePathHandler {
     private static final Logger logger = LoggerFactory.getLogger(DefaultBaseFilePathHandler.class);
 
     private static final String EMPTY = "";
+    private static final String JSP_SPLIT = "/main/";
     private static final String JAVA_SPLIT = "main/java/";
     private static final String XML_MAIN_SPLIT = "main/resources/";
     private static final String XML_MAPPER_SPLIT = "main/config/";
@@ -23,6 +24,9 @@ public class DefaultBaseFilePathHandler extends BaseFilePathHandler {
 
     @Override
     public String getPkgPath(String fullPath, String fileType) {
+        if (fullPath.contains("/webapp/")) {
+            return this.getWebAppPkgPath(fullPath);
+        }
         String pkgPath;
         switch (fileType) {
             case "java":        // *.java
@@ -40,6 +44,7 @@ public class DefaultBaseFilePathHandler extends BaseFilePathHandler {
             case "groovy":      // *.groovy
                 pkgPath = this.getGroovyPkgPath(fullPath);
                 break;
+            case "jsp":
             case "sql":
             case "sh":
             case "bat":
@@ -56,6 +61,16 @@ public class DefaultBaseFilePathHandler extends BaseFilePathHandler {
                 break;
         }
         return pkgPath;
+    }
+
+    private String getWebAppPkgPath(String fullPath) {
+        if (Objects.equals(null, fullPath)) return null;
+        String jspPath = EMPTY;
+        String[] pathArray = fullPath.split(JSP_SPLIT);
+        if (!Objects.equals(null, pathArray) && pathArray.length > 0) {
+            jspPath = pathArray[pathArray.length - 1];
+        }
+        return jspPath;
     }
 
     /**

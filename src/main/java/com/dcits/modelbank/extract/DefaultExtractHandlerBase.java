@@ -30,7 +30,7 @@ public class DefaultExtractHandlerBase extends BasePatchExtractHandler {
         // 将增量jar包列表输出到文件
         FileUtil.writeFile(resultDir + File.separator + DateUtil.getRunDate() + ".txt", set.toString().replace(", ", "\n"));
         FileUtil.filterFile(targetDir, set);
-        String fileName = resultDir + "app_modelbank_ins.zip";
+        String fileName = resultDir + "app_galaxy_ins.zip";
         try {
             ZipUtils.zip(targetDir, fileName);
         } catch (Exception e) {
@@ -45,12 +45,13 @@ public class DefaultExtractHandlerBase extends BasePatchExtractHandler {
         Set<String> set = new HashSet<>();
         for (FileModel file : list) {
             String filePath = this.sourceDir + file.getPath();
-            logger.info(filePath);
+            logger.info("FilePath：" + filePath);
             if (!isFileInPackage(filePath)) continue;
 
             String pomPath = FileUtil.findFilePath(filePath, "pom.xml");
             if (Objects.equals(null, pomPath) || Objects.equals("", pomPath)) continue;
             String packageName = xmlBulider.pom2PackageName(pomPath);
+            logger.info("packageName：" + packageName);
             set.add(packageName);
         }
 

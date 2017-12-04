@@ -77,7 +77,6 @@ public class GitHandlerImpl implements GitHandler {
     }
 
 
-
     /**
      * 判断是否存在该Tag
      *
@@ -155,8 +154,10 @@ public class GitHandlerImpl implements GitHandler {
      * @return
      */
     private List<RevCommit> getLogRevCommitBetweenTag(Git git, String beginTag, String endTag) {
-        int begin = this.commitTimeOfTag(beginTag);
-        int end = this.commitTimeOfTag(endTag);
+        long begin = DateUtil.getDayBeginTimestamp(new Date()), end = Integer.MAX_VALUE;
+        end = Objects.equals(null, endTag) ? Integer.MAX_VALUE : this.commitTimeOfTag(endTag);
+        begin = this.commitTimeOfTag(beginTag);
+        logger.info("起始Tag：" + beginTag + " 时间戳：" + begin);
         List<RevCommit> commits = new ArrayList<>(64);
         try {
             LogCommand logCmd = git.log();
