@@ -86,7 +86,7 @@ BACKUP_OLD_APP() {
 
 START_APP() {
 #    cd ${APP_HOME}
-#    tar -zxf ${APP_HOME}/backup/Template/finmodel.tar.gz
+#    tar -zxf ${APP_HOME}/backup/Template/finconf.tar.gz
     echo ${APP_NAME} starting ...
     sh ${APP_HOME}/${APP_NAME}/bin/start.sh
 }

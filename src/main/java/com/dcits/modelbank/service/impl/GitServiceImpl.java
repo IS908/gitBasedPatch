@@ -47,6 +47,7 @@ public class GitServiceImpl implements GitService {
         List<FileModel> fileModelList = new ArrayList<>();
         Map<String, List<FileDiffEntry>> lists = gitHandler.getCommitsLogByFile(tagStart, tagEnd);
         for (String key : lists.keySet()) {
+            logger.info("File:" + key);
             List<FileDiffEntry> list = lists.get(key);
             FileModel fileModel = diffEntry2FileModel(list);
             fileModelList.add(fileModel);

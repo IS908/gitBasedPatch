@@ -42,7 +42,7 @@ public class GitServiceImplTest {
 
     @Test
     public void OMgenChangesFileListByTags() {
-        String tagStart = "SmartEnsembleOM_20171201_01";
+        String tagStart = "SmartEnsemble_Full_20171203_01";
         gitService.genChangesFileListBetweenTag(tagStart, null);
     }
 
