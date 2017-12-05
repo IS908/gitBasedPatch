@@ -45,9 +45,15 @@ echo "开始SmartTeller9增量版本部署"
 # 检查应用当前状态
 CheckAppState() {
     PID_APP=`/usr/sbin/lsof -n -P -t -i :${PORT_APP}`
-    echo 'PID_APP: ' ${PID_APP}
-    APP_RUN_STATUS=`ps -ef | grep ${PID_APP} | grep -v 'grep' | wc -l`
-    echo 'APP_RUN_STATUS: ' ${APP_RUN_STATUS}
+    echo 'PID_APP:' ${PID_APP}
+    if [[ -z "${PID_APP}" ]] ; then
+        APP_RUN_STATUS=0
+    else 
+        APP_RUN_STATUS=1
+    fi
+#    APP_RUN_STATUS=`ps -ef | grep "${PID_APP}" | grep -v 'grep' | wc -l`
+    echo 'APP_RUN_STATUS:' ${APP_RUN_STATUS}
+
 }
 
 # 检查应用是否停止 并返回状态码：停止成功:1；停止失败:0
@@ -154,11 +160,12 @@ echo ${VERSION_ID} > ${APP_HOME}/SmartTeller9/versionid.txt
 echo ${VERSION_ID} >> ${APP_HOME}/SmartTeller9/version_list.txt
 
 # 删除缓存文件
-echo '删除缓存文件'
-DELETE_TELLER9_CACHE
+#echo '删除缓存文件'
+#DELETE_TELLER9_CACHE
 
 # 部署新的应用包，并启动新应用
 echo 'Teller starting ...'
+#TAR_TEMPLETE
 START_TELLER
 CHECK_INTERVAL ${CHECK_TIME}
 

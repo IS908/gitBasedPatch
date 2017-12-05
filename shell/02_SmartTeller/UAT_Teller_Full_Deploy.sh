@@ -46,8 +46,14 @@ TARGET=${VERSION_ID}.zip
 CheckAppState() {
     PID_APP=`/usr/sbin/lsof -n -P -t -i :${PORT_APP}`
     echo 'PID_APP:' ${PID_APP}
-    APP_RUN_STATUS=`ps -ef | grep "${PID_APP}" | grep -v 'grep' | wc -l`
+    if [[ -z "${PID_APP}" ]] ; then
+        APP_RUN_STATUS=0
+    else 
+        APP_RUN_STATUS=1
+    fi
+#    APP_RUN_STATUS=`ps -ef | grep "${PID_APP}" | grep -v 'grep' | wc -l`
     echo 'APP_RUN_STATUS:' ${APP_RUN_STATUS}
+
 }
 
 # 检查应用是否停止 并返回状态码：停止成功:1；停止失败:0
@@ -110,9 +116,12 @@ TAR_TEMPLETE() {
 # 备份全量包，并解压包已备部署 DONE
 echo "部署的TAG_NAME为："${TAG_NAME}
 cd ${BACKUP_HOME}
+if [[ -d SmartTeller9 ]];then
+    rm -rf SmartTeller9
+fi
 mkdir SmartTeller9
 cd SmartTeller9
-unzip -q  ${BACKUP_HOME}/${TARGET}
+unzip -q -o ${BACKUP_HOME}/${TARGET}
 echo ${VERSION_ID} > ${BACKUP_HOME}/SmartTeller9/versionid.txt
 echo ${VERSION_ID} > ${BACKUP_HOME}/SmartTeller9/version_list.txt
 
