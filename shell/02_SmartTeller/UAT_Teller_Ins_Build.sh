@@ -110,6 +110,12 @@ sed -i "/sourceBase=/s/=.*/=${BUILD//\\/\/}/" patch.properties
 # 进行增量交易的编译
 echo "开始构建交易"
 ant -buildfile build_ins.xml -DtargetEnv=${TARGET_ENV}
+if [[ "$?" = "0" ]]
+then
+    echo "编译成功"
+else
+    exit 1    
+fi
 
 # 检查是否需要签名操作
 count=`grep -c "${SIGN_FILES}" ${INCFILE_NEW}` 
@@ -125,6 +131,12 @@ then
     echo "开始进行签名"
     cd ${SIGN_PATH}
     ant -f sign.xml
+    if [[ "$?" = "0" ]]
+    then
+        echo "签名成功"
+    else
+        exit 1    
+    fi
 else
     echo "无客户端jar包更新，不需要签名"    
 fi
