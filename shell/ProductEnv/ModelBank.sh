@@ -3,18 +3,17 @@ source ~/.bashrc
 
 echo **********************************************************
 echo **                                                      **
-echo **            Fintelligen Deploy Shell                  **
+echo **             ModelBank Deploy Shell                   **
 echo **              http://www.dcits.com                    **
 echo **            author:chenkunh@dcits.com                 **
 echo **                                                      **
 echo **********************************************************
 
 ######## Var Setting START ########
-#run_status=`netstat -anp|grep 9001|awk '{printf $7}'|cut -d/ -f1`
 # 应用端口号，注意需加单引号
-PORT_APP='8001'
-# 启动应用检查时间间隔设定(单位：秒)
-CHECK_TIME=9
+PORT_APP='18001'
+# 启动应用检查时间间隔设定(单位：10秒)
+CHECK_TIME=24
 
 # 应用状态 APP_RUN_STATUS - 0：停止状态；1：启动状态
 APP_RUN_STATUS=-10
@@ -23,14 +22,16 @@ MSG_STOP_SUCCESS='APP应用停止状态'
 MSG_STOP_FAILD='APP应用停止失败，请人工停止原应用并部署'
 MSG_STATUS_ERROR='APP应用状态未知,请人工确认当前状态'
 
-APP_NAME=Fintelligen
-APP_HOME=/app/dcits
-TAG_NAME=Fintelligen_Full_${TAG_NO}
-BACKUP_HOME=${APP_HOME}/backup/${APP_NAME}
-BACKUP_TEMP=${BACKUP_HOME}/${TAG_NAME}
+#################################
+### 来自Jenkins的变量TAG_NAME ###
+#################################
 
-APP_OLD_NAME=fintelligen-integration
-TAR_GZ_FILE=${BACKUP_TEMP}/modules/fintelligen-integration/online-all-integration/target/fintelligen-integration-assembly.tar.gz
+APP_NMAE=ModelBank
+DCITS_HOME=/app/fxbank
+APP_ORIGIN_NAME=modelBank-integration
+BACKUP_HOME=${DCITS_HOME}/backup/${APP_NMAE}
+BACKUP_TEMP=${BACKUP_HOME}/${TAG_NAME}
+TAR_GZ_HOME=${BACKUP_TEMP}/modules/modelBank-all-integration/target
 ######## Var Setting END ########
 
 ######## Function START ########
@@ -77,40 +78,31 @@ CHECK_INTERVAL() {
 
 # 新应用发布成功后，备份被替换的旧应用（主要为日志备份）
 BACKUP_OLD_APP() {
-    versionNum=`cat ${APP_HOME}/${APP_NAME}-old/versionid.txt`
-    cd ${APP_HOME}
-    tar -czf ${BACKUP_HOME}/${versionNum}-end.tar.gz ${APP_NAME}-old/
-#    需做判定压缩包是否生成相应的压缩包，确认后进行旧版文件夹删除
-    rm -rf ${APP_HOME}/${APP_NAME}-old
-}
-
-START_APP() {
-#    cd ${APP_HOME}
-#    tar -zxf ${APP_HOME}/backup/Template/finconf.tar.gz
-    echo ${APP_NAME} starting ...
-    sh ${APP_HOME}/${APP_NAME}/bin/start.sh
+    versionNum=`cat ${DCITS_HOME}/${APP_NMAE}-old/VERSIONID`
+    cd ${DCITS_HOME}
+    tar -czf ${BACKUP_HOME}/${versionNum}-end.tar.gz
+ ${APP_NMAE}-old
+    rm -rf ${DCITS_HOME}/${APP_NMAE}-old
 }
 ######## Function END ########
 
 # 备份全量包
-echo backup new App_${TAG_NAME}.tar.gz
-mv ${TAR_GZ_FILE} ${BACKUP_HOME}/App_${TAG_NAME}.tar.gz
+mv  ${TAR_GZ_HOME}/modelBank-integration-assembly.tar.gz  ${BACKUP_HOME}/App_${TAG_NAME}.tar.gz
 rm -rf ${BACKUP_TEMP}/modules
 cd ${BACKUP_TEMP}
-tar -zxf ${BACKUP_HOME}/App_${TAG_NAME}.tar.gz
-mv ${BACKUP_TEMP}/${APP_OLD_NAME} ${BACKUP_TEMP}/${APP_NAME}
-# 创建versionid.txt到部署包，与源码的Tag相对应
-echo App_${TAG_NAME} > ${BACKUP_TEMP}/${APP_NAME}/versionid.txt
-echo App_${TAG_NAME} > ${BACKUP_TEMP}/${APP_NAME}/version_list.txt
+tar -zxf  ${BACKUP_HOME}/App_${TAG_NAME}.tar.gz
+mv ${BACKUP_TEMP}/${APP_ORIGIN_NAME} ${BACKUP_TEMP}/${APP_NMAE}
+echo App_${TAG_NAME} > ${BACKUP_TEMP}/${APP_NMAE}/VERSIONID
+echo App_${TAG_NAME} > ${BACKUP_TEMP}/${APP_NMAE}/VERSION_LIST
 
-# 检查并部署新应用，以备部署新应用
+# 检查并停止应用，以备部署新应用
 CheckStopState
 if [ ${APP_RUN_STATUS} -ne 0 ];then
-    echo ${APP_NAME} stopping ...
-    sh ${APP_HOME}/${APP_NAME}/bin/stop.sh
-	sleep 10s
+    echo 'App stopping ...'
+    sh ${DCITS_HOME}/${APP_NMAE}/bin/stop.sh
+	CHECK_INTERVAL 1
     for i in `seq 3`
-    do   
+    do
         CheckStopState
         if [ ${APP_RUN_STATUS} -eq 0 ];then
             break
@@ -124,41 +116,47 @@ if [ ${APP_RUN_STATUS} -ne 0 ];then
     fi
 fi
 
-# 备份原应用包
-echo backup old ${APP_NAME} ...
-if [[ -d ${APP_HOME}/${APP_NAME}-old/ ]];then
-    rm -rf ${APP_HOME}/${APP_NAME}-old
+# 原应用包文件夹重命名
+cd ${DCITS_HOME}
+if [[ -d ${DCITS_HOME}/${APP_NMAE}-old/ ]];then
+    rm -rf ${DCITS_HOME}/${APP_NMAE}-old
 fi
 
-if [[ -d ${APP_HOME}/${APP_NAME}/ ]];then
-    mv ${APP_HOME}/${APP_NAME} ${APP_HOME}/${APP_NAME}-old
+if [[ -d ${DCITS_HOME}/${APP_NMAE}/ ]];then
+    mv ${DCITS_HOME}/${APP_NMAE} ${DCITS_HOME}/${APP_NMAE}-old
 fi
 
-# 部署新的应用包，并启动新应用
-mv ${BACKUP_TEMP}/${APP_NAME} ${APP_HOME}
+# 部署新的应用包到指定目录，并删除临时文件夹
+mv ${BACKUP_TEMP}/${APP_NMAE} ${DCITS_HOME}
 rm -rf ${BACKUP_TEMP}
-START_APP
+
+# 新部署应用启动
+echo 'App starting ...'
+cd ${DCITS_HOME}
+tar -zxf ${DCITS_HOME}/backup/Template/modelconf.tar.gz
+sh ${DCITS_HOME}/${APP_NMAE}/bin/start.sh
 CHECK_INTERVAL ${CHECK_TIME}
 
 # 检查新部署应用是否启动成功
-echo check start state ...
 CheckStartState
 if [ ${APP_RUN_STATUS} -eq 1 ];then
-    # 新应用启动，删除旧应用
-    rm -rf ${APP_HOME}/${APP_NAME}-old
+    # 新应用启动，备份并删除旧应用
+    BACKUP_OLD_APP
     echo ${MSG_START_SUCCESS}
 else
     for i in `seq 5`
-    do   
+    do
         CheckStartState
         if [ ${APP_RUN_STATUS} -eq 1 ];then
-            # 新应用启动，删除旧应用
-            rm -rf ${APP_HOME}/${APP_NAME}-old
+            # 新应用启动，备份并删除旧应用
+            BACKUP_OLD_APP
             echo ${MSG_START_SUCCESS}
             break
         else
             echo 'Retry App starting ...'
-            START_APP
+            cd ${DCITS_HOME}
+            tar -zxf ${DCITS_HOME}/backup/Template/modelconf.tar.gz
+            sh ${DCITS_HOME}/${APP_NMAE}/bin/start.sh
         fi
         CHECK_INTERVAL ${CHECK_TIME}
     done

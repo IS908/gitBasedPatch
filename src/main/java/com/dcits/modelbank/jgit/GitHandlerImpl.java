@@ -77,7 +77,6 @@ public class GitHandlerImpl implements GitHandler {
     }
 
 
-
     /**
      * 判断是否存在该Tag
      *
@@ -157,6 +156,29 @@ public class GitHandlerImpl implements GitHandler {
     private List<RevCommit> getLogRevCommitBetweenTag(Git git, String beginTag, String endTag) {
         int begin = this.commitTimeOfTag(beginTag);
         int end = this.commitTimeOfTag(endTag);
+        logger.info("起始Tag：" + beginTag + " 时间戳：" + begin);
+        List<RevCommit> commits = new ArrayList<>(64);
+        try {
+            LogCommand logCmd = git.log();
+            logCmd.setMaxCount(1024);
+            Iterable<RevCommit> logCommit = logCmd.call();
+            Iterator<RevCommit> iterator = logCommit.iterator();
+            while (iterator.hasNext()) {
+                RevCommit revCommit = iterator.next();
+                int commitTime = revCommit.getCommitTime();
+                if (commitTime <= end && commitTime >= begin && revCommit.getParentCount() == 1) {
+                    commits.add(revCommit);
+                }
+            }
+        } catch (GitAPIException e) {
+            e.printStackTrace();
+        }
+        return commits;
+    }
+
+    private List<RevCommit> getLogRevCommitBetweenTag(Git git, String beginTag) {
+        int begin = this.commitTimeOfTag(beginTag);
+        logger.info("起始Tag：" + beginTag + " 时间戳：" + begin);
         List<RevCommit> commits = new ArrayList<>(64);
         try {
             LogCommand logCmd = git.log();
@@ -166,7 +188,7 @@ public class GitHandlerImpl implements GitHandler {
             while (iterator.hasNext()) {
                 RevCommit revCommit = iterator.next();
                 int commitTime = revCommit.getCommitTime();
-                if (commitTime <= end && commitTime >= begin && revCommit.getParentCount() == 1) {
+                if (commitTime >= begin && revCommit.getParentCount() == 1) {
                     commits.add(revCommit);
                 }
             }
@@ -535,7 +557,12 @@ public class GitHandlerImpl implements GitHandler {
         try (Git git = gitHelper.getGitInstance();
              Repository repository = gitHelper.openJGitRepository()) {
 
-            List<RevCommit> commits = this.getLogRevCommitBetweenTag(git, tagStart, tagEnd);
+            List<RevCommit> commits;
+            if (Objects.equals(tagEnd, null)) {
+                commits = this.getLogRevCommitBetweenTag(git, tagStart);
+            } else {
+                commits = this.getLogRevCommitBetweenTag(git, tagStart, tagEnd);
+            }
             List<FileDiffEntry> fileDiffEntries = this.getFileDiffEntryByCommit(commits, repository, git);
             for (FileDiffEntry entry : fileDiffEntries) {
                 String fullPath = entry.getFullPath();

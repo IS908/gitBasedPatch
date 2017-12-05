@@ -45,12 +45,13 @@ public class DefaultExtractHandlerBase extends BasePatchExtractHandler {
         Set<String> set = new HashSet<>();
         for (FileModel file : list) {
             String filePath = this.sourceDir + file.getPath();
-            logger.info(filePath);
+            logger.info("FilePath：" + filePath);
             if (!isFileInPackage(filePath)) continue;
 
             String pomPath = FileUtil.findFilePath(filePath, "pom.xml");
             if (Objects.equals(null, pomPath) || Objects.equals("", pomPath)) continue;
             String packageName = xmlBulider.pom2PackageName(pomPath);
+            logger.info("packageName：" + packageName);
             set.add(packageName);
         }
 

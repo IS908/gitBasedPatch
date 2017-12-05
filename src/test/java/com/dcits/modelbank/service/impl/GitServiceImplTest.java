@@ -36,8 +36,14 @@ public class GitServiceImplTest {
     @Test
     public void genChangesFileListByTags() {
         String tagStart = "SmartEnsemble_Full_20171202_04";
-        String tagEnd = "SmartEnsemble_Full_20171203_01";
+        String tagEnd = null;
         gitService.genChangesFileListBetweenTag(tagStart, tagEnd);
+    }
+
+    @Test
+    public void OMgenChangesFileListByTags() {
+        String tagStart = "SmartEnsemble_Full_20171203_01";
+        gitService.genChangesFileListBetweenTag(tagStart, null);
     }
 
     @Test
@@ -50,6 +56,6 @@ public class GitServiceImplTest {
 
     @Test
     public void getCommitTimeByTag() {
-        gitService.getCommitTimeByTag("SmartEnsemble_Full_20171202_04");
+        gitService.getCommitTimeByTag("SmartEnsembleOM_20171201_01");
     }
 }

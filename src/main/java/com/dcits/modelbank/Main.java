@@ -21,14 +21,30 @@ public class Main {
 
     private ApplicationContext context;
     private GitService gitService;
+    private final String gitDir = ".git"
+            .concat(File.separator)
+            .concat("modules")
+            .concat(File.separator)
+            .concat("SmartEnsemble");
+    private final String source = "SmartEnsemble";
+    private final String resule = "modules"
+            .concat(File.separator)
+            .concat("modelBank-all-integration")
+            .concat(File.separator)
+            .concat("target");
+    private final String target = this.resule
+            .concat(File.separator)
+            .concat("modelBank-integration-assembly")
+            .concat(File.separator)
+            .concat("modelBank-integration");
 
     private Main(String[] paths) {
-        String baseDir = paths[3].trim();
+        String baseDir = paths[1].trim();
         baseDir = baseDir.endsWith(File.separator) ? baseDir : baseDir + File.separator;
-        String gitDir = baseDir + paths[4].trim();
-        String sourceDir = baseDir + paths[5].trim();
-        String targetDir = baseDir + paths[6].trim();
-        String resultDir = baseDir + paths[7].trim();
+        String gitDir = baseDir + this.gitDir;
+        String sourceDir = baseDir + this.source;
+        String targetDir = baseDir + this.target;
+        String resultDir = baseDir + this.resule;
         this.context = new ClassPathXmlApplicationContext("classpath*:applicationContext.xml");
         // 设置类的初始值的设定
         GitHelper gitHelper = context.getBean(GitHelper.class);
@@ -46,29 +62,26 @@ public class Main {
     }
 
     public static void main(String[] args) {
-        if (args.length != 8) {
+        if (args.length > 4 || args.length < 3) {
             System.out.println("请指定命令参数，默认操作命令如下：[xml/zip] [gitDir] [sourceDir] [targetDir] [resultDir]");
             System.out.println("xml：生成增量描述文件/zip：进行增量文件抽取；");
-            System.out.println("beginTag：抽取增量起始Tag");
-            System.out.println("endTag：抽取增量结束Tag");
             System.out.println("baseDir：抽取增量项目跟路径");
-            System.out.println("gitDir：项目中.git文件夹路径");
-            System.out.println("sourceDir：进行增量文件抽取；");
-            System.out.println("targetDir：进行增量文件抽取；");
-            System.out.println("resultDir：进行增量文件抽取。");
+            System.out.println("beginTag：抽取增量起始Tag；");
+            System.out.println("endTag：抽取增量结束Tag【该参数为空则取到当前时间的记录】");
             return;
         }
         Main main = new Main(args);
         String cmd = args[0].trim();
-        String startTag = args[1].trim();
-        String endTag = args[2].trim();
+        String startTag = args[2].trim();
+        String endTag = args.length == 4 ? args[3].trim() : null;
         switch (cmd) {
             case "xml":
                 main.gitService.genChangesFileListBetweenTag(startTag, endTag);
-                System.out.println("增量描述文件抽取完毕！");
+                System.out.println("增量描述文件抽取生成完毕！");
                 break;
             case "zip":
                 main.gitService.patchFileExecute();
+                System.out.println("增量包生成完毕！");
                 break;
             default:
                 System.out.println("输入指令超出范围！");
