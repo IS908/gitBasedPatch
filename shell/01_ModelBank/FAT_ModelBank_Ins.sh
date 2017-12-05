@@ -136,9 +136,7 @@ BACKUP_OLD_APP() {
 
 # 移动增量包到相应备份目录下
 mv  ${ZIP_HOME}/app_modelbank_ins.zip  ${BACKUP_HOME}/App_${TAG_NAME}.zip
-cd ${BACKUP_TEMP}
-unzip ${BACKUP_HOME}/App_${TAG_NAME}.zip
-mv ${BACKUP_HOME}/${APP_ORIGIN_NAME} ${BACKUP_HOME}/${APP_NAME}
+rm -rf ${BACKUP_TEMP}
 
 # 检查并停止应用，以备部署新应用
 CheckStopState
@@ -172,8 +170,8 @@ if [[ -d ${DCITS_HOME}/${APP_NAME}/ ]];then
 fi
 
 # 部署增量应用包，并启动应用
-mv -f ${BACKUP_TEMP}/${APP_NAME}/lib/* ${DCITS_HOME}/${APP_NAME}/lib/
-rm -rf ${BACKUP_TEMP}
+cd ${DCITS_HOME}/${APP_NAME}
+unzip -o ${BACKUP_HOME}/App_${TAG_NAME}.zip
 echo 'App starting ...'
 sh ${DCITS_HOME}/${APP_NAME}/bin/start.sh
 CHECK_INTERVAL ${CHECK_TIME}
@@ -194,7 +192,6 @@ else
             echo ${MSG_START_SUCCESS}
             break
         else
-            sh ${DCITS_HOME}/${APP_NMAE}/bin/stop.sh
             echo 'Retry App starting ...'
             sh ${DCITS_HOME}/${APP_NAME}/bin/start.sh
         fi
