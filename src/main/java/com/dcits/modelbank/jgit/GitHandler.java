@@ -30,6 +30,10 @@ public abstract class GitHandler {
         this.gitHelper = gitHelper;
     }
 
+    public GitHelper getGitHelper() {
+        return gitHelper;
+    }
+
     /**
      * 获取指定文件的blame信息
      *

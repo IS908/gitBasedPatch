@@ -21,7 +21,6 @@ public abstract class BasePatchExtractHandler {
 
     protected String targetDir;
     protected String resultDir;
-    @Resource
     protected XmlBulider xmlBulider;
 
     public void setXmlBulider(XmlBulider xmlBulider) {

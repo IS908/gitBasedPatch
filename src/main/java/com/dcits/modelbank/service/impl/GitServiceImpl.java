@@ -28,13 +28,21 @@ public class GitServiceImpl implements GitService {
     private static final Logger logger = LoggerFactory.getLogger(GitServiceImpl.class);
 
     private GitHandler gitHandler;
-    @Resource
     private XmlBulider xmlBulider;
-    @Resource
-    private BasePatchExtractHandler basePatchExtractHandler;
 
-    public GitServiceImpl(GitHandler gitHandler) {
+    public GitServiceImpl(GitHandler gitHandler, XmlBulider xmlBulider) {
         this.gitHandler = gitHandler;
+        this.xmlBulider = xmlBulider;
+    }
+
+    @Override
+    public GitHandler getGitHandler() {
+        return gitHandler;
+    }
+
+    @Override
+    public XmlBulider getXmlBulider() {
+        return xmlBulider;
     }
 
     @Override
@@ -60,11 +68,6 @@ public class GitServiceImpl implements GitService {
             fileModelList.add(fileModel);
         }
         xmlBulider.entity2XmlFile(fileModelList);
-    }
-
-    @Override
-    public void patchFileExecute() {
-        basePatchExtractHandler.execute();
     }
 
     @Override

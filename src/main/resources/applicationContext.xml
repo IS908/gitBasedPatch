@@ -11,50 +11,22 @@
     <context:property-placeholder location="classpath*:git.properties"/>
     <context:component-scan base-package="com.dcits.modelbank"/>
 
-    <!-- FilePathHandler抽象类暴露相应接口，通过继承抽象类实现个性化方法 -->
-    <bean name="baseFilePathHandler" class="com.dcits.modelbank.jgit.DefaultBaseFilePathHandler">
-        <property name="xmlBulider" ref="xmlBulider"/>
+    <!-- 增量抽取相关类依赖注入 - start -->
+    <bean name="patchFileService" class="com.dcits.modelbank.service.impl.PatchFileServiceImpl">
+        <constructor-arg name="patchFileNames">
+            <list>
+                <value>${check.list.prefix0}</value>
+                <value>${check.list.prefix1}</value>
+            </list>
+        </constructor-arg>
+        <property name="basePatchExtractHandler" ref="patchExtractHandler"/>
     </bean>
+    <bean id="patchExtractHandler" class="com.dcits.modelbank.extract.DefaultExtractHandlerBase">
+        <property name="targetDir" value="${maven.clazz.dir}"/>
+        <property name="resultDir" value="${maven.target.dir}"/>
+    </bean>
+    <!-- 增量抽取相关类依赖注入 - end -->
 
-    <!-- Git项目配置库集合 -->
-    <bean name="" class="com.dcits.modelbank.jgit.helper.GitCollector">
-        <property name="title" value="ModelBank"/>
-        <property name="gitHelpers">
-            <map>
-                <entry key="modelbank" value-ref="ModelBank"/>
-                <entry key="smartEnsemble" value-ref="SmartEnsemble"/>
-            </map>
-        </property>
-    </bean>
-    <!-- 操作的本地Git项目配置库信息加载 -->
-    <bean name="ModelBank" class="com.dcits.modelbank.jgit.helper.GitHelper">
-        <property name="rootDir" value="${git.dir0}"/>
-        <property name="sourceDir" value="${source.dir0}"/>
-    </bean>
-    <!-- 操作的本地Git项目配置库信息加载 -->
-    <bean name="SmartEnsemble" class="com.dcits.modelbank.jgit.helper.GitHelper">
-        <property name="rootDir" value="${git.dir1}"/>
-        <property name="sourceDir" value="${source.dir1}"/>
-    </bean>
-    <!-- ModelBank模块GitHandler依赖设置 -->
-    <bean name="modelbankHandler" class="com.dcits.modelbank.jgit.GitHandlerImpl">
-        <constructor-arg name="gitHelper" ref="ModelBank"/>
-        <property name="baseFilePathHandler" ref="baseFilePathHandler"/>
-    </bean>
-    <!-- SmartEnsemble模块GitHandler依赖设置 -->
-    <bean name="ensembleHandler" class="com.dcits.modelbank.jgit.GitHandlerImpl">
-        <constructor-arg name="gitHelper" ref="SmartEnsemble"/>
-        <property name="baseFilePathHandler" ref="baseFilePathHandler"/>
-    </bean>
-
-    <!-- modelbank模块service注入 -->
-    <bean name="modelbankService" class="com.dcits.modelbank.service.impl.GitServiceImpl">
-        <constructor-arg name="gitHandler" ref="modelbankHandler"/>
-    </bean>
-
-    <bean name="ensembleService" class="com.dcits.modelbank.service.impl.GitServiceImpl">
-        <constructor-arg name="gitHandler" ref="ensembleHandler"/>
-    </bean>
 
     <bean name="gitServices" class="com.dcits.modelbank.service.GitServices">
         <property name="gitServices">
@@ -65,8 +37,24 @@
         </property>
     </bean>
 
+
+    <!-- ModelBank start -->
+    <!-- 操作的本地Git项目配置库信息加载 -->
+    <bean name="ModelBank" class="com.dcits.modelbank.jgit.helper.GitHelper">
+        <property name="rootDir" value="${git.dir0}"/>
+        <property name="sourceDir" value="${source.dir0}"/>
+    </bean>
+    <!-- ModelBank模块GitHandler依赖设置 -->
+    <bean name="modelbankHandler" class="com.dcits.modelbank.jgit.GitHandlerImpl">
+        <constructor-arg name="gitHelper" ref="ModelBank"/>
+        <property name="baseFilePathHandler" ref="ModelBankFilePathHandler"/>
+    </bean>
+    <!-- FilePathHandler抽象类暴露相应接口，通过继承抽象类实现个性化方法 -->
+    <bean name="ModelBankFilePathHandler" class="com.dcits.modelbank.jgit.DefaultBaseFilePathHandler">
+        <property name="xmlBulider" ref="modelBankXmlBulider"/>
+    </bean>
     <!-- 生成xml文件bean配置信息 -start-->
-    <bean id="xmlBulider" class="com.dcits.modelbank.utils.XmlBulider">
+    <bean id="modelBankXmlBulider" class="com.dcits.modelbank.utils.XmlBulider">
         <constructor-arg name="xmlFilePath" value="${check.list.file.dir}"/>
         <constructor-arg name="authorAttr">
             <list>
@@ -78,13 +66,46 @@
                 <value>check</value>
             </list>
         </constructor-arg>
-        <property name="fileFrefix" value="${check.list.prefix}"/>
+        <property name="fileFrefix" value="${check.list.prefix0}"/>
     </bean>
-
-    <!-- 增量抽取具体实现类 -->
-    <bean id="patchExtractHandler" class="com.dcits.modelbank.extract.DefaultExtractHandlerBase">
-        <property name="targetDir" value="${maven.clazz.dir}"/>
-        <property name="resultDir" value="${maven.target.dir}"/>
+    <!-- modelbank模块service注入 -->
+    <bean name="modelbankService" class="com.dcits.modelbank.service.impl.GitServiceImpl">
+        <constructor-arg name="gitHandler" ref="modelbankHandler"/>
+        <constructor-arg name="xmlBulider" ref="modelBankXmlBulider"/>
     </bean>
+    <!-- ModelBank end -->
 
+    <!-- SmartEnsemble start -->
+    <!-- 操作的本地Git项目配置库信息加载 -->
+    <bean name="SmartEnsemble" class="com.dcits.modelbank.jgit.helper.GitHelper">
+        <property name="rootDir" value="${git.dir1}"/>
+        <property name="sourceDir" value="${source.dir1}"/>
+    </bean>
+    <!-- SmartEnsemble模块GitHandler依赖设置 -->
+    <bean name="ensembleHandler" class="com.dcits.modelbank.jgit.GitHandlerImpl">
+        <constructor-arg name="gitHelper" ref="SmartEnsemble"/>
+        <property name="baseFilePathHandler" ref="EnsembleFilePathHandler"/>
+    </bean>
+    <bean name="EnsembleFilePathHandler" class="com.dcits.modelbank.jgit.DefaultBaseFilePathHandler">
+        <property name="xmlBulider" ref="ensembleXmlBulider"/>
+    </bean>
+    <bean id="ensembleXmlBulider" class="com.dcits.modelbank.utils.XmlBulider">
+        <constructor-arg name="xmlFilePath" value="${check.list.file.dir}"/>
+        <constructor-arg name="authorAttr">
+            <list>
+                <value>name</value>
+                <value>versionID</value>
+                <value>timestamp</value>
+                <value>desc</value>
+                <value>changeType</value>
+                <value>check</value>
+            </list>
+        </constructor-arg>
+        <property name="fileFrefix" value="${check.list.prefix1}"/>
+    </bean>
+    <bean name="ensembleService" class="com.dcits.modelbank.service.impl.GitServiceImpl">
+        <constructor-arg name="gitHandler" ref="ensembleHandler"/>
+        <constructor-arg name="xmlBulider" ref="ensembleXmlBulider"/>
+    </bean>
+    <!-- SmartEnsemble end -->
 </beans>

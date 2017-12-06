@@ -1,11 +1,17 @@
 package com.dcits.modelbank.service;
 
+import com.dcits.modelbank.jgit.GitHandler;
+import com.dcits.modelbank.utils.XmlBulider;
+
 /**
  * Created on 2017-11-07 19:41.
  *
  * @author kevin
  */
 public interface GitService {
+    GitHandler getGitHandler();
+    XmlBulider getXmlBulider();
+
     /**
      * 获取当天的增量文件列表
      */
@@ -18,11 +24,6 @@ public interface GitService {
      * @param tagEnd   截止Tag
      */
     void genChangesFileListBetweenTag(String tagStart, String tagEnd);
-
-    /**
-     * 进行增量文件的抽取
-     */
-    void patchFileExecute();
 
     /**
      * 获取Tag对应的版本的提交时间

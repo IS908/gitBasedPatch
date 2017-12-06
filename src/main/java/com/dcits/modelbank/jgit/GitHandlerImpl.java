@@ -506,7 +506,9 @@ public class GitHandlerImpl extends GitHandler {
         String fullPath = entry.getPath(DiffEntry.Side.NEW);
         String fileType = baseFilePathHandler.getFileType(fullPath);
         String pkgPath = baseFilePathHandler.getPkgPath(fullPath, fileType);
-        String moduleName = baseFilePathHandler.getModuleName(gitHelper.getSourceDir() + fullPath);
+        fullPath = gitHelper.getSourceDir() + fullPath;
+        logger.info("文件全路径：" + fullPath);
+        String moduleName = baseFilePathHandler.getModuleName(fullPath);
 
         fileDiffEntry.setFullPath(fullPath);
         fileDiffEntry.setPkgPath(pkgPath);

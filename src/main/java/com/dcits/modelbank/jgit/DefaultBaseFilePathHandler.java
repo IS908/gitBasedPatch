@@ -16,7 +16,6 @@ import java.util.Objects;
 public class DefaultBaseFilePathHandler extends BaseFilePathHandler {
     private static final Logger logger = LoggerFactory.getLogger(DefaultBaseFilePathHandler.class);
 
-    @Resource
     private XmlBulider xmlBulider;
 
     private static final String EMPTY = "";
