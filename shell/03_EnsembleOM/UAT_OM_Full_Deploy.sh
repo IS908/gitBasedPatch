@@ -49,6 +49,7 @@ NEW_SOURCE=${SOURCE_NAME}.zip
 BACKUP_HOME=${DCITS_HOME}/backup/${APP_NMAE}
 ######## Var Setting END ########
 
+echo "开始部署EnsembleOM"
 ######## Function START ########
 # 检查应用当前状态
 CheckAppState() {
@@ -102,6 +103,7 @@ BACKUP_OLD_APP() {
 ######## Function END ########
 
 #更新原应用包名称，加TAG_NAME到应用包
+#删除上次失败的文件
 cd ${BACKUP_HOME}
 if [[ -d ${APP_NMAE} ]];then
     rm -rf ${APP_NMAE}
@@ -127,6 +129,7 @@ echo "将应用包更名:"${SOURCE_NAME}
 mv ${SOURCE_NAME} ${APP_NMAE}
 
 # 检查并停止应用，以备部署新应用
+echo "开始停止应用"
 CheckStopState
 if [ ${APP_RUN_STATUS} -ne 0 ];then
     echo 'App stopping ...'
@@ -198,3 +201,5 @@ else
         echo ${MSG_STATUS_ERROR}
     fi
 fi
+
+echo "结束部署EnsembleOM..."
