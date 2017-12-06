@@ -1,6 +1,7 @@
 package com.dcits.modelbank;
 
 import com.dcits.modelbank.extract.BasePatchExtractHandler;
+import com.dcits.modelbank.jgit.helper.GitCollector;
 import com.dcits.modelbank.jgit.helper.GitHelper;
 import com.dcits.modelbank.service.GitService;
 import com.dcits.modelbank.utils.XmlBulider;
@@ -10,6 +11,9 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import java.io.File;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Objects;
 
 /**
  * Created on 2017-11-15 15:34.
@@ -21,45 +25,38 @@ public class Main {
 
     private ApplicationContext context;
     private GitService gitService;
-    private final String gitDir = ".git"
-            .concat(File.separator)
-            .concat("modules")
-            .concat(File.separator)
-            .concat("SmartEnsemble");
-    private final String source = "SmartEnsemble";
-    private final String resule = "modules"
-            .concat(File.separator)
-            .concat("modelBank-all-integration")
-            .concat(File.separator)
-            .concat("target");
-    private final String target = this.resule
-            .concat(File.separator)
-            .concat("modelBank-integration-assembly")
-            .concat(File.separator)
-            .concat("modelBank-integration");
     private String baseDir;
 
     private Main(String[] paths) {
         baseDir = paths[1].trim();
         baseDir = baseDir.endsWith(File.separator) ? baseDir : baseDir + File.separator;
-        String gitDir = baseDir + this.gitDir;
-        String sourceDir = baseDir + this.source;
-        String targetDir = baseDir + this.target;
-        String resultDir = baseDir + this.resule;
         this.context = new ClassPathXmlApplicationContext("classpath*:applicationContext.xml");
-        // 设置类的初始值的设定
-        GitHelper gitHelper = context.getBean(GitHelper.class);
-        gitHelper.setRootDir(gitDir);
+
+        GitCollector gitCollector = context.getBean(GitCollector.class);
+        Map<String, GitHelper> map = gitCollector.getGitHelpers();
+        Iterator<Map.Entry<String, GitHelper>> iterator =  map.entrySet().iterator();
+        /**
+         * 一个GitHelper指定一个本地Git配置库：
+         * 1、gitHelper的.git日志文件夹相对路径改为绝对路径
+         * 2、gitHelper的源码跟目录相对路径转为绝对路径（相对路径@标识当前路径）
+         */
+        GitHelper gitHelper;
+        while (iterator.hasNext()) {
+            Map.Entry<String, GitHelper> entry = iterator.next();
+            gitHelper = entry.getValue();
+            gitHelper.setRootDir(baseDir + gitHelper.getRootDir());
+            String sourceDir = gitHelper.getSourceDir();
+            gitHelper.setSourceDir(baseDir + (Objects.equals("@",sourceDir)?"":sourceDir));
+        }
         XmlBulider xmlBulider = context.getBean(XmlBulider.class);
-        xmlBulider.setXmlFilePath(resultDir);
+        xmlBulider.setXmlFilePath(baseDir + xmlBulider.getXmlFilePath());
         // 输入输出目录的设定
         BasePatchExtractHandler extractHandler = context.getBean(BasePatchExtractHandler.class);
-//        extractHandler.setSourceDir(sourceDir);
-        extractHandler.setTargetDir(targetDir);
-        extractHandler.setResultDir(resultDir);
+        extractHandler.setTargetDir(baseDir + extractHandler.getTargetDir());
+        extractHandler.setResultDir(baseDir + extractHandler.getResultDir());
 
         // 获取类实例
-        gitService = context.getBean(GitService.class);
+        gitService = (GitService) context.getBean("ensembleService");
     }
 
     public static void main(String[] args) {

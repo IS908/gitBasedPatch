@@ -16,14 +16,11 @@ import java.io.IOException;
  *
  * @author kevin
  */
-@Component("gitHelper")
 public class GitHelper {
     private static final Logger logger = LoggerFactory.getLogger(GitHelper.class);
 
     private String rootDir;
     private String sourceDir;
-
-
 
     /**
      * 获得git仓库句柄

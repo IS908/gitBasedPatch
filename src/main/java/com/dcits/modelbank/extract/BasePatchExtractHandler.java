@@ -24,16 +24,6 @@ public abstract class BasePatchExtractHandler {
     @Resource
     protected XmlBulider xmlBulider;
 
-    public void setTargetDir(String targetDir) {
-        this.targetDir = targetDir.endsWith(File.separator) ?
-                targetDir : (targetDir + File.separator);
-    }
-
-    public void setResultDir(String resultDir) {
-        this.resultDir = resultDir.endsWith(File.separator) ?
-                resultDir : resultDir + File.separator;
-    }
-
     public void setXmlBulider(XmlBulider xmlBulider) {
         this.xmlBulider = xmlBulider;
     }
@@ -42,10 +32,8 @@ public abstract class BasePatchExtractHandler {
      * 定义执行流程
      */
     public void execute() {
-        // 解析增量描述文件，获取增量文件列表
-        List<FileModel> list = xmlBulider.getExtractFiles();
-        // 获取所有要抽取的包名（增量报名）
-        Set<String> set = this.getAllPackageName(list);
+        // 解析增量描述文件，所有jar包
+        Set<String> set = xmlBulider.getExtractFiles();
         // 开始增量文件抽取操作
         fileTransfer(set);
     }
@@ -57,23 +45,28 @@ public abstract class BasePatchExtractHandler {
      */
     protected abstract void fileTransfer(Set<String> set);
 
-    protected abstract Set<String> getAllPackageName(List<FileModel> list);
-
-    // TODO: 2017/11/10 执行流程
     /**
-     * 1、解析增量描述XML描述文件，过滤出开发人员确认跟进生产的增量文件列表；
-     * 2、进入 sourceDir 目录下，对每一个增量文件，确定其最近的 pom.xml 文件；
-     * 3、根据 pom 文件的 groupId + artifactId + version + packaging这四要素，确定该文件打包后所在的 jar 包名称；
-     * 4、通过增量 jar 包列表，抽取增量 jar 包到指定临时目录下。
-     */
-
-    /**
-     * 判定文件是否进入打包文件中
-     *
-     * @param filePath
+     * 获得所有包名
+     * @param list
      * @return
      */
-    protected boolean isFileInPackage(String filePath) {
-        return filePath.contains("/src/main");
+    protected abstract Set<String> getAllPackageName(List<FileModel> list);
+
+    public void setTargetDir(String targetDir) {
+        this.targetDir = targetDir.endsWith(File.separator) ?
+                targetDir : (targetDir + File.separator);
+    }
+
+    public void setResultDir(String resultDir) {
+        this.resultDir = resultDir.endsWith(File.separator) ?
+                resultDir : resultDir + File.separator;
+    }
+
+    public String getTargetDir() {
+        return targetDir;
+    }
+
+    public String getResultDir() {
+        return resultDir;
     }
 }

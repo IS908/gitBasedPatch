@@ -1,5 +1,6 @@
 package com.dcits.modelbank.jgit;
 
+import com.dcits.modelbank.jgit.helper.GitHelper;
 import com.dcits.modelbank.jgit.helper.PullEnum;
 import com.dcits.modelbank.model.FileDiffEntry;
 import org.eclipse.jgit.api.Git;
@@ -21,14 +22,13 @@ import java.util.Map;
  *
  * @author kevin
  */
-public interface GitHandler {
+public abstract class GitHandler {
 
-    /**
-     * 获取所有子模块
-     *
-     * @return
-     */
-    SubmoduleWalk getSubmodules() throws IOException;
+    protected GitHelper gitHelper;
+
+    public GitHandler(GitHelper gitHelper) {
+        this.gitHelper = gitHelper;
+    }
 
     /**
      * 获取指定文件的blame信息
@@ -37,49 +37,49 @@ public interface GitHandler {
      * @param file     指定文件
      * @return
      */
-    BlameResult fileBlame(String commitID, String file);
+    public abstract BlameResult fileBlame(String commitID, String file);
 
     /**
      * 显示当天的提交日志
      *
      * @return
      */
-    Iterable<RevCommit> showLogToday();
+    public abstract Iterable<RevCommit> showLogToday();
 
     /**
      * 暂存当前修改
      *
      * @return
      */
-    boolean stash();
+    public abstract boolean stash();
 
     /**
      * 查看暂存列表
      *
      * @return
      */
-    Collection<RevCommit> stashList();
+    public abstract Collection<RevCommit> stashList();
 
     /**
      * 应用指定暂存
      *
      * @return
      */
-    ObjectId unstash(int index);
+    public abstract ObjectId unstash(int index);
 
     /**
      * fetch远程仓库
      *
      * @return
      */
-    FetchResult fetch();
+    public abstract FetchResult fetch();
 
     /**
      * 默认merge方式进行拉取更新
      *
      * @return
      */
-    PullResult pull();
+    public abstract PullResult pull();
 
     /**
      * 指定方式进行时拉取更新
@@ -87,14 +87,14 @@ public interface GitHandler {
      * @param type 拉取更新方式
      * @return
      */
-    PullResult pull(PullEnum type);
+    public abstract PullResult pull(PullEnum type);
 
     /**
      * 推送远程仓库操作
      *
      * @return
      */
-    boolean push();
+    public abstract boolean push();
 
     /**
      * 提交所有文件到本地，并支持推送到远程
@@ -103,7 +103,7 @@ public interface GitHandler {
      * @param pushFlag 是否推送远程标志
      * @return 本次提交的版本号
      */
-    String commitAndPushAllChanges(String note, boolean pushFlag);
+    public abstract String commitAndPushAllChanges(String note, boolean pushFlag);
 
     /**
      * 推送选中的文件到本地，并支持推送到远程
@@ -113,7 +113,7 @@ public interface GitHandler {
      * @param pushFlag 是否推送远程标志
      * @return 本次提交的版本号
      */
-    String commitAndPush(List<String> fileList, String note, boolean pushFlag);
+    public abstract String commitAndPush(List<String> fileList, String note, boolean pushFlag);
 
     /**
      * 列出两个分支间的差异文件
@@ -122,7 +122,7 @@ public interface GitHandler {
      * @param toBranch   差异分支名称
      * @return 差异文件信息列表
      */
-    List<DiffEntry> showBranchDiff(String fromBranch, String toBranch);
+    public abstract List<DiffEntry> showBranchDiff(String fromBranch, String toBranch);
 
 
     /**
@@ -132,7 +132,7 @@ public interface GitHandler {
      * @param toCommitId   差异版本号
      * @return 差异文件信息列表
      */
-    List<DiffEntry> showCommitDiff(String fromCommitId, String toCommitId);
+    public abstract List<DiffEntry> showCommitDiff(String fromCommitId, String toCommitId);
 
     /**
      * 回滚到指定版本
@@ -142,14 +142,14 @@ public interface GitHandler {
      * @param note        备注
      * @return
      */
-    boolean rollBackPreRevision(List<DiffEntry> diffEntries, String revision, String note);
+    public abstract boolean rollBackPreRevision(List<DiffEntry> diffEntries, String revision, String note);
 
     /**
      * 按照文件划分获取该文件的相应提交记录
      *
      * @return
      */
-    Map<String, List<FileDiffEntry>> getCommitsLogByFile();
+    public abstract Map<String, List<FileDiffEntry>> getCommitsLogByFile();
 
     /**
      * 获取指定两个Tag之间的增量文件列表
@@ -157,15 +157,7 @@ public interface GitHandler {
      * @param tagEnd
      * @return
      */
-    Map<String, List<FileDiffEntry>> getCommitsLogByFile(String tagStart, String tagEnd);
-
-//    /**
-//     * 判断是否存在该Tag
-//     *
-//     * @param tagName
-//     * @return
-//     */
-//    boolean checkTagExists(String tagName);
+    public abstract Map<String, List<FileDiffEntry>> getCommitsLogByFile(String tagStart, String tagEnd);
 
     /**
      * 根据Tag获取Tag对应版本号的提交时间
@@ -173,5 +165,5 @@ public interface GitHandler {
      * @param tag
      * @return
      */
-    int commitTimeOfTag(String tag);
+    public abstract int commitTimeOfTag(String tag);
 }

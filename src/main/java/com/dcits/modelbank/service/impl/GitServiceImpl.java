@@ -2,6 +2,8 @@ package com.dcits.modelbank.service.impl;
 
 import com.dcits.modelbank.extract.BasePatchExtractHandler;
 import com.dcits.modelbank.jgit.GitHandler;
+import com.dcits.modelbank.jgit.GitHandlerImpl;
+import com.dcits.modelbank.jgit.helper.GitHelper;
 import com.dcits.modelbank.model.FileDiffEntry;
 import com.dcits.modelbank.model.FileModel;
 import com.dcits.modelbank.service.GitService;
@@ -10,6 +12,7 @@ import com.dcits.modelbank.utils.FileUtil;
 import com.dcits.modelbank.utils.XmlBulider;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -21,18 +24,18 @@ import java.util.*;
  *
  * @author kevin
  */
-@Service("gitService")
 public class GitServiceImpl implements GitService {
     private static final Logger logger = LoggerFactory.getLogger(GitServiceImpl.class);
 
-    private String sourceDir;
-
-    @Resource
     private GitHandler gitHandler;
     @Resource
     private XmlBulider xmlBulider;
     @Resource
     private BasePatchExtractHandler basePatchExtractHandler;
+
+    public GitServiceImpl(GitHandler gitHandler) {
+        this.gitHandler = gitHandler;
+    }
 
     @Override
     public void genChangesFileListToday() {
@@ -54,39 +57,9 @@ public class GitServiceImpl implements GitService {
             logger.info("File:" + key);
             List<FileDiffEntry> list = lists.get(key);
             FileModel fileModel = diffEntry2FileModel(list);
-            // 获得该文件打包后的jar包名称
-            basePath = basePath.endsWith(File.separator) ? basePath : basePath + File.separator;
-            String moduleName = this.getModuleName(basePath + fileModel.getPath());
-            fileModel.setModule(moduleName);
             fileModelList.add(fileModel);
         }
         xmlBulider.entity2XmlFile(fileModelList);
-    }
-
-    /**
-     * 根据文件绝对路径获得编译打包后的包名
-     *
-     * @param fullPath 文件的绝对路径
-     * @return
-     */
-    private String getModuleName(String fullPath) {
-        String moduleName = "";
-        logger.info("FilePath：" + fullPath);
-        if (!isFileInPackage(fullPath)) return moduleName;
-        String pomPath = FileUtil.findFilePath(fullPath, "pom.xml");
-        if (Objects.equals(null, pomPath) || Objects.equals("", pomPath)) return moduleName;
-        moduleName = xmlBulider.pom2PackageName(pomPath);
-        return moduleName;
-    }
-
-    /**
-     * 判定文件打包时是否打入jar包
-     *
-     * @param filePath
-     * @return
-     */
-    private boolean isFileInPackage(String filePath) {
-        return filePath.contains("/src/main");
     }
 
     @Override
@@ -139,19 +112,4 @@ public class GitServiceImpl implements GitService {
         return map;
     }
 
-    public String getSourceDir() {
-        return sourceDir;
-    }
-
-    public void setSourceDir(String sourceDir) {
-        this.sourceDir = sourceDir;
-    }
-
-    public GitHandler getGitHandler() {
-        return gitHandler;
-    }
-
-    public void setGitHandler(GitHandler gitHandler) {
-        this.gitHandler = gitHandler;
-    }
 }

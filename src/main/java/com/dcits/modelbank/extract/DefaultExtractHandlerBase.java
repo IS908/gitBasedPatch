@@ -23,8 +23,6 @@ import java.util.Set;
 public class DefaultExtractHandlerBase extends BasePatchExtractHandler {
     private static final Logger logger = LoggerFactory.getLogger(DefaultExtractHandlerBase.class);
 
-    private String sourceDir = "";
-
     @Override
     protected void fileTransfer(Set<String> set) {
         logger.info("target目录：" + super.targetDir);
@@ -44,20 +42,6 @@ public class DefaultExtractHandlerBase extends BasePatchExtractHandler {
 
     @Override
     protected Set<String> getAllPackageName(List<FileModel> list) {
-        Set<String> set = new HashSet<>();
-        for (FileModel file : list) {
-            String filePath = this.sourceDir + file.getPath();
-            logger.info("FilePath：" + filePath);
-            if (!isFileInPackage(filePath)) continue;
-
-            String pomPath = FileUtil.findFilePath(filePath, "pom.xml");
-            if (Objects.equals(null, pomPath) || Objects.equals("", pomPath)) continue;
-            String packageName = xmlBulider.pom2PackageName(pomPath);
-            logger.info("packageName：" + packageName);
-            set.add(packageName);
-        }
-
-        logger.info("增量文件所在的jar包数量为：" + set.size());
-        return set;
+        return null;
     }
 }

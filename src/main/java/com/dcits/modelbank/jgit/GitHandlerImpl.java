@@ -20,7 +20,6 @@ import org.eclipse.jgit.lib.*;
 import org.eclipse.jgit.revwalk.RevCommit;
 import org.eclipse.jgit.revwalk.RevTree;
 import org.eclipse.jgit.revwalk.RevWalk;
-import org.eclipse.jgit.submodule.SubmoduleWalk;
 import org.eclipse.jgit.transport.FetchResult;
 import org.eclipse.jgit.transport.PushResult;
 import org.eclipse.jgit.treewalk.CanonicalTreeParser;
@@ -28,7 +27,6 @@ import org.eclipse.jgit.treewalk.TreeWalk;
 import org.eclipse.jgit.treewalk.filter.PathFilterGroup;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.io.FileNotFoundException;
@@ -41,36 +39,16 @@ import java.util.*;
  *
  * @author kevin
  */
-@Service("gitHandler")
-public class GitHandlerImpl implements GitHandler {
+public class GitHandlerImpl extends GitHandler {
     private static final Logger logger = LoggerFactory.getLogger(GitHandlerImpl.class);
     private static SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
-    @Resource
-    private GitHelper gitHelper;
-    @Resource
+
     private BaseFilePathHandler baseFilePathHandler;
 
-    /**
-     * 私有构造方法，进行一次初始化
-     */
-    private GitHandlerImpl() {
+    public GitHandlerImpl(GitHelper gitHelper) {
+        super(gitHelper);
     }
-
-    public GitHelper getGitHelper() {
-        return gitHelper;
-    }
-
-    public void setGitHelper(GitHelper gitHelper) {
-        this.gitHelper = gitHelper;
-    }
-
-    @Override
-    public SubmoduleWalk getSubmodules() throws IOException {
-        SubmoduleWalk walk = SubmoduleWalk.forIndex(gitHelper.getGitInstance().getRepository());
-        return walk;
-    }
-
 
     /**
      * 判断是否存在该Tag
@@ -130,13 +108,7 @@ public class GitHandlerImpl implements GitHandler {
                     .setFollowFileRenames(true);
             blame = blamer.call();
 //            blame.computeRange(0, 10);
-        } catch (IncorrectObjectTypeException e) {
-            e.printStackTrace();
-        } catch (AmbiguousObjectException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (GitAPIException e) {
+        } catch (IOException | GitAPIException e) {
             e.printStackTrace();
         }
         return blame;
@@ -237,38 +209,6 @@ public class GitHandlerImpl implements GitHandler {
         return logCommit;
     }
 
-    /**
-     * 显示具体一天的提交日志
-     *
-     * @param date
-     * @return
-     */
-    private Iterator<RevCommit> showLogByDay(Date date) {
-
-        try (Git git = gitHelper.getGitInstance()) {
-
-        }
-
-        return null;
-    }
-
-
-    /**
-     * 判断本地是否存在该分支
-     *
-     * @param git
-     * @param branch
-     * @return
-     * @throws GitAPIException
-     */
-    private boolean branchExists(Git git, String branch) throws GitAPIException {
-        List<Ref> call = git.branchList().call();
-        for (Ref ref : call) {
-            if (Objects.equals(Const.REFS_HEADS + branch, ref.getName())) return true;
-        }
-        return false;
-    }
-
     @Override
     public boolean stash() {
         boolean res = false;
@@ -292,8 +232,6 @@ public class GitHandlerImpl implements GitHandler {
                 System.out.println("Found stash: " + rev + ": " + rev.getFullMessage());
             }
             return stashes;
-        } catch (InvalidRefNameException e) {
-            e.printStackTrace();
         } catch (GitAPIException e) {
             e.printStackTrace();
         }
@@ -326,10 +264,6 @@ public class GitHandlerImpl implements GitHandler {
         try (Git git = gitHelper.getGitInstance()) {
             result = git.fetch().setCheckFetchedObjects(true).call();
             System.out.println("Messages: " + result.getMessages());
-        } catch (InvalidRemoteException e) {
-            e.printStackTrace();
-        } catch (TransportException e) {
-            e.printStackTrace();
         } catch (GitAPIException e) {
             e.printStackTrace();
         }
@@ -501,8 +435,7 @@ public class GitHandlerImpl implements GitHandler {
     @Override
     public Map<String, List<FileDiffEntry>> getCommitsLogByFile(String tagStart, String tagEnd) {
         Map<String, List<FileDiffEntry>> files = new HashMap<>();
-        try (Git git = gitHelper.getGitInstance();
-             Repository repository = gitHelper.openJGitRepository()) {
+        try (Repository repository = gitHelper.openJGitRepository(); Git git = new Git(repository)) {
 
             List<RevCommit> commits;
             if (Objects.equals(tagEnd, null)) {
@@ -573,8 +506,7 @@ public class GitHandlerImpl implements GitHandler {
         String fullPath = entry.getPath(DiffEntry.Side.NEW);
         String fileType = baseFilePathHandler.getFileType(fullPath);
         String pkgPath = baseFilePathHandler.getPkgPath(fullPath, fileType);
-
-        String moduleName = baseFilePathHandler.getModuleName(fullPath, fileType);
+        String moduleName = baseFilePathHandler.getModuleName(fullPath);
 
         fileDiffEntry.setFullPath(fullPath);
         fileDiffEntry.setPkgPath(pkgPath);
@@ -588,7 +520,6 @@ public class GitHandlerImpl implements GitHandler {
         fileDiffEntry.setChangeType(entry.getChangeType().name());
         return fileDiffEntry;
     }
-
 
 
     public List<List<DiffEntry>> getChangesByCommit(List<RevCommit> list, Repository repository, Git git) {
