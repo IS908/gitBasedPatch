@@ -102,6 +102,15 @@ BACKUP_OLD_APP() {
 ######## Function END ########
 
 #更新原应用包名称，加TAG_NAME到应用包
+cd ${BACKUP_HOME}
+if [[ -d ${APP_NMAE} ]];then
+    rm -rf ${APP_NMAE}
+fi
+
+if [[ -d target ]];then
+    rm -rf target
+fi
+
 echo "更改zip名称并创建versionid.txt"
 cd ${BACKUP_HOME}/target 
 mv  ${SOURCE}   ${BACKUP_HOME}/${NEW_SOURCE}
