@@ -74,7 +74,7 @@ public class Main {
         String endTag = args.length == 4 ? args[3].trim() : null;
         switch (cmd) {
             case "xml":
-                main.gitService.genChangesFileListBetweenTag(main.baseDir + "SmartEnsemble", startTag, endTag);
+                main.gitService.genChangesFileListBetweenTag(startTag, endTag);
                 System.out.println("增量描述文件抽取生成完毕！");
                 break;
             case "zip":

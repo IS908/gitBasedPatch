@@ -50,7 +50,7 @@ public class GitServiceImpl implements GitService {
     }
 
     @Override
-    public void genChangesFileListBetweenTag(String basePath, String tagStart, String tagEnd) {
+    public void genChangesFileListBetweenTag(String tagStart, String tagEnd) {
         List<FileModel> fileModelList = new ArrayList<>();
         Map<String, List<FileDiffEntry>> lists = gitHandler.getCommitsLogByFile(tagStart, tagEnd);
         for (String key : lists.keySet()) {
