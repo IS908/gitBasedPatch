@@ -6,7 +6,6 @@ import org.eclipse.jgit.storage.file.FileRepositoryBuilder;
 import org.eclipse.jgit.util.FS;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Component;
 
 import java.io.File;
 import java.io.IOException;
@@ -67,6 +66,6 @@ public class GitHelper {
     }
 
     public void setSourceDir(String sourceDir) {
-        this.sourceDir = sourceDir;
+        this.sourceDir = sourceDir.endsWith(File.separator) ? sourceDir : (sourceDir + File.separator);
     }
 }
