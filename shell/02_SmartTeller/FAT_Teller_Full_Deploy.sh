@@ -117,6 +117,9 @@ TAR_TEMPLETE() {
 # 备份全量包，并解压包已备部署 DONE
 echo "部署的TAG_NO为："${TAG_NO}
 cd ${BACKUP_HOME}
+if [[ -d SmartTeller9 ]];then
+    rm -rf SmartTeller9
+fi
 mkdir SmartTeller9
 cd SmartTeller9
 unzip -q  ${BACKUP_HOME}/${TARGET}
