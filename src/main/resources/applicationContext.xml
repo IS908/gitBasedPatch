@@ -53,7 +53,7 @@
     <!-- 增量抽取具体实现类 -->
     <bean id="patchExtractHandler" class="com.dcits.modelbank.extract.DefaultExtractHandlerBase">
         <property name="sourceDir" value="${source.dir0}"/>
-        <property name="targetDir" value="${mvn.target.dir}"/>
+        <property name="targetDir" value="${maven.target.dir}"/>
         <property name="resultDir" value="${check.list.file.dir}"/>
     </bean>
 
