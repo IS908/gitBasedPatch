@@ -8,3 +8,6 @@ src/main/resources/my.properties
 # idea
 .idea/
 *.iml
+.classpath
+.project
+.settings/
