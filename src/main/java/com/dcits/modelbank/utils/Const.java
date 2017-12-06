@@ -23,4 +23,8 @@ public interface Const {
     String DESC = "desc";
     String CHANGE_TYPE = "changeType";
     String CHECK = "check";
+
+    String BIN = "bin/";
+    String CONF = "conf/";
+    String LIB = "lib/";
 }

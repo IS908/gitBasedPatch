@@ -8,9 +8,6 @@ import com.dcits.modelbank.utils.Const;
 import com.dcits.modelbank.utils.DateUtil;
 import org.eclipse.jgit.api.*;
 import org.eclipse.jgit.api.errors.GitAPIException;
-import org.eclipse.jgit.api.errors.InvalidRefNameException;
-import org.eclipse.jgit.api.errors.InvalidRemoteException;
-import org.eclipse.jgit.api.errors.TransportException;
 import org.eclipse.jgit.blame.BlameResult;
 import org.eclipse.jgit.diff.DiffEntry;
 import org.eclipse.jgit.errors.AmbiguousObjectException;
@@ -28,7 +25,6 @@ import org.eclipse.jgit.treewalk.filter.PathFilterGroup;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.annotation.Resource;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -483,7 +479,9 @@ public class GitHandlerImpl extends GitHandler {
                         .call();
                 for (DiffEntry entry : diffs) {
                     FileDiffEntry fileDiffEntry = diffEntry2FileDiffEntry(entry, commit);
-                    fileChangeLogList.add(fileDiffEntry);
+                    if (fileTypeSkip(fileDiffEntry)) {
+                        fileChangeLogList.add(fileDiffEntry);
+                    }
                 }
             }
         } catch (IOException | GitAPIException e) {
@@ -491,6 +489,42 @@ public class GitHandlerImpl extends GitHandler {
             logger.error(e.getCause().getMessage());
         }
         return fileChangeLogList;
+    }
+
+    private boolean fileTypeSkip(FileDiffEntry fileDiffEntry) {
+        String fileType = fileDiffEntry.getType();
+        boolean flag = true;
+
+        // 过滤掉部分不关注类型
+        switch (fileType) {
+            case "sql":
+                flag = false;
+                break;
+            default:
+                break;
+        }
+
+        // 过滤掉部分路径
+        String fullPath = fileDiffEntry.getFullPath();
+        if (fullPath.contains("src/test/")
+                || fullPath.endsWith("ModelBank\\SmartEnsemble")) flag = false;
+
+        if (fullPath.contains("/src/main/config/")) {
+            String[] strs = fullPath.split("/src/main/config/");
+            fileDiffEntry.setPkgPath(Const.CONF + strs[strs.length - 1]);
+        }
+
+        if (fullPath.contains("/src/main/scripts/")) {
+            String[] strs = fullPath.split("/src/main/scripts/");
+            fileDiffEntry.setPkgPath(Const.BIN + strs[strs.length - 1]);
+        }
+
+        // 修正部分packagePath
+        String module = fileDiffEntry.getModule();
+        if (module.endsWith(".jar")) {
+            fileDiffEntry.setModule(Const.LIB + module);
+        }
+        return flag;
     }
 
     /**
