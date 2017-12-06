@@ -2,6 +2,7 @@ package com.dcits.modelbank.service.impl;
 
 import com.dcits.modelbank.extract.BasePatchExtractHandler;
 import com.dcits.modelbank.jgit.GitHandler;
+import com.dcits.modelbank.jgit.helper.GitHelper;
 import com.dcits.modelbank.model.FileDiffEntry;
 import com.dcits.modelbank.model.FileModel;
 import com.dcits.modelbank.service.GitService;
@@ -20,7 +21,7 @@ import java.util.*;
  * @author kevin
  */
 @Service("gitService")
-public class GitServiceImpl implements GitService {
+public class GitServiceImpl extends GitService {
     private static final Logger logger = LoggerFactory.getLogger(GitServiceImpl.class);
 
     @Resource
@@ -29,6 +30,10 @@ public class GitServiceImpl implements GitService {
     private XmlBulider xmlBulider;
     @Resource
     private BasePatchExtractHandler basePatchExtractHandler;
+
+    public GitServiceImpl(GitHelper gitHelper) {
+        super(gitHelper);
+    }
 
     @Override
     public void genChangesFileListToday() {

@@ -16,15 +16,11 @@ import java.io.IOException;
  *
  * @author kevin
  */
-@Component("gitHelper")
 public class GitHelper {
     private static final Logger logger = LoggerFactory.getLogger(GitHelper.class);
 
     private String rootDir;
-
-    public void setRootDir(String rootDir) {
-        this.rootDir = rootDir;
-    }
+    private String sourceDir;
 
     /**
      * 获得git仓库句柄
@@ -35,7 +31,7 @@ public class GitHelper {
     public Repository openJGitRepository() {
         FileRepositoryBuilder builder = new FileRepositoryBuilder();
         try {
-            logger.info("openJGitRepository once ...");
+            logger.info("openJGitRepository");
             return builder
                     .setFS(FS.DETECTED)
                     .setGitDir(new File(this.rootDir))
@@ -53,29 +49,24 @@ public class GitHelper {
      * @return
      */
     public Git getGitInstance() {
-        logger.info("gen Git Instance");
+        logger.info("get Git Instance");
         Git git = new Git(this.openJGitRepository());
         return git;
     }
 
-//    private String userName;
-//    private String userEmail;
-//    private String remoteUrl;
-//    private CredentialsProvider credentialsProvider;
-//
-//    public void setCredentialsProvider(CredentialsProvider credentialsProvider) {
-//        this.credentialsProvider = credentialsProvider;
-//    }
-//
-//    public void setUserName(String userName) {
-//        this.userName = userName;
-//    }
-//
-//    public void setUserEmail(String userEmail) {
-//        this.userEmail = userEmail;
-//    }
-//
-//    public void setRemoteUrl(String remoteUrl) {
-//        this.remoteUrl = remoteUrl;
-//    }
+    public void setRootDir(String rootDir) {
+        this.rootDir = rootDir;
+    }
+
+    public String getRootDir() {
+        return rootDir;
+    }
+
+    public String getSourceDir() {
+        return sourceDir;
+    }
+
+    public void setSourceDir(String sourceDir) {
+        this.sourceDir = sourceDir;
+    }
 }

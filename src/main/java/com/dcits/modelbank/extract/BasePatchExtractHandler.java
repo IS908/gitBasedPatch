@@ -19,30 +19,21 @@ import java.util.Set;
 public abstract class BasePatchExtractHandler {
     private static final Logger logger = LoggerFactory.getLogger(BasePatchExtractHandler.class);
 
+    /**
+     *
+     */
     protected String sourceDir;
+    /**
+     *
+     */
     protected String targetDir;
+    /**
+     *
+     */
     protected String resultDir;
+
     @Resource
     protected XmlBulider xmlBulider;
-
-    public void setSourceDir(String sourceDir) {
-        this.sourceDir = sourceDir.endsWith(File.separator) ?
-                sourceDir : (sourceDir + File.separator);
-    }
-
-    public void setTargetDir(String targetDir) {
-        this.targetDir = targetDir.endsWith(File.separator) ?
-                targetDir : (targetDir + File.separator);
-    }
-
-    public void setResultDir(String resultDir) {
-        this.resultDir = resultDir.endsWith(File.separator) ?
-                resultDir : resultDir + File.separator;
-    }
-
-    public void setXmlBulider(XmlBulider xmlBulider) {
-        this.xmlBulider = xmlBulider;
-    }
 
     /**
      * 定义执行流程
@@ -82,4 +73,24 @@ public abstract class BasePatchExtractHandler {
     protected boolean isFileInPackage(String filePath) {
         return filePath.contains("/src/main");
     }
+
+    public void setSourceDir(String sourceDir) {
+        this.sourceDir = sourceDir.endsWith(File.separator) ?
+                sourceDir : (sourceDir + File.separator);
+    }
+
+    public void setTargetDir(String targetDir) {
+        this.targetDir = targetDir.endsWith(File.separator) ?
+                targetDir : (targetDir + File.separator);
+    }
+
+    public void setResultDir(String resultDir) {
+        this.resultDir = resultDir.endsWith(File.separator) ?
+                resultDir : resultDir + File.separator;
+    }
+
+    public void setXmlBulider(XmlBulider xmlBulider) {
+        this.xmlBulider = xmlBulider;
+    }
+
 }

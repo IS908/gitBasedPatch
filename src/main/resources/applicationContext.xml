@@ -16,7 +16,7 @@
 
     <!-- 生成xml文件bean配置信息 -start-->
     <bean id="xmlBulider" class="com.dcits.modelbank.utils.XmlBulider">
-        <constructor-arg name="xmlFilePath" value="${git.result.dir}"/>
+        <constructor-arg name="xmlFilePath" value="${check.list.file.dir}"/>
         <constructor-arg name="authorAttr">
             <list>
                 <value>name</value>
@@ -29,27 +29,32 @@
         </constructor-arg>
     </bean>
 
-
-    <!-- 操作的本地Git项目配置库信息加载 -->
-    <bean name="gitHelper" class="com.dcits.modelbank.jgit.helper.GitHelper">
-        <property name="rootDir" value="${git.source.dir}"/>
-        <!--<property name="userName" value="${git.user.name}"/>-->
-        <!--<property name="userEmail" value="${git.user.email}"/>-->
-        <!--<property name="remoteUrl" value="${git.remote.url}"/>-->
-        <!--<property name="credentialsProvider" ref="credentialsProvider"/>-->
+    <!-- 操作的本地Git项目配置库信息加载0 -->
+    <bean name="gitModelBank" class="com.dcits.modelbank.jgit.helper.GitHelper">
+        <property name="rootDir" value="${git.dir0}"/>
+        <property name="sourceDir" value="${source.dir0}"/>
+    </bean>
+    <!-- 操作的本地Git项目配置库信息加载0 -->
+    <bean name="gitSmartEnsemble" class="com.dcits.modelbank.jgit.helper.GitHelper">
+        <property name="rootDir" value="${git.dir1}"/>
+        <property name="sourceDir" value="${source.dir0}"/>
     </bean>
 
-    <!-- git 的 http 请求用户名密码验证 -->
-    <bean name="credentialsProvider" class="org.eclipse.jgit.transport.UsernamePasswordCredentialsProvider">
-        <constructor-arg name="username" value="${git.user.name}"/>
-        <constructor-arg name="password" value="${git.user.password}"/>
+    <bean name="gitCollection" class="com.dcits.modelbank.jgit.helper.GitCollector">
+        <property name="title" value="ModelBank"/>
+        <property name="collectors">
+            <map>
+                <entry key="modelBank" value-ref="gitModelBank"/>
+                <entry key="smartEnsemble" value-ref="gitSmartEnsemble"/>
+            </map>
+        </property>
     </bean>
 
     <!-- 增量抽取具体实现类 -->
     <bean id="patchExtractHandler" class="com.dcits.modelbank.extract.DefaultExtractHandlerBase">
-        <property name="sourceDir" value="${git.source.dir}"/>
-        <property name="targetDir" value="${git.target.dir}"/>
-        <property name="resultDir" value="${git.result.dir}"/>
+        <property name="sourceDir" value="${source.dir0}"/>
+        <property name="targetDir" value="${mvn.target.dir}"/>
+        <property name="resultDir" value="${check.list.file.dir}"/>
     </bean>
 
 </beans>
