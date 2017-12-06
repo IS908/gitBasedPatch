@@ -66,6 +66,6 @@ public class GitHelper {
     }
 
     public void setSourceDir(String sourceDir) {
-        this.sourceDir = sourceDir.endsWith(File.separator) ? sourceDir : (sourceDir + File.separator);
+        this.sourceDir = sourceDir;
     }
 }

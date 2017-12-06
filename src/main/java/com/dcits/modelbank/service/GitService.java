@@ -19,12 +19,6 @@ public interface GitService {
      */
     void genChangesFileListBetweenTag(String tagStart, String tagEnd);
 
-//    /**
-//     *
-//     * @return
-//     */
-//    List<FileModel> getFileModelFromXml();
-
     /**
      * 进行增量文件的抽取
      */

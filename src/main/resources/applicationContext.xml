@@ -56,6 +56,15 @@
         <constructor-arg name="gitHandler" ref="ensembleHandler"/>
     </bean>
 
+    <bean name="gitServices" class="com.dcits.modelbank.service.GitServices">
+        <property name="gitServices">
+            <list>
+                <ref bean="modelbankService"/>
+                <ref bean="ensembleService"/>
+            </list>
+        </property>
+    </bean>
+
     <!-- 生成xml文件bean配置信息 -start-->
     <bean id="xmlBulider" class="com.dcits.modelbank.utils.XmlBulider">
         <constructor-arg name="xmlFilePath" value="${check.list.file.dir}"/>

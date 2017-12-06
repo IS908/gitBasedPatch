@@ -4,6 +4,7 @@ import com.dcits.modelbank.extract.BasePatchExtractHandler;
 import com.dcits.modelbank.jgit.helper.GitCollector;
 import com.dcits.modelbank.jgit.helper.GitHelper;
 import com.dcits.modelbank.service.GitService;
+import com.dcits.modelbank.service.GitServices;
 import com.dcits.modelbank.utils.XmlBulider;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,6 +25,7 @@ public class Main {
     private static final Logger logger = LoggerFactory.getLogger(Main.class);
 
     private ApplicationContext context;
+    private GitServices gitServices = null;
     private GitService gitService;
     private String baseDir;
 
@@ -34,7 +36,7 @@ public class Main {
 
         GitCollector gitCollector = context.getBean(GitCollector.class);
         Map<String, GitHelper> map = gitCollector.getGitHelpers();
-        Iterator<Map.Entry<String, GitHelper>> iterator =  map.entrySet().iterator();
+        Iterator<Map.Entry<String, GitHelper>> iterator = map.entrySet().iterator();
         /**
          * 一个GitHelper指定一个本地Git配置库：
          * 1、gitHelper的.git日志文件夹相对路径改为绝对路径
@@ -46,7 +48,7 @@ public class Main {
             gitHelper = entry.getValue();
             gitHelper.setRootDir(baseDir + gitHelper.getRootDir());
             String sourceDir = gitHelper.getSourceDir();
-            gitHelper.setSourceDir(baseDir + (Objects.equals("@",sourceDir)?"":sourceDir));
+            gitHelper.setSourceDir(baseDir + (Objects.equals("@", sourceDir) ? "" : sourceDir));
         }
         XmlBulider xmlBulider = context.getBean(XmlBulider.class);
         xmlBulider.setXmlFilePath(baseDir + xmlBulider.getXmlFilePath());
@@ -56,7 +58,8 @@ public class Main {
         extractHandler.setResultDir(baseDir + extractHandler.getResultDir());
 
         // 获取类实例
-        gitService = (GitService) context.getBean("ensembleService");
+        gitServices = (GitServices) context.getBean("gitServices");
+        gitService = (GitService) context.getBean("modelbankService");
     }
 
     public static void main(String[] args) {
@@ -74,7 +77,7 @@ public class Main {
         String endTag = args.length == 4 ? args[3].trim() : null;
         switch (cmd) {
             case "xml":
-                main.gitService.genChangesFileListBetweenTag(startTag, endTag);
+                main.genXmlPatchList(startTag, endTag);
                 System.out.println("增量描述文件抽取生成完毕！");
                 break;
             case "zip":
@@ -86,4 +89,17 @@ public class Main {
                 break;
         }
     }
+
+    /**
+     * 进行增量描述文件抽取
+     *
+     * @param startTag
+     * @param endTag
+     */
+    private void genXmlPatchList(String startTag, String endTag) {
+        for (GitService gitService : this.gitServices.getGitServices()) {
+            gitService.genChangesFileListBetweenTag(startTag, endTag);
+        }
+    }
+
 }
