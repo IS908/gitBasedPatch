@@ -66,11 +66,6 @@ public class GitHandlerImpl implements GitHandler {
     }
 
     @Override
-    public Git getGit() {
-        return gitHelper.getGitInstance();
-    }
-
-    @Override
     public SubmoduleWalk getSubmodules() throws IOException {
         SubmoduleWalk walk = SubmoduleWalk.forIndex(gitHelper.getGitInstance().getRepository());
         return walk;
@@ -257,36 +252,6 @@ public class GitHandlerImpl implements GitHandler {
         return null;
     }
 
-    @Override
-    public boolean checkoutBranch(String branch) {
-        // TODO: 2017/11/8 分支切换，若本地存在该分支，直接切换；若本地没有该分支，远端有该分支，签出远程分支；若本地及远端均没有该分支，则检出新分支
-        boolean res = false;
-        try (Git git = gitHelper.getGitInstance()) {
-            if (branchExists(git, branch)) {
-                checkoutFromLocalBranch(git, branch);
-            } else {
-
-            }
-            Ref ref = git.checkout().setName(branch).call();
-            System.out.println(ref.getObjectId());
-            res = true;
-        } catch (GitAPIException e) {
-            e.printStackTrace();
-        }
-        return res;
-    }
-
-    /**
-     * 本地已有分支的切换
-     *
-     * @param git
-     * @param branch 切换的分支名
-     * @return
-     */
-    private boolean checkoutFromLocalBranch(Git git, String branch) {
-        // TODO: 2017/11/8 本地已有分支的切换
-        return false;
-    }
 
     /**
      * 判断本地是否存在该分支
@@ -300,20 +265,6 @@ public class GitHandlerImpl implements GitHandler {
         List<Ref> call = git.branchList().call();
         for (Ref ref : call) {
             if (Objects.equals(Const.REFS_HEADS + branch, ref.getName())) return true;
-        }
-        return false;
-    }
-
-    /**
-     * 检出一个新的分支
-     *
-     * @param branchName 本地新分支名
-     * @param remote     跟踪远程分支名(若为null，则只在本地创建新分支)
-     * @return
-     */
-    private boolean checkoutNewBranch(String branchName, String remote) {
-        // TODO: 2017/11/7 checkout一个新分支
-        try (Git git = gitHelper.getGitInstance()) {
         }
         return false;
     }
@@ -416,10 +367,6 @@ public class GitHandlerImpl implements GitHandler {
                 logger.info(push.toString());
             }
             res = true;
-        } catch (InvalidRemoteException e) {
-            e.printStackTrace();
-        } catch (TransportException e) {
-            e.printStackTrace();
         } catch (GitAPIException e) {
             e.printStackTrace();
         }
@@ -576,6 +523,8 @@ public class GitHandlerImpl implements GitHandler {
     }
 
     /**
+     * 按文件为单位将commit信息重新分组
+     *
      * @param list
      * @param repository
      * @param git
@@ -604,10 +553,7 @@ public class GitHandlerImpl implements GitHandler {
                     fileChangeLogList.add(fileDiffEntry);
                 }
             }
-        } catch (IOException e) {
-            e.printStackTrace();
-            logger.error(e.getCause().getMessage());
-        } catch (GitAPIException e) {
+        } catch (IOException | GitAPIException e) {
             e.printStackTrace();
             logger.error(e.getCause().getMessage());
         }
@@ -627,6 +573,7 @@ public class GitHandlerImpl implements GitHandler {
         String fullPath = entry.getPath(DiffEntry.Side.NEW);
         String fileType = baseFilePathHandler.getFileType(fullPath);
         String pkgPath = baseFilePathHandler.getPkgPath(fullPath, fileType);
+
         String moduleName = baseFilePathHandler.getModuleName(fullPath, fileType);
 
         fileDiffEntry.setFullPath(fullPath);
@@ -641,6 +588,8 @@ public class GitHandlerImpl implements GitHandler {
         fileDiffEntry.setChangeType(entry.getChangeType().name());
         return fileDiffEntry;
     }
+
+
 
     public List<List<DiffEntry>> getChangesByCommit(List<RevCommit> list, Repository repository, Git git) {
         List<List<DiffEntry>> changeList = new ArrayList<>();
