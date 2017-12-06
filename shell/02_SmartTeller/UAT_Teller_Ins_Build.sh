@@ -114,6 +114,7 @@ if [[ "$?" = "0" ]]
 then
     echo "编译成功"
 else
+    echo "编译失败..."
     exit 1    
 fi
 
@@ -135,6 +136,7 @@ then
     then
         echo "签名成功"
     else
+        echo "签名失败..."
         exit 1    
     fi
 else
@@ -157,7 +159,7 @@ if [[ ${SIGN_FLAG} = "Y" ]]
 then
     zip -q -r ${TARGET} ${SIGN_JAR}
 else
-    echo "不签名，不需要进行签名jar的压缩"
+    echo "无签名文件，不需要进行签名jar的压缩"
 fi
 
 ##将SmartTeller9_1.0.0.jar公共包压缩到增量目标zip包
