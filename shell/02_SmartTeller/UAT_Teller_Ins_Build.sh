@@ -110,6 +110,13 @@ sed -i "/sourceBase=/s/=.*/=${BUILD//\\/\/}/" patch.properties
 # 进行增量交易的编译
 echo "开始构建交易"
 ant -buildfile build_ins.xml -DtargetEnv=${TARGET_ENV}
+if [[ "$?" = "0" ]]
+then
+    echo "编译成功"
+else
+    echo "编译失败..."
+    exit 1    
+fi
 
 # 检查是否需要签名操作
 count=`grep -c "${SIGN_FILES}" ${INCFILE_NEW}` 
@@ -125,6 +132,13 @@ then
     echo "开始进行签名"
     cd ${SIGN_PATH}
     ant -f sign.xml
+    if [[ "$?" = "0" ]]
+    then
+        echo "签名成功"
+    else
+        echo "签名失败..."
+        exit 1    
+    fi
 else
     echo "无客户端jar包更新，不需要签名"    
 fi
@@ -145,7 +159,7 @@ if [[ ${SIGN_FLAG} = "Y" ]]
 then
     zip -q -r ${TARGET} ${SIGN_JAR}
 else
-    echo "不签名，不需要进行签名jar的压缩"
+    echo "无签名文件，不需要进行签名jar的压缩"
 fi
 
 ##将SmartTeller9_1.0.0.jar公共包压缩到增量目标zip包
