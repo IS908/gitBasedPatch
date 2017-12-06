@@ -47,7 +47,7 @@
 
     <!-- 增量抽取具体实现类 -->
     <bean id="patchExtractHandler" class="com.dcits.modelbank.extract.DefaultExtractHandlerBase">
-        <property name="sourceDir" value="${git.source.dir}"/>
+        <!--<property name="sourceDir" value="${git.source.dir}"/>-->
         <property name="targetDir" value="${git.target.dir}"/>
         <property name="resultDir" value="${git.result.dir}"/>
     </bean>

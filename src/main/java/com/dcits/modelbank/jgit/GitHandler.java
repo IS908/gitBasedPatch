@@ -22,7 +22,6 @@ import java.util.Map;
  * @author kevin
  */
 public interface GitHandler {
-    Git getGit();
 
     /**
      * 获取所有子模块
@@ -46,14 +45,6 @@ public interface GitHandler {
      * @return
      */
     Iterable<RevCommit> showLogToday();
-
-    /**
-     * checkout到另一个现有分支
-     *
-     * @param branch 新分支名
-     * @return
-     */
-    boolean checkoutBranch(String branch);
 
     /**
      * 暂存当前修改

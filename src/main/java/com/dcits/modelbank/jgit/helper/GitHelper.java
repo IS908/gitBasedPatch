@@ -21,10 +21,9 @@ public class GitHelper {
     private static final Logger logger = LoggerFactory.getLogger(GitHelper.class);
 
     private String rootDir;
+    private String sourceDir;
 
-    public void setRootDir(String rootDir) {
-        this.rootDir = rootDir;
-    }
+
 
     /**
      * 获得git仓库句柄
@@ -58,24 +57,19 @@ public class GitHelper {
         return git;
     }
 
-//    private String userName;
-//    private String userEmail;
-//    private String remoteUrl;
-//    private CredentialsProvider credentialsProvider;
-//
-//    public void setCredentialsProvider(CredentialsProvider credentialsProvider) {
-//        this.credentialsProvider = credentialsProvider;
-//    }
-//
-//    public void setUserName(String userName) {
-//        this.userName = userName;
-//    }
-//
-//    public void setUserEmail(String userEmail) {
-//        this.userEmail = userEmail;
-//    }
-//
-//    public void setRemoteUrl(String remoteUrl) {
-//        this.remoteUrl = remoteUrl;
-//    }
+    public String getRootDir() {
+        return rootDir;
+    }
+
+    public void setRootDir(String rootDir) {
+        this.rootDir = rootDir;
+    }
+
+    public String getSourceDir() {
+        return sourceDir;
+    }
+
+    public void setSourceDir(String sourceDir) {
+        this.sourceDir = sourceDir;
+    }
 }

@@ -37,9 +37,10 @@ public class Main {
             .concat("modelBank-integration-assembly")
             .concat(File.separator)
             .concat("modelBank-integration");
+    private String baseDir;
 
     private Main(String[] paths) {
-        String baseDir = paths[1].trim();
+        baseDir = paths[1].trim();
         baseDir = baseDir.endsWith(File.separator) ? baseDir : baseDir + File.separator;
         String gitDir = baseDir + this.gitDir;
         String sourceDir = baseDir + this.source;
@@ -53,7 +54,7 @@ public class Main {
         xmlBulider.setXmlFilePath(resultDir);
         // 输入输出目录的设定
         BasePatchExtractHandler extractHandler = context.getBean(BasePatchExtractHandler.class);
-        extractHandler.setSourceDir(sourceDir);
+//        extractHandler.setSourceDir(sourceDir);
         extractHandler.setTargetDir(targetDir);
         extractHandler.setResultDir(resultDir);
 
@@ -76,7 +77,7 @@ public class Main {
         String endTag = args.length == 4 ? args[3].trim() : null;
         switch (cmd) {
             case "xml":
-                main.gitService.genChangesFileListBetweenTag(startTag, endTag);
+                main.gitService.genChangesFileListBetweenTag(main.baseDir + "SmartEnsemble", startTag, endTag);
                 System.out.println("增量描述文件抽取生成完毕！");
                 break;
             case "zip":

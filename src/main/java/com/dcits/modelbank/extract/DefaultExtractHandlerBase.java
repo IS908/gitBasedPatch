@@ -23,6 +23,8 @@ import java.util.Set;
 public class DefaultExtractHandlerBase extends BasePatchExtractHandler {
     private static final Logger logger = LoggerFactory.getLogger(DefaultExtractHandlerBase.class);
 
+    private String sourceDir = "";
+
     @Override
     protected void fileTransfer(Set<String> set) {
         logger.info("target目录：" + super.targetDir);

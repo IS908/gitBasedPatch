@@ -19,16 +19,10 @@ import java.util.Set;
 public abstract class BasePatchExtractHandler {
     private static final Logger logger = LoggerFactory.getLogger(BasePatchExtractHandler.class);
 
-    protected String sourceDir;
     protected String targetDir;
     protected String resultDir;
     @Resource
     protected XmlBulider xmlBulider;
-
-    public void setSourceDir(String sourceDir) {
-        this.sourceDir = sourceDir.endsWith(File.separator) ?
-                sourceDir : (sourceDir + File.separator);
-    }
 
     public void setTargetDir(String targetDir) {
         this.targetDir = targetDir.endsWith(File.separator) ?

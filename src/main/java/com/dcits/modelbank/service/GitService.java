@@ -17,7 +17,7 @@ public interface GitService {
      * @param tagStart 开始Tag
      * @param tagEnd   截止Tag
      */
-    void genChangesFileListBetweenTag(String tagStart, String tagEnd);
+    void genChangesFileListBetweenTag(String basePath, String tagStart, String tagEnd);
 
 //    /**
 //     *

@@ -41,25 +41,6 @@ public class GitHandlerTest {
     }
 
     @Test
-    public void getSubmodules() throws IOException, GitAPIException {
-//        SubmoduleWalk walk = gitHandler.getSubmodules();
-//        while (walk.next()) {
-//            Repository submoduleRepository = walk.getRepository();
-//            Iterable<RevCommit> iterable = Git.wrap(submoduleRepository).log().call();
-//            Iterator<RevCommit> iterator = iterable.iterator();
-//            while (iterator.hasNext()) {
-//                logger.info(iterator.next().getFullMessage());
-//                logger.info(String.valueOf(iterator.next().getCommitTime()));
-//            }
-//        }
-        Repository repository = gitHandler.getGit().submoduleAdd().setPath("SmartEnsemble").setURI("http://57.25.2.187:8082/dcits/SmartEnsemble.git").call();
-        Map<String, SubmoduleStatus> map = new Git(repository).submoduleStatus().call();
-        Assert.assertEquals(1, map.size());
-        SubmoduleStatus status = map.get("SmartEnsemble");
-        Assert.assertEquals(INITIALIZED, status.getType());
-    }
-
-    @Test
     public void fileBlame() {
         String commitID = "fc32ede1a325514179b4bbdb4fe4fbb487db0c65";
         String file = "src/main/java/com/dcits/modelbank/utils/Const.java";
@@ -86,11 +67,11 @@ public class GitHandlerTest {
         gitHandler.commitAndPush(files, "commitAndPush", false);
     }
 
-    @Test
-    public void checkoutBranch() throws Exception {
-        boolean flag = gitHandler.checkoutBranch("develop");
-        Assert.assertEquals(true, flag);
-    }
+//    @Test
+//    public void checkoutBranch() throws Exception {
+//        boolean flag = gitHandler.checkoutBranch("develop");
+//        Assert.assertEquals(true, flag);
+//    }
 
     @Test
     public void stash() throws Exception {
