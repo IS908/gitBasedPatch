@@ -42,7 +42,6 @@ APP_NAME=ModelBank
 DCITS_HOME=/app/dcits
 ENSEMBLE_HOME=${DCITS_HOME}
 BACKUP_HOME=${DCITS_HOME}/backup/${APP_NAME}
-TAG_NAME=ModelBank_Ins_${TAG_NO}
 BACKUP_TEMP=${BACKUP_HOME}/${TAG_NAME}
 ZIP_HOME=${BACKUP_TEMP}/modules/modelBank-all-integration/target
 ######## Var Setting END ########
@@ -105,9 +104,7 @@ BACKUP_OLD_APP() {
 
 # 移动增量包到相应备份目录下
 mv  ${ZIP_HOME}/app_modelbank_ins.zip  ${BACKUP_HOME}/App_${TAG_NAME}.zip
-cd ${BACKUP_TEMP}
-unzip ${BACKUP_HOME}/App_${TAG_NAME}.zip
-mv modelBank-integration ${APP_NAME}
+rm -rf ${BACKUP_TEMP}
 
 # 检查并停止应用，以备部署新应用
 CheckStopState
@@ -141,8 +138,8 @@ if [[ -d ${ENSEMBLE_HOME}/${APP_NAME}/ ]];then
 fi
 
 # 部署增量应用包，并启动应用
-mv -f ${BACKUP_TEMP}/${APP_NAME}/lib/* ${ENSEMBLE_HOME}/${APP_NAME}/lib/
-rm -rf ${BACKUP_TEMP}
+cd ${DCITS_HOME}/${APP_NAME}
+unzip -o ${BACKUP_HOME}/App_${TAG_NAME}.zip
 echo 'App starting ...'
 sh ${ENSEMBLE_HOME}/${APP_NAME}/bin/start.sh
 CHECK_INTERVAL ${CHECK_TIME}
@@ -163,7 +160,6 @@ else
             echo ${MSG_START_SUCCESS}
             break
         else
-            sh ${DCITS_HOME}/${APP_NMAE}/bin/stop.sh
             echo 'Retry App starting ...'
             sh ${ENSEMBLE_HOME}/${APP_NAME}/bin/start.sh
         fi

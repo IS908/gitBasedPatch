@@ -42,19 +42,15 @@ import java.util.*;
  * @author kevin
  */
 @Service("gitHandler")
-public class GitHandlerImpl implements GitHandler {
+public class GitHandlerImpl extends GitHandler {
     private static final Logger logger = LoggerFactory.getLogger(GitHandlerImpl.class);
     private static SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
     @Resource
-    private GitHelper gitHelper;
-    @Resource
     private BaseFilePathHandler baseFilePathHandler;
 
-    /**
-     * 私有构造方法，进行一次初始化
-     */
-    private GitHandlerImpl() {
+    public GitHandlerImpl(GitHelper gitHelper) {
+        super(gitHelper);
     }
 
     public GitHelper getGitHelper() {
@@ -63,11 +59,6 @@ public class GitHandlerImpl implements GitHandler {
 
     public void setGitHelper(GitHelper gitHelper) {
         this.gitHelper = gitHelper;
-    }
-
-    @Override
-    public Git getGit() {
-        return gitHelper.getGitInstance();
     }
 
     @Override
@@ -679,19 +670,6 @@ public class GitHandlerImpl implements GitHandler {
         try (Repository repository = gitHelper.openJGitRepository()) {
         }
         return null;
-    }
-
-    @Override
-    public boolean rollBackPreRevision(List<DiffEntry> diffEntries, String revision, String note) {
-        // TODO: 2017/11/7 回滚到一个指定版本
-        if (Objects.equals(null, diffEntries)) {
-            logger.info("");
-            return false;
-        }
-        try (Git git = gitHelper.getGitInstance()) {
-
-        }
-        return false;
     }
 
     /**
