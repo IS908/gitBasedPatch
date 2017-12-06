@@ -2,7 +2,6 @@ package com.dcits.modelbank.service;
 
 import com.dcits.modelbank.extract.BasePatchExtractHandler;
 
-import javax.annotation.Resource;
 import java.util.List;
 
 /**

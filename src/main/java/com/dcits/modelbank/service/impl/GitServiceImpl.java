@@ -1,22 +1,14 @@
 package com.dcits.modelbank.service.impl;
 
-import com.dcits.modelbank.extract.BasePatchExtractHandler;
 import com.dcits.modelbank.jgit.GitHandler;
-import com.dcits.modelbank.jgit.GitHandlerImpl;
-import com.dcits.modelbank.jgit.helper.GitHelper;
 import com.dcits.modelbank.model.FileDiffEntry;
 import com.dcits.modelbank.model.FileModel;
 import com.dcits.modelbank.service.GitService;
 import com.dcits.modelbank.utils.Const;
-import com.dcits.modelbank.utils.FileUtil;
 import com.dcits.modelbank.utils.XmlBulider;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Service;
 
-import javax.annotation.Resource;
-import java.io.File;
 import java.util.*;
 
 /**

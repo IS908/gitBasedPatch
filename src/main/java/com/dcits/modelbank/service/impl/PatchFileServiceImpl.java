@@ -1,7 +1,6 @@
 package com.dcits.modelbank.service.impl;
 
 import com.dcits.modelbank.service.PatchFileService;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 
