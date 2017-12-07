@@ -146,9 +146,9 @@ cd ${BACKUP_HOME}
 rm -rf ${TAG_NAME}
 
 
-echo "替换配置模板......"
-cd $DCITS_HOME
-tar -zxvf ~/backup/Template/omconf.tar.gz
+#echo "替换配置模板......"
+#cd $DCITS_HOME
+#tar -zxvf ~/backup/Template/omconf.tar.gz
 
 # 新部署应用启动
 echo '启动应用，App starting ...'
