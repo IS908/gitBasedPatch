@@ -91,10 +91,12 @@ START_TELLER() {
 # 新应用发布成功后，备份被替换的旧应用（主要为日志备份）
 BACKUP_OLD_APP() {
     cd ${APP_HOME}
-    versionNum=`cat ${APP_HOME}/SmartTeller9/versionid.txt`
-    tar -czf ${BACKUP_HOME}/${versionNum}-end.tar.gz  SmartTeller9
-    rm -rf SmartTeller9
-#    rm ${BACKUP_HOME}/${versionNum}.zip
+    if [[ -d SmartTeller9 ]];then
+        versionNum=`cat ${APP_HOME}/SmartTeller9/versionid.txt`
+        tar -czf ${BACKUP_HOME}/${versionNum}-end.tar.gz  SmartTeller9
+        rm -rf SmartTeller9
+        # rm ${BACKUP_HOME}/${versionNum}.zip
+    fi
 }
 
 TAR_TEMPLETE() {

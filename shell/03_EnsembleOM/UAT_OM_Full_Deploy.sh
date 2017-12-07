@@ -89,9 +89,11 @@ CHECK_INTERVAL() {
 BACKUP_OLD_APP() {
     echo "tar备份开始"
     cd ${DCITS_HOME}
-    versionNum=`cat ${DCITS_HOME}/${APP_NMAE}/versionid.txt`
-    tar -czf ${BACKUP_HOME}/${versionNum}-end.tar.gz ${APP_NMAE}
-    rm -rf ${DCITS_HOME}/${APP_NMAE}
+    if [[ -d ${APP_NMAE} ]];then
+        versionNum=`cat ${DCITS_HOME}/${APP_NMAE}/versionid.txt`
+        tar -czf ${BACKUP_HOME}/${versionNum}-end.tar.gz ${APP_NMAE}
+        rm -rf ${DCITS_HOME}/${APP_NMAE}
+    fi
 }
 ######## Function END ########
 
