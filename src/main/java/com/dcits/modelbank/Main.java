@@ -53,6 +53,8 @@ public class Main {
         BasePatchExtractHandler extractHandler = context.getBean(BasePatchExtractHandler.class);
         extractHandler.setTargetDir(baseDir + extractHandler.getTargetDir());
         extractHandler.setResultDir(baseDir + extractHandler.getResultDir());
+
+        patchFileExecute = context.getBean(PatchFileService.class);
     }
 
     public static void main(String[] args) {
@@ -74,7 +76,7 @@ public class Main {
                 System.out.println("增量描述文件抽取生成完毕！");
                 break;
             case "zip":
-                main.patchFileExecute.patchFileExecute();
+                main.patchFileExecute.patchFileExecute(main.baseDir);
                 System.out.println("增量包生成完毕！");
                 break;
             default:

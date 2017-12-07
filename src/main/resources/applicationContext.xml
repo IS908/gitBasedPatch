@@ -13,10 +13,12 @@
 
     <!-- 增量抽取相关类依赖注入 - start -->
     <bean name="patchFileService" class="com.dcits.modelbank.service.impl.PatchFileServiceImpl">
-        <constructor-arg name="patchFileNames">
+        <constructor-arg name="patchFileDir" value="${check.list.file.dir}"/>
+        <constructor-arg name="patchFilePrefix">
             <list>
                 <value>${check.list.prefix0}</value>
                 <value>${check.list.prefix1}</value>
+                <value>${check.list.prefix2}</value>
             </list>
         </constructor-arg>
         <property name="basePatchExtractHandler" ref="patchExtractHandler"/>
@@ -66,7 +68,7 @@
                 <value>check</value>
             </list>
         </constructor-arg>
-        <property name="fileFrefix" value="${check.list.prefix0}"/>
+        <property name="fileFrefix" value="${check.list.prefix1}"/>
     </bean>
     <!-- modelbank模块service注入 -->
     <bean name="modelbankService" class="com.dcits.modelbank.service.impl.GitServiceImpl">
@@ -101,7 +103,7 @@
                 <value>check</value>
             </list>
         </constructor-arg>
-        <property name="fileFrefix" value="${check.list.prefix1}"/>
+        <property name="fileFrefix" value="${check.list.prefix2}"/>
     </bean>
     <bean name="ensembleService" class="com.dcits.modelbank.service.impl.GitServiceImpl">
         <constructor-arg name="gitHandler" ref="ensembleHandler"/>

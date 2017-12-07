@@ -25,6 +25,7 @@ import org.eclipse.jgit.treewalk.filter.PathFilterGroup;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -506,17 +507,17 @@ public class GitHandlerImpl extends GitHandler {
 
         // 过滤掉部分路径
         String fullPath = fileDiffEntry.getFullPath();
-        if (fullPath.contains("src/test/")
-                || fullPath.endsWith("ModelBank\\SmartEnsemble")) flag = false;
+        if (fullPath.contains("/src/test/")
+                || fullPath.endsWith("ModelBank" + File.separator + "SmartEnsemble")) flag = false;
 
-        if (fullPath.contains("/src/main/config/")) {
+        if (fullPath.contains("/modelBank-all-integration/src/main/config/")) {
             String[] strs = fullPath.split("/src/main/config/");
-            fileDiffEntry.setPkgPath(Const.CONF + strs[strs.length - 1]);
+            fileDiffEntry.setModule(Const.CONF + strs[strs.length - 1]);
         }
 
-        if (fullPath.contains("/src/main/scripts/")) {
+        if (fullPath.contains("/modelBank-all-integration/src/main/scripts/")) {
             String[] strs = fullPath.split("/src/main/scripts/");
-            fileDiffEntry.setPkgPath(Const.BIN + strs[strs.length - 1]);
+            fileDiffEntry.setModule(Const.BIN + strs[strs.length - 1]);
         }
 
         // 修正部分packagePath

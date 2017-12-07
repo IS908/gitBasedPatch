@@ -12,16 +12,18 @@ import java.util.List;
 public abstract class PatchFileService {
     protected BasePatchExtractHandler basePatchExtractHandler;
 
-    protected List<String> patchFileNames;
+    protected String patchFileDir;
+    protected List<String> patchFilePrefix;
 
-    public PatchFileService(List<String> patchFileNames) {
-        this.patchFileNames = patchFileNames;
+    public PatchFileService(String patchFileDir, List<String> patchFilePrefix) {
+        this.patchFileDir = patchFileDir;
+        this.patchFilePrefix = patchFilePrefix;
     }
 
     /**
      * 进行增量文件的抽取
      */
-    public abstract void patchFileExecute();
+    public abstract void patchFileExecute(String baseDir);
 
     public BasePatchExtractHandler getBasePatchExtractHandler() {
         return basePatchExtractHandler;

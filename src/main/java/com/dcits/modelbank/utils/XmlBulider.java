@@ -74,7 +74,7 @@ public class XmlBulider {
         Element fileElement;
         for (Iterator file = rootElement.elementIterator("file"); file.hasNext(); ) {
             fileElement = (Element) file.next();
-            String packageName = fileElement.attributeValue("model");
+            String packageName = fileElement.attributeValue("module");
             set.add(packageName);
         }
         logger.info(String.valueOf(set.size()));
