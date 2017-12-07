@@ -480,9 +480,11 @@ public class GitHandlerImpl extends GitHandler {
                         .call();
                 for (DiffEntry entry : diffs) {
                     FileDiffEntry fileDiffEntry = diffEntry2FileDiffEntry(entry, commit);
-                    if (fileTypeSkip(fileDiffEntry)) {
-                        fileChangeLogList.add(fileDiffEntry);
-                    }
+                    /**
+                     * fileTypeSkip() 函数进行过滤、简单修正等操作
+                     */
+                    if (!fileTypeSkip(fileDiffEntry)) continue;
+                    fileChangeLogList.add(fileDiffEntry);
                 }
             }
         } catch (IOException | GitAPIException e) {
@@ -492,7 +494,14 @@ public class GitHandlerImpl extends GitHandler {
         return fileChangeLogList;
     }
 
+    /**
+     * 进行过滤、简单修正等操作
+     *
+     * @param fileDiffEntry
+     * @return
+     */
     private boolean fileTypeSkip(FileDiffEntry fileDiffEntry) {
+        // TODO: 2017/12/7 进行过滤、简单修正等操作，遇到不同场景需特殊适配，不断完善
         String fileType = fileDiffEntry.getType();
         boolean flag = true;
 
