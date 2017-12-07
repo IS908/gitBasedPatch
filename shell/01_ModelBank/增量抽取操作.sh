@@ -9,5 +9,5 @@ java -jar ${PATCH_TOOL}/dcits-ci.jar zip ${WORKSPACE} ${gitDir} ${sourceDir} ${t
 # WORKSPACE ：Jenkins的job目录
 # gitDir    ：项目的.git日志文件夹
 # sourceDir ：项目源码根路径
-# targetDir ：项目目标码（未压缩的）根路径
+# clazzDir ：项目目标码（未压缩的）根路径
 # resultDir ：增量描述文件及增量包存放路径（建议在target目录下，与全量包路径一致）

@@ -114,12 +114,10 @@ public class FileUtil {
         if (file.exists()) {
             File[] files = file.listFiles();
             if (files.length == 0) {
-//                logger.info(file.getName() + "文件夹是空的");
                 return;
             }
             for (File file2 : files) {
                 if (file2.isDirectory()) {
-//                    logger.info("文件夹:" + file2.getAbsolutePath());
                     filterFile(file2.getAbsolutePath(), set);
                 } else {
                     if (set.contains(file2.getName())) {
@@ -132,6 +130,50 @@ public class FileUtil {
         }
     }
 
+    /**
+     * 复制一个目录及其子目录到另外一个目录
+     *
+     * @param src
+     * @param dest
+     * @throws IOException
+     */
+    public static void copyFolder(File src, File dest) throws IOException {
+        logger.info("file src:" + src + "；file dest : " + dest);
+        if (!src.isDirectory()) return;
+        if (!dest.exists()) {
+            dest.mkdir();
+        }
+        String files[] = src.list();
+        for (String file : files) {
+            File srcFile = new File(src, file);
+            File destFile = new File(dest, file);
+            // 递归复制
+            copyFolder(srcFile, destFile);
+        }
+    }
+
+    /**
+     * 复制给定文件列表中的文件到指定目录
+     *
+     * @param src
+     * @param dest
+     * @param set  待移动文件相对路径
+     */
+    public static void copyFile(String baseDir, String src, String dest, Set<String> set) {
+        baseDir = baseDir.endsWith(File.separator) ? baseDir : baseDir + File.separator;
+        src = baseDir + (src.endsWith(File.separator) ? src : src + File.separator);
+        dest = baseDir + (dest.endsWith(File.separator) ? dest : dest + File.separator);
+        logger.info("src : " + src);
+        logger.info("dest : " + dest);
+        File srcFile;
+        for (String file : set) {
+            srcFile = new File(src + file);
+            logger.info("srcFile.getAbsolutePath： " + srcFile.getAbsolutePath());
+            if (!srcFile.exists()) continue;
+            srcFile.renameTo(new File(dest + file));
+        }
+    }
+
     public static void deleteEmptyFolder(String path) {
         File file = new File(path);
         if (file.exists() && file.isDirectory()) {
@@ -140,7 +182,7 @@ public class FileUtil {
                 file.delete();
                 return;
             }
-            for (File file1: files) {
+            for (File file1 : files) {
 
             }
         }

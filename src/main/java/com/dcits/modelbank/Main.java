@@ -11,7 +11,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import java.io.File;
 import java.util.Objects;
 
 /**
@@ -29,7 +28,7 @@ public class Main {
 
     private Main(String[] paths) {
         baseDir = paths[1].trim();
-        baseDir = baseDir.endsWith(File.separator) ? baseDir : baseDir + File.separator;
+        baseDir = baseDir.endsWith("/") ? baseDir : baseDir + "/";
         this.context = new ClassPathXmlApplicationContext("classpath*:applicationContext.xml");
 
         /**
@@ -43,8 +42,8 @@ public class Main {
             gitHelper.setRootDir(baseDir + gitHelper.getRootDir());
             String sourceDir = gitHelper.getSourceDir();
             sourceDir = baseDir + (Objects.equals("@", sourceDir) ? "" : sourceDir);
-            gitHelper.setSourceDir(sourceDir.endsWith(File.separator) ?
-                    sourceDir : sourceDir + File.separator);
+            gitHelper.setSourceDir(sourceDir.endsWith("/") ?
+                    sourceDir : sourceDir + "/");
             XmlBulider xmlBulider = gitService.getXmlBulider();
             xmlBulider.setXmlFilePath(baseDir + xmlBulider.getXmlFilePath());
         }
@@ -55,11 +54,12 @@ public class Main {
         extractHandler.setResultDir(baseDir + extractHandler.getResultDir());
 
         patchFileExecute = context.getBean(PatchFileService.class);
+
     }
 
     public static void main(String[] args) {
         if (args.length > 4 || args.length < 3) {
-            System.out.println("请指定命令参数，默认操作命令如下：[xml/zip] [gitDir] [sourceDir] [targetDir] [resultDir]");
+            System.out.println("请指定命令参数，默认操作命令如下：[xml/zip] [gitDir] [sourceDir] [clazzDir] [resultDir]");
             System.out.println("xml：生成增量描述文件/zip：进行增量文件抽取；");
             System.out.println("baseDir：抽取增量项目跟路径");
             System.out.println("beginTag：抽取增量起始Tag；");

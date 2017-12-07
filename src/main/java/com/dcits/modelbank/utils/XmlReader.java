@@ -45,9 +45,6 @@ public class XmlReader {
             e.printStackTrace();
         }
 
-        for (String fileName : patchSet) {
-            logger.info(fileName);
-        }
         return patchSet;
     }
 

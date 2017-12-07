@@ -28,8 +28,8 @@ source ~/.bashrc
 #source .bashrc
 #PATCH_TOOL=${JENKINS_HOME}/../tools/patchTool
 #
-#java -jar ${PATCH_TOOL}/dcits-ci.jar xml ${WORKSPACE} ${gitDir} ${sourceDir} ${targetDir} ${resultDir}
-#java -jar ${PATCH_TOOL}/dcits-ci.jar zip ${WORKSPACE} ${gitDir} ${sourceDir} ${targetDir} ${resultDir}
+#java -jar ${PATCH_TOOL}/dcits-ci.jar xml ${WORKSPACE} ${gitDir} ${sourceDir} ${clazzDir} ${resultDir}
+#java -jar ${PATCH_TOOL}/dcits-ci.jar zip ${WORKSPACE} ${gitDir} ${sourceDir} ${clazzDir} ${resultDir}
 ######## 增量抽取脚本 - end ########
 
 echo **********************************************************
