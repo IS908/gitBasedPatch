@@ -8,22 +8,18 @@ echo **              http://www.dcits.com                    **
 echo **            author zhangjig@dcits.com                 **
 echo **********************************************************
 
-#注意的点 Teller 的启动脚本 start 启动为 ./start ，执行start脚本前需先cd切换到Teller目录下增加执行权限，再sh start，否则会调用不到run.sh
-
 #不同环境下脚本修改指南
 #   Var Setting中修改：
 #       1、PORT_APP 端口号
 #       2、DCITS_HOME 应用部署主目录
-#  非阜新银行项目，请注释掉第88行：sed -i 's/ssoindex/fxindex/g' ./configuration/config.ini
+#  非阜新银行项目，请注释掉START_TELLER函数中：sed -i 's/ssoindex/fxindex/g' ./configuration/config.ini
 #
-
 ########## Var Setting START ##########
 echo "开始SmartTeller9全量部署"
 # 应用端口号，注意需加单引号
 PORT_APP='9080'
 # 启动应用检查时间间隔设定(单位：10秒)
 CHECK_TIME=12
-
 # 应用状态 APP_RUN_STATUS - 0：停止状态；1：启动状态
 APP_RUN_STATUS=-10
 MSG_START_SUCCESS='Teller应用启动状态'
@@ -33,13 +29,9 @@ MSG_STATUS_ERROR='Teller应用状态未知,请人工确认当前状态'
 
 DCITS_HOME=/app/dcits
 APP_HOME=${DCITS_HOME}
-CACHE_HOME=${DCITS_HOME}/SmartTeller9/configuration
 BACKUP_HOME=${DCITS_HOME}/backup/SmartTeller9
-ZIP_HOME=${BACKUP_HOME}
 VERSION_ID=App_SmartTeller9_Full_${TAG_NO}
 TARGET=${VERSION_ID}.zip
-
-
 ########## Var Setting END ##########
 
 ######## Function START ########
@@ -52,9 +44,7 @@ CheckAppState() {
     else 
         APP_RUN_STATUS=1
     fi
-#    APP_RUN_STATUS=`ps -ef | grep "${PID_APP}" | grep -v 'grep' | wc -l`
     echo 'APP_RUN_STATUS:' ${APP_RUN_STATUS}
-
 }
 
 # 检查应用是否停止 并返回状态码：停止成功:1；停止失败:0
@@ -101,9 +91,9 @@ START_TELLER() {
 # 新应用发布成功后，备份被替换的旧应用（主要为日志备份）
 BACKUP_OLD_APP() {
     cd ${APP_HOME}
-    versionNum=`cat ${APP_HOME}/SmartTeller9-old/versionid.txt`
-    tar -czf ${BACKUP_HOME}/${versionNum}-end.tar.gz  SmartTeller9-old
-    rm -rf ${APP_HOME}/SmartTeller9-old
+    versionNum=`cat ${APP_HOME}/SmartTeller9/versionid.txt`
+    tar -czf ${BACKUP_HOME}/${versionNum}-end.tar.gz  SmartTeller9
+    rm -rf SmartTeller9
 #    rm ${BACKUP_HOME}/${versionNum}.zip
 }
 
@@ -117,6 +107,9 @@ TAR_TEMPLETE() {
 # 备份全量包，并解压包已备部署 DONE
 echo "部署的TAG_NO为："${TAG_NO}
 cd ${BACKUP_HOME}
+if [[ -d SmartTeller9 ]];then
+    rm -rf SmartTeller9
+fi
 mkdir SmartTeller9
 cd SmartTeller9
 unzip -q  ${BACKUP_HOME}/${TARGET}
@@ -148,14 +141,7 @@ if [ ${APP_RUN_STATUS} -ne 0 ];then
 fi
 
 # 备份原应用包
-cd ${APP_HOME}
-if [[ -d ${APP_HOME}/SmartTeller9-old/ ]];then
-    rm -rf ${APP_HOME}/SmartTeller9-old
-fi
-
-if [[ -d ${APP_HOME}/SmartTeller9/ ]];then
-    mv ${APP_HOME}/SmartTeller9 ${APP_HOME}/SmartTeller9-old
-fi
+BACKUP_OLD_APP
 
 # 部署新的应用包，并启动新应用
 mv ${BACKUP_HOME}/SmartTeller9 ${APP_HOME}
@@ -166,8 +152,7 @@ CHECK_INTERVAL ${CHECK_TIME}
 # 检查新部署应用是否启动成功
 CheckStartState
 if [ ${APP_RUN_STATUS} -eq 1 ];then
-    # 新应用启动，删除旧应用
-    BACKUP_OLD_APP
+    # 新应用启动
     echo ${MSG_START_SUCCESS}
 else
     for i in `seq 5`
@@ -175,8 +160,7 @@ else
         CheckStartState
         if [ ${APP_RUN_STATUS} -eq 1 ];then
             # 新应用启动，删除旧应用
-            echo "Start successful, deleting old app ..."
-            BACKUP_OLD_APP
+            echo "Start successful"
             echo ${MSG_START_SUCCESS}
             break
         else
