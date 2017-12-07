@@ -80,8 +80,9 @@ public class PatchFileServiceImpl extends PatchFileService {
             e.printStackTrace();
         }
         FileUtil.copyFile(baseDir, clazzDir, tmpDir, patchFileList);
+        Set<String> delSet = new HashSet<>();
+        delSet.add(Const.DELETE_LIST);
+        FileUtil.copyFile(baseDir, "dbPatch/checkList" , tmpDir, delSet);
         ZipUtils.zip(baseDir + tmpDir, baseDir + resultDir + Const.PATCH_ZIP_NAME);
-
-        // TODO: 2017/12/7 进行增量文件的抽取
     }
 }
