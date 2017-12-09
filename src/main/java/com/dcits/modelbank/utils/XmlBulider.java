@@ -124,7 +124,7 @@ public class XmlBulider {
 
         // 生成文件路径及文件名
         String runDate = DateUtil.getRunDate();
-        String fileName = xmlFilePath + fileFrefix + runDate + ".xml";
+        String fileName = xmlFilePath + runDate + fileFrefix + ".xml";
 
         // 开始写入到文件
         try (FileOutputStream fos = new FileOutputStream(fileName)) {
@@ -151,7 +151,6 @@ public class XmlBulider {
             SAXReader reader = new SAXReader();
             reader.setEncoding("utf-8");
             document = reader.read(file);
-            logger.info(document.toString());
         } catch (DocumentException e) {
             e.printStackTrace();
         }

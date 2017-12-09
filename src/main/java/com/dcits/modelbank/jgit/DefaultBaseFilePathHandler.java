@@ -181,11 +181,12 @@ public class DefaultBaseFilePathHandler extends BaseFilePathHandler {
      */
     @Override
     public String getModuleName(String fullPath) {
-        logger.info("FilePath：" + fullPath);
         if (!isFileInPackage(fullPath)) return "";
         String pomPath = FileUtil.findFilePath(fullPath, "pom.xml");
         if (Objects.equals(null, pomPath) || Objects.equals("", pomPath)) return "";
-        return xmlBulider.pom2PackageName(pomPath);
+        String pomName = xmlBulider.pom2PackageName(pomPath);
+        logger.info(fullPath + "打包后所在的Jar包为:" + pomName);
+        return pomName;
     }
 
     /**

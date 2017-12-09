@@ -517,7 +517,10 @@ public class GitHandlerImpl extends GitHandler {
         // 过滤掉部分路径
         String fullPath = fileDiffEntry.getFullPath();
         if (fullPath.contains("/src/test/")
-                || fullPath.endsWith("ModelBank" + File.separator + "SmartEnsemble")) flag = false;
+                || fullPath.endsWith("ModelBank" + File.separator + "SmartEnsemble")) {
+            logger.info(fullPath + " 文件不进入打包目标码，忽略！");
+            flag = false;
+        }
 
         if (fullPath.contains("/modelBank-all-integration/src/main/config/")) {
             String[] strs = fullPath.split("/src/main/config/");
@@ -551,7 +554,6 @@ public class GitHandlerImpl extends GitHandler {
         String fileType = baseFilePathHandler.getFileType(fullPath);
         String pkgPath = baseFilePathHandler.getPkgPath(fullPath, fileType);
         fullPath = gitHelper.getSourceDir() + fullPath;
-        logger.info("文件全路径：" + fullPath);
         String moduleName = baseFilePathHandler.getModuleName(fullPath);
 
         fileDiffEntry.setFullPath(fullPath);
