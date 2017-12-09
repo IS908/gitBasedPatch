@@ -42,7 +42,7 @@ public class PatchFileServiceImpl extends PatchFileService {
         File[] files = file.listFiles();
         for (File f : files) {
             if (f.isDirectory()) continue;
-            logger.info(f.getName());
+//            logger.info(f.getName());
             if (set.contains(f.getName()) && f.getName().endsWith(".xml")) xmlFilePaths.add(f);
             else if (set.contains(f.getName()) && f.getName().endsWith(".txt")) txtFilePaths.add(f);
         }

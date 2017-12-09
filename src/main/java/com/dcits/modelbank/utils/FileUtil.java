@@ -199,12 +199,15 @@ public class FileUtil {
         for (String file : set) {
             srcFile = new File(src + file);
             if (!srcFile.exists()) continue;
+            logger.info("抽取文件：" + srcFile.getName());
             srcFile.renameTo(new File(dest + file));
         }
     }
 
     public static void mvFile(Set<File> srcFiles, String dest) {
         for (File f : srcFiles) {
+            if (!f.exists()) continue;
+            logger.info("抽取文件：" + f.getName());
             f.renameTo(new File(dest + f.getName()));
         }
     }

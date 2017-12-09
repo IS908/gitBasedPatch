@@ -1,37 +1,6 @@
 #!/bin/bash
 source ~/.bashrc
 
-# Jenkins 配置：
-# Source files: **/modelBank-integration-assembly.tar.gz
-# Remote directory: backup/ModelBank/ModelBank_Full_${TAG_NO}
-
-
-# GIT 子模块相关shell：
-#
-#cd $WORKSPACE
-#git checkout -b release/dailyFix origin/release/dailyFix
-#git pull http://jenkins:digital1@57.25.2.187:8082/dcits/ModelBank.git
-#
-#cd $WORKSPACE/SmartEnsemble
-#git checkout -b release/dailyFix origin/release/dailyFix
-#git pull http://jenkins:digital1@57.25.2.187:8082/dcits/SmartEnsemble.git
-#git reset --hard
-#git tag -a "SmartEnsemble_Ins_"${TAG_NO} -m "Jenkins Git plugin tagging with SmartEnsemble"
-#git push http://jenkins:digital1@57.25.2.187:8082/dcits/SmartEnsemble.git "SmartEnsemble_Ins_"${TAG_NO}
-#
-#cd $WORKSPACE
-#git reset --hard
-
-
-######## 增量抽取脚本 - begin ########
-##!/bin/bash
-#source .bashrc
-#PATCH_TOOL=${JENKINS_HOME}/../tools/patchTool
-#
-#java -jar ${PATCH_TOOL}/dcits-ci.jar xml ${WORKSPACE} ${gitDir} ${sourceDir} ${clazzDir} ${resultDir}
-#java -jar ${PATCH_TOOL}/dcits-ci.jar zip ${WORKSPACE} ${gitDir} ${sourceDir} ${clazzDir} ${resultDir}
-######## 增量抽取脚本 - end ########
-
 echo **********************************************************
 echo **                                                      **
 echo **             ModelBank Deploy Shell                   **
@@ -39,20 +8,8 @@ echo **              http://www.dcits.com                    **
 echo **            author:chenkunh@dcits.com                 **
 echo **                                                      **
 echo **********************************************************
-# 脚本说明：
-# 部署包备份，在部署的相应服务器上进行备份，其它位置不做备份，
-# 备份目录：
-# 全量包：~/backup/ModelBank/App_${TAG_NAME}.tar.gz
-# 增量包：~/backup/ModelBank/App_${TAG_NAME}.zip
-# 其中 ${TAG_NAME} 与 GitLab 上的 Tag 保持一致
-# 
-# 1、停止当前应用服务
-# 2、备份增量包到指定目录
-# 3、解压增量包并安装增量包
-# 4、启动服务
 
 ######## Var Setting START ########
-#run_status=`netstat -anp|grep 9001|awk '{printf $7}'|cut -d/ -f1`
 # 应用端口号，注意需加单引号
 PORT_APP='9001'
 # 启动应用检查时间间隔设定(单位：秒)
@@ -132,13 +89,22 @@ BACKUP_OLD_APP() {
     echo App_${TAG_NAME} > ${DCITS_HOME}/${APP_NAME}/versionid.txt
     echo App_${TAG_NAME} >> ${DCITS_HOME}/${APP_NAME}/version_list.txt
 }
+
+DELETE_LIST_OPTION(){
+cat $1 | while read line
+do
+echo 'remove' ${DCITS_HOME}/ModelBank/${line}
+rm  ${DCITS_HOME}/ModelBank/${line}
+done
+}
 ######## Function END ########
 
 # 移动增量包到相应备份目录下
+cd ${ZIP_HOME}
+unzip ${ZIP_HOME}/app_modelbank_ins.zip
+mv ${ZIP_HOME}/deleteList.txt ${BACKUP_TEMP}
 mv  ${ZIP_HOME}/app_modelbank_ins.zip  ${BACKUP_HOME}/App_${TAG_NAME}.zip
-cd ${BACKUP_TEMP}
-unzip ${BACKUP_HOME}/App_${TAG_NAME}.zip
-mv ${BACKUP_HOME}/${APP_ORIGIN_NAME}/ ${BACKUP_HOME}/${APP_NAME}
+rm -rf ${BACKUP_TEMP}/modules
 
 # 检查并停止应用，以备部署新应用
 CheckStopState
@@ -147,7 +113,7 @@ if [ ${APP_RUN_STATUS} -ne 0 ];then
     sh ${DCITS_HOME}/${APP_NAME}/bin/stop.sh
 	CHECK_INTERVAL 1
     for i in `seq 3`
-    do   
+    do
         CheckStopState
         if [ ${APP_RUN_STATUS} -eq 0 ];then
             break
@@ -171,9 +137,12 @@ if [[ -d ${DCITS_HOME}/${APP_NAME}/ ]];then
     cp -r ${DCITS_HOME}/${APP_NAME} ${DCITS_HOME}/${APP_NAME}-old
 fi
 
+# 按照deleteList.txt列表进行删除
+DELETE_LIST_OPTION ${BACKUP_TEMP}/deleteList.txt
+
 # 部署增量应用包，并启动应用
-mv -f ${BACKUP_TEMP}/${APP_NAME}/lib/* ${DCITS_HOME}/${APP_NAME}/lib/
-rm -rf ${BACKUP_TEMP}
+cd ${DCITS_HOME}/${APP_NAME}
+unzip -o ${BACKUP_HOME}/App_${TAG_NAME}.zip
 echo 'App starting ...'
 sh ${DCITS_HOME}/${APP_NAME}/bin/start.sh
 CHECK_INTERVAL ${CHECK_TIME}
@@ -186,7 +155,7 @@ if [ ${APP_RUN_STATUS} -eq 1 ];then
     echo ${MSG_START_SUCCESS}
 else
     for i in `seq 5`
-    do   
+    do
         CheckStartState
         if [ ${APP_RUN_STATUS} -eq 1 ];then
             # 新应用启动，备份并删除旧应用
@@ -194,7 +163,6 @@ else
             echo ${MSG_START_SUCCESS}
             break
         else
-            sh ${DCITS_HOME}/${APP_NMAE}/bin/stop.sh
             echo 'Retry App starting ...'
             sh ${DCITS_HOME}/${APP_NAME}/bin/start.sh
         fi
