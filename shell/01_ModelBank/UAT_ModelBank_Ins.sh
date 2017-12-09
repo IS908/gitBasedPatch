@@ -42,7 +42,6 @@ APP_NAME=ModelBank
 DCITS_HOME=/app/dcits
 ENSEMBLE_HOME=${DCITS_HOME}
 BACKUP_HOME=${DCITS_HOME}/backup/${APP_NAME}
-TAG_NAME=ModelBank_Ins_${TAG_NO}
 BACKUP_TEMP=${BACKUP_HOME}/${TAG_NAME}
 ZIP_HOME=${BACKUP_TEMP}/modules/modelBank-all-integration/target
 ######## Var Setting END ########
