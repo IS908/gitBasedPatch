@@ -24,13 +24,10 @@ public abstract class BaseFilePathHandler {
     public abstract String getFileType(String fullPath);
 
     /**
-     * 根据文件相对路径及文件类型获取文件所在大类
+     * 根据文件绝对路径获得编译打包后的包名
      *
-     * @param fullPath 文件路径
-     * @param fileType 文件类型
-     * @return 文件所在模块大类
+     * @param fullPath 文件的绝对路径
+     * @return
      */
-    public String getModuleName(String fullPath, String fileType){
-        return "Ensemble";
-    }
+    public abstract String getModuleName(String fullPath);
 }

@@ -3,13 +3,15 @@ package com.dcits.modelbank;
 import com.dcits.modelbank.extract.BasePatchExtractHandler;
 import com.dcits.modelbank.jgit.helper.GitHelper;
 import com.dcits.modelbank.service.GitService;
+import com.dcits.modelbank.service.GitServices;
+import com.dcits.modelbank.service.PatchFileService;
 import com.dcits.modelbank.utils.XmlBulider;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import java.io.File;
+import java.util.Objects;
 
 /**
  * Created on 2017-11-15 15:34.
@@ -20,50 +22,44 @@ public class Main {
     private static final Logger logger = LoggerFactory.getLogger(Main.class);
 
     private ApplicationContext context;
-    private GitService gitService;
-    private final String gitDir = ".git"
-            .concat(File.separator)
-            .concat("modules")
-            .concat(File.separator)
-            .concat("SmartEnsemble");
-    private final String source = "SmartEnsemble";
-    private final String resule = "modules"
-            .concat(File.separator)
-            .concat("modelBank-all-integration")
-            .concat(File.separator)
-            .concat("target");
-    private final String target = this.resule
-            .concat(File.separator)
-            .concat("modelBank-integration-assembly")
-            .concat(File.separator)
-            .concat("modelBank-integration");
+    private GitServices gitServices;
+    private PatchFileService patchFileExecute;
+    private String baseDir;
 
     private Main(String[] paths) {
-        String baseDir = paths[1].trim();
-        baseDir = baseDir.endsWith(File.separator) ? baseDir : baseDir + File.separator;
-        String gitDir = baseDir + this.gitDir;
-        String sourceDir = baseDir + this.source;
-        String targetDir = baseDir + this.target;
-        String resultDir = baseDir + this.resule;
+        baseDir = paths[1].trim();
+        baseDir = baseDir.endsWith("/") ? baseDir : baseDir + "/";
         this.context = new ClassPathXmlApplicationContext("classpath*:applicationContext.xml");
-        // 设置类的初始值的设定
-        GitHelper gitHelper = context.getBean(GitHelper.class);
-        gitHelper.setRootDir(gitDir);
-        XmlBulider xmlBulider = context.getBean(XmlBulider.class);
-        xmlBulider.setXmlFilePath(resultDir);
+
+        /**
+         * 一个GitHelper指定一个本地Git配置库：
+         * 1、gitHelper的.git日志文件夹相对路径改为绝对路径
+         * 2、gitHelper的源码跟目录相对路径转为绝对路径（相对路径@标识当前路径）
+         */
+        gitServices = context.getBean(GitServices.class);
+        for (GitService gitService : gitServices.getGitServices()) {
+            GitHelper gitHelper = gitService.getGitHandler().getGitHelper();
+            gitHelper.setRootDir(baseDir + gitHelper.getRootDir());
+            String sourceDir = gitHelper.getSourceDir();
+            sourceDir = baseDir + (Objects.equals("@", sourceDir) ? "" : sourceDir);
+            gitHelper.setSourceDir(sourceDir.endsWith("/") ?
+                    sourceDir : sourceDir + "/");
+            XmlBulider xmlBulider = gitService.getXmlBulider();
+            xmlBulider.setXmlFilePath(baseDir + xmlBulider.getXmlFilePath());
+        }
+
         // 输入输出目录的设定
         BasePatchExtractHandler extractHandler = context.getBean(BasePatchExtractHandler.class);
-        extractHandler.setSourceDir(sourceDir);
-        extractHandler.setTargetDir(targetDir);
-        extractHandler.setResultDir(resultDir);
+        extractHandler.setTargetDir(baseDir + extractHandler.getTargetDir());
+        extractHandler.setResultDir(baseDir + extractHandler.getResultDir());
 
-        // 获取类实例
-        gitService = context.getBean(GitService.class);
+        patchFileExecute = context.getBean(PatchFileService.class);
+
     }
 
     public static void main(String[] args) {
         if (args.length > 4 || args.length < 3) {
-            System.out.println("请指定命令参数，默认操作命令如下：[xml/zip] [gitDir] [sourceDir] [targetDir] [resultDir]");
+            System.out.println("请指定命令参数，默认操作命令如下：[xml/zip] [gitDir] [sourceDir] [clazzDir] [resultDir]");
             System.out.println("xml：生成增量描述文件/zip：进行增量文件抽取；");
             System.out.println("baseDir：抽取增量项目跟路径");
             System.out.println("beginTag：抽取增量起始Tag；");
@@ -76,11 +72,11 @@ public class Main {
         String endTag = args.length == 4 ? args[3].trim() : null;
         switch (cmd) {
             case "xml":
-                main.gitService.genChangesFileListBetweenTag(startTag, endTag);
+                main.genXmlPatchList(startTag, endTag);
                 System.out.println("增量描述文件抽取生成完毕！");
                 break;
             case "zip":
-                main.gitService.patchFileExecute();
+                main.patchFileExecute.patchFileExecute(main.baseDir);
                 System.out.println("增量包生成完毕！");
                 break;
             default:
@@ -88,4 +84,17 @@ public class Main {
                 break;
         }
     }
+
+    /**
+     * 进行增量描述文件抽取
+     *
+     * @param startTag
+     * @param endTag
+     */
+    private void genXmlPatchList(String startTag, String endTag) {
+        for (GitService gitService : this.gitServices.getGitServices()) {
+            gitService.genChangesFileListBetweenTag(startTag, endTag);
+        }
+    }
+
 }

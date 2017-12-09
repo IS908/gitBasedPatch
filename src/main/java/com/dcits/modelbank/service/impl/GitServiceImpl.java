@@ -1,6 +1,5 @@
 package com.dcits.modelbank.service.impl;
 
-import com.dcits.modelbank.extract.BasePatchExtractHandler;
 import com.dcits.modelbank.jgit.GitHandler;
 import com.dcits.modelbank.model.FileDiffEntry;
 import com.dcits.modelbank.model.FileModel;
@@ -9,9 +8,7 @@ import com.dcits.modelbank.utils.Const;
 import com.dcits.modelbank.utils.XmlBulider;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Service;
 
-import javax.annotation.Resource;
 import java.util.*;
 
 /**
@@ -19,16 +16,26 @@ import java.util.*;
  *
  * @author kevin
  */
-@Service("gitService")
 public class GitServiceImpl implements GitService {
     private static final Logger logger = LoggerFactory.getLogger(GitServiceImpl.class);
 
-    @Resource
     private GitHandler gitHandler;
-    @Resource
     private XmlBulider xmlBulider;
-    @Resource
-    private BasePatchExtractHandler basePatchExtractHandler;
+
+    public GitServiceImpl(GitHandler gitHandler, XmlBulider xmlBulider) {
+        this.gitHandler = gitHandler;
+        this.xmlBulider = xmlBulider;
+    }
+
+    @Override
+    public GitHandler getGitHandler() {
+        return gitHandler;
+    }
+
+    @Override
+    public XmlBulider getXmlBulider() {
+        return xmlBulider;
+    }
 
     @Override
     public void genChangesFileListToday() {
@@ -53,11 +60,6 @@ public class GitServiceImpl implements GitService {
             fileModelList.add(fileModel);
         }
         xmlBulider.entity2XmlFile(fileModelList);
-    }
-
-    @Override
-    public void patchFileExecute() {
-        basePatchExtractHandler.execute();
     }
 
     @Override
@@ -105,11 +107,4 @@ public class GitServiceImpl implements GitService {
         return map;
     }
 
-    public GitHandler getGitHandler() {
-        return gitHandler;
-    }
-
-    public void setGitHandler(GitHandler gitHandler) {
-        this.gitHandler = gitHandler;
-    }
 }

@@ -51,7 +51,7 @@ public class GitServiceImplTest {
         /**
          * Main_zip
          */
-        gitService.patchFileExecute();
+//        gitService.patchFileExecute();
     }
 
     @Test

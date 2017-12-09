@@ -1,5 +1,7 @@
 package com.dcits.modelbank.jgit;
 
+import com.dcits.modelbank.utils.FileUtil;
+import com.dcits.modelbank.utils.XmlBulider;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -12,6 +14,8 @@ import java.util.Objects;
  */
 public class DefaultBaseFilePathHandler extends BaseFilePathHandler {
     private static final Logger logger = LoggerFactory.getLogger(DefaultBaseFilePathHandler.class);
+
+    private XmlBulider xmlBulider;
 
     private static final String EMPTY = "";
     private static final String JSP_SPLIT = "/main/";
@@ -169,5 +173,37 @@ public class DefaultBaseFilePathHandler extends BaseFilePathHandler {
         return len < 1 ? filePath : strs[len - 1];
     }
 
+    /**
+     * 1、解析增量描述XML描述文件，过滤出开发人员确认跟进生产的增量文件列表；
+     * 2、进入 sourceDir 目录下，对每一个增量文件，确定其最近的 pom.xml 文件；
+     * 3、根据 pom 文件的 groupId + artifactId + version + packaging这四要素，确定该文件打包后所在的 jar 包名称；
+     * 4、通过增量 jar 包列表，抽取增量 jar 包到指定临时目录下。
+     */
+    @Override
+    public String getModuleName(String fullPath) {
+        if (!isFileInPackage(fullPath)) return "";
+        String pomPath = FileUtil.findFilePath(fullPath, "pom.xml");
+        if (Objects.equals(null, pomPath) || Objects.equals("", pomPath)) return "";
+        String pomName = xmlBulider.pom2PackageName(pomPath);
+        logger.info(fullPath + "打包后所在的Jar包为:" + pomName);
+        return pomName;
+    }
 
+    /**
+     * 判定文件打包时是否打入jar包
+     *
+     * @param filePath
+     * @return
+     */
+    private boolean isFileInPackage(String filePath) {
+        return filePath.contains("/src/main");
+    }
+
+    public XmlBulider getXmlBulider() {
+        return xmlBulider;
+    }
+
+    public void setXmlBulider(XmlBulider xmlBulider) {
+        this.xmlBulider = xmlBulider;
+    }
 }

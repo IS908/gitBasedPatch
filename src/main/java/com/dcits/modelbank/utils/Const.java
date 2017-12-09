@@ -23,4 +23,12 @@ public interface Const {
     String DESC = "desc";
     String CHANGE_TYPE = "changeType";
     String CHECK = "check";
+
+    String BIN = "bin/";
+    String CONF = "conf/";
+    String LIB = "lib/";
+
+    String PATCH_TMP_FOLDER = "PatchTmp";
+    String PATCH_ZIP_NAME = "app_modelbank_ins.zip";
+    String DELETE_LIST="deleteList.txt";
 }

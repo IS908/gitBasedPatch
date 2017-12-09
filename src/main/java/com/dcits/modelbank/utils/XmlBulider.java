@@ -24,6 +24,7 @@ import java.util.*;
 public class XmlBulider {
     private static final Logger logger = LoggerFactory.getLogger(XmlBulider.class);
 
+    private String fileFrefix;
     private String xmlFilePath;
     private String[] authorAttr;
 
@@ -31,6 +32,8 @@ public class XmlBulider {
         this.xmlFilePath = xmlFilePath.endsWith(File.separator) ? xmlFilePath : xmlFilePath + File.separator;
         this.authorAttr = authorAttr;
     }
+
+
 
     /**
      * 读取pom文件获得该pom文件对应的打包后的文件名
@@ -60,33 +63,22 @@ public class XmlBulider {
      *
      * @return
      */
-    public List<FileModel> getExtractFiles() {
-        List<FileModel> list = new ArrayList<>();
+    public Set<String> getExtractFiles() {
+        Set<String> set = new HashSet<>();
 
-        String fileName = xmlFilePath + "patch" + DateUtil.getRunDate() + ".xml";
+        String fileName = xmlFilePath + fileFrefix + DateUtil.getRunDate() + ".xml";
         logger.info("增量文件路径：" + fileName);
         Document document = this.xmlReader(fileName);
         Element rootElement = document.getRootElement();
 
-        Element fileElement, authorElement, checkElement;
+        Element fileElement;
         for (Iterator file = rootElement.elementIterator("file"); file.hasNext(); ) {
             fileElement = (Element) file.next();
-            for (Iterator check = fileElement.element("authors").elementIterator("author"); check.hasNext(); ) {
-                authorElement = (Element) check.next();
-                checkElement = authorElement.element("check");
-                if (Objects.equals("true", checkElement.getText())) {
-                    FileModel model = new FileModel();
-                    model.setPath(fileElement.attributeValue("fullPath"));
-                    model.setModule(fileElement.attributeValue("model"));
-                    model.setName(fileElement.attributeValue("pkgPath"));
-                    model.setType(fileElement.attributeValue("type"));
-                    list.add(model);
-                    break;
-                }
-            }
+            String packageName = fileElement.attributeValue("module");
+            set.add(packageName);
         }
-        logger.info(String.valueOf(list.size()));
-        return list;
+        logger.info(String.valueOf(set.size()));
+        return set;
     }
 
     /**
@@ -102,7 +94,7 @@ public class XmlBulider {
         for (FileModel model : list) {
             Element fileElement = rootElement.addElement("file");
             fileElement.addAttribute("fullPath", model.getPath());
-            fileElement.addAttribute("model", model.getModule());
+            fileElement.addAttribute("module", model.getModule());
             fileElement.addAttribute("pkgPath", model.getName());
             fileElement.addAttribute("type", model.getType());
             Element authors = fileElement.addElement("authors");
@@ -132,7 +124,7 @@ public class XmlBulider {
 
         // 生成文件路径及文件名
         String runDate = DateUtil.getRunDate();
-        String fileName = xmlFilePath + "patch" + runDate + ".xml";
+        String fileName = xmlFilePath + runDate + fileFrefix + ".xml";
 
         // 开始写入到文件
         try (FileOutputStream fos = new FileOutputStream(fileName)) {
@@ -159,20 +151,25 @@ public class XmlBulider {
             SAXReader reader = new SAXReader();
             reader.setEncoding("utf-8");
             document = reader.read(file);
-            logger.info(document.toString());
         } catch (DocumentException e) {
             e.printStackTrace();
         }
         return document;
     }
 
+    public String getXmlFilePath() {
+        return xmlFilePath;
+    }
+
+    public void setFileFrefix(String fileFrefix) {
+        this.fileFrefix = fileFrefix;
+    }
 
     public void setAuthorAttr(String[] authorAttr) {
         this.authorAttr = authorAttr;
     }
 
     public void setXmlFilePath(String xmlFilePath) {
-        this.xmlFilePath = xmlFilePath.endsWith(File.separator) ?
-                xmlFilePath : (xmlFilePath + File.separator);
+        this.xmlFilePath = xmlFilePath;
     }
 }

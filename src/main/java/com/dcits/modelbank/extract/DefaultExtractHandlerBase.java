@@ -9,9 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Objects;
 import java.util.Set;
 
 /**
@@ -42,20 +40,6 @@ public class DefaultExtractHandlerBase extends BasePatchExtractHandler {
 
     @Override
     protected Set<String> getAllPackageName(List<FileModel> list) {
-        Set<String> set = new HashSet<>();
-        for (FileModel file : list) {
-            String filePath = this.sourceDir + file.getPath();
-            logger.info("FilePath：" + filePath);
-            if (!isFileInPackage(filePath)) continue;
-
-            String pomPath = FileUtil.findFilePath(filePath, "pom.xml");
-            if (Objects.equals(null, pomPath) || Objects.equals("", pomPath)) continue;
-            String packageName = xmlBulider.pom2PackageName(pomPath);
-            logger.info("packageName：" + packageName);
-            set.add(packageName);
-        }
-
-        logger.info("增量文件所在的jar包数量为：" + set.size());
-        return set;
+        return null;
     }
 }

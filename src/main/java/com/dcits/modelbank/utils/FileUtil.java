@@ -4,6 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.*;
+import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
@@ -32,14 +33,6 @@ public class FileUtil {
     }
 
     /**
-     * @param filePath
-     * @return
-     */
-    public static boolean isFileInPackage(String filePath) {
-        return filePath.contains("/src/main");
-    }
-
-    /**
      * 读取文件内容到输入流
      *
      * @param filePath
@@ -53,6 +46,26 @@ public class FileUtil {
             if (logger.isErrorEnabled())
                 logger.error(e.getCause().getMessage());
             return null;
+        }
+    }
+
+    public static void fileReadLine(String pathFile, Set<String> lines) {
+        File file = new File(pathFile);
+        if (!file.exists() || !file.isFile()) return;
+        try {
+            BufferedReader br = new BufferedReader(new InputStreamReader(
+                    new FileInputStream(new File(pathFile)), "UTF-8"));
+            String lineTxt;
+            while ((lineTxt = br.readLine()) != null) {
+                String[] records = lineTxt.split(",");
+                for (String record : records) {
+                    if (Objects.equals(null, record)) continue;
+                    lines.add(record);
+                }
+            }
+            br.close();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
@@ -103,6 +116,25 @@ public class FileUtil {
         }
     }
 
+    public static void writeFile(String writeFile, Set<String> content) {
+        File file = new File(writeFile);
+        if (file.exists() && file.isFile()) {
+            file.delete();
+        }
+        /* 输出数据 */
+        try {
+            BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(
+                    new FileOutputStream(file), "UTF-8"));
+            for (String line : content) {
+                bw.write(line);
+                bw.newLine();
+            }
+            bw.close();
+        } catch (Exception e) {
+            logger.info(e.getMessage() + " : " + e.getCause());
+        }
+    }
+
     /**
      * 根据maven编译文件目录及增量jar包清单进行文件筛选
      *
@@ -114,12 +146,10 @@ public class FileUtil {
         if (file.exists()) {
             File[] files = file.listFiles();
             if (files.length == 0) {
-//                logger.info(file.getName() + "文件夹是空的");
                 return;
             }
             for (File file2 : files) {
                 if (file2.isDirectory()) {
-//                    logger.info("文件夹:" + file2.getAbsolutePath());
                     filterFile(file2.getAbsolutePath(), set);
                 } else {
                     if (set.contains(file2.getName())) {
@@ -132,17 +162,50 @@ public class FileUtil {
         }
     }
 
-    public static void deleteEmptyFolder(String path) {
-        File file = new File(path);
-        if (file.exists() && file.isDirectory()) {
-            File[] files = file.listFiles();
-            if (files.length == 0) {
-                file.delete();
-                return;
-            }
-            for (File file1: files) {
+    /**
+     * 复制一个目录及其子目录到另外一个目录
+     *
+     * @param src
+     * @param dest
+     * @throws IOException
+     */
+    public static void copyFolder(File src, File dest) throws IOException {
+        if (!src.isDirectory()) return;
+        if (!dest.exists()) {
+            dest.mkdir();
+        }
+        String files[] = src.list();
+        for (String file : files) {
+            File srcFile = new File(src, file);
+            File destFile = new File(dest, file);
+            // 递归复制
+            copyFolder(srcFile, destFile);
+        }
+    }
 
-            }
+    /**
+     * 复制给定文件列表中的文件到指定目录
+     *
+     * @param src
+     * @param dest
+     * @param set  待移动文件相对路径
+     */
+    public static void mvFile(String baseDir, String src, String dest, Set<String> set) {
+        baseDir = baseDir.endsWith(File.separator) ? baseDir : baseDir + File.separator;
+        src = baseDir + (src.endsWith(File.separator) ? src : src + File.separator);
+        dest = baseDir + (dest.endsWith(File.separator) ? dest : dest + File.separator);
+        logger.info("源目录：" + src + "，目标目录：" + dest);
+        File srcFile;
+        for (String file : set) {
+            srcFile = new File(src + file);
+            if (!srcFile.exists()) continue;
+            srcFile.renameTo(new File(dest + file));
+        }
+    }
+
+    public static void mvFile(Set<File> srcFiles, String dest) {
+        for (File f : srcFiles) {
+            f.renameTo(new File(dest + f.getName()));
         }
     }
 
@@ -235,4 +298,33 @@ public class FileUtil {
         return lastRow;
     }
 
+    public static Set<File> getMatchedFiles(String baseDir, Set<String> matchPatchList) {
+        Set<File> fileSet = new HashSet<>();
+        File filePath;
+        for (String relativePath : matchPatchList) {
+            if (!relativePath.contains("/")) continue;  // TODO: 2017/12/8 没有 / 分隔符，待处理
+            int index = relativePath.lastIndexOf('/');
+            String dir = baseDir + relativePath.substring(0, index);
+            String matchPrefix = relativePath.substring(index + 1, relativePath.length() - 1);
+            filePath = new File(dir);
+            if (!filePath.exists()) continue;
+            File[] listFile = filePath.listFiles();
+            if (Objects.equals(null, listFile)) continue;
+            for (File f : listFile) {
+                if (Objects.equals(null, f)) continue;
+                if (f.getName().contains(matchPrefix)) {
+                    fileSet.add(f);
+                }
+            }
+        }
+
+        return fileSet;
+    }
+
+    public static void main(String[] args) {
+        String str = "lib/limarket-*";
+        int index = str.lastIndexOf('/');
+        System.out.println(str.substring(0, index));
+        System.out.println(str.substring(index + 1));
+    }
 }
