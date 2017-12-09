@@ -138,7 +138,7 @@ BACKUP_OLD_APP() {
 mv  ${ZIP_HOME}/app_modelbank_ins.zip  ${BACKUP_HOME}/App_${TAG_NAME}.zip
 cd ${BACKUP_TEMP}
 unzip ${BACKUP_HOME}/App_${TAG_NAME}.zip
-mv ${BACKUP_HOME}/${APP_ORIGIN_NAME} ${BACKUP_HOME}/${APP_NAME}
+mv ${BACKUP_HOME}/${APP_ORIGIN_NAME}/ ${BACKUP_HOME}/${APP_NAME}
 
 # 检查并停止应用，以备部署新应用
 CheckStopState

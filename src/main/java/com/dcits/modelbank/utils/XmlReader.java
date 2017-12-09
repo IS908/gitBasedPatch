@@ -22,8 +22,8 @@ public class XmlReader {
     private static final Logger logger = LoggerFactory.getLogger(XmlBulider.class);
 
     public static Set<String> getAllModuleName(Set<File> files) {
-        if (Objects.equals(null, files) || files.size() < 1) return null;
         Set<String> patchSet = new HashSet<>();
+        if (Objects.equals(null, files) || files.size() < 1) return patchSet;
         Document document;
         try {
             for (File patchFile : files) {
