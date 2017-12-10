@@ -100,11 +100,23 @@ BACKUP_OLD_APP() {
     echo App_${TAG_NAME} > ${DCITS_HOME}/${APP_NAME}/versionid.txt
     echo App_${TAG_NAME} >> ${DCITS_HOME}/${APP_NAME}/version_list.txt
 }
+
+DELETE_LIST_OPTION(){
+cat $1 | while read line
+do
+echo 'remove' ${DCITS_HOME}/ModelBank/${line}
+rm  ${DCITS_HOME}/ModelBank/${line}
+done
+}
 ######## Function END ########
 
 # 移动增量包到相应备份目录下
+cd ${ZIP_HOME}
+unzip ${ZIP_HOME}/app_modelbank_ins.zip
+mv ${ZIP_HOME}/deleteList.txt ${BACKUP_TEMP}
 mv  ${ZIP_HOME}/app_modelbank_ins.zip  ${BACKUP_HOME}/App_${TAG_NAME}.zip
-rm -rf ${BACKUP_TEMP}
+rm -rf ${BACKUP_TEMP}/modules
+
 
 # 检查并停止应用，以备部署新应用
 CheckStopState
@@ -137,11 +149,14 @@ if [[ -d ${ENSEMBLE_HOME}/${APP_NAME}/ ]];then
     cp -r ${ENSEMBLE_HOME}/${APP_NAME} ${ENSEMBLE_HOME}/${APP_NAME}-old
 fi
 
+# 按照deleteList.txt列表进行删除
+DELETE_LIST_OPTION ${BACKUP_TEMP}/deleteList.txt
+
 # 部署增量应用包，并启动应用
 cd ${DCITS_HOME}/${APP_NAME}
 unzip -o ${BACKUP_HOME}/App_${TAG_NAME}.zip
 echo 'App starting ...'
-sh ${ENSEMBLE_HOME}/${APP_NAME}/bin/start.sh
+sh ${DCITS_HOME}/${APP_NAME}/bin/start.sh
 CHECK_INTERVAL ${CHECK_TIME}
 
 # 检查新部署应用是否启动成功

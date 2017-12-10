@@ -1,23 +1,21 @@
 package com.dcits.modelbank.service;
 
-import com.dcits.modelbank.jgit.helper.GitHelper;
+import com.dcits.modelbank.jgit.GitHandler;
+import com.dcits.modelbank.utils.XmlBulider;
 
 /**
  * Created on 2017-11-07 19:41.
  *
  * @author kevin
  */
-public abstract class GitService {
-    protected GitHelper gitHelper;
-
-    public GitService(GitHelper gitHelper) {
-        this.gitHelper = gitHelper;
-    }
+public interface GitService {
+    GitHandler getGitHandler();
+    XmlBulider getXmlBulider();
 
     /**
      * 获取当天的增量文件列表
      */
-    public abstract void genChangesFileListToday();
+    void genChangesFileListToday();
 
     /**
      * 获取两个Tag之间的增量文件列表
@@ -25,23 +23,12 @@ public abstract class GitService {
      * @param tagStart 开始Tag
      * @param tagEnd   截止Tag
      */
-    public abstract void genChangesFileListBetweenTag(String tagStart, String tagEnd);
-
-//    /**
-//     *
-//     * @return
-//     */
-//    List<FileModel> getFileModelFromXml();
-
-    /**
-     * 进行增量文件的抽取
-     */
-    public abstract void patchFileExecute();
+    void genChangesFileListBetweenTag(String tagStart, String tagEnd);
 
     /**
      * 获取Tag对应的版本的提交时间
      *
      * @param tagName
      */
-    public abstract void getCommitTimeByTag(String tagName);
+    void getCommitTimeByTag(String tagName);
 }

@@ -6,7 +6,6 @@ import org.eclipse.jgit.storage.file.FileRepositoryBuilder;
 import org.eclipse.jgit.util.FS;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Component;
 
 import java.io.File;
 import java.io.IOException;
@@ -31,7 +30,7 @@ public class GitHelper {
     public Repository openJGitRepository() {
         FileRepositoryBuilder builder = new FileRepositoryBuilder();
         try {
-            logger.info("openJGitRepository");
+            logger.info("openJGitRepository once ...");
             return builder
                     .setFS(FS.DETECTED)
                     .setGitDir(new File(this.rootDir))
@@ -49,17 +48,17 @@ public class GitHelper {
      * @return
      */
     public Git getGitInstance() {
-        logger.info("get Git Instance");
+        logger.info("gen Git Instance");
         Git git = new Git(this.openJGitRepository());
         return git;
     }
 
-    public void setRootDir(String rootDir) {
-        this.rootDir = rootDir;
-    }
-
     public String getRootDir() {
         return rootDir;
+    }
+
+    public void setRootDir(String rootDir) {
+        this.rootDir = rootDir;
     }
 
     public String getSourceDir() {

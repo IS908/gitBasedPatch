@@ -8,9 +8,6 @@ import com.dcits.modelbank.utils.Const;
 import com.dcits.modelbank.utils.DateUtil;
 import org.eclipse.jgit.api.*;
 import org.eclipse.jgit.api.errors.GitAPIException;
-import org.eclipse.jgit.api.errors.InvalidRefNameException;
-import org.eclipse.jgit.api.errors.InvalidRemoteException;
-import org.eclipse.jgit.api.errors.TransportException;
 import org.eclipse.jgit.blame.BlameResult;
 import org.eclipse.jgit.diff.DiffEntry;
 import org.eclipse.jgit.errors.AmbiguousObjectException;
@@ -20,7 +17,6 @@ import org.eclipse.jgit.lib.*;
 import org.eclipse.jgit.revwalk.RevCommit;
 import org.eclipse.jgit.revwalk.RevTree;
 import org.eclipse.jgit.revwalk.RevWalk;
-import org.eclipse.jgit.submodule.SubmoduleWalk;
 import org.eclipse.jgit.transport.FetchResult;
 import org.eclipse.jgit.transport.PushResult;
 import org.eclipse.jgit.treewalk.CanonicalTreeParser;
@@ -28,9 +24,8 @@ import org.eclipse.jgit.treewalk.TreeWalk;
 import org.eclipse.jgit.treewalk.filter.PathFilterGroup;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Service;
 
-import javax.annotation.Resource;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -41,32 +36,16 @@ import java.util.*;
  *
  * @author kevin
  */
-@Service("gitHandler")
 public class GitHandlerImpl extends GitHandler {
     private static final Logger logger = LoggerFactory.getLogger(GitHandlerImpl.class);
     private static SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
-    @Resource
+
     private BaseFilePathHandler baseFilePathHandler;
 
     public GitHandlerImpl(GitHelper gitHelper) {
         super(gitHelper);
     }
-
-    public GitHelper getGitHelper() {
-        return gitHelper;
-    }
-
-    public void setGitHelper(GitHelper gitHelper) {
-        this.gitHelper = gitHelper;
-    }
-
-    @Override
-    public SubmoduleWalk getSubmodules() throws IOException {
-        SubmoduleWalk walk = SubmoduleWalk.forIndex(gitHelper.getGitInstance().getRepository());
-        return walk;
-    }
-
 
     /**
      * 判断是否存在该Tag
@@ -126,13 +105,7 @@ public class GitHandlerImpl extends GitHandler {
                     .setFollowFileRenames(true);
             blame = blamer.call();
 //            blame.computeRange(0, 10);
-        } catch (IncorrectObjectTypeException e) {
-            e.printStackTrace();
-        } catch (AmbiguousObjectException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (GitAPIException e) {
+        } catch (IOException | GitAPIException e) {
             e.printStackTrace();
         }
         return blame;
@@ -233,82 +206,6 @@ public class GitHandlerImpl extends GitHandler {
         return logCommit;
     }
 
-    /**
-     * 显示具体一天的提交日志
-     *
-     * @param date
-     * @return
-     */
-    private Iterator<RevCommit> showLogByDay(Date date) {
-
-        try (Git git = gitHelper.getGitInstance()) {
-
-        }
-
-        return null;
-    }
-
-    @Override
-    public boolean checkoutBranch(String branch) {
-        // TODO: 2017/11/8 分支切换，若本地存在该分支，直接切换；若本地没有该分支，远端有该分支，签出远程分支；若本地及远端均没有该分支，则检出新分支
-        boolean res = false;
-        try (Git git = gitHelper.getGitInstance()) {
-            if (branchExists(git, branch)) {
-                checkoutFromLocalBranch(git, branch);
-            } else {
-
-            }
-            Ref ref = git.checkout().setName(branch).call();
-            System.out.println(ref.getObjectId());
-            res = true;
-        } catch (GitAPIException e) {
-            e.printStackTrace();
-        }
-        return res;
-    }
-
-    /**
-     * 本地已有分支的切换
-     *
-     * @param git
-     * @param branch 切换的分支名
-     * @return
-     */
-    private boolean checkoutFromLocalBranch(Git git, String branch) {
-        // TODO: 2017/11/8 本地已有分支的切换
-        return false;
-    }
-
-    /**
-     * 判断本地是否存在该分支
-     *
-     * @param git
-     * @param branch
-     * @return
-     * @throws GitAPIException
-     */
-    private boolean branchExists(Git git, String branch) throws GitAPIException {
-        List<Ref> call = git.branchList().call();
-        for (Ref ref : call) {
-            if (Objects.equals(Const.REFS_HEADS + branch, ref.getName())) return true;
-        }
-        return false;
-    }
-
-    /**
-     * 检出一个新的分支
-     *
-     * @param branchName 本地新分支名
-     * @param remote     跟踪远程分支名(若为null，则只在本地创建新分支)
-     * @return
-     */
-    private boolean checkoutNewBranch(String branchName, String remote) {
-        // TODO: 2017/11/7 checkout一个新分支
-        try (Git git = gitHelper.getGitInstance()) {
-        }
-        return false;
-    }
-
     @Override
     public boolean stash() {
         boolean res = false;
@@ -332,8 +229,6 @@ public class GitHandlerImpl extends GitHandler {
                 System.out.println("Found stash: " + rev + ": " + rev.getFullMessage());
             }
             return stashes;
-        } catch (InvalidRefNameException e) {
-            e.printStackTrace();
         } catch (GitAPIException e) {
             e.printStackTrace();
         }
@@ -366,10 +261,6 @@ public class GitHandlerImpl extends GitHandler {
         try (Git git = gitHelper.getGitInstance()) {
             result = git.fetch().setCheckFetchedObjects(true).call();
             System.out.println("Messages: " + result.getMessages());
-        } catch (InvalidRemoteException e) {
-            e.printStackTrace();
-        } catch (TransportException e) {
-            e.printStackTrace();
         } catch (GitAPIException e) {
             e.printStackTrace();
         }
@@ -407,10 +298,6 @@ public class GitHandlerImpl extends GitHandler {
                 logger.info(push.toString());
             }
             res = true;
-        } catch (InvalidRemoteException e) {
-            e.printStackTrace();
-        } catch (TransportException e) {
-            e.printStackTrace();
         } catch (GitAPIException e) {
             e.printStackTrace();
         }
@@ -545,8 +432,7 @@ public class GitHandlerImpl extends GitHandler {
     @Override
     public Map<String, List<FileDiffEntry>> getCommitsLogByFile(String tagStart, String tagEnd) {
         Map<String, List<FileDiffEntry>> files = new HashMap<>();
-        try (Git git = gitHelper.getGitInstance();
-             Repository repository = gitHelper.openJGitRepository()) {
+        try (Repository repository = gitHelper.openJGitRepository(); Git git = new Git(repository)) {
 
             List<RevCommit> commits;
             if (Objects.equals(tagEnd, null)) {
@@ -567,6 +453,8 @@ public class GitHandlerImpl extends GitHandler {
     }
 
     /**
+     * 按文件为单位将commit信息重新分组
+     *
      * @param list
      * @param repository
      * @param git
@@ -592,17 +480,64 @@ public class GitHandlerImpl extends GitHandler {
                         .call();
                 for (DiffEntry entry : diffs) {
                     FileDiffEntry fileDiffEntry = diffEntry2FileDiffEntry(entry, commit);
+                    /**
+                     * fileTypeSkip() 函数进行过滤、简单修正等操作
+                     */
+                    if (!fileTypeSkip(fileDiffEntry)) continue;
                     fileChangeLogList.add(fileDiffEntry);
                 }
             }
-        } catch (IOException e) {
-            e.printStackTrace();
-            logger.error(e.getCause().getMessage());
-        } catch (GitAPIException e) {
+        } catch (IOException | GitAPIException e) {
             e.printStackTrace();
             logger.error(e.getCause().getMessage());
         }
         return fileChangeLogList;
+    }
+
+    /**
+     * 进行过滤、简单修正等操作
+     *
+     * @param fileDiffEntry
+     * @return
+     */
+    private boolean fileTypeSkip(FileDiffEntry fileDiffEntry) {
+        // TODO: 2017/12/7 进行过滤、简单修正等操作，遇到不同场景需特殊适配，不断完善
+        String fileType = fileDiffEntry.getType();
+        boolean flag = true;
+
+        // 过滤掉部分不关注类型
+        switch (fileType) {
+            case "sql":
+                flag = false;
+                break;
+            default:
+                break;
+        }
+
+        // 过滤掉部分路径
+        String fullPath = fileDiffEntry.getFullPath();
+        if (fullPath.contains("/src/test/")
+                || fullPath.endsWith("ModelBank" + File.separator + "SmartEnsemble")) {
+            logger.info(fullPath + " 文件不进入打包目标码，忽略！");
+            flag = false;
+        }
+
+        if (fullPath.contains("/modelBank-all-integration/src/main/config/")) {
+            String[] strs = fullPath.split("/src/main/config/");
+            fileDiffEntry.setModule(Const.CONF + strs[strs.length - 1]);
+        }
+
+        if (fullPath.contains("/modelBank-all-integration/src/main/scripts/")) {
+            String[] strs = fullPath.split("/src/main/scripts/");
+            fileDiffEntry.setModule(Const.BIN + strs[strs.length - 1]);
+        }
+
+        // 修正部分packagePath
+        String module = fileDiffEntry.getModule();
+        if (module.endsWith(".jar")) {
+            fileDiffEntry.setModule(Const.LIB + module);
+        }
+        return flag;
     }
 
     /**
@@ -618,7 +553,8 @@ public class GitHandlerImpl extends GitHandler {
         String fullPath = entry.getPath(DiffEntry.Side.NEW);
         String fileType = baseFilePathHandler.getFileType(fullPath);
         String pkgPath = baseFilePathHandler.getPkgPath(fullPath, fileType);
-        String moduleName = baseFilePathHandler.getModuleName(fullPath, fileType);
+        fullPath = gitHelper.getSourceDir() + fullPath;
+        String moduleName = baseFilePathHandler.getModuleName(fullPath);
 
         fileDiffEntry.setFullPath(fullPath);
         fileDiffEntry.setPkgPath(pkgPath);
@@ -632,6 +568,7 @@ public class GitHandlerImpl extends GitHandler {
         fileDiffEntry.setChangeType(entry.getChangeType().name());
         return fileDiffEntry;
     }
+
 
     public List<List<DiffEntry>> getChangesByCommit(List<RevCommit> list, Repository repository, Git git) {
         List<List<DiffEntry>> changeList = new ArrayList<>();
@@ -670,6 +607,19 @@ public class GitHandlerImpl extends GitHandler {
         try (Repository repository = gitHelper.openJGitRepository()) {
         }
         return null;
+    }
+
+    @Override
+    public boolean rollBackPreRevision(List<DiffEntry> diffEntries, String revision, String note) {
+        // TODO: 2017/11/7 回滚到一个指定版本
+        if (Objects.equals(null, diffEntries)) {
+            logger.info("");
+            return false;
+        }
+        try (Git git = gitHelper.getGitInstance()) {
+
+        }
+        return false;
     }
 
     /**

@@ -3,8 +3,7 @@ source ~/.bashrc
 
 # Jenkins 配置：
 # Source files: **/ensemble-om-1.0.4-SNAPSHOT-assembly.zip
-# Remote directory: backup/EnsembleOM/
-
+# Remote directory: 	backup/EnsembleOM/EnsembleOM_Full_${TAG_NO}
 
 echo **********************************************************
 echo **                                                      **
@@ -17,37 +16,30 @@ echo **********************************************************
 # 部署包备份，在部署的相应服务器上进行备份，其它位置不做备份
 # 其中 ${TAG_NO} 与 GitLab 上的 Tag 保持一致
 # 
-# 1、停止当前应用服务
-# 2、备份全量包到指定目录并解压
-# 3、重命名旧的应用包，部署新的应用包
+# 1、将全量包在指定目录解压并创建versionid
+# 2、停止当前应用服务
+# 3、备份原应用包
 # 4、启动服务：
-# 5、若启动成功，则删除旧的应用包
-# 6、若启动失败，保留旧的应用包
-
+echo "开始EnsembleOM版本部署..."
 ######## Var Setting START ########
-#run_status=`netstat -anp|grep 18889|awk '{printf $7}'|cut -d/ -f1`
 # 应用端口号，注意需加单引号
 PORT_APP='18889'
 # 启动应用检查时间间隔设定(单位：10秒)
 CHECK_TIME=30
-
 # 应用状态 APP_RUN_STATUS - 0：停止状态；1：启动状态
 APP_RUN_STATUS=-10
 MSG_START_SUCCESS='APP应用启动状态'
 MSG_STOP_SUCCESS='APP应用停止状态'
 MSG_STOP_FAILD='APP应用停止失败，请人工停止原应用并部署'
 MSG_STATUS_ERROR='APP应用状态未知,请人工确认当前状态'
-
-###############################
-### 来自Jenkins的变量TAG_NO ###
-###############################
+### TAG_NO来自Jenkins的变量 ###
 DCITS_HOME=/app/dcits
 APP_NMAE=EnsembleOM
 UNZIP_NAME=ensemble-om-1.0.4-SNAPSHOT
-TAG_NAME=App_EnsembleOM_Full_${TAG_NO}
+TAG_NAME=${APP_NMAE}_Full_${TAG_NO}
 SOURCE=ensemble-om-1.0.4-SNAPSHOT-assembly.zip
-NEW_SOURCE=${TAG_NAME}.zip
 BACKUP_HOME=${DCITS_HOME}/backup/${APP_NMAE}
+ZIP_HOME=${BACKUP_HOME}/${TAG_NAME}
 ######## Var Setting END ########
 
 ######## Function START ########
@@ -55,8 +47,12 @@ BACKUP_HOME=${DCITS_HOME}/backup/${APP_NMAE}
 CheckAppState() {
     PID_APP=`/usr/sbin/lsof -n -P -t -i :${PORT_APP}`
     echo 'PID_APP: ' ${PID_APP}
-    APP_RUN_STATUS=`ps -ef | grep ${PID_APP} | grep -v 'grep' | wc -l`
-    echo 'APP_RUN_STATUS: ' ${APP_RUN_STATUS}
+    if [[ -z "${PID_APP}" ]] ; then
+        APP_RUN_STATUS=0
+    else 
+        APP_RUN_STATUS=1
+    fi
+    echo 'APP_RUN_STATUS:' ${APP_RUN_STATUS}
 }
 
 # 检查应用是否停止 并返回状态码：停止成功:1；停止失败:0
@@ -96,39 +92,24 @@ CHECK_INTERVAL() {
 BACKUP_OLD_APP() {
     echo "tar备份开始"
     cd ${DCITS_HOME}
-    versionNum=`cat ${DCITS_HOME}/${APP_NMAE}-old/versionid.txt`
-    tar -czf ${BACKUP_HOME}/${versionNum}-end.tar.gz ${APP_NMAE}-old
-    rm -rf ${DCITS_HOME}/${APP_NMAE}-old
+    if [[ -d ${APP_NMAE} ]];then
+        versionNum=`cat ${DCITS_HOME}/${APP_NMAE}/versionid.txt`
+        tar -czf ${BACKUP_HOME}/${versionNum}-end.tar.gz ${APP_NMAE}
+        rm -rf ${DCITS_HOME}/${APP_NMAE}
+    fi  
 }
 ######## Function END ########
 
-#更新原应用包名称，加TAG_NAME到应用包
-#删除部署失败的应用
-cd ${BACKUP_HOME}
-if [[ -d ${APP_NMAE} ]];then
-    rm -rf ${APP_NMAE}
-fi
-
-if [[ -d target ]];then
-    rm -rf target
-fi
-
-echo "更改zip名称并创建versionid.txt"
-cd ${BACKUP_HOME}/target 
-mv  ${SOURCE}   ${BACKUP_HOME}/${NEW_SOURCE}
-cd ../
-rm -rf target
-unzip -q ${NEW_SOURCE}
-mv ${UNZIP_NAME} ${TAG_NAME}
-# 创建versionid.txt到部署包，与源码的zip相对应
-echo "创建versionid.txt到部署包"
-echo ${TAG_NAME} > ${BACKUP_HOME}/${TAG_NAME}/versionid.txt
-echo ${TAG_NAME} > ${BACKUP_HOME}/${TAG_NAME}/version_list.txt
-#将应用包更名
-echo "将应用包更名:"${TAG_NAME}
-mv ${TAG_NAME} ${APP_NMAE}
+#解压应用包，并创建versionid.txt
+echo "解压应用包并创建versionid.txt"
+cd ${ZIP_HOME}/target 
+unzip -q ${SOURCE}
+mv ${UNZIP_NAME} ${APP_NMAE}
+echo App_${TAG_NAME} > ${ZIP_HOME}/target/${APP_NMAE}/versionid.txt
+echo App_${TAG_NAME} > ${ZIP_HOME}/target/${APP_NMAE}/version_list.txt
 
 # 检查并停止应用，以备部署新应用
+echo "开始停止原应用....."
 CheckStopState
 if [ ${APP_RUN_STATUS} -ne 0 ];then
     echo 'App stopping ...'
@@ -149,43 +130,42 @@ if [ ${APP_RUN_STATUS} -ne 0 ];then
     fi
 fi
 
-# 原应用包文件夹重命名
-cd ${DCITS_HOME}
-if [[ -d ${DCITS_HOME}/${APP_NMAE}-old/ ]];then
-    rm -rf ${DCITS_HOME}/${APP_NMAE}-old
-fi
-
 echo "备份原应用..."
-if [[ -d ${DCITS_HOME}/${APP_NMAE}/ ]];then
-    mv ${DCITS_HOME}/${APP_NMAE} ${DCITS_HOME}/${APP_NMAE}-old
-fi
+BACKUP_OLD_APP
 
 # 部署新的应用包到指定目录，并删除临时文件夹
 echo "移动应用到部署目录"
-mv ${BACKUP_HOME}/${APP_NMAE} ${DCITS_HOME}
+mv ${ZIP_HOME}/target/${APP_NMAE} ${DCITS_HOME}
 
-cd $DCITS_HOME
-echo replace conf
-tar -zxvf ~/backup/Template/omconf.tar.gz
+##将原始应用包更名，移动到backup，删除过渡文件夹
+echo "删除过度文件夹....."
+cd ${ZIP_HOME}/target
+mv ${SOURCE} App_${TAG_NAME}.zip
+mv App_${TAG_NAME}.zip ${BACKUP_HOME}
+cd ${BACKUP_HOME}
+rm -rf ${TAG_NAME}
+
+
+#echo "替换配置模板......"
+#cd $DCITS_HOME
+#tar -zxvf ~/backup/Template/omconf.tar.gz
 
 # 新部署应用启动
-echo 'App starting ...'
+echo '启动应用，App starting ...'
 sh ${DCITS_HOME}/${APP_NMAE}/bin/start.sh
 CHECK_INTERVAL ${CHECK_TIME}
 
 # 检查新部署应用是否启动成功
 CheckStartState
 if [ ${APP_RUN_STATUS} -eq 1 ];then
-    # 新应用启动，备份并删除旧应用
-    BACKUP_OLD_APP
+    # 新应用启动
     echo ${MSG_START_SUCCESS}
 else
     for i in `seq 5`
     do
         CheckStartState
         if [ ${APP_RUN_STATUS} -eq 1 ];then
-            # 新应用启动，备份并删除旧应用
-            BACKUP_OLD_APP
+            # 新应用启动
             echo ${MSG_START_SUCCESS}
             break
         else
@@ -200,3 +180,5 @@ else
         echo ${MSG_STATUS_ERROR}
     fi
 fi
+
+echo "结束EnsembleOM版本部署..."

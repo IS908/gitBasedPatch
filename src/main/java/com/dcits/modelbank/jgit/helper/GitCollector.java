@@ -3,13 +3,19 @@ package com.dcits.modelbank.jgit.helper;
 import java.util.Map;
 
 /**
- * Created on 2017-12-05 22:24.
+ * Created on 2017-12-06 19:31.
  *
  * @author kevin
  */
 public class GitCollector {
+    /**
+     * 工程名称
+     */
     private String title;
-    private Map<String, GitHelper> collectors;
+    /**
+     * 工程中包含的所有Git配置库
+     */
+    private Map<String, GitHelper> gitHelpers;
 
     public String getTitle() {
         return title;
@@ -19,11 +25,11 @@ public class GitCollector {
         this.title = title;
     }
 
-    public Map<String, GitHelper> getCollectors() {
-        return collectors;
+    public Map<String, GitHelper> getGitHelpers() {
+        return gitHelpers;
     }
 
-    public void setCollectors(Map<String, GitHelper> collectors) {
-        this.collectors = collectors;
+    public void setGitHelpers(Map<String, GitHelper> gitHelpers) {
+        this.gitHelpers = gitHelpers;
     }
 }

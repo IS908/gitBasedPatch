@@ -14,7 +14,12 @@ import java.io.File;
 public class ZipUtils {
     private static final Logger logger = LoggerFactory.getLogger(ZipUtils.class);
 
-    public static void zip (String rootDir, String zip) {
+    public static void zip(String baseDir, String rootDir, String zip) {
+        baseDir = baseDir.endsWith(File.separator) ? baseDir : baseDir + File.separator;
+        zip(baseDir + rootDir, baseDir + zip);
+    }
+
+    public static void zip(String rootDir, String zip) {
         File rootFile = new File(rootDir);
         File zipFile = new File(zip);
         ZipUtil.pack(rootFile, zipFile);

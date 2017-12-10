@@ -3,16 +3,13 @@ package com.dcits.modelbank.jgit;
 import com.dcits.modelbank.jgit.helper.GitHelper;
 import com.dcits.modelbank.jgit.helper.PullEnum;
 import com.dcits.modelbank.model.FileDiffEntry;
-import org.eclipse.jgit.api.Git;
 import org.eclipse.jgit.api.PullResult;
 import org.eclipse.jgit.blame.BlameResult;
 import org.eclipse.jgit.diff.DiffEntry;
 import org.eclipse.jgit.lib.ObjectId;
 import org.eclipse.jgit.revwalk.RevCommit;
-import org.eclipse.jgit.submodule.SubmoduleWalk;
 import org.eclipse.jgit.transport.FetchResult;
 
-import java.io.IOException;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
@@ -30,12 +27,9 @@ public abstract class GitHandler {
         this.gitHelper = gitHelper;
     }
 
-    /**
-     * 获取所有子模块
-     *
-     * @return
-     */
-    public abstract SubmoduleWalk getSubmodules() throws IOException;
+    public GitHelper getGitHelper() {
+        return gitHelper;
+    }
 
     /**
      * 获取指定文件的blame信息
@@ -52,14 +46,6 @@ public abstract class GitHandler {
      * @return
      */
     public abstract Iterable<RevCommit> showLogToday();
-
-    /**
-     * checkout到另一个现有分支
-     *
-     * @param branch 新分支名
-     * @return
-     */
-    public abstract boolean checkoutBranch(String branch);
 
     /**
      * 暂存当前修改
@@ -148,6 +134,16 @@ public abstract class GitHandler {
      * @return 差异文件信息列表
      */
     public abstract List<DiffEntry> showCommitDiff(String fromCommitId, String toCommitId);
+
+    /**
+     * 回滚到指定版本
+     *
+     * @param diffEntries 需要回滚的文件
+     * @param revision    版本号
+     * @param note        备注
+     * @return
+     */
+    public abstract boolean rollBackPreRevision(List<DiffEntry> diffEntries, String revision, String note);
 
     /**
      * 按照文件划分获取该文件的相应提交记录

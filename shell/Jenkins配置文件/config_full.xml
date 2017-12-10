@@ -25,7 +25,7 @@
                     <defaultValue>SmartEnsemble</defaultValue>
                 </hudson.model.StringParameterDefinition>
                 <hudson.model.StringParameterDefinition>
-                    <name>targetDir</name>
+                    <name>clazzDir</name>
                     <description>Ant或Maven打包后的目标目录</description>
                     <defaultValue>modules/modelBank-all-integration/target/modelBank-integration-assembly</defaultValue>
                 </hudson.model.StringParameterDefinition>
@@ -124,8 +124,8 @@
             <command>#!/bin/bash
                 source .bashrc PATCH_TOOL=${JENKINS_HOME}/../tools/patchTool
 
-                java -jar ${PATCH_TOOL}/dcits-ci.jar xml ${WORKSPACE} ${gitDir} ${sourceDir} ${targetDir} ${resultDir}
-                java -jar ${PATCH_TOOL}/dcits-ci.jar zip ${WORKSPACE} ${gitDir} ${sourceDir} ${targetDir} ${resultDir}
+                java -jar ${PATCH_TOOL}/dcits-ci.jar xml ${WORKSPACE} ${gitDir} ${sourceDir} ${clazzDir} ${resultDir}
+                java -jar ${PATCH_TOOL}/dcits-ci.jar zip ${WORKSPACE} ${gitDir} ${sourceDir} ${clazzDir} ${resultDir}
             </command>
         </hudson.tasks.Shell>
         <jenkins.plugins.publish__over__ssh.BapSshBuilderPlugin plugin="publish-over-ssh@1.17">
