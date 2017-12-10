@@ -102,11 +102,12 @@ BACKUP_OLD_APP() {
 }
 
 DELETE_LIST_OPTION(){
-    cat $1 | while read line
+    cat $1/deleteList.txt | while read line
     do
         echo 'remove' ${DCITS_HOME}/ModelBank/${line}
         rm  ${DCITS_HOME}/ModelBank/${line}
     done
+    rm -rf $1
 }
 ######## Function END ########
 
@@ -150,7 +151,7 @@ if [[ -d ${ENSEMBLE_HOME}/${APP_NAME}/ ]];then
 fi
 
 # 按照deleteList.txt列表进行删除
-DELETE_LIST_OPTION ${BACKUP_TEMP}/deleteList.txt
+DELETE_LIST_OPTION ${BACKUP_TEMP}
 
 # 部署增量应用包，并启动应用
 cd ${DCITS_HOME}/${APP_NAME}

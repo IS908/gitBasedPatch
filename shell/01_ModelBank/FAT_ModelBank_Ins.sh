@@ -32,6 +32,7 @@ TAG_NAME=ModelBank_Ins_${TAG_NO}
 BACKUP_HOME=${DCITS_HOME}/backup/${APP_NAME}
 BACKUP_TEMP=${BACKUP_HOME}/${TAG_NAME}
 ZIP_HOME=${BACKUP_TEMP}/modules/modelBank-all-integration/target
+ZIP_NAME=app_fintelligen_ins.zip
 ######## Var Setting END ########
 
 ######## Function START ########
@@ -90,17 +91,18 @@ BACKUP_OLD_APP() {
 }
 
 DELETE_LIST_OPTION(){
-    cat $1 | while read line
+    cat $1/deleteList.txt | while read line
     do
         echo 'remove' ${DCITS_HOME}/ModelBank/${line}
         rm  ${DCITS_HOME}/ModelBank/${line}
     done
+    rm -rf $1
 }
 ######## Function END ########
 
 # 移动增量包到相应备份目录下
 cd ${ZIP_HOME}
-unzip ${ZIP_HOME}/app_modelbank_ins.zip
+unzip ${ZIP_HOME}/app_fintelligen_ins.zip
 mv ${ZIP_HOME}/deleteList.txt ${BACKUP_TEMP}
 mv  ${ZIP_HOME}/app_modelbank_ins.zip  ${BACKUP_HOME}/App_${TAG_NAME}.zip
 rm -rf ${BACKUP_TEMP}/modules
@@ -137,7 +139,7 @@ if [[ -d ${DCITS_HOME}/${APP_NAME}/ ]];then
 fi
 
 # 按照deleteList.txt列表进行删除
-DELETE_LIST_OPTION ${BACKUP_TEMP}/deleteList.txt
+DELETE_LIST_OPTION ${BACKUP_TEMP}
 
 # 部署增量应用包，并启动应用
 cd ${DCITS_HOME}/${APP_NAME}
