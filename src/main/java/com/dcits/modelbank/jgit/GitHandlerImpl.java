@@ -516,10 +516,17 @@ public class GitHandlerImpl extends GitHandler {
 
         // 过滤掉部分路径
         String fullPath = fileDiffEntry.getFullPath();
+
         if (fullPath.contains("/src/test/")
                 || fullPath.endsWith("ModelBank" + File.separator + "SmartEnsemble")) {
             logger.info(fullPath + " 文件不进入打包目标码，忽略！");
             flag = false;
+        }
+
+        if (fullPath.contains("src/main/webapp/")){
+            // TODO: 2017/12/10 webapp 适配
+            String[] strs = fullPath.split("src/main/webapp/");
+            fileDiffEntry.setModule(Const.WEBAPP + strs[strs.length - 1]);
         }
 
         if (fullPath.contains("/modelBank-all-integration/src/main/config/")) {

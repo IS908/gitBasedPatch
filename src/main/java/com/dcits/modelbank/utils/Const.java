@@ -27,8 +27,9 @@ public interface Const {
     String BIN = "bin/";
     String CONF = "conf/";
     String LIB = "lib/";
+    String WEBAPP= "webapp/";
 
     String PATCH_TMP_FOLDER = "PatchTmp";
-    String PATCH_ZIP_NAME = "app_fintelligen_ins.zip";
+    String PATCH_ZIP_NAME = "app_ensembleOM_ins.zip";
     String DELETE_LIST="deleteList.txt";
 }
