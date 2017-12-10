@@ -29,6 +29,6 @@ public interface Const {
     String LIB = "lib/";
 
     String PATCH_TMP_FOLDER = "PatchTmp";
-    String PATCH_ZIP_NAME = "app_modelbank_ins.zip";
+    String PATCH_ZIP_NAME = "app_fintelligen_ins.zip";
     String DELETE_LIST="deleteList.txt";
 }
