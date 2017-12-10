@@ -524,7 +524,6 @@ public class GitHandlerImpl extends GitHandler {
         }
 
         if (fullPath.contains("src/main/webapp/")){
-            // TODO: 2017/12/10 webapp 适配
             String[] strs = fullPath.split("src/main/webapp/");
             fileDiffEntry.setModule(Const.WEBAPP + strs[strs.length - 1]);
         }
