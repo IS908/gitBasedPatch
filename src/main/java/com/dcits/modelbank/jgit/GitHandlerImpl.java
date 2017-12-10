@@ -523,14 +523,19 @@ public class GitHandlerImpl extends GitHandler {
             flag = false;
         }
 
-        if (fullPath.contains("src/main/webapp/")){
+        if (fullPath.contains("src/main/webapp/")) {
             String[] strs = fullPath.split("src/main/webapp/");
             fileDiffEntry.setModule(Const.WEBAPP + strs[strs.length - 1]);
         }
 
-        if (fullPath.contains("src/main/config"))  {
+        if (fullPath.contains("src/main/config")) {
             String[] strs = fullPath.split("/src/main/config/");
             fileDiffEntry.setModule(Const.CONF + strs[strs.length - 1]);
+        }
+
+        if (fullPath.contains("src/main/scripts/")) {
+            String[] strs = fullPath.split("src/main/scripts/");
+            fileDiffEntry.setModule(Const.BIN + strs[strs.length - 1]);
         }
 
         // 修正部分packagePath
