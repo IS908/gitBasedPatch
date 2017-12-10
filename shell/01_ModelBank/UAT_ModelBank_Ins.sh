@@ -44,6 +44,7 @@ ENSEMBLE_HOME=${DCITS_HOME}
 BACKUP_HOME=${DCITS_HOME}/backup/${APP_NAME}
 BACKUP_TEMP=${BACKUP_HOME}/${TAG_NAME}
 ZIP_HOME=${BACKUP_TEMP}/modules/modelBank-all-integration/target
+ZIP_NAME=app_modelbank_ins.zip
 ######## Var Setting END ########
 
 ######## Function START ########
@@ -113,9 +114,9 @@ DELETE_LIST_OPTION(){
 
 # 移动增量包到相应备份目录下
 cd ${ZIP_HOME}
-unzip ${ZIP_HOME}/app_modelbank_ins.zip
+unzip ${ZIP_HOME}/${ZIP_NAME}
 mv ${ZIP_HOME}/deleteList.txt ${BACKUP_TEMP}
-mv  ${ZIP_HOME}/app_modelbank_ins.zip  ${BACKUP_HOME}/App_${TAG_NAME}.zip
+mv  ${ZIP_HOME}/${ZIP_NAME}  ${BACKUP_HOME}/App_${TAG_NAME}.zip
 rm -rf ${BACKUP_TEMP}/modules
 
 
