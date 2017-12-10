@@ -102,11 +102,11 @@ BACKUP_OLD_APP() {
 }
 
 DELETE_LIST_OPTION(){
-cat $1 | while read line
-do
-echo 'remove' ${DCITS_HOME}/ModelBank/${line}
-rm  ${DCITS_HOME}/ModelBank/${line}
-done
+    cat $1 | while read line
+    do
+        echo 'remove' ${DCITS_HOME}/ModelBank/${line}
+        rm  ${DCITS_HOME}/ModelBank/${line}
+    done
 }
 ######## Function END ########
 
