@@ -124,7 +124,7 @@ if [ ${APP_RUN_STATUS} -ne 0 ];then
     if [ ${APP_RUN_STATUS} -ne 0 ];then
         # 停止失败
         echo ${MSG_STOP_FAILD}
-        exit
+        exit 1
     fi
 fi
 
@@ -172,5 +172,6 @@ else
     if [ ${APP_RUN_STATUS} -eq 0 ];then
         # 新部署应用多次尝试启动失败，未知异常待人工检查状态
         echo ${MSG_STATUS_ERROR}
+        exit 1
     fi
 fi
