@@ -1,10 +1,6 @@
 #!/bin/bash
 source ~/.bashrc
 
-# Jenkins 配置：
-# Source files: **/ensemble-om-1.0.4-SNAPSHOT-assembly.zip
-# Remote directory: 	backup/EnsembleOM/EnsembleOM_Full_${TAG_NO}
-
 echo **********************************************************
 echo **                                                      **
 echo **           EnsembleOM Full Deploy Shell               **
@@ -14,8 +10,6 @@ echo **                                                      **
 echo **********************************************************
 # 脚本说明：
 # 部署包备份，在部署的相应服务器上进行备份，其它位置不做备份
-# 其中 ${TAG_NO} 与 GitLab 上的 Tag 保持一致
-# 
 # 1、将全量包在指定目录解压并创建versionid
 # 2、停止当前应用服务
 # 3、备份原应用包
@@ -32,13 +26,13 @@ MSG_START_SUCCESS='APP应用启动状态'
 MSG_STOP_SUCCESS='APP应用停止状态'
 MSG_STOP_FAILD='APP应用停止失败，请人工停止原应用并部署'
 MSG_STATUS_ERROR='APP应用状态未知,请人工确认当前状态'
-### TAG_NO来自Jenkins的变量 ###
+
 DCITS_HOME=/app/dcits
 APP_NMAE=EnsembleOM
 UNZIP_NAME=ensemble-om-1.0.4-SNAPSHOT
-TAG_NAME=${APP_NMAE}_Full_${TAG_NO}
 SOURCE=ensemble-om-1.0.4-SNAPSHOT-assembly.zip
 BACKUP_HOME=${DCITS_HOME}/backup/${APP_NMAE}
+TAG_NAME=${APP_NMAE}_Full_${TAG_NO}
 ZIP_HOME=${BACKUP_HOME}/${TAG_NAME}
 ######## Var Setting END ########
 
@@ -96,7 +90,7 @@ BACKUP_OLD_APP() {
         versionNum=`cat ${DCITS_HOME}/${APP_NMAE}/versionid.txt`
         tar -czf ${BACKUP_HOME}/${versionNum}-end.tar.gz ${APP_NMAE}
         rm -rf ${DCITS_HOME}/${APP_NMAE}
-    fi  
+    fi
 }
 ######## Function END ########
 

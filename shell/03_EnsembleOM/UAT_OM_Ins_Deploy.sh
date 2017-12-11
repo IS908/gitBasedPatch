@@ -3,13 +3,14 @@ source ~/.bashrc
 
 echo **********************************************************
 echo **                                                      **
-echo **           EnsembleOM Full Deploy Shell               **
+echo **           EnsembleOM Ins Deploy Shell                **
 echo **              http://www.dcits.com                    **
 echo **            author:zhngjig@dcits.com                  **
 echo **                                                      **
 echo **********************************************************
 # 脚本说明：
 # 部署包备份，在部署的相应服务器上进行备份，其它位置不做备份
+# 
 # 1、将全量包在指定目录解压并创建versionid
 # 2、停止当前应用服务
 # 3、备份原应用包
@@ -29,10 +30,12 @@ MSG_STATUS_ERROR='APP应用状态未知,请人工确认当前状态'
 
 DCITS_HOME=/app/dcits
 APP_NMAE=EnsembleOM
+APP_HOME=${DCITS_HOME}/${APP_NMAE}
 UNZIP_NAME=ensemble-om-1.0.4-SNAPSHOT
-SOURCE=ensemble-om-1.0.4-SNAPSHOT-assembly.zip
+VERSION_ID=App_${TAG_NAME}
+SOURCE=app_ensembleOM_ins.zip
 BACKUP_HOME=${DCITS_HOME}/backup/${APP_NMAE}
-ZIP_HOME=${BACKUP_HOME}/${TAG_NAME}
+ZIP_HOME=${BACKUP_HOME}/${TAG_NAME}/target
 ######## Var Setting END ########
 
 ######## Function START ########
@@ -88,18 +91,18 @@ BACKUP_OLD_APP() {
     if [[ -d ${APP_NMAE} ]];then
         versionNum=`cat ${DCITS_HOME}/${APP_NMAE}/versionid.txt`
         tar -czf ${BACKUP_HOME}/${versionNum}-end.tar.gz ${APP_NMAE}
-        rm -rf ${DCITS_HOME}/${APP_NMAE}
-    fi
+    fi  
+}
+
+##删除更新前的jar包
+DELETE_LIST_OPTION(){
+cat $1 | while read line
+do
+echo 'remove' ${DCITS_HOME}/${APP_NMAE}/${line}
+rm  ${DCITS_HOME}/${APP_NMAE}/${line}
+done
 }
 ######## Function END ########
-
-#解压应用包，并创建versionid.txt
-echo "解压应用包并创建versionid.txt"
-cd ${ZIP_HOME}/target 
-unzip -q ${SOURCE}
-mv ${UNZIP_NAME} ${APP_NMAE}
-echo App_${TAG_NAME} > ${ZIP_HOME}/target/${APP_NMAE}/versionid.txt
-echo App_${TAG_NAME} > ${ZIP_HOME}/target/${APP_NMAE}/version_list.txt
 
 # 检查并停止应用，以备部署新应用
 echo "开始停止原应用....."
@@ -123,21 +126,28 @@ if [ ${APP_RUN_STATUS} -ne 0 ];then
     fi
 fi
 
-echo "备份原应用..."
+# 备份原应用包
+echo "备份原应用包"
 BACKUP_OLD_APP
 
-# 部署新的应用包到指定目录，并删除临时文件夹
-echo "移动应用到部署目录"
-mv ${ZIP_HOME}/target/${APP_NMAE} ${DCITS_HOME}
-
 ##将原始应用包更名，移动到backup，删除过渡文件夹
-echo "删除过度文件夹....."
-cd ${ZIP_HOME}/target
-mv ${SOURCE} App_${TAG_NAME}.zip
-mv App_${TAG_NAME}.zip ${BACKUP_HOME}
-cd ${BACKUP_HOME}
-rm -rf ${TAG_NAME}
+cd ${ZIP_HOME}
+unzip ${SOURCE}
+mv ${ZIP_HOME}/deleteList.txt ${APP_HOME}
+mv ${SOURCE} ${VERSION_ID}.zip
+mv ${VERSION_ID}.zip ${BACKUP_HOME}
+rm -rf ${BACKUP_HOME}/${TAG_NAME}
 
+
+# 按照deleteList.txt列表进行删除jar包
+DELETE_LIST_OPTION ${APP_HOME}/deleteList.txt
+
+#解压应用包，并创建versionid.txt
+echo "开始解压应用包并创建versionid.txt"
+cd ${BACKUP_HOME}
+unzip -o -d ${APP_HOME}  ${BACKUP_HOME}/${VERSION_ID}.zip
+echo ${VERSION_ID} > ${APP_HOME}/versionid.txt
+echo ${VERSION_ID} >> ${APP_HOME}/version_list.txt
 
 #echo "替换配置模板......"
 #cd $DCITS_HOME

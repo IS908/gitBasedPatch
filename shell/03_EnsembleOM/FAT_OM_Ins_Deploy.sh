@@ -1,33 +1,26 @@
 #!/bin/bash
-source ~/.bashr
+source ~/.bashrc
 
-######## 增量抽取脚本 - begin ########
 echo **********************************************************
 echo **                                                      **
-echo **          EnsembleOM Ins Deploy Shell                 **
+echo **           EnsembleOM Ins Deploy Shell                **
 echo **              http://www.dcits.com                    **
-echo **            author:zhangjig@dcits.com                 **
+echo **            author:zhngjig@dcits.com                  **
 echo **                                                      **
 echo **********************************************************
 # 脚本说明：
-# 部署包备份，在部署的相应服务器上进行备份，其它位置不做备份，
-# 备份目录：
-# 全量包：~/backup/EnsembleOM/App_SmartEnsembleOM_${TAG_NO}.tar.gz
-# 增量包：~/backup/EnsembleOM/XXX.zip
-# 其中 ${TAG_NAME} 与 GitLab 上的 Tag 保持一致
+# 部署包备份，在部署的相应服务器上进行备份，其它位置不做备份
 # 
-# 1、停止当前应用服务
-# 2、备份增量包到指定目录
-# 3、解压增量包并安装增量包
-# 4、启动服务
-
+# 1、将全量包在指定目录解压并创建versionid
+# 2、停止当前应用服务
+# 3、备份原应用包
+# 4、启动服务：
+echo "开始EnsembleOM版本部署..."
 ######## Var Setting START ########
-#run_status=`netstat -anp|grep 18889|awk '{printf $7}'|cut -d/ -f1`
 # 应用端口号，注意需加单引号
 PORT_APP='18889'
-# 启动应用检查时间间隔设定(单位：秒)
+# 启动应用检查时间间隔设定(单位：10秒)
 CHECK_TIME=30
-
 # 应用状态 APP_RUN_STATUS - 0：停止状态；1：启动状态
 APP_RUN_STATUS=-10
 MSG_START_SUCCESS='APP应用启动状态'
@@ -35,16 +28,15 @@ MSG_STOP_SUCCESS='APP应用停止状态'
 MSG_STOP_FAILD='APP应用停止失败，请人工停止原应用并部署'
 MSG_STATUS_ERROR='APP应用状态未知,请人工确认当前状态'
 
-###############################
-### 来自Jenkins的变量TAG_NO ###
-###############################
-
-APP_NAME=ModelBank
 DCITS_HOME=/app/dcits
-BACKUP_HOME=${DCITS_HOME}/backup/${APP_NAME}
-TAG_NAME=ModelBank_Ins_${TAG_NO}
-BACKUP_TEMP=${BACKUP_HOME}/${TAG_NAME}
-ZIP_HOME=${BACKUP_TEMP}/modules/modelBank-all-integration/target
+APP_NMAE=EnsembleOM
+APP_HOME=${DCITS_HOME}/${APP_NMAE}
+UNZIP_NAME=ensemble-om-1.0.4-SNAPSHOT
+TAG_NAME=${APP_NMAE}_Ins_${TAG_NO}
+VERSION_ID=App_${TAG_NAME}
+SOURCE=app_ensembleOM_ins.zip
+BACKUP_HOME=${DCITS_HOME}/backup/${APP_NMAE}
+ZIP_HOME=${BACKUP_HOME}/${TAG_NAME}/target
 ######## Var Setting END ########
 
 ######## Function START ########
@@ -52,8 +44,12 @@ ZIP_HOME=${BACKUP_TEMP}/modules/modelBank-all-integration/target
 CheckAppState() {
     PID_APP=`/usr/sbin/lsof -n -P -t -i :${PORT_APP}`
     echo 'PID_APP: ' ${PID_APP}
-    APP_RUN_STATUS=`ps -ef | grep ${PID_APP} | grep -v 'grep' | wc -l`
-    echo 'APP_RUN_STATUS: ' ${APP_RUN_STATUS}
+    if [[ -z "${PID_APP}" ]] ; then
+        APP_RUN_STATUS=0
+    else 
+        APP_RUN_STATUS=1
+    fi
+    echo 'APP_RUN_STATUS:' ${APP_RUN_STATUS}
 }
 
 # 检查应用是否停止 并返回状态码：停止成功:1；停止失败:0
@@ -77,7 +73,6 @@ CheckStartState() {
     fi
 }
 
-# 间隔状态检查
 CHECK_INTERVAL() {
     for i in `seq $1`
     do
@@ -90,30 +85,32 @@ CHECK_INTERVAL() {
     done
 }
 
-# 新应用发布成功后，备份被替换的旧应用（作为增量替换前的全量状态，以便增量发布后可回退上一个版本）
+# 新应用发布成功后，备份被替换的旧应用（主要为日志备份）
 BACKUP_OLD_APP() {
-    versionNum=`cat ${DCITS_HOME}/${APP_NAME}-old/versionid.txt`
+    echo "tar备份开始"
     cd ${DCITS_HOME}
-    tar -czf ${BACKUP_HOME}/${versionNum}-end.tar.gz ${APP_NAME}-old
-    rm -rf ${DCITS_HOME}/${APP_NAME}-old
+    if [[ -d ${APP_NMAE} ]];then
+        versionNum=`cat ${DCITS_HOME}/${APP_NMAE}/versionid.txt`
+        tar -czf ${BACKUP_HOME}/${versionNum}-end.tar.gz ${APP_NMAE}
+    fi  
+}
 
-    # 部署成功，更新versionid.txt，并在versionlist.txt中追加增量版本号
-    echo App_${TAG_NAME} > ${DCITS_HOME}/${APP_NAME}/versionid.txt
-    echo App_${TAG_NAME} >> ${DCITS_HOME}/${APP_NAME}/version_list.txt
+##删除更新前的jar包
+DELETE_LIST_OPTION(){
+cat $1 | while read line
+do
+echo 'remove' ${DCITS_HOME}/${APP_NMAE}/${line}
+rm  ${DCITS_HOME}/${APP_NMAE}/${line}
+done
 }
 ######## Function END ########
 
-# 移动增量包到相应备份目录下
-mv  ${ZIP_HOME}/app_modelbank_ins.zip  ${BACKUP_HOME}/App_${TAG_NAME}.zip
-cd ${BACKUP_TEMP}
-unzip ${BACKUP_HOME}/App_${TAG_NAME}.zip
-mv modelBank-integration ${APP_NAME}
-
 # 检查并停止应用，以备部署新应用
+echo "开始停止原应用....."
 CheckStopState
 if [ ${APP_RUN_STATUS} -ne 0 ];then
     echo 'App stopping ...'
-    sh ${DCITS_HOME}/${APP_NAME}/bin/stop.sh
+    sh ${DCITS_HOME}/${APP_NMAE}/bin/stop.sh
 	CHECK_INTERVAL 1
     for i in `seq 3`
     do   
@@ -121,7 +118,7 @@ if [ ${APP_RUN_STATUS} -ne 0 ];then
         if [ ${APP_RUN_STATUS} -eq 0 ];then
             break
         fi
-        CHECK_INTERVAL 6
+        CHECK_INTERVAL 3
     done
     if [ ${APP_RUN_STATUS} -ne 0 ];then
         # 停止失败
@@ -131,41 +128,54 @@ if [ ${APP_RUN_STATUS} -ne 0 ];then
 fi
 
 # 备份原应用包
-cd ${DCITS_HOME}
-if [[ -d ${DCITS_HOME}/${APP_NAME}-old/ ]];then
-    rm -rf ${DCITS_HOME}/${APP_NAME}-old
-fi
+echo "备份原应用包"
+BACKUP_OLD_APP
 
-if [[ -d ${DCITS_HOME}/${APP_NAME}/ ]];then
-    cp -r ${DCITS_HOME}/${APP_NAME} ${DCITS_HOME}/${APP_NAME}-old
-fi
+##将原始应用包更名，移动到backup，删除过渡文件夹
+cd ${ZIP_HOME}
+unzip ${SOURCE}
+mv ${ZIP_HOME}/deleteList.txt ${APP_HOME}
+mv ${SOURCE} ${VERSION_ID}.zip
+mv ${VERSION_ID}.zip ${BACKUP_HOME}
+rm -rf ${BACKUP_HOME}/${TAG_NAME}
 
-# 部署增量应用包，并启动应用
-mv -f ${BACKUP_TEMP}/${APP_NAME}/lib/* ${DCITS_HOME}/${APP_NAME}/lib/
-rm -rf ${BACKUP_TEMP}
-echo 'App starting ...'
-sh ${DCITS_HOME}/${APP_NAME}/bin/start.sh
+
+# 按照deleteList.txt列表进行删除jar包
+DELETE_LIST_OPTION ${APP_HOME}/deleteList.txt
+
+#解压应用包，并创建versionid.txt
+echo "开始解压应用包并创建versionid.txt"
+cd ${BACKUP_HOME}
+unzip -o -d ${APP_HOME}  ${BACKUP_HOME}/${VERSION_ID}.zip
+echo ${VERSION_ID} > ${APP_HOME}/versionid.txt
+echo ${VERSION_ID} >> ${APP_HOME}/version_list.txt
+
+#echo "替换配置模板......"
+#cd $DCITS_HOME
+#tar -zxvf ~/backup/Template/omconf.tar.gz
+
+# 新部署应用启动
+echo '启动应用，App starting ...'
+sh ${DCITS_HOME}/${APP_NMAE}/bin/start.sh
 CHECK_INTERVAL ${CHECK_TIME}
 
 # 检查新部署应用是否启动成功
 CheckStartState
 if [ ${APP_RUN_STATUS} -eq 1 ];then
-    # 新应用启动，备份并删除旧应用
-    BACKUP_OLD_APP
+    # 新应用启动
     echo ${MSG_START_SUCCESS}
 else
     for i in `seq 5`
-    do   
+    do
         CheckStartState
         if [ ${APP_RUN_STATUS} -eq 1 ];then
-            # 新应用启动，备份并删除旧应用
-            BACKUP_OLD_APP
+            # 新应用启动
             echo ${MSG_START_SUCCESS}
             break
         else
             sh ${DCITS_HOME}/${APP_NMAE}/bin/stop.sh
             echo 'Retry App starting ...'
-            sh ${DCITS_HOME}/${APP_NAME}/bin/start.sh
+            sh ${DCITS_HOME}/${APP_NMAE}/bin/start.sh
         fi
         CHECK_INTERVAL ${CHECK_TIME}
     done
@@ -174,3 +184,5 @@ else
         echo ${MSG_STATUS_ERROR}
     fi
 fi
+
+echo "结束EnsembleOM版本部署..."

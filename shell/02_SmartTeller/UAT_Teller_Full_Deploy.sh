@@ -109,7 +109,7 @@ TAR_TEMPLETE() {
 ######## Function END ########
 
 # 备份全量包，并解压包已备部署 DONE
-echo "开始解压应用包，部署的TAG_NAME为："${TAG_NAME}
+echo "开始解压应用包，部署的版本为："${TARGET}
 cd ${BACKUP_HOME}
 if [[ -d SmartTeller9 ]];then
     rm -rf SmartTeller9
