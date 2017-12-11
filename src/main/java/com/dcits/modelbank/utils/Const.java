@@ -30,6 +30,4 @@ public interface Const {
     String WEBAPP= "webapp/";
 
     String PATCH_TMP_FOLDER = "PatchTmp";
-    String PATCH_ZIP_NAME = "app_ensembleOM_ins.zip";
-    String DELETE_LIST="deleteList.txt";
 }
