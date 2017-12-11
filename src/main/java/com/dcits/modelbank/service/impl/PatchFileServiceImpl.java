@@ -85,7 +85,6 @@ public class PatchFileServiceImpl extends PatchFileService {
                 baseDir + myProperties.getClazzDir(), matchPatchList);
 
         String libDir = baseDir + tmpDir + "/" + myProperties.getPatchFolderName() + "/lib/";
-        logger.info(libDir);
         // 将匹配的文件移动到目标目录下
         FileUtil.mvFile(matchedFiles, libDir);
         String deleteListDir = baseDir +
