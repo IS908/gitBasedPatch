@@ -22,15 +22,8 @@
             </list>
         </constructor-arg>
         <property name="basePatchExtractHandler" ref="patchExtractHandler"/>
-        <property name="clazzDir" value="${maven.clazz.dir}"/>
-        <property name="resultDir" value="${maven.target.dir}"/>
     </bean>
-    <!--<bean id="patchExtractHandler" class="com.dcits.modelbank.extract.DefaultExtractHandlerBase">
-        <property name="clazzDir" value="${maven.clazz.dir}"/>
-        <property name="resultDir" value="${maven.target.dir}"/>
-    </bean>-->
     <!-- 增量抽取相关类依赖注入 - end -->
-
 
     <bean name="gitServices" class="com.dcits.modelbank.service.GitServices">
         <property name="gitServices">

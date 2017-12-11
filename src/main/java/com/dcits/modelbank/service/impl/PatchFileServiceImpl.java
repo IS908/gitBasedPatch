@@ -54,22 +54,27 @@ public class PatchFileServiceImpl extends PatchFileService {
 
 
         // 创建增量文件临时存放目录
-        String tmpDir = resultDir + Const.PATCH_TMP_FOLDER;
+        String tmpDir = myProperties.getResultDir() + "/" + Const.PATCH_TMP_FOLDER;
         File insTmpDir = new File(baseDir + tmpDir);
+        File insAppDir = new File(insTmpDir + "/" + myProperties.getPatchFolderName());
         if (insTmpDir.exists()) {
             logger.info("delete ：" + insTmpDir.getAbsolutePath());
             insTmpDir.delete();
         }
         insTmpDir.mkdir();
+        insAppDir.mkdir();
+
         // 复制部署包增量文件目录结构
         logger.info("mkdir :" + insTmpDir.getAbsolutePath());
         try {
-            FileUtil.copyFolder(new File(baseDir + clazzDir), insTmpDir);
+            FileUtil.copyFolder(new File(baseDir + myProperties.getClazzDir()), insAppDir);
         } catch (IOException e) {
             e.printStackTrace();
         }
         // 移动具体文件的增量文件到临时存放目录
-        FileUtil.mvFile(baseDir, clazzDir, tmpDir, specificPatchList);
+        FileUtil.mvFile(baseDir, myProperties.getClazzDir(),
+                tmpDir + "/" + myProperties.getPatchFolderName(),
+                specificPatchList);
 
         /**
          * 开始进行前缀的模糊匹配
@@ -77,15 +82,24 @@ public class PatchFileServiceImpl extends PatchFileService {
          * 2、模糊匹配到增量文件后将其移动到增量文件临时目录
          */
         Set<File> matchedFiles = FileUtil.getMatchedFiles(
-                baseDir + clazzDir, matchPatchList);
+                baseDir + myProperties.getClazzDir(), matchPatchList);
 
+        String libDir = baseDir + tmpDir + "/" + myProperties.getPatchFolderName() + "/lib/";
+        logger.info(libDir);
         // 将匹配的文件移动到目标目录下
-        FileUtil.mvFile(matchedFiles, baseDir + tmpDir + "/lib/");
-        FileUtil.fileReadLine(baseDir + "dbPatch/checkList/" + Const.DELETE_LIST, deletePatchList);
+        FileUtil.mvFile(matchedFiles, libDir);
+        String deleteListDir = baseDir +
+                myProperties.getCheckListDir() + "/" +
+                myProperties.getDeleteList();
+        FileUtil.fileReadLine(deleteListDir, deletePatchList);
 
-        FileUtil.writeFile(baseDir + tmpDir + "/" + Const.DELETE_LIST, deletePatchList);
+        String deleteList = baseDir.concat(tmpDir).concat("/")
+                .concat(myProperties.getPatchFolderName()).concat("/")
+                .concat(myProperties.getDeleteList());
+        FileUtil.writeFile(deleteList, deletePatchList);
 
-        ZipUtils.zip(baseDir, tmpDir, resultDir + Const.PATCH_ZIP_NAME);
+        String zipName = myProperties.getResultDir() + "/" + myProperties.getPatchZipName();
+        ZipUtils.zip(baseDir, tmpDir, zipName);
     }
 
     /**
@@ -118,7 +132,7 @@ public class PatchFileServiceImpl extends PatchFileService {
     private void patchListRowDeal(String row, Set<String> specificPatchList,
                                   Set<String> matchPatchList, Set<String> deletePatchList) {
         if (Objects.equals(null, row) || Objects.equals("", row)) return;
-        if (row.endsWith("*")) {
+        if (row.endsWith("*") && row.length() > 1) {
             matchPatchList.add(row);
             deletePatchList.add(row);
         } else {
