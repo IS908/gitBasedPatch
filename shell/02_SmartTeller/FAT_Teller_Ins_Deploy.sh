@@ -3,20 +3,16 @@ source ~/.bashrc
 
 echo **********************************************************
 echo **                                                      **
-echo **              Teller9 Ins Deploy Shell                **
-echo **              http://www.dcits.com                    **
+echo **          Teller9 Ins Deploy Shell                    **
+echo **             http://www.dcits.com                     **
 echo **            author zhangjig@dcits.com                 **
 echo **********************************************************
-
-#注意的点 Teller 的启动脚本 start 启动为 ./start ，执行start脚本前需先cd切换到Teller目录下增加执行权限，再sh start，否则会调用不到run.sh
 
 #不同环境下脚本修改指南
 #   Var Setting中修改：
 #       1、PORT_APP 端口号
 #       2、DCITS_HOME 应用部署主目录
-#  非阜新银行项目，请注释掉第89行：sed -i 's/ssoindex/fxindex/g' ./configuration/config.ini
-#
-
+#  非阜新银行项目，请注释掉START_TELLER函数中：sed -i 's/ssoindex/fxindex/g' ./configuration/config.ini
 
 ########## Var Setting START ##########
 # 应用端口号，注意需加单引号
@@ -33,8 +29,11 @@ MSG_STATUS_ERROR='Teller应用状态未知,请人工确认当前状态'
 
 DCITS_HOME=/app/dcits
 APP_HOME=${DCITS_HOME}
+CACHE_HOME=${DCITS_HOME}/SmartTeller9/configuration
 BACKUP_HOME=${DCITS_HOME}/backup/SmartTeller9
-VERSION_ID=App_SmartTeller9_Ins_${TAG_NO}
+ZIP_HOME=${BACKUP_HOME}
+TAG_NAME=SmartTeller9_Ins_${TAG_NO}
+VERSION_ID=App_${TAG_NAME}
 TARGET=${VERSION_ID}.zip
 ########## Var Setting END ##########
 
@@ -50,7 +49,6 @@ CheckAppState() {
         APP_RUN_STATUS=1
     fi
     echo 'APP_RUN_STATUS:' ${APP_RUN_STATUS}
-
 }
 
 # 检查应用是否停止 并返回状态码：停止成功:1；停止失败:0
@@ -112,6 +110,7 @@ TAR_TEMPLETE() {
 ######## Function END ########
 
 # 检查并停止应用
+echo "停止原应用......"
 CheckStopState
 if [ ${APP_RUN_STATUS} -ne 0 ];then
     echo 'Teller stopping ...'
@@ -136,7 +135,7 @@ if [ ${APP_RUN_STATUS} -ne 0 ];then
 fi
 
 # 备份原应用包
-echo "备份原应用包"
+echo "备份原应用......"
 BACKUP_OLD_APP
 
 # 备份全量包，并解压增量包 DONE
@@ -147,7 +146,7 @@ echo ${VERSION_ID} > ${APP_HOME}/SmartTeller9/versionid.txt
 echo ${VERSION_ID} >> ${APP_HOME}/SmartTeller9/version_list.txt
 
 # 部署新的应用包，并启动新应用
-echo 'Teller starting ...'
+echo '新应用启动,Teller starting ...'
 #TAR_TEMPLETE
 START_TELLER
 CHECK_INTERVAL ${CHECK_TIME}
@@ -162,7 +161,7 @@ else
     do   
         CheckStartState
         if [ ${APP_RUN_STATUS} -eq 1 ];then
-            # 新应用启动，删除旧应用
+            # 新应用启动
             echo "Start successful ..."
             echo ${MSG_START_SUCCESS}
             break

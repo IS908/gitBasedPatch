@@ -3,9 +3,9 @@ source ~/.bashrc
 
 echo **********************************************************
 echo **                                                      **
-echo **            Teller9 Full Deploy Shell                 **
+echo **           Teller9 Full Deploy Shell                  **
 echo **              http://www.dcits.com                    **
-echo **            author zhangjig@dcits.com                 **
+echo **            author  zhangjig@dcits.com                **
 echo **********************************************************
 
 #不同环境下脚本修改指南
@@ -13,9 +13,9 @@ echo **********************************************************
 #       1、PORT_APP 端口号
 #       2、DCITS_HOME 应用部署主目录
 #  非阜新银行项目，请注释掉START_TELLER函数中：sed -i 's/ssoindex/fxindex/g' ./configuration/config.ini
-#
+
 ########## Var Setting START ##########
-echo "开始SmartTeller9全量部署"
+echo "开始SmartTeller9全量部署......"
 # 应用端口号，注意需加单引号
 PORT_APP='9080'
 # 启动应用检查时间间隔设定(单位：10秒)
@@ -29,8 +29,11 @@ MSG_STATUS_ERROR='Teller应用状态未知,请人工确认当前状态'
 
 DCITS_HOME=/app/dcits
 APP_HOME=${DCITS_HOME}
+CACHE_HOME=${DCITS_HOME}/SmartTeller9/configuration
 BACKUP_HOME=${DCITS_HOME}/backup/SmartTeller9
-VERSION_ID=App_SmartTeller9_Full_${TAG_NO}
+ZIP_HOME=${BACKUP_HOME}
+TAG_NAME=SmartTeller9_Full_${TAG_NO}
+VERSION_ID=App_${TAG_NAME}
 TARGET=${VERSION_ID}.zip
 ########## Var Setting END ##########
 
@@ -107,18 +110,19 @@ TAR_TEMPLETE() {
 ######## Function END ########
 
 # 备份全量包，并解压包已备部署 DONE
-echo "部署的TAG_NO为："${TAG_NO}
+echo "开始解压应用包，部署的版本为："${TARGET}
 cd ${BACKUP_HOME}
 if [[ -d SmartTeller9 ]];then
     rm -rf SmartTeller9
 fi
 mkdir SmartTeller9
 cd SmartTeller9
-unzip -q  ${BACKUP_HOME}/${TARGET}
+unzip -q -o ${BACKUP_HOME}/${TARGET}
 echo ${VERSION_ID} > ${BACKUP_HOME}/SmartTeller9/versionid.txt
 echo ${VERSION_ID} > ${BACKUP_HOME}/SmartTeller9/version_list.txt
 
 # 检查并停止应用，以备部署新应用
+echo "停止原应用......"
 CheckStopState
 if [ ${APP_RUN_STATUS} -ne 0 ];then
     echo 'Teller stopping ...'
@@ -143,11 +147,13 @@ if [ ${APP_RUN_STATUS} -ne 0 ];then
 fi
 
 # 备份原应用包
+echo "备份原应用包......"
 BACKUP_OLD_APP
 
 # 部署新的应用包，并启动新应用
 mv ${BACKUP_HOME}/SmartTeller9 ${APP_HOME}
-echo 'Teller starting ...'
+#TAR_TEMPLETE
+echo '启动应用,Teller starting ...'
 START_TELLER
 CHECK_INTERVAL ${CHECK_TIME}
 
@@ -162,7 +168,7 @@ else
         CheckStartState
         if [ ${APP_RUN_STATUS} -eq 1 ];then
             # 新应用启动，删除旧应用
-            echo "Start successful"
+            echo "Start successful ..."
             echo ${MSG_START_SUCCESS}
             break
         else
