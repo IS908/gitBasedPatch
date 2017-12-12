@@ -529,7 +529,7 @@ public class GitHandlerImpl extends GitHandler {
         }
 
         if (fullPath.contains("src/main/config")) {
-            String[] strs = fullPath.split("/src/main/config/");
+            String[] strs = fullPath.split("src/main/config/");
             fileDiffEntry.setModule(Const.CONF + strs[strs.length - 1]);
         }
 
