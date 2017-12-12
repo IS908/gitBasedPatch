@@ -34,7 +34,7 @@ public class PatchFileServiceImpl extends PatchFileService {
 
         Set<String> set = new HashSet<>();
         for (String prefix : patchFilePrefix) {
-            set.add(runDate + prefix + ".txt");
+            set.add(prefix + ".txt");
             set.add(runDate + prefix + ".xml");
         }
         Set<File> xmlFilePaths = new HashSet<>();
@@ -42,7 +42,6 @@ public class PatchFileServiceImpl extends PatchFileService {
         File[] files = file.listFiles();
         for (File f : files) {
             if (f.isDirectory()) continue;
-//            logger.info(f.getName());
             if (set.contains(f.getName()) && f.getName().endsWith(".xml")) xmlFilePaths.add(f);
             else if (set.contains(f.getName()) && f.getName().endsWith(".txt")) txtFilePaths.add(f);
         }
