@@ -46,11 +46,10 @@ ZIP_HOME=${BACKUP_TEMP}/modules/fintelligen-integration/online-all-integration/t
 
 ######## Function START ########
 # 检查应用当前状态
+# 检查应用当前状态
 CheckAppState() {
-    PID_APP=`/usr/sbin/lsof -n -P -t -i :${PORT_APP}`
-    echo 'PID_APP: ' ${PID_APP}
-    APP_RUN_STATUS=`ps -ef | grep ${PID_APP} | grep -v 'grep' | wc -l`
-    echo 'APP_RUN_STATUS: ' ${APP_RUN_STATUS}
+    APP_RUN_STATUS=`jps -lv | grep "Fintelligen" | wc -l`
+    echo 'APP_RUN_STATUS:' ${APP_RUN_STATUS}
 }
 
 # 检查应用是否停止 并返回状态码：停止成功:1；停止失败:0
