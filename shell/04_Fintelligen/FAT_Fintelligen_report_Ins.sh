@@ -38,7 +38,7 @@ mkdir ${DOCUMENT}
 ##根据增量清单进行抽取
 if [ -e "$INCFILE" ]; then 
 	echo "增量清单名称是："report_${INSFILE_NAME}.txt
-    sed -i 's/.$//' ${INCFILE}
+    sed -i 's/\r//g'  ${INCFILE}
     for line in $(cat ${INCFILE})
     do 
         echo "增量文件名称是："$line

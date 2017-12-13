@@ -65,7 +65,7 @@ if [ -e "$TARGET" ]; then
 fi
 
 cp ${BUILD_PROPERTIES} patch.properties
-
+sed -i 's/\r//g'  ${INCFILE}
 # 读取增量描述文件，进行增量配置文件的处理
 ##处理思路：1、筛选需要编译的交易，将需要编译的交易写入增量执行文件patch.properties
 ##         2、将不需要编译的文件写入过度增量清单
