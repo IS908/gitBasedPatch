@@ -34,7 +34,7 @@ APP_HOME=${DCITS_HOME}/${APP_NMAE}
 UNZIP_NAME=ensemble-om-1.0.4-SNAPSHOT
 TAG_NAME=${APP_NMAE}_Ins_${TAG_NO}
 VERSION_ID=App_${TAG_NAME}
-SOURCE=app_ensembleOM_ins.zip
+SOURCE=EnsembleOM.zip
 BACKUP_HOME=${DCITS_HOME}/backup/${APP_NMAE}
 ZIP_HOME=${BACKUP_HOME}/${TAG_NAME}/target
 ######## Var Setting END ########
@@ -134,7 +134,7 @@ BACKUP_OLD_APP
 ##将原始应用包更名，移动到backup，删除过渡文件夹
 cd ${ZIP_HOME}
 unzip ${SOURCE}
-mv ${ZIP_HOME}/deleteList.txt ${APP_HOME}
+mv ${ZIP_HOME}/${APP_NMAE}/deleteList.txt ${APP_HOME}
 mv ${SOURCE} ${VERSION_ID}.zip
 mv ${VERSION_ID}.zip ${BACKUP_HOME}
 rm -rf ${BACKUP_HOME}/${TAG_NAME}
@@ -146,7 +146,7 @@ DELETE_LIST_OPTION ${APP_HOME}/deleteList.txt
 #解压应用包，并创建versionid.txt
 echo "开始解压应用包并创建versionid.txt"
 cd ${BACKUP_HOME}
-unzip -o -d ${APP_HOME}  ${BACKUP_HOME}/${VERSION_ID}.zip
+unzip -o -d ${DCITS_HOME}  ${BACKUP_HOME}/${VERSION_ID}.zip
 echo ${VERSION_ID} > ${APP_HOME}/versionid.txt
 echo ${VERSION_ID} >> ${APP_HOME}/version_list.txt
 
