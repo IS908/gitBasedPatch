@@ -103,7 +103,7 @@ DELETE_LIST_OPTION(){
 # 移动增量包到相应备份目录下
 cd ${ZIP_HOME}
 unzip ${ZIP_HOME}/${ZIP_NAME}
-mv ${ZIP_HOME}/deleteList.txt ${BACKUP_TEMP}
+mv ${ZIP_HOME}/${APP_NAME}/deleteList.txt ${BACKUP_TEMP}
 mv ${ZIP_HOME}/${ZIP_NAME}  ${BACKUP_HOME}/App_${TAG_NAME}.zip
 rm -rf ${BACKUP_TEMP}/modules
 
@@ -142,7 +142,7 @@ fi
 DELETE_LIST_OPTION ${BACKUP_TEMP}
 
 # 部署增量应用包，并启动应用
-cd ${DCITS_HOME}/${APP_NAME}
+cd ${DCITS_HOME}
 unzip -o ${BACKUP_HOME}/App_${TAG_NAME}.zip
 echo 'App starting ...'
 sh ${DCITS_HOME}/${APP_NAME}/bin/start.sh
