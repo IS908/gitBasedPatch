@@ -3,7 +3,7 @@ source ~/.bashrc
 
 echo **********************************************************
 echo **                                                      **
-echo **             ModelBank Deploy Shell                   **
+echo **             Fintelligen Deploy Shell                   **
 echo **              http://www.dcits.com                    **
 echo **            author:chenkunh@dcits.com                 **
 echo **                                                      **
@@ -37,12 +37,12 @@ MSG_STOP_FAILD='APP应用停止失败，请人工停止原应用并部署'
 MSG_STATUS_ERROR='APP应用状态未知,请人工确认当前状态'
 
 APP_NAME=Fintelligen
+ZIP_NAME=Fintelligen.zip
 FINTELLIGEN_HOME=/app/dcits
 TAG_NAME=Fintelligen_Ins_${TAG_NO}
 BACKUP_HOME=${FINTELLIGEN_HOME}/backup/${APP_NAME}
 BACKUP_TEMP=${BACKUP_HOME}/${TAG_NAME}
 ZIP_HOME=${BACKUP_TEMP}/modules/fintelligen-integration/online-all-integration/target
-ZIP_NAME=app_fintelligen_ins.zip
 ######## Var Setting END ########
 
 ######## Function START ########

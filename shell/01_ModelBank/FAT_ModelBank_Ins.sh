@@ -27,12 +27,12 @@ MSG_STATUS_ERROR='APP应用状态未知,请人工确认当前状态'
 ###############################
 
 APP_NAME=ModelBank
+ZIP_NAME=ModelBank.zip
 DCITS_HOME=/app/dcits
 TAG_NAME=ModelBank_Ins_${TAG_NO}
 BACKUP_HOME=${DCITS_HOME}/backup/${APP_NAME}
 BACKUP_TEMP=${BACKUP_HOME}/${TAG_NAME}
 ZIP_HOME=${BACKUP_TEMP}/modules/modelBank-all-integration/target
-ZIP_NAME=app_modelbank_ins.zip
 ######## Var Setting END ########
 
 ######## Function START ########
@@ -93,8 +93,8 @@ BACKUP_OLD_APP() {
 DELETE_LIST_OPTION(){
     cat $1/deleteList.txt | while read line
     do
-        echo 'remove' ${DCITS_HOME}/ModelBank/${line}
-        rm  ${DCITS_HOME}/ModelBank/${line}
+        echo 'remove' ${DCITS_HOME}/${APP_NAME}/${line}
+        rm  ${DCITS_HOME}/${APP_NAME}/${line}
     done
     rm -rf $1
 }
