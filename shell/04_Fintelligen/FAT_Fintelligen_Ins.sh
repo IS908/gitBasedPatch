@@ -3,7 +3,7 @@ source ~/.bashrc
 
 echo **********************************************************
 echo **                                                      **
-echo **             ModelBank Deploy Shell                   **
+echo **             Fintelligen Deploy Shell                   **
 echo **              http://www.dcits.com                    **
 echo **            author:chenkunh@dcits.com                 **
 echo **                                                      **
