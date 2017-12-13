@@ -133,7 +133,7 @@ BACKUP_OLD_APP
 ##将原始应用包更名，移动到backup，删除过渡文件夹
 cd ${ZIP_HOME}
 unzip ${SOURCE}
-mv ${ZIP_HOME}/${APP_HOME}/deleteList.txt ${APP_HOME}
+mv ${ZIP_HOME}/${APP_NMAE}/deleteList.txt ${APP_HOME}
 mv ${SOURCE} ${VERSION_ID}.zip
 mv ${VERSION_ID}.zip ${BACKUP_HOME}
 rm -rf ${BACKUP_HOME}/${TAG_NAME}
