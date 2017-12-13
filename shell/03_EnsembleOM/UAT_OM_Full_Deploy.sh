@@ -28,10 +28,10 @@ MSG_STOP_FAILD='APP应用停止失败，请人工停止原应用并部署'
 MSG_STATUS_ERROR='APP应用状态未知,请人工确认当前状态'
 
 DCITS_HOME=/app/dcits
-APP_NMAE=EnsembleOM
+APP_NAME=EnsembleOM
 UNZIP_NAME=ensemble-om-1.0.4-SNAPSHOT
 SOURCE=ensemble-om-1.0.4-SNAPSHOT-assembly.zip
-BACKUP_HOME=${DCITS_HOME}/backup/${APP_NMAE}
+BACKUP_HOME=${DCITS_HOME}/backup/${APP_NAME}
 ZIP_HOME=${BACKUP_HOME}/${TAG_NAME}
 ######## Var Setting END ########
 
@@ -85,10 +85,10 @@ CHECK_INTERVAL() {
 BACKUP_OLD_APP() {
     echo "tar备份开始"
     cd ${DCITS_HOME}
-    if [[ -d ${APP_NMAE} ]];then
-        versionNum=`cat ${DCITS_HOME}/${APP_NMAE}/versionid.txt`
-        tar -czf ${BACKUP_HOME}/${versionNum}-end.tar.gz ${APP_NMAE}
-        rm -rf ${DCITS_HOME}/${APP_NMAE}
+    if [[ -d ${APP_NAME} ]];then
+        versionNum=`cat ${DCITS_HOME}/${APP_NAME}/versionid.txt`
+        tar -czf ${BACKUP_HOME}/${versionNum}-end.tar.gz ${APP_NAME}
+        rm -rf ${DCITS_HOME}/${APP_NAME}
     fi
 }
 ######## Function END ########
@@ -97,16 +97,16 @@ BACKUP_OLD_APP() {
 echo "解压应用包并创建versionid.txt"
 cd ${ZIP_HOME}/target 
 unzip -q ${SOURCE}
-mv ${UNZIP_NAME} ${APP_NMAE}
-echo App_${TAG_NAME} > ${ZIP_HOME}/target/${APP_NMAE}/versionid.txt
-echo App_${TAG_NAME} > ${ZIP_HOME}/target/${APP_NMAE}/version_list.txt
+mv ${UNZIP_NAME} ${APP_NAME}
+echo App_${TAG_NAME} > ${ZIP_HOME}/target/${APP_NAME}/versionid.txt
+echo App_${TAG_NAME} > ${ZIP_HOME}/target/${APP_NAME}/version_list.txt
 
 # 检查并停止应用，以备部署新应用
 echo "开始停止原应用....."
 CheckStopState
 if [ ${APP_RUN_STATUS} -ne 0 ];then
     echo 'App stopping ...'
-    sh ${DCITS_HOME}/${APP_NMAE}/bin/stop.sh
+    sh ${DCITS_HOME}/${APP_NAME}/bin/stop.sh
 	CHECK_INTERVAL 1
     for i in `seq 3`
     do   
@@ -128,7 +128,7 @@ BACKUP_OLD_APP
 
 # 部署新的应用包到指定目录，并删除临时文件夹
 echo "移动应用到部署目录"
-mv ${ZIP_HOME}/target/${APP_NMAE} ${DCITS_HOME}
+mv ${ZIP_HOME}/target/${APP_NAME} ${DCITS_HOME}
 
 ##将原始应用包更名，移动到backup，删除过渡文件夹
 echo "删除过度文件夹....."
@@ -145,7 +145,7 @@ rm -rf ${TAG_NAME}
 
 # 新部署应用启动
 echo '启动应用，App starting ...'
-sh ${DCITS_HOME}/${APP_NMAE}/bin/start.sh
+sh ${DCITS_HOME}/${APP_NAME}/bin/start.sh
 CHECK_INTERVAL ${CHECK_TIME}
 
 # 检查新部署应用是否启动成功
@@ -162,9 +162,9 @@ else
             echo ${MSG_START_SUCCESS}
             break
         else
-            sh ${DCITS_HOME}/${APP_NMAE}/bin/stop.sh
+            sh ${DCITS_HOME}/${APP_NAME}/bin/stop.sh
             echo 'Retry App starting ...'
-            sh ${DCITS_HOME}/${APP_NMAE}/bin/start.sh
+            sh ${DCITS_HOME}/${APP_NAME}/bin/start.sh
         fi
         CHECK_INTERVAL ${CHECK_TIME}
     done
