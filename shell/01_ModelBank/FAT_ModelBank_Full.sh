@@ -73,8 +73,12 @@ TAR_GZ_HOME=${BACKUP_TEMP}/modules/modelBank-all-integration/target
 CheckAppState() {
     PID_APP=`/usr/sbin/lsof -n -P -t -i :${PORT_APP}`
     echo 'PID_APP: ' ${PID_APP}
-    APP_RUN_STATUS=`ps -ef | grep ${PID_APP} | grep -v 'grep' | wc -l`
-    echo 'APP_RUN_STATUS: ' ${APP_RUN_STATUS}
+    if [[ -z "${PID_APP}" ]] ; then
+        APP_RUN_STATUS=0
+    else
+        APP_RUN_STATUS=1
+    fi
+    echo 'APP_RUN_STATUS:' ${APP_RUN_STATUS}
 }
 
 # 检查应用是否停止 并返回状态码：停止成功:1；停止失败:0
@@ -133,6 +137,7 @@ echo App_${TAG_NAME} > ${BACKUP_TEMP}/${APP_NAME}/version_list.txt
 CheckStopState
 if [ ${APP_RUN_STATUS} -ne 0 ];then
     echo 'App stopping ...'
+    cd ${DCITS_HOME}
     sh ${DCITS_HOME}/${APP_NAME}/bin/stop.sh
 	CHECK_INTERVAL 1
     for i in `seq 3`
