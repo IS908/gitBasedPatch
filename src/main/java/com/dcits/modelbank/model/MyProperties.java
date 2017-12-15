@@ -23,6 +23,10 @@ public class MyProperties {
      */
     private String checkListDir;
     /**
+     * 第三方包替换列表文件日期前缀
+     */
+    private String checkListPrefix;
+    /**
      * 删除列表名称
      */
     private String deleteList;
@@ -64,6 +68,15 @@ public class MyProperties {
     @Value("${check.list.file.dir}")
     public void setCheckListDir(String checkListDir) {
         this.checkListDir = checkListDir;
+    }
+
+    public String getCheckListPrefix() {
+        return checkListPrefix;
+    }
+
+    @Value("${check.list.file.prefix}")
+    public void setCheckListPrefix(String checkListPrefix) {
+        this.checkListPrefix = checkListPrefix;
     }
 
     public String getDeleteList() {

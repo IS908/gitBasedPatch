@@ -2,14 +2,12 @@ package com.dcits.modelbank.service.impl;
 
 import com.dcits.modelbank.service.PatchFileService;
 import com.dcits.modelbank.utils.*;
+import com.fasterxml.jackson.dataformat.yaml.snakeyaml.Yaml;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.*;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Created on 2017-12-07 00:36.
@@ -34,23 +32,41 @@ public class PatchFileServiceImpl extends PatchFileService {
 
         Set<String> set = new HashSet<>();
         for (String prefix : patchFilePrefix) {
-            set.add(prefix + ".txt");
+//            set.add(myProperties.getCheckListPrefix() + prefix + ".txt");
             set.add(runDate + prefix + ".xml");
         }
+
+        Yaml yaml = new Yaml();
+        String path = baseDir + myProperties.getCheckListDir() + myProperties.getCheckListPrefix() + ".yml";
+        File ymlFile = new File(path);
+        Set<String> matchPatchList = new HashSet<>(), deletePatchList = new HashSet<>();
+        if (file.exists()) {
+            try {
+                HashMap<String, List<String>> map = yaml.loadAs(new FileInputStream(ymlFile), HashMap.class);
+                List<String> deleteList = map.get("deleteFile");
+                List<String> fileList = map.get("matchFile");
+                if (!Objects.equals(deleteList, null)) {
+                    for (String tmp : deleteList) deletePatchList.add(tmp);
+                }
+                if (!Objects.equals(fileList, null)) {
+                    for (String tmp : fileList) matchPatchList.add(tmp);
+                }
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+        }
+
         Set<File> xmlFilePaths = new HashSet<>();
         Set<File> txtFilePaths = new HashSet<>();
         File[] files = file.listFiles();
         for (File f : files) {
             if (f.isDirectory()) continue;
             if (set.contains(f.getName()) && f.getName().endsWith(".xml")) xmlFilePaths.add(f);
-            else if (set.contains(f.getName()) && f.getName().endsWith(".txt")) txtFilePaths.add(f);
         }
         Set<String> specificPatchList = XmlReader.getAllModuleName(xmlFilePaths);
-        Set<String> matchPatchList = new HashSet<>(), deletePatchList = new HashSet<>();
 
         // 进行txt文件的处理
         txtFileList(txtFilePaths, specificPatchList, matchPatchList, deletePatchList);
-
 
         // 创建增量文件临时存放目录
         String tmpDir = myProperties.getResultDir() + "/" + Const.PATCH_TMP_FOLDER;
@@ -136,6 +152,10 @@ public class PatchFileServiceImpl extends PatchFileService {
         } else {
             specificPatchList.add(row);
         }
+    }
+
+    public static void main(String[] args) {
+
     }
 
 }
