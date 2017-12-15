@@ -141,6 +141,7 @@ rm -rf ${BACKUP_HOME}/${TAG_NAME}
 
 
 # 按照deleteList.txt列表进行删除jar包
+echo "根据deleteList.txt列表进行删除jar包"
 DELETE_LIST_OPTION ${APP_HOME}/deleteList.txt
 
 #解压应用包，并创建versionid.txt

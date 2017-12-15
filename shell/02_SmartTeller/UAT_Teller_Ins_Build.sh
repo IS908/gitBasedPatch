@@ -151,6 +151,13 @@ if [ -e "${INCFILE_NEW}" ]; then
 	for line in $(cat ${INCFILE_NEW})
     do
         zip -q -r ${TARGET}  $line
+        if [[ "$?" = "0" ]]
+        then
+            echo "抽取交易成功"：$line
+        else
+            echo "抽取交易失败："$line
+            exit 1    
+        fi
     done
 fi
 
@@ -158,11 +165,25 @@ fi
 if [[ ${SIGN_FLAG} = "Y" ]]
 then
     zip -q -r ${TARGET} ${SIGN_JAR}
+    if [[ "$?" = "0" ]]
+    then
+		echo "抽取签名jar包成功"
+    else
+		echo "抽取签名jar包失败..."
+		exit 1    
+    fi
 else
     echo "无签名文件，不需要进行签名jar的压缩"
 fi
 
 ##将SmartTeller9_1.0.0.jar公共包压缩到增量目标zip包
 zip -q -r ${TARGET} SmartTeller9/trans/SmartTeller9_1.0.0.jar
+if [[ "$?" = "0" ]]
+then
+		echo "抽取SmartTeller9_1.0.0.jar公共包成功"
+else
+		echo "抽取SmartTeller9_1.0.0.jar公共包失败..."
+		exit 1    
+fi
 
 echo "结束SmartTeller9增量版本构建。。。"
