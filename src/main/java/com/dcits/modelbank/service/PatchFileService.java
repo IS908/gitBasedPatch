@@ -4,7 +4,6 @@ import com.dcits.modelbank.extract.BasePatchExtractHandler;
 import com.dcits.modelbank.model.MyProperties;
 
 import javax.annotation.Resource;
-import java.io.File;
 import java.util.List;
 
 /**
@@ -29,7 +28,7 @@ public abstract class PatchFileService {
     /**
      * 进行增量文件的抽取
      */
-    public abstract void patchFileExecute(String baseDir);
+    public abstract void patchFileExecute(String baseDir, String fileNumber);
 
     public BasePatchExtractHandler getBasePatchExtractHandler() {
         return basePatchExtractHandler;

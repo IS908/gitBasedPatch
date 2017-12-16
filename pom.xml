@@ -15,6 +15,7 @@
         <dom4j.version>1.6.1</dom4j.version>
         <logback.version>1.2.3</logback.version>
         <junit.version>4.12</junit.version>
+        <jackson.version>2.3.3</jackson.version>
     </properties>
 
     <dependencies>
@@ -80,6 +81,18 @@
             <artifactId>logback-classic</artifactId>
             <version>${logback.version}</version>
         </dependency>
+
+        <dependency>
+            <groupId>com.fasterxml.jackson.dataformat</groupId>
+            <artifactId>jackson-dataformat-yaml</artifactId>
+            <version>${jackson.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>${jackson.version}</version>
+        </dependency>
+
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
@@ -91,7 +104,6 @@
             <artifactId>zt-zip</artifactId>
             <version>1.11</version>
         </dependency>
-
     </dependencies>
 
     <build>
