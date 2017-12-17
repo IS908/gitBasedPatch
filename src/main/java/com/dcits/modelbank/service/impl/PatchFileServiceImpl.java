@@ -118,13 +118,14 @@ public class PatchFileServiceImpl extends PatchFileService {
             try {
                 HashMap<String, List<String>> map = yaml.loadAs(new FileInputStream(ymlFile), HashMap.class);
                 List<String> deleteFiles = map.get("deleteFile");
-                logger.info("deleteFile:" + deleteFiles.toString());
                 List<String> matchFiles = map.get("matchFile");
-                logger.info("matchFile:" + matchFiles.toString());
+
                 if (!Objects.equals(deleteFiles, null)) {
+                    logger.info("deleteFile:" + deleteFiles.toString());
                     for (String tmp : deleteFiles) deletePatchSet.add(tmp);
                 }
                 if (!Objects.equals(matchFiles, null)) {
+                    logger.info("matchFile:" + matchFiles.toString());
                     for (String tmp : matchFiles) {
                         if (!tmp.endsWith("*")) {
                             specificFileSet.add(tmp);
