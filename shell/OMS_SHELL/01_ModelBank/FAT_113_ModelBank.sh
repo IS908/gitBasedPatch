@@ -1,13 +1,13 @@
 #!/bin/bash
 
-FLAG_FULL=FULL
-FLAG_INCR=INCR
+FLAG_FULL=Full
+FLAG_INCR=Incr
 
 # 文件存放目录
 
 hostIp=57.25.2.111
 moType=ModelBank
-versionNo=FAT_113_ModelBank_Full_${TAG_NO}
+versionNo=FAT_113_ModelBank_${}
 fileType=Full
 fileName=${versionNo}.tar.gz
 OMS_HOME=/app/dcits/oms/jenkins_space
@@ -15,10 +15,9 @@ TARGET=${WORKSPACE}/modules/modelBank-all-integration/target
 
 
 DEPLOY_FULL() {
-    cd ${TARGET}
-    cd modelBank-integration-assembly
+    cd ${TARGET}/modelBank-integration-assembly
     rm -rf modelBank-integration
-    tar -zxf ../modelBank-integration-assembly.tar.gz
+    tar -zxf ${TARGET}/modelBank-integration-assembly.tar.gz
     mv modelBank-integration ${versionNo}
     tar -czf ${fileName} ${versionNo}
     mv ${fileName} ${OMS_HOME}
@@ -27,16 +26,18 @@ DEPLOY_FULL() {
 DEPLOY_INCR() {
     cd ${TARGET}/PatchTmp
     mv ModelBank ${versionNo}
-    tar -czf ${versionNo}.tar.gz ${versionNo}
+    tar -czf ${fileName} ${versionNo}
     mv ${fileName} ${OMS_HOME}
 }
 
 # 进行全量增量判断
 if [[ "${BUILD_FLAG}" == "${FLAG_INCR}" ]]
 then
+    echo ${FLAG_INCR}
     DEPLOY_INCR
 else if [[ "${BUILD_FLAG}" == "${FLAG_FULL}" ]]
 then
+    echo ${FLAG_FULL}
     DEPLOY_FULL
     fi
 fi

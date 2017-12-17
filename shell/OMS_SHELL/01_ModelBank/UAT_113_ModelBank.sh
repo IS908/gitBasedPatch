@@ -1,7 +1,7 @@
 #!/bin/bash
 
-FLAG_FULL=FULL
-FLAG_INCR=INCR
+FLAG_FULL=Full
+FLAG_INCR=Incr
 
 # 文件存放目录
 
