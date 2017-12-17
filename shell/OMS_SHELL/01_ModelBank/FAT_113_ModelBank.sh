@@ -11,10 +11,11 @@ versionNo=FAT_113_ModelBank_Full_${TAG_NO}
 fileType=Full
 fileName=${versionNo}.tar.gz
 OMS_HOME=/app/dcits/oms/jenkins_space
+TARGET=${WORKSPACE}/modules/modelBank-all-integration/target
 
 
 DEPLOY_FULL() {
-    cd ${WORKSPACE}/modules/modelBank-all-integration/target
+    cd ${TARGET}
     cd modelBank-integration-assembly
     rm -rf modelBank-integration
     tar -zxf ../modelBank-integration-assembly.tar.gz
@@ -24,7 +25,7 @@ DEPLOY_FULL() {
 }
 
 DEPLOY_INCR() {
-    cd ${WORKSPACE}/modules/modelBank-all-integration/target/PatchTmp
+    cd ${TARGET}/PatchTmp
     mv ModelBank ${versionNo}
     tar -czf ${versionNo}.tar.gz ${versionNo}
     mv ${fileName} ${OMS_HOME}
