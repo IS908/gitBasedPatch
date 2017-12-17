@@ -43,7 +43,7 @@ then
 fi
 
 # 向OMS发送通知
-RESULT=`curl -G -i http://57.25.2.137:9991/oms/jenkinsPostVersion?hostIp=${hostIp}&amp;moType=${moType}&amp;versionNo=${versionNo}&amp;fileType=${fileType}&amp;fileName=${fileName}`
+RESULT=`curl -G -i http://57.25.2.137:9991/oms/jenkinsPostVersion?hostIp=${hostIp}\&moType=${moType}\&versionNo=${versionNo}\&fileType=${fileType}\&fileName=${fileName}`
 
 if [[ "${RESULT}" =~ "success" ]]
 then
