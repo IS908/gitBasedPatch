@@ -16,13 +16,11 @@ echo **********************************************************
 #
 
 ######## Var Setting START ########
-OMS=http://57.25.2.137:9991/oms/jenkinsPostVersion
-TARGET_PATH=/app/dcits/oms/jenkins_space
 HOST_IP=57.25.2.111
 GOAL=113
-MO_TYPE=SmartTeller9
+APP_NAME=SmartTeller9
 FILE_TYPE=Incr
-#TAG_NAME=SmartTeller9_Ins_${TAG_NO}
+#TAG_NAME=${APP_NAME}_${FILE_TYPE}_${TAG_NO}
 VERSION_NO=App_${TAG_NAME}
 TARGET=FAT_${GOAL}_${VERSION_NO}
 TEMP_DOCUMENT=TEMP_TELLER9
@@ -43,22 +41,25 @@ mkdir ${TEMP_DOCUMENT}
 echo "增量版本包更名......"
 unzip -o -d ${TEMP_DOCUMENT}  ${VERSION_NO}.zip
 CHECK_RESULT
-
 cd ${TEMP_DOCUMENT}
-mv SmartTeller9 ${TARGET}
+mv ${APP_NAME} ${TARGET}
+cd ${TARGET}
+echo  > deleteList.txt
+cd ../
 zip -q -r ${TARGET}.zip ${TARGET}
 CHECK_RESULT
 
 echo "增量版本包移动到指定目录"
-mv ${TARGET}.zip ../
+mv ${TARGET}.zip ${OMS_HOME}
 CHECK_RESULT
 
 echo "编译成功,通知OMS....."
-RESULT=`curl -G -i ${OMS}?hostIp=${HOST_IP}\&moType=${MO_TYPE}\&versionNo=${VERSION_NO}\&fileType=${FILE_TYPE}\&fileName=${TARGET}.zip`
+RESULT=`curl -G -i -S ${OMS_URL}?hostIp=${HOST_IP}\&moType=${APP_NAME}\&versionNo=${VERSION_NO}\&fileType=${FILE_TYPE}\&fileName=${TARGET}.zip`
 if [[ "${RESULT}" =~ "success" ]]
 then
      echo "调用OMS平台成功......"
 else
     echo "调用OMS平台失败......"
+    echo "失败原因："${RESULT}
     exit 1
 fi

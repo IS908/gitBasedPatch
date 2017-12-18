@@ -3,7 +3,7 @@ source ~/.bashrc
 
 echo **********************************************************
 echo **                                                      **
-echo **            FAT OM To OMS Shell                       **
+echo **            FAT Fintelligen To OMS Shell              **
 echo **              http://www.dcits.com                    **
 echo **            author:zhangjig@dcits.com                 **
 echo **                                                      **
@@ -18,12 +18,13 @@ echo **********************************************************
 ######## Var Setting START ########
 HOST_IP=57.25.2.111
 GOAL=113
-FILE_TYPE=Incr
-APP_NAME=EnsembleOM
+APP_NAME=Fintelligen
+FILE_TYPE=Full
 TAG_NAME=${APP_NAME}_${FILE_TYPE}_${TAG_NO}
 VERSION_NO=App_${TAG_NAME}
 TARGET=FAT_${GOAL}_${VERSION_NO}
-TEMP_DOCUMENT=${WORKSPACE}/target/PatchTmp
+TMP_APP_NAME=fintelligen-integration
+TEMP_DOCUMENT=${WORKSPACE}/modules/fintelligen-integration/online-all-integration/target/${TMP_APP_NAME}-assembly
 ######## Var Setting END ########
 CHECK_RESULT() {
     if [[ "$?" != "0" ]]
@@ -35,7 +36,7 @@ CHECK_RESULT() {
 echo "增量版本包更名......"
 cd ${TEMP_DOCUMENT}
 
-mv ${APP_NAME} ${TARGET}
+mv ${TMP_APP_NAME} ${TARGET}
 zip -q -r ${TARGET}.zip ${TARGET}
 CHECK_RESULT
 

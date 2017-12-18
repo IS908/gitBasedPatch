@@ -3,7 +3,7 @@ source ~/.bashrc
 
 echo **********************************************************
 echo **                                                      **
-echo **            FAT OM To OMS Shell                       **
+echo **           UAT Teller9 To OMS Shell                   **
 echo **              http://www.dcits.com                    **
 echo **            author:zhangjig@dcits.com                 **
 echo **                                                      **
@@ -18,12 +18,11 @@ echo **********************************************************
 ######## Var Setting START ########
 HOST_IP=57.25.2.111
 GOAL=113
-FILE_TYPE=Incr
-APP_NAME=EnsembleOM
-TAG_NAME=${APP_NAME}_${FILE_TYPE}_${TAG_NO}
+APP_NAME=SmartTeller9
+FILE_TYPE=Full
+#TAG_NAME=${APP_NAME}_${FILE_TYPE}_${TAG_NO}
 VERSION_NO=App_${TAG_NAME}
 TARGET=FAT_${GOAL}_${VERSION_NO}
-TEMP_DOCUMENT=${WORKSPACE}/target/PatchTmp
 ######## Var Setting END ########
 CHECK_RESULT() {
     if [[ "$?" != "0" ]]
@@ -32,10 +31,16 @@ CHECK_RESULT() {
         exit 1    
     fi
 }
-echo "增量版本包更名......"
-cd ${TEMP_DOCUMENT}
 
-mv ${APP_NAME} ${TARGET}
+if [[ -d ${TARGET} ]];then
+    rm -rf ${TARGET}
+fi
+mkdir ${TARGET}
+
+echo "增量版本包更名......"
+unzip -o -d ${TARGET}  ${VERSION_NO}.zip
+CHECK_RESULT
+
 zip -q -r ${TARGET}.zip ${TARGET}
 CHECK_RESULT
 
