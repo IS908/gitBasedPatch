@@ -3,7 +3,7 @@
 hostIp=57.25.2.111
 moType=ModelBank
 versionNo=FAT_113_${TAG_NAME}
-fileType=Full
+fileType=Incr
 fileName=${versionNo}.tar.gz
 OMS_HOME=/app/dcits/oms/jenkins_space
 TARGET=${WORKSPACE}/modules/modelBank-all-integration/target
