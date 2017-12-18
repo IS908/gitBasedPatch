@@ -7,7 +7,8 @@ FLAG_INCR=Incr
 
 hostIp=57.25.2.111
 moType=ModelBank
-versionNo=FAT_113_ModelBank_Full_${TAG_NO}
+TAG_NAME=ModelBank_Full_${TAG_NO}
+versionNo=FAT_113_${TAG_NAME}
 fileType=Full
 fileName=${versionNo}.tar.gz
 OMS_HOME=/app/dcits/oms/jenkins_space
