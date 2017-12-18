@@ -44,7 +44,7 @@ mv ${TARGET}.zip ${OMS_HOME}
 CHECK_RESULT
 
 echo "编译成功,通知OMS....."
-RESULT=`curl -G -i -S ${OMS_URL}?hostIp=${HOST_IP}\&moType=${MO_TYPE}\&versionNo=${VERSION_NO}\&fileType=${FILE_TYPE}\&fileName=${TARGET}.zip`
+RESULT=`curl -G -i -S ${OMS_URL}?hostIp=${HOST_IP}\&moType=${APP_NAME}\&versionNo=${VERSION_NO}\&fileType=${FILE_TYPE}\&fileName=${TARGET}.zip`
 if [[ "${RESULT}" =~ "success" ]]
 then
      echo "调用OMS平台成功......"
