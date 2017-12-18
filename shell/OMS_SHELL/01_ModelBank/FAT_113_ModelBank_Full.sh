@@ -1,10 +1,5 @@
 #!/bin/bash
 
-FLAG_FULL=Full
-FLAG_INCR=Incr
-
-# 文件存放目录
-
 hostIp=57.25.2.111
 moType=ModelBank
 TAG_NAME=ModelBank_Full_${TAG_NO}
