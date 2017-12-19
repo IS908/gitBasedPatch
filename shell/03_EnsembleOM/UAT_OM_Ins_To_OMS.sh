@@ -17,12 +17,11 @@ echo **********************************************************
 
 ######## Var Setting START ########
 HOST_IP=57.25.2.111
-GOAL=113
 APP_NAME=EnsembleOM
 FILE_TYPE=Incr
 #TAG_NAME=EnsembleOM_Ins_${TAG_NO}
 VERSION_NO=App_${TAG_NAME}
-TARGET=FAT_${GOAL}_${VERSION_NO}
+TARGET=UAT_${VERSION_NO}
 TEMP_DOCUMENT=${WORKSPACE}/target/PatchTmp
 ######## Var Setting END ########
 CHECK_RESULT() {

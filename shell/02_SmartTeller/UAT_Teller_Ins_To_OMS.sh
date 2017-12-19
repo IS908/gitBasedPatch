@@ -17,12 +17,11 @@ echo **********************************************************
 
 ######## Var Setting START ########
 HOST_IP=57.25.2.111
-GOAL=113
 APP_NAME=SmartTeller9
 FILE_TYPE=Incr
 #TAG_NAME=${APP_NAME}_${FILE_TYPE}_${TAG_NO}
 VERSION_NO=App_${TAG_NAME}
-TARGET=FAT_${GOAL}_${VERSION_NO}
+TARGET=UAT_${VERSION_NO}
 TEMP_DOCUMENT=TEMP_TELLER9
 ######## Var Setting END ########
 CHECK_RESULT() {
