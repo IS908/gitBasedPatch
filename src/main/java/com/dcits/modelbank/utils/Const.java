@@ -27,6 +27,12 @@ public interface Const {
     String BIN = "bin/";
     String CONF = "conf/";
     String LIB = "lib/";
+    String busi_rule = "busiRule/";
+    String check = "check/";
+    String check_rule = "checkRule/";
+    String db_rule = "dbRule/";
+    String mapping = "mapping/";
+    String trace = "trace/";
 
     String PATCH_TMP_FOLDER = "PatchTmp";
 }

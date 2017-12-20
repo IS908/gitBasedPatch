@@ -204,6 +204,34 @@ public class FileUtil {
         }
     }
 
+    /**
+     * 移动指定文件夹下所有文件到目标文件夹下
+     *
+     * @param baseDir
+     * @param srcForder
+     * @param destFolder
+     */
+    public static void mvFile(String baseDir, String srcForder, String destFolder) {
+        baseDir = baseDir.endsWith(File.separator) ? baseDir : baseDir + File.separator;
+        srcForder = baseDir + (srcForder.endsWith(File.separator) ? srcForder : srcForder + File.separator);
+        destFolder = baseDir + (destFolder.endsWith(File.separator) ? destFolder : destFolder + File.separator);
+        File srcFile = new File(srcForder);
+        if (!srcFile.exists() || !srcFile.isDirectory()) return;
+
+        File[] files = srcFile.listFiles();
+        for (File file : files) {
+            if (file.isDirectory()) continue;
+            String fileName = file.getName();
+            file.renameTo(new File(destFolder + fileName));
+        }
+    }
+
+    /**
+     * 将指定文件移动到目标目录下
+     *
+     * @param srcFiles 源文件句柄集合
+     * @param dest     目标目录
+     */
     public static void mvFile(Set<File> srcFiles, String dest) {
         for (File f : srcFiles) {
             if (!f.exists()) continue;

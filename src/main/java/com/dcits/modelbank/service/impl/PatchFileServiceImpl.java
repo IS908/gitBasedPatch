@@ -88,6 +88,57 @@ public class PatchFileServiceImpl extends PatchFileService {
         String libDir = baseDir + tmpDir + "/" + myProperties.getPatchFolderName() + "/lib/";
         // 将匹配的文件移动到目标目录下
         FileUtil.mvFile(matchedFiles, libDir);
+
+        FileUtil.mvFile(baseDir,
+                myProperties.getClazzDir()
+                        .concat(Const.CONF)
+                        .concat(Const.busi_rule),
+                tmpDir.concat("/")
+                        .concat(myProperties.getPatchFolderName()).concat("/")
+                        .concat(Const.CONF)
+                        .concat(Const.busi_rule));
+        FileUtil.mvFile(baseDir,
+                myProperties.getClazzDir()
+                        .concat(Const.CONF)
+                        .concat(Const.check),
+                tmpDir.concat("/")
+                        .concat(myProperties.getPatchFolderName()).concat("/")
+                        .concat(Const.CONF)
+                        .concat(Const.check));
+        FileUtil.mvFile(baseDir,
+                myProperties.getClazzDir()
+                        .concat(Const.CONF)
+                        .concat(Const.check_rule),
+                tmpDir.concat("/")
+                        .concat(myProperties.getPatchFolderName()).concat("/")
+                        .concat(Const.CONF)
+                        .concat(Const.check_rule));
+        FileUtil.mvFile(baseDir,
+                myProperties.getClazzDir()
+                        .concat(Const.CONF)
+                        .concat(Const.db_rule),
+                tmpDir.concat("/")
+                        .concat(myProperties.getPatchFolderName()).concat("/")
+                        .concat(Const.CONF)
+                        .concat(Const.db_rule));
+        FileUtil.mvFile(baseDir,
+                myProperties.getClazzDir()
+                        .concat(Const.CONF)
+                        .concat(Const.mapping),
+                tmpDir.concat("/")
+                        .concat(myProperties.getPatchFolderName()).concat("/")
+                        .concat(Const.CONF)
+                        .concat(Const.mapping));
+        FileUtil.mvFile(baseDir,
+                myProperties.getClazzDir()
+                        .concat(Const.CONF)
+                        .concat(Const.trace),
+                tmpDir.concat("/")
+                        .concat(myProperties.getPatchFolderName()).concat("/")
+                        .concat(Const.CONF)
+                        .concat(Const.trace));
+
+        // 进行deleteList文件生成的处理
         String deleteListDir = baseDir +
                 myProperties.getCheckListDir() + "/" +
                 myProperties.getDeleteList();
