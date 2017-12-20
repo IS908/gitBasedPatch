@@ -162,19 +162,19 @@ if [ -e "${INCFILE_NEW}" ]; then
 fi
 
 ##签名jar包压缩到增量目标zip
-if [[ ${SIGN_FLAG} = "Y" ]]
-then
-    zip -q -r ${TARGET} ${SIGN_JAR}
-    if [[ "$?" = "0" ]]
-    then
-		echo "抽取签名jar包成功"
-    else
-		echo "抽取签名jar包失败..."
-		exit 1    
-    fi
-else
-    echo "无签名文件，不需要进行签名jar的压缩"
-fi
+# if [[ ${SIGN_FLAG} = "Y" ]]
+# then
+#     zip -q -r ${TARGET} ${SIGN_JAR}
+#     if [[ "$?" = "0" ]]
+#     then
+# 		echo "抽取签名jar包成功"
+#     else
+# 		echo "抽取签名jar包失败..."
+# 		exit 1    
+#     fi
+# else
+#     echo "无签名文件，不需要进行签名jar的压缩"
+# fi
 
 ##将SmartTeller9_1.0.0.jar公共包压缩到增量目标zip包
 zip -q -r ${TARGET} SmartTeller9/trans/SmartTeller9_1.0.0.jar

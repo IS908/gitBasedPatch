@@ -14,15 +14,18 @@ echo **********************************************************
 # 2、将更名后应用包mv到指定目录
 # 3、执行GET请求，调用OMS接口，通知OMS部署应用包的具体信息
 #
+#使用注意事项：
+#1、修改HOST_IP为部署服务器IP
+#2、为了防止不同环境下同名版本覆盖，在目标版本上加GOAL字段，即目标服务器ip最后一个数字，不同服务器使用，则修改该数字
 
 ######## Var Setting START ########
-HOST_IP=57.25.2.111
-GOAL=113
+#HOST_IP=57.25.2.111
+ID=`echo ${HOST_IP##*.}`
 FILE_TYPE=Full
 APP_NAME=EnsembleOM
 TAG_NAME=${APP_NAME}_${FILE_TYPE}_${TAG_NO}
-VERSION_NO=App_${TAG_NAME}
-TARGET=FAT_${GOAL}_${VERSION_NO}
+VERSION_NO=${ID}_App_${TAG_NAME}
+TARGET=FAT_${VERSION_NO}
 TMP_APP_NAME=ensemble-om-1.0.4-SNAPSHOT
 TEMP_DOCUMENT=${WORKSPACE}/target/${TMP_APP_NAME}-assembly/
 ######## Var Setting END ########

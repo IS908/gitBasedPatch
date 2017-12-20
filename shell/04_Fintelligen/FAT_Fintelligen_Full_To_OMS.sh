@@ -16,13 +16,13 @@ echo **********************************************************
 #
 
 ######## Var Setting START ########
-HOST_IP=57.25.2.111
-GOAL=113
+#HOST_IP=57.25.2.111
+ID=`echo ${HOST_IP##*.}`
 APP_NAME=Fintelligen
 FILE_TYPE=Full
 TAG_NAME=${APP_NAME}_${FILE_TYPE}_${TAG_NO}
-VERSION_NO=App_${TAG_NAME}
-TARGET=FAT_${GOAL}_${VERSION_NO}
+VERSION_NO=${ID}_App_${TAG_NAME}
+TARGET=FAT_${VERSION_NO}
 TMP_APP_NAME=fintelligen-integration
 TEMP_DOCUMENT=${WORKSPACE}/modules/fintelligen-integration/online-all-integration/target/${TMP_APP_NAME}-assembly
 ######## Var Setting END ########

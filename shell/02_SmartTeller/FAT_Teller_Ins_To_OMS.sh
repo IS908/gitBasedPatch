@@ -16,13 +16,14 @@ echo **********************************************************
 #
 
 ######## Var Setting START ########
-HOST_IP=57.25.2.111
-GOAL=113
+#HOST_IP=57.25.2.111
+ID=`echo ${HOST_IP##*.}`
 APP_NAME=SmartTeller9
 FILE_TYPE=Incr
 TAG_NAME=${APP_NAME}_${FILE_TYPE}_${TAG_NO}
-VERSION_NO=App_${TAG_NAME}
-TARGET=FAT_${GOAL}_${VERSION_NO}
+SOURCE=App_${TAG_NAME}
+VERSION_NO=${ID}_App_${TAG_NAME}
+TARGET=FAT_${VERSION_NO}
 TEMP_DOCUMENT=TEMP_TELLER9
 ######## Var Setting END ########
 CHECK_RESULT() {
@@ -39,7 +40,7 @@ fi
 mkdir ${TEMP_DOCUMENT}
 
 echo "增量版本包更名......"
-unzip -o -d ${TEMP_DOCUMENT}  ${VERSION_NO}.zip
+unzip -o -d ${TEMP_DOCUMENT}  ${SOURCE}.zip
 CHECK_RESULT
 cd ${TEMP_DOCUMENT}
 mv ${APP_NAME} ${TARGET}
