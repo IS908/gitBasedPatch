@@ -52,7 +52,12 @@ if [ -e "$INCFILE" ]; then
     done
 else
     echo ${MSG_NOT_EXIST_INCFILE}
+    exit 1
 fi
+
+echo "创建deleteList.txt"
+cd ${BUILD_PATH}/${DOCUMENT}
+echo > deleteList.txt
 
 # 进行增量report压缩
 cd ${BUILD_PATH}
