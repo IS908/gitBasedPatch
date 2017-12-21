@@ -34,7 +34,6 @@ CHECK_RESULT() {
 }
 echo "增量版本包更名......"
 cd ${TEMP_DOCUMENT}
-
 mv ${APP_NAME} ${TARGET}
 zip -q -r ${TARGET}.zip ${TARGET}
 CHECK_RESULT
