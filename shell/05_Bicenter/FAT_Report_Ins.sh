@@ -17,7 +17,7 @@ echo "开始Fintelligen Report增量版本构建"
 ######## Var Setting START ########
 FILE_PATH=`pwd`
 endfix=".xls"
-DOCUMENT=Report_Incr_${TAG_NO}
+DOCUMENT=FAT_Report_Incr_${TAG_NO}
 TARGET=${DOCUMENT}.zip
 BUILD_PATH=${FILE_PATH}
 INCFILE=${BUILD_PATH}/reportPatch/report_${INSFILE_NAME}.txt

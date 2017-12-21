@@ -19,7 +19,7 @@ echo **********************************************************
 #HOST_IP=57.25.2.111
 APP_NAME=BICENTER
 FILE_TYPE=Incr
-TARGET=Report_Incr_${TAG_NO}
+TARGET=UAT_${TAG_NAME}
 MSG_NOT_EXIST_INCFILE='不存在增量版本，不需要进行版本部署'
 ######## Var Setting END ########
 CHECK_RESULT() {

@@ -3,7 +3,7 @@ source ~/.bashrc
 
 echo **********************************************************
 echo **                                                      **
-echo **        FAT Fintelligen _Report To OMS Shell          **
+echo **        UAT Fintelligen _Report To OMS Shell          **
 echo **              http://www.dcits.com                    **
 echo **            author:zhangjig@dcits.com                 **
 echo **                                                      **
@@ -18,7 +18,7 @@ echo **********************************************************
 #HOST_IP=57.25.2.111
 APP_NAME=BICENTER
 FILE_TYPE=Full
-TARGET=Report_Full_${TAG_NO}
+TARGET=UAT_${TAG_NAME}
 ######## Var Setting END ########
 CHECK_RESULT() {
     if [[ "$?" != "0" ]]
