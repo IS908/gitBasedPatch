@@ -20,7 +20,7 @@ DEPLOY_INCR() {
 DEPLOY_INCR
 
 # 向OMS发送通知
-RESULT=`curl -G -i ${OMS_URL}?hostIp=${hostIp}\&moType=${moType}\&versionNo=${versionNo}\&fileType=${fileType}\&fileName=${fileName}`
+RESULT=`curl -G -i ${OMS_URL}?hostIp=${hostIp}\&moType=${moType}\&versionNo=${versionNo}\&fileType=${fileType}\&fileName=${fileName}\&userId=${PROD_USER}`
 
 if [[ "${RESULT}" =~ "success" ]]
 then
