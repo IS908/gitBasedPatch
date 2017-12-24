@@ -2,10 +2,10 @@
 
 hostIp=57.25.2.111
 moType=ModelBank
-versionNo=FAT_113_${TAG_NAME}
+versionNo=UAT_113_${TAG_NAME}
 fileType=Full
 fileName=${versionNo}.tar.gz
-OMS_HOME=/app/dcits/oms/jenkins_space
+#OMS_HOME=/app/dcits/oms/jenkins_space
 TARGET=${WORKSPACE}/modules/modelBank-all-integration/target
 
 
@@ -21,12 +21,13 @@ DEPLOY_FULL() {
 DEPLOY_FULL
 
 # 向OMS发送通知
-RESULT=`curl -G -i http://57.25.2.137:9991/oms/jenkinsPostVersion?hostIp=${hostIp}\&moType=${moType}\&versionNo=${versionNo}\&fileType=${fileType}\&fileName=${fileName}`
+RESULT=`curl -G -i ${OMS_URL}?hostIp=${hostIp}\&moType=${moType}\&versionNo=${versionNo}\&fileType=${fileType}\&fileName=${fileName}`
 
 if [[ "${RESULT}" =~ "success" ]]
 then
      echo "调用OMS平台成功......"
 else
     echo "调用OMS平台失败......"
+    echo "失败原因："${RESULT}
     exit 1
 fi
