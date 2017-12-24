@@ -20,7 +20,7 @@ echo **********************************************************
 APP_NAME=Fintelligen
 FILE_TYPE=Full
 #TAG_NAME=${APP_NAME}_Full_${TAG_NO}
-VERSION_NO=${HOST_IP}_App_${TAG_NAME}
+VERSION_NO=${HOST_IP}_${TAG_NAME}
 TARGET=${VERSION_NO}
 TMP_APP_NAME=fintelligen-integration
 TEMP_DOCUMENT=${WORKSPACE}/modules/fintelligen-integration/online-all-integration/target/${TMP_APP_NAME}-assembly

@@ -20,7 +20,7 @@ echo **********************************************************
 FILE_TYPE=Full
 APP_NAME=EnsembleOM
 TAG_NAME=${APP_NAME}_${FILE_TYPE}_${TAG_NO}
-VERSION_NO=${HOST_IP}_App_${TAG_NAME}
+VERSION_NO=${HOST_IP}_${TAG_NAME}
 TARGET=${VERSION_NO}
 TMP_APP_NAME=ensemble-om-1.0.4-SNAPSHOT
 TEMP_DOCUMENT=${WORKSPACE}/target/${TMP_APP_NAME}-assembly/
