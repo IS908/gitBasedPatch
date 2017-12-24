@@ -1,9 +1,8 @@
 #!/bin/bash
 
 #hostIp=57.25.2.111
-type=Prod_A
 moType=ModelBank
-versionNo=${type}_${TAG_NAME}
+versionNo=${HOST_IP}_${TAG_NAME}
 fileType=Full
 fileName=${versionNo}.tar.gz
 #OMS_HOME=/app/dcits/oms/jenkins_space
@@ -22,7 +21,7 @@ DEPLOY_FULL() {
 DEPLOY_FULL
 
 # 向OMS发送通知
-RESULT=`curl -G -i ${OMS_URL}?hostIp=${hostIp}\&moType=${moType}\&versionNo=${versionNo}\&fileType=${fileType}\&fileName=${fileName}\&userId=${PROD_USER}`
+RESULT=`curl -G -i ${OMS_URL}?hostIp=${HOST_IP}\&moType=${moType}\&versionNo=${versionNo}\&fileType=${fileType}\&fileName=${fileName}\&userId=${PROD_USER}`
 
 if [[ "${RESULT}" =~ "success" ]]
 then

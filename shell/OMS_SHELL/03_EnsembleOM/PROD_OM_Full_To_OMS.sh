@@ -17,12 +17,10 @@ echo **********************************************************
 
 ######## Var Setting START ########
 #HOST_IP=57.25.2.111
-#ID=`echo ${HOST_IP##*.}`
-TYPE=Prod_A
 FILE_TYPE=Full
 APP_NAME=EnsembleOM
 TAG_NAME=${APP_NAME}_${FILE_TYPE}_${TAG_NO}
-VERSION_NO=${TYPE}_App_${TAG_NAME}
+VERSION_NO=${HOST_IP}_App_${TAG_NAME}
 TARGET=${VERSION_NO}
 TMP_APP_NAME=ensemble-om-1.0.4-SNAPSHOT
 TEMP_DOCUMENT=${WORKSPACE}/target/${TMP_APP_NAME}-assembly/

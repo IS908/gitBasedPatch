@@ -17,13 +17,11 @@ echo **********************************************************
 
 ######## Var Setting START ########
 #HOST_IP=57.25.2.111
-#ID=`echo ${HOST_IP##*.}`
-TYPE=Prod_A
 APP_NAME=SmartTeller9
 FILE_TYPE=Incr
 #TAG_NAME=${APP_NAME}_${FILE_TYPE}_${TAG_NO}
 SOURCE=App_${TAG_NAME}
-VERSION_NO=${TYPE}_App_${TAG_NAME}
+VERSION_NO=${HOST_IP}_App_${TAG_NAME}
 TARGET${VERSION_NO}
 TEMP_DOCUMENT=TEMP_TELLER9
 ######## Var Setting END ########
