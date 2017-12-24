@@ -17,10 +17,9 @@ echo **********************************************************
 
 ######## Var Setting START ########
 #HOST_IP=57.25.2.111
-TYPE=Prod
 APP_NAME=BICENTER
 FILE_TYPE=Incr
-TARGET=${TYPE}_${TAG_NAME}
+TARGET=${HOST_IP}_${TAG_NAME}
 MSG_NOT_EXIST_INCFILE='不存在增量版本，不需要进行版本部署'
 ######## Var Setting END ########
 CHECK_RESULT() {
@@ -42,7 +41,7 @@ mv ${TARGET}.zip ${OMS_HOME}
 CHECK_RESULT
 
 echo "编译成功,通知OMS....."
-RESULT=`curl -G -i -S ${OMS_URL}?hostIp=${HOST_IP}\&moType=${APP_NAME}\&versionNo=${TARGET}\&fileType=${FILE_TYPE}\&fileName=${TARGET}.zip`
+RESULT=`curl -G -i -S ${OMS_URL}?hostIp=${HOST_IP}\&moType=${APP_NAME}\&versionNo=${TARGET}\&fileType=${FILE_TYPE}\&fileName=${TARGET}.zip\&userId=${PROD_USER}`
 if [[ "${RESULT}" =~ "success" ]]
 then
      echo "调用OMS平台成功......"
