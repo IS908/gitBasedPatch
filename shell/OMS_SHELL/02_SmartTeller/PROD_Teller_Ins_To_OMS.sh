@@ -3,7 +3,7 @@ source ~/.bashrc
 
 echo **********************************************************
 echo **                                                      **
-echo **            UAT OM To OMS Shell                       **
+echo **           PROD Teller9 To OMS Shell                  **
 echo **              http://www.dcits.com                    **
 echo **            author:zhangjig@dcits.com                 **
 echo **                                                      **
@@ -16,15 +16,14 @@ echo **********************************************************
 #
 
 ######## Var Setting START ########
-HOST_IP=57.25.2.111
-GOAL=113
-FILE_TYPE=Full
-APP_NAME=EnsembleOM
-TAG_NAME=${APP_NAME}_${FILE_TYPE}_${TAG_NO}
-VERSION_NO=App_${TAG_NAME}
-TARGET=FAT_${GOAL}_${VERSION_NO}
-TMP_APP_NAME=ensemble-om-1.0.4-SNAPSHOT
-TEMP_DOCUMENT=${WORKSPACE}/target/${TMP_APP_NAME}-assembly/
+#HOST_IP=57.25.2.111
+APP_NAME=SmartTeller9
+FILE_TYPE=Incr
+#TAG_NAME=${APP_NAME}_${FILE_TYPE}_${TAG_NO}
+SOURCE=App_${TAG_NAME}
+VERSION_NO=${HOST_IP}_${TAG_NAME}
+TARGET=${VERSION_NO}
+TEMP_DOCUMENT=TEMP_TELLER9
 ######## Var Setting END ########
 CHECK_RESULT() {
     if [[ "$?" != "0" ]]
@@ -33,9 +32,20 @@ CHECK_RESULT() {
         exit 1    
     fi
 }
+
+if [[ -d ${TEMP_DOCUMENT} ]];then
+    rm -rf ${TEMP_DOCUMENT}
+fi
+mkdir ${TEMP_DOCUMENT}
+
 echo "增量版本包更名......"
+unzip -o -d ${TEMP_DOCUMENT}  ${SOURCE}.zip
+CHECK_RESULT
 cd ${TEMP_DOCUMENT}
-mv ${TMP_APP_NAME} ${TARGET}
+mv ${APP_NAME} ${TARGET}
+cd ${TARGET}
+echo  > deleteList.txt
+cd ../
 zip -q -r ${TARGET}.zip ${TARGET}
 CHECK_RESULT
 
@@ -44,7 +54,7 @@ mv ${TARGET}.zip ${OMS_HOME}
 CHECK_RESULT
 
 echo "编译成功,通知OMS....."
-RESULT=`curl -G -i -S ${OMS_URL}?hostIp=${HOST_IP}\&moType=${APP_NAME}\&versionNo=${VERSION_NO}\&fileType=${FILE_TYPE}\&fileName=${TARGET}.zip`
+RESULT=`curl -G -i -S ${OMS_URL}?hostIp=${HOST_IP}\&moType=${APP_NAME}\&versionNo=${VERSION_NO}\&fileType=${FILE_TYPE}\&fileName=${TARGET}.zip\&userId=${PROD_USER}`
 if [[ "${RESULT}" =~ "success" ]]
 then
      echo "调用OMS平台成功......"

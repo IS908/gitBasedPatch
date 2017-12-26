@@ -3,7 +3,7 @@ source ~/.bashrc
 
 echo **********************************************************
 echo **                                                      **
-echo **            FAT OM To OMS Shell                       **
+echo **           PROD Teller9 To OMS Shell                  **
 echo **              http://www.dcits.com                    **
 echo **            author:zhangjig@dcits.com                 **
 echo **                                                      **
@@ -16,15 +16,13 @@ echo **********************************************************
 #
 
 ######## Var Setting START ########
-HOST_IP=57.25.2.111
-GOAL=113
+#HOST_IP=57.25.2.111
+APP_NAME=SmartTeller9
 FILE_TYPE=Full
-APP_NAME=EnsembleOM
-TAG_NAME=${APP_NAME}_${FILE_TYPE}_${TAG_NO}
-VERSION_NO=App_${TAG_NAME}
-TARGET=FAT_${GOAL}_${VERSION_NO}
-TMP_APP_NAME=ensemble-om-1.0.4-SNAPSHOT
-TEMP_DOCUMENT=${WORKSPACE}/target/${TMP_APP_NAME}-assembly/
+#TAG_NAME=${APP_NAME}_${FILE_TYPE}_${TAG_NO}
+SOURCE=App_${TAG_NAME}
+VERSION_NO=${HOST_IP}_${TAG_NAME}
+TARGET=${VERSION_NO}
 ######## Var Setting END ########
 CHECK_RESULT() {
     if [[ "$?" != "0" ]]
@@ -33,9 +31,16 @@ CHECK_RESULT() {
         exit 1    
     fi
 }
+
+if [[ -d ${TARGET} ]];then
+    rm -rf ${TARGET}
+fi
+mkdir ${TARGET}
+
 echo "增量版本包更名......"
-cd ${TEMP_DOCUMENT}
-mv ${TMP_APP_NAME} ${TARGET}
+unzip -o -d ${TARGET}  ${SOURCE}.zip
+CHECK_RESULT
+
 zip -q -r ${TARGET}.zip ${TARGET}
 CHECK_RESULT
 
@@ -44,7 +49,7 @@ mv ${TARGET}.zip ${OMS_HOME}
 CHECK_RESULT
 
 echo "编译成功,通知OMS....."
-RESULT=`curl -G -i -S ${OMS_URL}?hostIp=${HOST_IP}\&moType=${APP_NAME}\&versionNo=${VERSION_NO}\&fileType=${FILE_TYPE}\&fileName=${TARGET}.zip`
+RESULT=`curl -G -i -S ${OMS_URL}?hostIp=${HOST_IP}\&moType=${APP_NAME}\&versionNo=${VERSION_NO}\&fileType=${FILE_TYPE}\&fileName=${TARGET}.zip\&userId=${PROD_USER}`
 if [[ "${RESULT}" =~ "success" ]]
 then
      echo "调用OMS平台成功......"

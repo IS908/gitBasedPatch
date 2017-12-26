@@ -3,7 +3,7 @@ source ~/.bashrc
 
 echo **********************************************************
 echo **                                                      **
-echo **            UAT OM To OMS Shell                       **
+echo **             PROD OM To OMS Shell                     **
 echo **              http://www.dcits.com                    **
 echo **            author:zhangjig@dcits.com                 **
 echo **                                                      **
@@ -16,13 +16,12 @@ echo **********************************************************
 #
 
 ######## Var Setting START ########
-HOST_IP=57.25.2.111
-GOAL=113
+#HOST_IP=57.25.2.111
 APP_NAME=EnsembleOM
 FILE_TYPE=Incr
 #TAG_NAME=EnsembleOM_Ins_${TAG_NO}
-VERSION_NO=App_${TAG_NAME}
-TARGET=FAT_${GOAL}_${VERSION_NO}
+VERSION_NO=${HOST_IP}_${TAG_NAME}
+TARGET=${VERSION_NO}
 TEMP_DOCUMENT=${WORKSPACE}/target/PatchTmp
 ######## Var Setting END ########
 CHECK_RESULT() {
@@ -34,7 +33,6 @@ CHECK_RESULT() {
 }
 echo "增量版本包更名......"
 cd ${TEMP_DOCUMENT}
-
 mv ${APP_NAME} ${TARGET}
 zip -q -r ${TARGET}.zip ${TARGET}
 CHECK_RESULT
@@ -44,7 +42,7 @@ mv ${TARGET}.zip ${OMS_HOME}
 CHECK_RESULT
 
 echo "编译成功,通知OMS....."
-RESULT=`curl -G -i -S ${OMS_URL}?hostIp=${HOST_IP}\&moType=${APP_NAME}\&versionNo=${VERSION_NO}\&fileType=${FILE_TYPE}\&fileName=${TARGET}.zip`
+RESULT=`curl -G -i -S ${OMS_URL}?hostIp=${HOST_IP}\&moType=${APP_NAME}\&versionNo=${VERSION_NO}\&fileType=${FILE_TYPE}\&fileName=${TARGET}.zip\&userId=${PROD_USER}`
 if [[ "${RESULT}" =~ "success" ]]
 then
      echo "调用OMS平台成功......"

@@ -1,8 +1,8 @@
 #!/bin/bash
 
-hostIp=57.25.2.111
+#hostIp=57.25.2.111
 moType=ModelBank
-versionNo=UAT_113_${TAG_NAME}
+versionNo=${HOST_IP}_${TAG_NAME}
 fileType=Full
 fileName=${versionNo}.tar.gz
 #OMS_HOME=/app/dcits/oms/jenkins_space
@@ -21,13 +21,12 @@ DEPLOY_FULL() {
 DEPLOY_FULL
 
 # 向OMS发送通知
-RESULT=`curl -G -i ${OMS_URL}?hostIp=${hostIp}\&moType=${moType}\&versionNo=${versionNo}\&fileType=${fileType}\&fileName=${fileName}`
+RESULT=`curl -G -i ${OMS_URL}?hostIp=${HOST_IP}\&moType=${moType}\&versionNo=${versionNo}\&fileType=${fileType}\&fileName=${fileName}\&userId=${PROD_USER}`
 
 if [[ "${RESULT}" =~ "success" ]]
 then
      echo "调用OMS平台成功......"
 else
     echo "调用OMS平台失败......"
-    echo "失败原因："${RESULT}
     exit 1
 fi

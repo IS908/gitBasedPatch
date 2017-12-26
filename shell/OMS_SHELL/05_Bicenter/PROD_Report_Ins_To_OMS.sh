@@ -3,7 +3,7 @@ source ~/.bashrc
 
 echo **********************************************************
 echo **                                                      **
-echo **           FAT Teller9 To OMS Shell                   **
+echo **		    PROD Report To OMS Shell		     **
 echo **              http://www.dcits.com                    **
 echo **            author:zhangjig@dcits.com                 **
 echo **                                                      **
@@ -16,14 +16,11 @@ echo **********************************************************
 #
 
 ######## Var Setting START ########
-HOST_IP=57.25.2.111
-GOAL=113
-APP_NAME=SmartTeller9
+#HOST_IP=57.25.2.111
+APP_NAME=BICENTER
 FILE_TYPE=Incr
-TAG_NAME=${APP_NAME}_${FILE_TYPE}_${TAG_NO}
-VERSION_NO=App_${TAG_NAME}
-TARGET=FAT_${GOAL}_${VERSION_NO}
-TEMP_DOCUMENT=TEMP_TELLER9
+TARGET=${HOST_IP}_${TAG_NAME}
+MSG_NOT_EXIST_INCFILE='不存在增量版本，不需要进行版本部署'
 ######## Var Setting END ########
 CHECK_RESULT() {
     if [[ "$?" != "0" ]]
@@ -32,29 +29,19 @@ CHECK_RESULT() {
         exit 1    
     fi
 }
+##判断是否存在增量文件
+if [ ! -f ${TARGET}.zip ]; then
+    echo ${MSG_NOT_EXIST_INCFILE}
+    exit 1
+fi 
 
-if [[ -d ${TEMP_DOCUMENT} ]];then
-    rm -rf ${TEMP_DOCUMENT}
-fi
-mkdir ${TEMP_DOCUMENT}
-
-echo "增量版本包更名......"
-unzip -o -d ${TEMP_DOCUMENT}  ${VERSION_NO}.zip
-CHECK_RESULT
-cd ${TEMP_DOCUMENT}
-mv ${APP_NAME} ${TARGET}
-cd ${TARGET}
-echo  > deleteList.txt
-cd ../
-zip -q -r ${TARGET}.zip ${TARGET}
-CHECK_RESULT
 
 echo "增量版本包移动到指定目录"
 mv ${TARGET}.zip ${OMS_HOME}
 CHECK_RESULT
 
 echo "编译成功,通知OMS....."
-RESULT=`curl -G -i -S ${OMS_URL}?hostIp=${HOST_IP}\&moType=${APP_NAME}\&versionNo=${VERSION_NO}\&fileType=${FILE_TYPE}\&fileName=${TARGET}.zip`
+RESULT=`curl -G -i -S ${OMS_URL}?hostIp=${HOST_IP}\&moType=${APP_NAME}\&versionNo=${TARGET}\&fileType=${FILE_TYPE}\&fileName=${TARGET}.zip\&userId=${PROD_USER}`
 if [[ "${RESULT}" =~ "success" ]]
 then
      echo "调用OMS平台成功......"

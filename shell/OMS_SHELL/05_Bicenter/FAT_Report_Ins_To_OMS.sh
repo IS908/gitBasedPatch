@@ -3,7 +3,7 @@ source ~/.bashrc
 
 echo **********************************************************
 echo **                                                      **
-echo **           FAT Teller9 To OMS Shell                   **
+echo **        FAT Fintelligen _Report To OMS Shell          **
 echo **              http://www.dcits.com                    **
 echo **            author:zhangjig@dcits.com                 **
 echo **                                                      **
@@ -16,13 +16,11 @@ echo **********************************************************
 #
 
 ######## Var Setting START ########
-HOST_IP=57.25.2.111
-GOAL=113
-APP_NAME=SmartTeller9
-FILE_TYPE=Full
-TAG_NAME=${APP_NAME}_${FILE_TYPE}_${TAG_NO}
-VERSION_NO=App_${TAG_NAME}
-TARGET=FAT_${GOAL}_${VERSION_NO}
+#HOST_IP=57.25.2.111
+APP_NAME=BICENTER
+FILE_TYPE=Incr
+TARGET=FAT_Report_Incr_${TAG_NO}
+MSG_NOT_EXIST_INCFILE='不存在增量版本，不需要进行版本部署'
 ######## Var Setting END ########
 CHECK_RESULT() {
     if [[ "$?" != "0" ]]
@@ -31,25 +29,19 @@ CHECK_RESULT() {
         exit 1    
     fi
 }
+##判断是否存在增量文件
+if [ ! -f ${TARGET}.zip ]; then
+    echo ${MSG_NOT_EXIST_INCFILE}
+    exit 1
+fi 
 
-if [[ -d ${TARGET} ]];then
-    rm -rf ${TARGET}
-fi
-mkdir ${TARGET}
-
-echo "增量版本包更名......"
-unzip -o -d ${TARGET}  ${VERSION_NO}.zip
-CHECK_RESULT
-
-zip -q -r ${TARGET}.zip ${TARGET}
-CHECK_RESULT
 
 echo "增量版本包移动到指定目录"
 mv ${TARGET}.zip ${OMS_HOME}
 CHECK_RESULT
 
 echo "编译成功,通知OMS....."
-RESULT=`curl -G -i -S ${OMS_URL}?hostIp=${HOST_IP}\&moType=${APP_NAME}\&versionNo=${VERSION_NO}\&fileType=${FILE_TYPE}\&fileName=${TARGET}.zip`
+RESULT=`curl -G -i -S ${OMS_URL}?hostIp=${HOST_IP}\&moType=${APP_NAME}\&versionNo=${TARGET}\&fileType=${FILE_TYPE}\&fileName=${TARGET}.zip`
 if [[ "${RESULT}" =~ "success" ]]
 then
      echo "调用OMS平台成功......"
