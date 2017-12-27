@@ -21,7 +21,7 @@ ID=`echo ${HOST_IP##*.}`
 FILE_TYPE=Incr
 APP_NAME=EnsembleOM
 TAG_NAME=${APP_NAME}_${FILE_TYPE}_${TAG_NO}
-VERSION_NO=${ID}_App_${TAG_NAME}
+VERSION_NO=${ID}_${TAG_NAME}
 TARGET=FAT_${VERSION_NO}
 TEMP_DOCUMENT=${WORKSPACE}/target/PatchTmp
 ######## Var Setting END ########
