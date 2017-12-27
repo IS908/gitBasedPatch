@@ -21,7 +21,7 @@ ID=`echo ${HOST_IP##*.}`
 APP_NAME=Fintelligen
 FILE_TYPE=Incr
 #TAG_NAME=Fintelligen_Ins_${TAG_NO}
-VERSION_NO=${ID}_App_${TAG_NAME}
+VERSION_NO=${ID}_${TAG_NAME}
 TARGET=UAT_${VERSION_NO}
 TEMP_DOCUMENT=${WORKSPACE}/modules/fintelligen-integration/online-all-integration/target/PatchTmp 
 ######## Var Setting END ########
