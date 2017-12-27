@@ -11,6 +11,10 @@ import org.springframework.stereotype.Component;
 @Component
 public class MyProperties {
     /**
+     * 读取最大日志条数记录
+     */
+    private Integer logCount;
+    /**
      * 应用名称
      */
     private String patchFolderName;
@@ -42,6 +46,15 @@ public class MyProperties {
      * 结果存放目录
      */
     protected String patchFileDir;
+
+    public Integer getLogCount() {
+        return logCount;
+    }
+
+    @Value("${git.log.count}")
+    public void setLogCount(Integer logCount) {
+        this.logCount = logCount;
+    }
 
     public String getPatchFolderName() {
         return patchFolderName;

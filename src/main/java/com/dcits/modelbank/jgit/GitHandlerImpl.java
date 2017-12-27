@@ -4,6 +4,7 @@ import com.dcits.modelbank.MyException.GitNoChangesException;
 import com.dcits.modelbank.jgit.helper.GitHelper;
 import com.dcits.modelbank.jgit.helper.PullEnum;
 import com.dcits.modelbank.model.FileDiffEntry;
+import com.dcits.modelbank.model.MyProperties;
 import com.dcits.modelbank.utils.Const;
 import com.dcits.modelbank.utils.DateUtil;
 import org.eclipse.jgit.api.*;
@@ -25,6 +26,7 @@ import org.eclipse.jgit.treewalk.filter.PathFilterGroup;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.annotation.Resource;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -40,11 +42,17 @@ public class GitHandlerImpl extends GitHandler {
     private static final Logger logger = LoggerFactory.getLogger(GitHandlerImpl.class);
     private static SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
+    @Resource
+    private MyProperties myProperties;
 
     private BaseFilePathHandler baseFilePathHandler;
 
     public GitHandlerImpl(GitHelper gitHelper) {
         super(gitHelper);
+    }
+
+    public void setMyProperties(MyProperties myProperties) {
+        this.myProperties = myProperties;
     }
 
     /**
@@ -124,7 +132,7 @@ public class GitHandlerImpl extends GitHandler {
         List<RevCommit> commits = new ArrayList<>(64);
         try {
             LogCommand logCmd = git.log();
-            logCmd.setMaxCount(1024);
+            logCmd.setMaxCount(myProperties.getLogCount());
             Iterable<RevCommit> logCommit = logCmd.call();
             Iterator<RevCommit> iterator = logCommit.iterator();
             while (iterator.hasNext()) {
@@ -146,7 +154,7 @@ public class GitHandlerImpl extends GitHandler {
         List<RevCommit> commits = new ArrayList<>(64);
         try {
             LogCommand logCmd = git.log();
-            logCmd.setMaxCount(512);
+            logCmd.setMaxCount(myProperties.getLogCount());
             Iterable<RevCommit> logCommit = logCmd.call();
             Iterator<RevCommit> iterator = logCommit.iterator();
             while (iterator.hasNext()) {
@@ -172,7 +180,7 @@ public class GitHandlerImpl extends GitHandler {
         List<RevCommit> commits = new ArrayList<>(64);
         try {
             LogCommand logCmd = git.log();
-            logCmd.setMaxCount(512);
+            logCmd.setMaxCount(myProperties.getLogCount());
             Iterable<RevCommit> logCommit = logCmd.call();
             Iterator<RevCommit> iterator = logCommit.iterator();
             while (iterator.hasNext()) {
@@ -193,7 +201,7 @@ public class GitHandlerImpl extends GitHandler {
         Iterable<RevCommit> logCommit = null;
         try (Git git = gitHelper.getGitInstance()) {
             LogCommand logCmd = git.log();
-            logCmd.setMaxCount(128);
+            logCmd.setMaxCount(myProperties.getLogCount());
             logCommit = logCmd.call();
             Iterator<RevCommit> iterator = logCommit.iterator();
             while (iterator.hasNext()) {
