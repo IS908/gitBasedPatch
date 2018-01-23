@@ -1,8 +1,9 @@
 package com.dcits.modelbank.service;
 
 import com.dcits.modelbank.extract.BasePatchExtractHandler;
+import com.dcits.modelbank.model.MyProperties;
 
-import java.io.File;
+import javax.annotation.Resource;
 import java.util.List;
 
 /**
@@ -13,8 +14,8 @@ import java.util.List;
 public abstract class PatchFileService {
     protected BasePatchExtractHandler basePatchExtractHandler;
 
-    protected String clazzDir;
-    protected String resultDir;
+    @Resource
+    protected MyProperties myProperties;
 
     protected String patchFileDir;
     protected List<String> patchFilePrefix;
@@ -27,7 +28,7 @@ public abstract class PatchFileService {
     /**
      * 进行增量文件的抽取
      */
-    public abstract void patchFileExecute(String baseDir);
+    public abstract void patchFileExecute(String baseDir, String fileNumber);
 
     public BasePatchExtractHandler getBasePatchExtractHandler() {
         return basePatchExtractHandler;
@@ -37,19 +38,11 @@ public abstract class PatchFileService {
         this.basePatchExtractHandler = basePatchExtractHandler;
     }
 
-    public String getClazzDir() {
-        return clazzDir;
+    public MyProperties getMyProperties() {
+        return myProperties;
     }
 
-    public void setClazzDir(String clazzDir) {
-        this.clazzDir = clazzDir.endsWith(File.separator) ? clazzDir : clazzDir + File.separator;
-    }
-
-    public String getResultDir() {
-        return resultDir;
-    }
-
-    public void setResultDir(String resultDir) {
-        this.resultDir = resultDir.endsWith(File.separator) ? resultDir : resultDir + File.separator;
+    public void setMyProperties(MyProperties myProperties) {
+        this.myProperties = myProperties;
     }
 }

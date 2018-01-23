@@ -12,6 +12,8 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import java.util.Objects;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Created on 2017-11-15 15:34.
@@ -42,8 +44,7 @@ public class Main {
             gitHelper.setRootDir(baseDir + gitHelper.getRootDir());
             String sourceDir = gitHelper.getSourceDir();
             sourceDir = baseDir + (Objects.equals("@", sourceDir) ? "" : sourceDir);
-            gitHelper.setSourceDir(sourceDir.endsWith("/") ?
-                    sourceDir : sourceDir + "/");
+            gitHelper.setSourceDir(sourceDir.endsWith("/") ? sourceDir : sourceDir + "/");
             XmlBulider xmlBulider = gitService.getXmlBulider();
             xmlBulider.setXmlFilePath(baseDir + xmlBulider.getXmlFilePath());
         }
@@ -54,29 +55,36 @@ public class Main {
         extractHandler.setResultDir(baseDir + extractHandler.getResultDir());
 
         patchFileExecute = context.getBean(PatchFileService.class);
-
     }
 
     public static void main(String[] args) {
-        if (args.length > 4 || args.length < 3) {
-            System.out.println("请指定命令参数，默认操作命令如下：[xml/zip] [gitDir] [sourceDir] [clazzDir] [resultDir]");
+        if (args.length > 5 || args.length < 4) {
+            System.out.println("请指定命令参数，默认操作命令如下：[xml/zip] [baseDir] [patchYml] [TagStart]");
+            System.out.println("或者：[xml/zip] [baseDir] [patchYml] [TagStart] [TagEnd]");
             System.out.println("xml：生成增量描述文件/zip：进行增量文件抽取；");
-            System.out.println("baseDir：抽取增量项目跟路径");
+            System.out.println("baseDir：抽取增量项目跟路径；");
+            System.out.println("patchYml：抽取第三方包日期编号前缀；");
             System.out.println("beginTag：抽取增量起始Tag；");
             System.out.println("endTag：抽取增量结束Tag【该参数为空则取到当前时间的记录】");
             return;
         }
         Main main = new Main(args);
         String cmd = args[0].trim();
-        String startTag = args[2].trim();
-        String endTag = args.length == 4 ? args[3].trim() : null;
+        String patchPrefix = args[2].trim();
+        String regEx = "^\\d+$";
+        Pattern pattern = Pattern.compile(regEx);
+        Matcher matcher = pattern.matcher(patchPrefix);
+        patchPrefix = matcher.matches() ? patchPrefix : "";
+        logger.info("patchPrefix:" + patchPrefix);
+        String startTag = args[3].trim();
+        String endTag = args.length == 5 ? args[4].trim() : null;
         switch (cmd) {
             case "xml":
                 main.genXmlPatchList(startTag, endTag);
                 System.out.println("增量描述文件抽取生成完毕！");
                 break;
             case "zip":
-                main.patchFileExecute.patchFileExecute(main.baseDir);
+                main.patchFileExecute.patchFileExecute(main.baseDir, patchPrefix);
                 System.out.println("增量包生成完毕！");
                 break;
             default:

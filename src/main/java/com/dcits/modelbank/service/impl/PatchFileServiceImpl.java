@@ -2,14 +2,15 @@ package com.dcits.modelbank.service.impl;
 
 import com.dcits.modelbank.service.PatchFileService;
 import com.dcits.modelbank.utils.*;
+import com.fasterxml.jackson.dataformat.yaml.snakeyaml.Yaml;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.*;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Objects;
-import java.util.Set;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.*;
 
 /**
  * Created on 2017-12-07 00:36.
@@ -24,7 +25,7 @@ public class PatchFileServiceImpl extends PatchFileService {
     }
 
     @Override
-    public void patchFileExecute(String baseDir) {
+    public void patchFileExecute(String baseDir, String fileNumber) {
         String runDate = DateUtil.getRunDate();
         File file = new File(baseDir + patchFileDir);
         if (!file.exists()) {
@@ -34,42 +35,47 @@ public class PatchFileServiceImpl extends PatchFileService {
 
         Set<String> set = new HashSet<>();
         for (String prefix : patchFilePrefix) {
-            set.add(runDate + prefix + ".txt");
             set.add(runDate + prefix + ".xml");
         }
+
         Set<File> xmlFilePaths = new HashSet<>();
-        Set<File> txtFilePaths = new HashSet<>();
         File[] files = file.listFiles();
         for (File f : files) {
             if (f.isDirectory()) continue;
-//            logger.info(f.getName());
             if (set.contains(f.getName()) && f.getName().endsWith(".xml")) xmlFilePaths.add(f);
-            else if (set.contains(f.getName()) && f.getName().endsWith(".txt")) txtFilePaths.add(f);
         }
-        Set<String> specificPatchList = XmlReader.getAllModuleName(xmlFilePaths);
-        Set<String> matchPatchList = new HashSet<>(), deletePatchList = new HashSet<>();
+        Set<String> specificPatchSet = XmlReader.getAllModuleName(xmlFilePaths);
 
-        // 进行txt文件的处理
-        txtFileList(txtFilePaths, specificPatchList, matchPatchList, deletePatchList);
-
+        Set<String> matchPatchSet = new HashSet<>(), deletePatchSet = new HashSet<>();
+        String filePath = baseDir + myProperties.getCheckListDir() + "/" +
+                fileNumber + myProperties.getCheckListSurfix() + ".yml";
+        logger.info(fileNumber);
+        logger.info("yml:" + filePath);
+        // 模糊匹配列表和删除列表的处理
+        yamlPaser(filePath, specificPatchSet, matchPatchSet, deletePatchSet);
 
         // 创建增量文件临时存放目录
-        String tmpDir = resultDir + Const.PATCH_TMP_FOLDER;
+        String tmpDir = myProperties.getResultDir() + "/" + Const.PATCH_TMP_FOLDER;
         File insTmpDir = new File(baseDir + tmpDir);
+        File insAppDir = new File(insTmpDir + "/" + myProperties.getPatchFolderName());
         if (insTmpDir.exists()) {
             logger.info("delete ：" + insTmpDir.getAbsolutePath());
             insTmpDir.delete();
         }
         insTmpDir.mkdir();
+        insAppDir.mkdir();
+
         // 复制部署包增量文件目录结构
         logger.info("mkdir :" + insTmpDir.getAbsolutePath());
         try {
-            FileUtil.copyFolder(new File(baseDir + clazzDir), insTmpDir);
+            FileUtil.copyFolder(new File(baseDir + myProperties.getClazzDir()), insAppDir);
         } catch (IOException e) {
             e.printStackTrace();
         }
         // 移动具体文件的增量文件到临时存放目录
-        FileUtil.mvFile(baseDir, clazzDir, tmpDir, specificPatchList);
+        FileUtil.mvFile(baseDir, myProperties.getClazzDir(),
+                tmpDir + "/" + myProperties.getPatchFolderName(),
+                specificPatchSet);
 
         /**
          * 开始进行前缀的模糊匹配
@@ -77,53 +83,126 @@ public class PatchFileServiceImpl extends PatchFileService {
          * 2、模糊匹配到增量文件后将其移动到增量文件临时目录
          */
         Set<File> matchedFiles = FileUtil.getMatchedFiles(
-                baseDir + clazzDir, matchPatchList);
+                baseDir + myProperties.getClazzDir(), matchPatchSet);
 
+        String libDir = baseDir + tmpDir + "/" + myProperties.getPatchFolderName() + "/lib/";
         // 将匹配的文件移动到目标目录下
-        FileUtil.mvFile(matchedFiles, baseDir + tmpDir + "/lib/");
-        FileUtil.fileReadLine(baseDir + "dbPatch/checkList/" + Const.DELETE_LIST, deletePatchList);
+        FileUtil.mvFile(matchedFiles, libDir);
 
-        FileUtil.writeFile(baseDir + tmpDir + "/" + Const.DELETE_LIST, deletePatchList);
+        FileUtil.mvFile(baseDir,
+                myProperties.getClazzDir()
+                        .concat(Const.CONF)
+                        .concat(Const.busi_rule),
+                tmpDir.concat("/")
+                        .concat(myProperties.getPatchFolderName()).concat("/")
+                        .concat(Const.CONF)
+                        .concat(Const.busi_rule));
+        FileUtil.mvFile(baseDir,
+                myProperties.getClazzDir()
+                        .concat(Const.CONF)
+                        .concat(Const.check),
+                tmpDir.concat("/")
+                        .concat(myProperties.getPatchFolderName()).concat("/")
+                        .concat(Const.CONF)
+                        .concat(Const.check));
+        FileUtil.mvFile(baseDir,
+                myProperties.getClazzDir()
+                        .concat(Const.CONF)
+                        .concat(Const.check_rule),
+                tmpDir.concat("/")
+                        .concat(myProperties.getPatchFolderName()).concat("/")
+                        .concat(Const.CONF)
+                        .concat(Const.check_rule));
+        FileUtil.mvFile(baseDir,
+                myProperties.getClazzDir()
+                        .concat(Const.CONF)
+                        .concat(Const.db_rule),
+                tmpDir.concat("/")
+                        .concat(myProperties.getPatchFolderName()).concat("/")
+                        .concat(Const.CONF)
+                        .concat(Const.db_rule));
+        FileUtil.mvFile(baseDir,
+                myProperties.getClazzDir()
+                        .concat(Const.CONF)
+                        .concat(Const.mapping),
+                tmpDir.concat("/")
+                        .concat(myProperties.getPatchFolderName()).concat("/")
+                        .concat(Const.CONF)
+                        .concat(Const.mapping));
+        FileUtil.mvFile(baseDir,
+                myProperties.getClazzDir()
+                        .concat(Const.CONF)
+                        .concat(Const.trace),
+                tmpDir.concat("/")
+                        .concat(myProperties.getPatchFolderName()).concat("/")
+                        .concat(Const.CONF)
+                        .concat(Const.trace));
 
-        ZipUtils.zip(baseDir, tmpDir, resultDir + Const.PATCH_ZIP_NAME);
+        // 进行deleteList文件生成的处理
+        String deleteListDir = baseDir +
+                myProperties.getCheckListDir() + "/" +
+                myProperties.getDeleteList();
+        FileUtil.fileReadLine(deleteListDir, deletePatchSet);
+
+        String deleteList = baseDir.concat(tmpDir).concat("/")
+                .concat(myProperties.getPatchFolderName()).concat("/")
+                .concat(myProperties.getDeleteList());
+        FileUtil.writeFile(deleteList, deletePatchSet);
+
+        String zipName = myProperties.getResultDir() + "/" + myProperties.getPatchZipName();
+        ZipUtils.zip(baseDir, tmpDir, zipName);
     }
 
     /**
-     * txt 日志文件的处理，增加符号* 的通配
+     * yaml文件解析，解析提交文件列表
      *
-     * @param txtFilePaths      待解析的文件列表
-     * @param specificPatchList 具体的增量Jar包列表
-     * @param matchPatchList    模糊匹配的增量Jar包列表
-     * @param deletePatchList   增量部署中要删除的旧包列表
+     * @param filePath
+     * @param matchPatchSet
+     * @param deletePatchSet
      */
-    private void txtFileList(Set<File> txtFilePaths, Set<String> specificPatchList,
-                             Set<String> matchPatchList, Set<String> deletePatchList) {
-        try {
-            for (File f : txtFilePaths) {
-                BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(f)));
-                String lineTxt;
-                while ((lineTxt = br.readLine()) != null) {
-                    String[] records = lineTxt.split(",");
-                    for (String record : records) {
-                        patchListRowDeal(record.trim(), specificPatchList, matchPatchList, deletePatchList);
+    private void yamlPaser(String filePath, Set<String> specificFileSet,
+                           Set<String> matchPatchSet, Set<String> deletePatchSet) {
+        Yaml yaml = new Yaml();
+        File ymlFile = new File(filePath);
+
+        if (ymlFile.exists()) {
+            try {
+                HashMap<String, List<String>> map = yaml.loadAs(new FileInputStream(ymlFile), HashMap.class);
+                List<String> deleteFiles = map.get("deleteFile");
+                List<String> matchFiles = map.get("matchFile");
+
+                if (!Objects.equals(deleteFiles, null)) {
+                    logger.info("deleteFile:" + deleteFiles.toString());
+                    for (String tmp : deleteFiles) deletePatchSet.add(tmp);
+                }
+                if (!Objects.equals(matchFiles, null)) {
+                    logger.info("matchFile:" + matchFiles.toString());
+                    for (String tmp : matchFiles) {
+                        if (!tmp.endsWith("*")) {
+                            specificFileSet.add(tmp);
+                        } else if (this.pathPattern(tmp)) {
+                            matchPatchSet.add(tmp);
+                            deletePatchSet.add(tmp);
+                        }
                     }
                 }
-                br.close();
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
             }
-        } catch (IOException e) {
-            e.printStackTrace();
         }
     }
 
-    private void patchListRowDeal(String row, Set<String> specificPatchList,
-                                  Set<String> matchPatchList, Set<String> deletePatchList) {
-        if (Objects.equals(null, row) || Objects.equals("", row)) return;
-        if (row.endsWith("*")) {
-            matchPatchList.add(row);
-            deletePatchList.add(row);
-        } else {
-            specificPatchList.add(row);
-        }
+    /**
+     * 模糊路径匹配规则校验
+     *
+     * @param path 带校验路径
+     * @return
+     */
+    private boolean pathPattern(String path) {
+        if (!path.endsWith("*")) return false;
+        String[] paths = path.split("/");
+        String str = paths[paths.length - 1];
+        return !Objects.equals(str.substring(0, 1), "*");
     }
 
 }
