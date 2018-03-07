@@ -63,14 +63,18 @@ public class GitHandlerImpl extends GitHandler {
         return false;
     }
 
-    @Override
-    public int commitTimeOfTag(String tag) {
-        int commitTime = -1;
+    /**
+     * 根据TagName获取对应的版本号
+     * @param tagName Tag名称
+     * @return
+     */
+    private RevCommit getIdByTag(String tagName) {
         try (Repository repository = gitHelper.openJGitRepository(); Git git = new Git(repository)) {
-            if (!tagExists(git, tag)) return commitTime;
+//            判断是否存在该tag
+            if (!tagExists(git, tagName)) return null;
             List<Ref> tagList = git.tagList().call();
             for (Ref ref : tagList) {
-                if (!Objects.equals(tag, ref.getName().substring(10).trim())) continue;
+                if (!Objects.equals(tagName, ref.getName().substring(10).trim())) continue;
                 // fetch all commits for this tag
                 LogCommand log = git.log();
                 Ref peeledRef = git.getRepository().peel(ref);
@@ -83,14 +87,19 @@ public class GitHandlerImpl extends GitHandler {
                 Iterator<RevCommit> revCommitIterator = logs.iterator();
                 if (revCommitIterator.hasNext()) {
                     RevCommit rev = revCommitIterator.next();
-                    commitTime = rev.getCommitTime();
+                    return rev;
                 }
                 break;
             }
         } catch (GitAPIException | MissingObjectException | IncorrectObjectTypeException e) {
             e.printStackTrace();
         }
-        return commitTime;
+        return null;
+    }
+
+    @Override
+    public int commitTimeOfTag(String tag) {
+        return this.getIdByTag(tag).getCommitTime();
     }
 
     @Override
@@ -111,20 +120,78 @@ public class GitHandlerImpl extends GitHandler {
         return blame;
     }
 
+
+    private List<RevCommit> getLogRevCommitByTag(Git git, String beginTag) {
+        String tagStartId = this.getIdByTag(beginTag).getId().getName();
+        logger.info("起始Tag：" + beginTag + " 对应版本号为：" + tagStartId);
+        List<RevCommit> commits = new ArrayList<>(64);
+        try {
+            LogCommand logCmd = git.log();
+            Iterable<RevCommit> logCommit = logCmd.call();
+            Iterator<RevCommit> iterator = logCommit.iterator();
+            while (iterator.hasNext()) {
+                RevCommit revCommit = iterator.next();
+                if (Objects.equals(revCommit.getId().name(), tagStartId)) break;
+                if (revCommit.getParentCount() != 1) continue;
+                commits.add(revCommit);
+            }
+        } catch (GitAPIException e) {
+            e.printStackTrace();
+        }
+        return commits;
+    }
+
+    /**
+     * 根据tagName对应的版本ID获取提交日志
+     * @param git
+     * @param beginTag
+     * @param endTag
+     * @return
+     */
+    private List<RevCommit> getLogRevCommitByTag(Git git, String beginTag, String endTag) {
+        String tagStartId = this.getIdByTag(beginTag).getId().name();
+        String tagEndId = this.getIdByTag(endTag).getId().name();
+        logger.info("起始Tag：" + beginTag + " 相对应的版本号：" + tagStartId);
+        logger.info("截止Tag：" + endTag + " 相对应的版本号：" + tagEndId);
+        List<RevCommit> commits = new ArrayList<>(64);
+
+        try {
+            LogCommand logCmd = git.log();
+//            logCmd.setRevFilter(RevFilter.NO_MERGES );    // tagStart、tagEnd有可能是标记在merge记录中，导致下面的比较出现问题，故排除此过滤
+            Iterable<RevCommit> logCommit = logCmd.call();
+            Iterator<RevCommit> iterator = logCommit.iterator();
+            while (iterator.hasNext()) {
+                RevCommit revCommit = iterator.next();
+                if (Objects.equals(revCommit.getId().name(), tagEndId)) break;
+            }
+            while (iterator.hasNext()) {
+                RevCommit revCommit = iterator.next();
+                if (Objects.equals(revCommit.getId().name(), tagStartId)) break;
+                if (revCommit.getParentCount() != 1) continue;
+                commits.add(revCommit);
+            }
+        } catch (GitAPIException e) {
+            e.printStackTrace();
+        }
+        return commits;
+    }
+
     /**
      * @param git
      * @param beginTag
      * @param endTag
      * @return
      */
+    @Deprecated
     private List<RevCommit> getLogRevCommitBetweenTag(Git git, String beginTag, String endTag) {
+        this.getLogRevCommitByTag(git, beginTag, endTag);
         int begin = this.commitTimeOfTag(beginTag);
         int end = this.commitTimeOfTag(endTag);
         logger.info("起始Tag：" + beginTag + " 时间戳：" + begin);
         List<RevCommit> commits = new ArrayList<>(64);
         try {
             LogCommand logCmd = git.log();
-            logCmd.setMaxCount(1024);
+//            logCmd.setRevFilter(RevFilter.NO_MERGES );
             Iterable<RevCommit> logCommit = logCmd.call();
             Iterator<RevCommit> iterator = logCommit.iterator();
             while (iterator.hasNext()) {
@@ -140,13 +207,19 @@ public class GitHandlerImpl extends GitHandler {
         return commits;
     }
 
-    private List<RevCommit> getLogRevCommitBetweenTag(Git git, String beginTag) {
+    /**
+     *
+     * @param git
+     * @param beginTag
+     * @return
+     */
+    @Deprecated
+    private List<RevCommit> getLogRevCommitByTags(Git git, String beginTag) {
         int begin = this.commitTimeOfTag(beginTag);
         logger.info("起始Tag：" + beginTag + " 时间戳：" + begin);
         List<RevCommit> commits = new ArrayList<>(64);
         try {
             LogCommand logCmd = git.log();
-            logCmd.setMaxCount(512);
             Iterable<RevCommit> logCommit = logCmd.call();
             Iterator<RevCommit> iterator = logCommit.iterator();
             while (iterator.hasNext()) {
@@ -172,7 +245,6 @@ public class GitHandlerImpl extends GitHandler {
         List<RevCommit> commits = new ArrayList<>(64);
         try {
             LogCommand logCmd = git.log();
-            logCmd.setMaxCount(512);
             Iterable<RevCommit> logCommit = logCmd.call();
             Iterator<RevCommit> iterator = logCommit.iterator();
             while (iterator.hasNext()) {
@@ -193,13 +265,8 @@ public class GitHandlerImpl extends GitHandler {
         Iterable<RevCommit> logCommit = null;
         try (Git git = gitHelper.getGitInstance()) {
             LogCommand logCmd = git.log();
-            logCmd.setMaxCount(128);
             logCommit = logCmd.call();
             Iterator<RevCommit> iterator = logCommit.iterator();
-            while (iterator.hasNext()) {
-                RevCommit revCommit = iterator.next();
-                System.out.println(revCommit.getCommitTime());
-            }
         } catch (GitAPIException e) {
             e.printStackTrace();
         }
@@ -436,9 +503,9 @@ public class GitHandlerImpl extends GitHandler {
 
             List<RevCommit> commits;
             if (Objects.equals(tagEnd, null)) {
-                commits = this.getLogRevCommitBetweenTag(git, tagStart);
+                commits = this.getLogRevCommitByTag(git, tagStart);
             } else {
-                commits = this.getLogRevCommitBetweenTag(git, tagStart, tagEnd);
+                commits = this.getLogRevCommitByTag(git, tagStart, tagEnd);
             }
             List<FileDiffEntry> fileDiffEntries = this.getFileDiffEntryByCommit(commits, repository, git);
             for (FileDiffEntry entry : fileDiffEntries) {
