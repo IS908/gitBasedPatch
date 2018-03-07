@@ -206,12 +206,6 @@ public class GitHandlerImpl extends GitHandler {
             logCmd.setMaxCount(myProperties.getLogCount());
             Iterable<RevCommit> logCommit = logCmd.call();
             Iterator<RevCommit> iterator = logCommit.iterator();
-            for (RevCommit commit : logCommit) {
-                System.out.println(commit.getId());
-//                System.out.println(commit.getCommitterIdent());
-//                System.out.println(commit.getTree().getId());
-//                System.out.println(commit.getShortMessage());
-            }
             while (iterator.hasNext()) {
                 RevCommit revCommit = iterator.next();
                 int commitTime = revCommit.getCommitTime();
@@ -290,7 +284,6 @@ public class GitHandlerImpl extends GitHandler {
             Iterator<RevCommit> iterator = logCommit.iterator();
             while (iterator.hasNext()) {
                 RevCommit revCommit = iterator.next();
-                System.out.println(revCommit.getCommitTime());
             }
         } catch (GitAPIException e) {
             e.printStackTrace();
