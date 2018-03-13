@@ -163,7 +163,11 @@ public class GitHandlerImpl extends GitHandler {
         String tagEndId = this.getIdByTag(endTag).getId().name();
         logger.info("起始Tag：" + beginTag + " 相对应的版本号：" + tagStartId);
         logger.info("截止Tag：" + endTag + " 相对应的版本号：" + tagEndId);
-        List<RevCommit> commits = new ArrayList<>(64);
+        List<RevCommit> commits = new ArrayList<>();
+        // tagStart 与 tagEnd 版本号一样时，说明两个 tag 之间没有改动，直接返回
+        if (Objects.equals(tagStartId, tagEndId)) {
+            return commits;
+        }
 
         try {
             LogCommand logCmd = git.log();

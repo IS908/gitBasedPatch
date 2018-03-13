@@ -8,10 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.File;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Created on 2017-12-07 10:56.
@@ -39,13 +36,22 @@ public class XmlReader {
                     if (Objects.equals(null, packageName) || Objects.equals("", packageName)) continue;
                     patchSet.add(packageName);
                 }
-
             }
         } catch (DocumentException e) {
             e.printStackTrace();
         }
 
         return patchSet;
+    }
+
+    public static Map<String, List<String>> getCommitLogAndFileList(Set<File> files) throws DocumentException {
+        Map<String, List<String>> commitLog = new HashMap<>();
+        if (Objects.equals(null, files) || files.size() < 1) return commitLog;
+        Document document;
+        for (File patchFile : files) {
+
+        }
+        return null;
     }
 
     /**
