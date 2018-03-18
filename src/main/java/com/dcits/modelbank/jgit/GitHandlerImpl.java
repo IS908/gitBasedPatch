@@ -2,13 +2,14 @@ package com.dcits.modelbank.jgit;
 
 import com.dcits.modelbank.MyException.GitNoChangesException;
 import com.dcits.modelbank.jgit.helper.GitHelper;
-import com.dcits.modelbank.jgit.helper.PullEnum;
 import com.dcits.modelbank.model.FileDiffEntry;
 import com.dcits.modelbank.utils.Const;
 import com.dcits.modelbank.utils.DateUtil;
-import org.eclipse.jgit.api.*;
+import org.eclipse.jgit.api.AddCommand;
+import org.eclipse.jgit.api.CommitCommand;
+import org.eclipse.jgit.api.Git;
+import org.eclipse.jgit.api.LogCommand;
 import org.eclipse.jgit.api.errors.GitAPIException;
-import org.eclipse.jgit.blame.BlameResult;
 import org.eclipse.jgit.diff.DiffEntry;
 import org.eclipse.jgit.errors.AmbiguousObjectException;
 import org.eclipse.jgit.errors.IncorrectObjectTypeException;
@@ -17,8 +18,6 @@ import org.eclipse.jgit.lib.*;
 import org.eclipse.jgit.revwalk.RevCommit;
 import org.eclipse.jgit.revwalk.RevTree;
 import org.eclipse.jgit.revwalk.RevWalk;
-import org.eclipse.jgit.transport.FetchResult;
-import org.eclipse.jgit.transport.PushResult;
 import org.eclipse.jgit.treewalk.CanonicalTreeParser;
 import org.eclipse.jgit.treewalk.TreeWalk;
 import org.eclipse.jgit.treewalk.filter.PathFilterGroup;
@@ -102,25 +101,6 @@ public class GitHandlerImpl extends GitHandler {
         return this.getIdByTag(tag).getCommitTime();
     }
 
-    @Override
-    public BlameResult fileBlame(String commitID, String file) {
-        BlameResult blame = null;
-        try (Git git = gitHelper.getGitInstance();
-             Repository repository = gitHelper.openJGitRepository()) {
-            ObjectId commit = repository.resolve(commitID + "^{commit}");
-            BlameCommand blamer = git.blame();
-            blamer.setStartCommit(commit)
-                    .setFilePath(file)
-                    .setFollowFileRenames(true);
-            blame = blamer.call();
-//            blame.computeRange(0, 10);
-        } catch (IOException | GitAPIException e) {
-            e.printStackTrace();
-        }
-        return blame;
-    }
-
-
     private List<RevCommit> getLogRevCommitByTag(Git git, String beginTag) {
         String tagStartId = this.getIdByTag(beginTag).getId().getName();
         logger.info("起始Tag：" + beginTag + " 对应版本号为：" + tagStartId);
@@ -153,7 +133,12 @@ public class GitHandlerImpl extends GitHandler {
         String tagEndId = this.getIdByTag(endTag).getId().name();
         logger.info("起始Tag：" + beginTag + " 相对应的版本号：" + tagStartId);
         logger.info("截止Tag：" + endTag + " 相对应的版本号：" + tagEndId);
-        List<RevCommit> commits = new ArrayList<>(64);
+        List<RevCommit> commits = new ArrayList<>();
+
+        // bugfix: tagStart 与 tagEnd 版本号一样时，说明两个 tag 之间没有改动，直接返回
+        if (Objects.equals(tagStartId, tagEndId)) {
+            return commits;
+        }
 
         try {
             LogCommand logCmd = git.log();
@@ -259,117 +244,6 @@ public class GitHandlerImpl extends GitHandler {
         return commits;
     }
 
-    @Override
-    public Iterable<RevCommit> showLogToday() {
-//        getLogRevCommitToday();
-        Iterable<RevCommit> logCommit = null;
-        try (Git git = gitHelper.getGitInstance()) {
-            LogCommand logCmd = git.log();
-            logCommit = logCmd.call();
-            Iterator<RevCommit> iterator = logCommit.iterator();
-        } catch (GitAPIException e) {
-            e.printStackTrace();
-        }
-        return logCommit;
-    }
-
-    @Override
-    public boolean stash() {
-        boolean res = false;
-        try (Git git = gitHelper.getGitInstance()) {
-            // push the changes to a new stash
-            RevCommit stash = git.stashCreate().call();
-            logger.info(stash.toString());
-            res = true;
-        } catch (GitAPIException e) {
-            e.printStackTrace();
-        }
-        return res;
-    }
-
-    @Override
-    public Collection<RevCommit> stashList() {
-        try (Git git = gitHelper.getGitInstance()) {
-            // list the stashes
-            Collection<RevCommit> stashes = git.stashList().call();
-            for (RevCommit rev : stashes) {
-                System.out.println("Found stash: " + rev + ": " + rev.getFullMessage());
-            }
-            return stashes;
-        } catch (GitAPIException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
-    @Override
-    public ObjectId unstash(int index) {
-        try (Git git = gitHelper.getGitInstance()) {
-            Collection<RevCommit> stashes = stashList();
-            if (stashes.size() < index) {
-                throw new IndexOutOfBoundsException("索引序号超出stash列表范围");
-            }
-            int count = 0;
-            Iterator<RevCommit> iterator = stashes.iterator();
-            while (iterator.hasNext() && count < index) {
-                iterator.next();
-            }
-            ObjectId applied = git.stashApply().setStashRef(iterator.next().getName()).call();
-            return applied;
-        } catch (GitAPIException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
-    @Override
-    public FetchResult fetch() {
-        FetchResult result = null;
-        try (Git git = gitHelper.getGitInstance()) {
-            result = git.fetch().setCheckFetchedObjects(true).call();
-            System.out.println("Messages: " + result.getMessages());
-        } catch (GitAPIException e) {
-            e.printStackTrace();
-        }
-        return result;
-    }
-
-    @Override
-    public PullResult pull() {
-        return pull(PullEnum.MERGE);
-    }
-
-    @Override
-    public PullResult pull(PullEnum type) {
-        PullResult pullResult = null;
-        try (Git git = gitHelper.getGitInstance()) {
-            PullCommand pull = git.pull();
-            if (Objects.equals(PullEnum.REBASE, type)) pull.setRebase(true);
-            pullResult = pull.call();
-        } catch (GitAPIException e) {
-            e.printStackTrace();
-        }
-        return pullResult;
-    }
-
-    @Override
-    public boolean push() {
-        boolean res = false;
-        try (Git git = gitHelper.getGitInstance()) {
-
-            git.lsRemote().call();
-            Iterable<PushResult> results = git.push().call();
-            Iterator<PushResult> iterator = results.iterator();
-            while (iterator.hasNext()) {
-                PushResult push = iterator.next();
-                logger.info(push.toString());
-            }
-            res = true;
-        } catch (GitAPIException e) {
-            e.printStackTrace();
-        }
-        return res;
-    }
 
     @Override
     public String commitAndPushAllChanges(String note, boolean pushFlag) {
