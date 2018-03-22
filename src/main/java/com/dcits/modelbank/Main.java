@@ -12,8 +12,6 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import java.util.Objects;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
  * Created on 2017-11-15 15:34.
@@ -71,11 +69,17 @@ public class Main {
         Main main = new Main(args);
         String cmd = args[0].trim();
         String patchPrefix = args[2].trim();
-        String regEx = "^\\d+$";
-        Pattern pattern = Pattern.compile(regEx);
-        Matcher matcher = pattern.matcher(patchPrefix);
-        patchPrefix = matcher.matches() ? patchPrefix : "";
-        logger.info("patchPrefix:" + patchPrefix);
+//        String regEx = "^\\d+$";
+//        Pattern pattern = Pattern.compile(regEx);
+//        for (String tmpPrefix : patchPrefix.split("#")) {
+//            if (!pattern.matcher(tmpPrefix).matches()) {
+//                patchPrefix = "";
+//                break;
+//            }
+//        }
+//        Matcher matcher = pattern.matcher(patchPrefix);
+//        patchPrefix = matcher.matches() ? patchPrefix : "";
+//        logger.info("checkList前缀参数: " + patchPrefix);
         String startTag = args[3].trim();
         String endTag = args.length == 5 ? args[4].trim() : null;
         switch (cmd) {

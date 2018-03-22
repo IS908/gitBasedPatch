@@ -47,12 +47,19 @@ public class PatchFileServiceImpl extends PatchFileService {
         Set<String> specificPatchSet = XmlReader.getAllModuleName(xmlFilePaths);
 
         Set<String> matchPatchSet = new HashSet<>(), deletePatchSet = new HashSet<>();
-        String filePath = baseDir + myProperties.getCheckListDir() + "/" +
-                fileNumber + myProperties.getCheckListSurfix() + ".yml";
-        logger.info(fileNumber);
-        logger.info("yml:" + filePath);
+        String[] fileNumbers = fileNumber.split("#");
+        String[] filePaths = new String[fileNumbers.length];
+        for (int i = 0; i < fileNumbers.length; i++) {
+            filePaths[i] = baseDir + myProperties.getCheckListDir() + "/" +
+                    fileNumbers[i] + myProperties.getCheckListSurfix() + ".yml";
+            yamlPaser(filePaths[i], specificPatchSet, matchPatchSet, deletePatchSet);
+        }
+//        String filePath = baseDir + myProperties.getCheckListDir() + "/" +
+//                fileNumber + myProperties.getCheckListSurfix() + ".yml";
+//        logger.info(fileNumber);
+//        logger.info("yml:" + filePath);
         // 模糊匹配列表和删除列表的处理
-        yamlPaser(filePath, specificPatchSet, matchPatchSet, deletePatchSet);
+//        yamlPaser(filePath, specificPatchSet, matchPatchSet, deletePatchSet);
 
         // 创建增量文件临时存放目录
         String tmpDir = myProperties.getResultDir() + "/" + Const.PATCH_TMP_FOLDER;
@@ -115,6 +122,7 @@ public class PatchFileServiceImpl extends PatchFileService {
         File ymlFile = new File(filePath);
 
         if (ymlFile.exists()) {
+            logger.info("开始解析yml文件：" + ymlFile.getName());
             try {
                 HashMap<String, List<String>> map = yaml.loadAs(new FileInputStream(ymlFile), HashMap.class);
                 List<String> deleteFiles = map.get("deleteFile");
@@ -138,6 +146,10 @@ public class PatchFileServiceImpl extends PatchFileService {
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             }
+        } else {
+            logger.warn("=================!!!!!未找到" +
+                    ymlFile.getName() +
+                    "文件!!!!!=================");
         }
     }
 
