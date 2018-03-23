@@ -152,7 +152,10 @@ public class GitHandlerImpl extends GitHandler {
             Iterator<RevCommit> iterator = logCommit.iterator();
             while (iterator.hasNext()) {
                 RevCommit revCommit = iterator.next();
-                if (Objects.equals(revCommit.getId().name(), tagEndId)) break;
+                if (Objects.equals(revCommit.getId().name(), tagEndId)) {
+                    if (revCommit.getParentCount() == 1) commits.add(revCommit);
+                    break;
+                }
             }
             while (iterator.hasNext()) {
                 RevCommit revCommit = iterator.next();
