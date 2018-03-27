@@ -68,6 +68,7 @@ public class GitHandlerImpl extends GitHandler {
 
     /**
      * 根据TagName获取对应的版本号
+     *
      * @param tagName Tag名称
      * @return
      */
@@ -114,11 +115,19 @@ public class GitHandlerImpl extends GitHandler {
             logCmd.setMaxCount(myProperties.getLogCount());
             Iterable<RevCommit> logCommit = logCmd.call();
             Iterator<RevCommit> iterator = logCommit.iterator();
+            boolean findStartTag = false;
             while (iterator.hasNext()) {
                 RevCommit revCommit = iterator.next();
-                if (Objects.equals(revCommit.getId().name(), tagStartId)) break;
+                if (Objects.equals(revCommit.getId().name(), tagStartId)) {
+                    findStartTag = true;
+                    break;
+                }
                 if (revCommit.getParentCount() != 1) continue;
                 commits.add(revCommit);
+            }
+            if (findStartTag == false) {
+                logger.error("！！！！！该分支上没有找到" + beginTag + "对应的版本号！！！！！");
+                commits.clear();
             }
         } catch (GitAPIException e) {
             e.printStackTrace();
@@ -128,6 +137,7 @@ public class GitHandlerImpl extends GitHandler {
 
     /**
      * 根据tagName对应的版本ID获取提交日志
+     *
      * @param git
      * @param beginTag
      * @param endTag
@@ -157,11 +167,19 @@ public class GitHandlerImpl extends GitHandler {
                     break;
                 }
             }
+            boolean findStartTag = false;
             while (iterator.hasNext()) {
                 RevCommit revCommit = iterator.next();
-                if (Objects.equals(revCommit.getId().name(), tagStartId)) break;
+                if (Objects.equals(revCommit.getId().name(), tagStartId)) {
+                    findStartTag = true;
+                    break;
+                }
                 if (revCommit.getParentCount() != 1) continue;
                 commits.add(revCommit);
+            }
+            if (findStartTag == false) {
+                logger.error("！！！！！该分支上没有找到" + beginTag + "对应的版本号！！！！！");
+                commits.clear();
             }
         } catch (GitAPIException e) {
             e.printStackTrace();
@@ -184,7 +202,7 @@ public class GitHandlerImpl extends GitHandler {
         List<RevCommit> commits = new ArrayList<>(64);
         try {
             LogCommand logCmd = git.log();
-            logCmd.setRevFilter(RevFilter.NO_MERGES );
+            logCmd.setRevFilter(RevFilter.NO_MERGES);
             logCmd.setMaxCount(myProperties.getLogCount());
             Iterable<RevCommit> logCommit = logCmd.call();
             Iterator<RevCommit> iterator = logCommit.iterator();
@@ -202,7 +220,6 @@ public class GitHandlerImpl extends GitHandler {
     }
 
     /**
-     *
      * @param git
      * @param beginTag
      * @return
